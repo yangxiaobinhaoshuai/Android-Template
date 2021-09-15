@@ -8,3 +8,5 @@ dependencyResolutionManagement {
 }
 rootProject.name = "AndroidCodelab"
 include ':app'
+include ':codelab-kt'
+include ':codelab-android-kt'
