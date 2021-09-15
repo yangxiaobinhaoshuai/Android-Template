@@ -1,5 +1,6 @@
 dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    defaultLibrariesExtensionName.set('deps')
     repositories {
         google()
         mavenCentral()
@@ -10,3 +11,5 @@ rootProject.name = "AndroidCodelab"
 include ':app'
 include ':codelab-kt'
 include ':codelab-android-kt'
+
+enableFeaturePreview('VERSION_CATALOGS')

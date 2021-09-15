@@ -1,0 +1,27 @@
+# TOML specifications : https://toml.io/en/
+
+# Doc : https://docs.gradle.org/current/userguide/platforms.html#sub:conventional-dependencies-toml
+
+[versions]
+junitV = "4.13.2"
+appCompatxV = "1.3.1"
+constraintLayoutV = "2.1.0"
+kotlinV = "1.5.30"
+recyclerViewV = "1.2.1"
+
+[libraries]
+appcompatX = { group = "androidx.appcompat", name = "appcompat", version = { strictly = "1.3.1", prefer = "1.3.1" } }
+
+rv = { module = "androidx.recyclerview:recyclerview", version.ref = "recyclerViewV" }
+constraint = { module = "androidx.constraintlayout:constraintlayout", version.ref = "constraintLayoutV" }
+
+ktGradlePlugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlinV" }
+
+junit = { module = "junit:junit", version.ref = "junitV" }
+
+
+[bundles]
+widget = ["rv", "constraint", ]
+
+#[plugins]
+#jmh = { id = "me.champeau.jmh", version = "0.6.5" }
