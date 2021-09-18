@@ -21,7 +21,7 @@ junit = { module = "junit:junit", version.ref = "junitV" }
 
 
 [bundles]
-widget = ["rv", "constraint", ]
+widgets = ["rv", "constraint", ]
 
 #[plugins]
 #jmh = { id = "me.champeau.jmh", version = "0.6.5" }
