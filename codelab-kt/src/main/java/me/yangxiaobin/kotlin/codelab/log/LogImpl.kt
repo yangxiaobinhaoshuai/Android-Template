@@ -3,27 +3,15 @@ package me.yangxiaobin.kotlin.codelab.log
 
 typealias LogFun = (message: String) -> Unit
 
-fun ILog.logI(tag: String): LogFun {
-    return fun(message: String) {
-        this.e(tag, message)
-    }
-}
+fun ILog.logI(tag: String): LogFun = fun(message: String) = this.i(tag, message)
 
 /**
  * Usage : val logD = ILog.logD(TAG)
  *         logD("actual message")
  */
-fun ILog.logD(tag: String): LogFun {
-    return fun(message: String) {
-        this.d(tag, message)
-    }
-}
+fun ILog.logD(tag: String): LogFun = fun(message: String) = this.d(tag, message)
 
-fun ILog.logE(tag: String): LogFun {
-    return fun(message: String) {
-        this.e(tag, message)
-    }
-}
+fun ILog.logE(tag: String): LogFun = fun(message: String) = this.e(tag, message)
 
 abstract class AbsLogger : ILog {
 

@@ -1,23 +1,28 @@
 package me.yangxiaobin.android.codelab
 
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
-import me.yangxiaobin.android.codelab.log.L
-import me.yangxiaobin.kotlin.codelab.log.logD
-import me.yangxiaobin.kotlin.codelab.log.logE
+import androidx.fragment.app.commit
+import kotlinx.android.synthetic.main.activity_main.*
+import me.yangxiaobin.android.codelab.recyclerview.RecyclerViewFragment
+import me.yangxiaobin.android.kotlin.codelab.base.AbsActivity
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AbsActivity() {
 
-    private val tag = "Sample-app"
-    val logD = L.logD(tag)
-    val logE = L.logE(tag)
+    override val contentResId: Int
+        get() = R.layout.activity_main
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
 
-        logD("onCreate")
+    override fun afterOnCreate() {
+        super.afterOnCreate()
+        init()
     }
-
+    private fun init(){
+        tv_main.setOnClickListener{
+            logD(" click tv_main")
+            supportFragmentManager.commit {
+                addToBackStack(null)
+                add(RecyclerViewFragment(),"")
+            }
+        }
+    }
 
 }

@@ -1,4 +1,4 @@
-package me.yangxiaobin.android.codelab.log
+package me.yangxiaobin.android.kotlin.codelab.log
 
 import android.util.Log
 import me.yangxiaobin.kotlin.codelab.log.*
@@ -15,6 +15,6 @@ object L : AbsLogger() {
     }
 
     override fun getConfig(): ILogConfig {
-        return DefaultLogConfig(printer = null)
+        return DefaultLogConfig(printer = null,minimumLevel = LogLevel.INFO)
     }
 }
