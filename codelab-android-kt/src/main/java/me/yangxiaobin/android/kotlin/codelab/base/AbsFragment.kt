@@ -41,6 +41,7 @@ abstract class AbsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         return inflater.inflate(layoutResId, container, false)
+            .apply { this.isClickable = true }
             .also { logI("onAttach, rootView : $it") }
     }
 

@@ -12,8 +12,7 @@ import me.yangxiaobin.kotlin.codelab.log.logI
 abstract class AbsActivity : AppCompatActivity() {
 
     @Suppress("PrivatePropertyName")
-    protected val AbsActivity.TAG: String
-        get() = "AbsActivity:${this.javaClass.simpleName.take(11)}"
+    protected open val AbsActivity.TAG: String get() = "AbsActivity:${this.javaClass.simpleName.take(11)}"
 
     protected val logI by lazy { L.logI(TAG) }
     protected val logD by lazy { L.logD(TAG) }
