@@ -50,9 +50,7 @@ fun RecyclerView.setOnItemClickListener(
         private var isClick = true
         private var downTimestamp: Long = 0L
 
-        override fun onInterceptTouchEvent(rv: RecyclerView, e: MotionEvent): Boolean = true
-
-        override fun onTouchEvent(rv: RecyclerView, e: MotionEvent) {
+        override fun onInterceptTouchEvent(rv: RecyclerView, e: MotionEvent): Boolean {
             when (e.action) {
 
                 MotionEvent.ACTION_DOWN -> {
@@ -64,7 +62,7 @@ fun RecyclerView.setOnItemClickListener(
                 MotionEvent.ACTION_UP -> {
                     val timeIsLongEnough by lazy { System.currentTimeMillis() - downTimestamp >= ViewConfiguration.getLongPressTimeout() }
 
-                    if (!isClick) return
+                    if (!isClick) return false
 
                     val (x, y) = posRecord
                     if (x == e.rawX && y == e.rawY) {
@@ -72,7 +70,7 @@ fun RecyclerView.setOnItemClickListener(
                         rv.children.find { e.isOnView(it) }
                             ?.let { targetView ->
 
-                                val lm = rv.layoutManager ?: return
+                                val lm = rv.layoutManager ?: return false
                                 val pos = lm.getPosition(targetView)
 
                                 val skipClick = timeIsLongEnough && onLongClick?.invoke(targetView to pos) == true
@@ -82,7 +80,10 @@ fun RecyclerView.setOnItemClickListener(
                 }
                 else -> { isClick = false }
             }
+            return false
         }
+
+        override fun onTouchEvent(rv: RecyclerView, e: MotionEvent) {}
 
         override fun onRequestDisallowInterceptTouchEvent(disallowIntercept: Boolean) {}
 

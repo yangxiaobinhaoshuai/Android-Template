@@ -16,8 +16,7 @@ import me.yangxiaobin.kotlin.codelab.log.logI
 
 abstract class AbsFragment : Fragment() {
 
-    @Suppress("PrivatePropertyName")
-    protected val AbsFragment.TAG: String
+    open val AbsFragment.TAG: String
         get() = "AbsFragment:${this.javaClass.simpleName.take(11)}"
 
     protected val logI by lazy { L.logI(TAG) }
