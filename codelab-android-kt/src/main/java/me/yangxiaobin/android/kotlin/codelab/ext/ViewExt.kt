@@ -5,6 +5,12 @@ import android.view.View
 import android.view.ViewConfiguration
 import androidx.core.view.children
 import androidx.recyclerview.widget.RecyclerView
+import me.yangxiaobin.android.kotlin.codelab.log.L
+import me.yangxiaobin.kotlin.codelab.log.logI
+import kotlin.math.*
+
+
+private val logI = L.logI("codeLab-ext")
 
 // MotionEvent
 fun MotionEvent.isOnView(v: View): Boolean {
@@ -44,6 +50,8 @@ fun RecyclerView.setOnItemClickListener(
     onClick: OnRvItemClickListener,
 ) = apply {
 
+    val configuration by lazy { ViewConfiguration.get(this.context) }
+
     this.addOnItemTouchListener(object : RecyclerView.OnItemTouchListener {
 
         private var posRecord: Pair<Float, Float> = -1F to -1F
@@ -51,6 +59,8 @@ fun RecyclerView.setOnItemClickListener(
         private var downTimestamp: Long = 0L
 
         override fun onInterceptTouchEvent(rv: RecyclerView, e: MotionEvent): Boolean {
+            logI("rv OnItemTouchListener onInterceptTouchEvent, e: $e")
+
             when (e.action) {
 
                 MotionEvent.ACTION_DOWN -> {
@@ -78,7 +88,16 @@ fun RecyclerView.setOnItemClickListener(
                             }
                     }
                 }
-                else -> { isClick = false }
+                else -> {
+                    val (x, y) = posRecord
+
+                    if (x >= 0 && y >= 0) {
+
+                        if (abs(e.rawY - y) > configuration.scaledTouchSlop || abs(e.rawX - x) > configuration.scaledTouchSlop) isClick = false
+
+                    }
+
+                }
             }
             return false
         }

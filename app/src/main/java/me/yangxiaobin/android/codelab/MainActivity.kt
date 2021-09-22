@@ -37,6 +37,7 @@ class MainActivity : AbsActivity() {
             }
 
         rv.setOnItemClickListener {
+            logI("rv onItem click :$it")
             when (it.second) {
                 0 -> supportFragmentManager.commit {
                     addToBackStack(null)
