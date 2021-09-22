@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.view.animation.Animation
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.commit
 import me.yangxiaobin.android.kotlin.codelab.log.L
 import me.yangxiaobin.kotlin.codelab.log.logD
 import me.yangxiaobin.kotlin.codelab.log.logE
@@ -26,7 +27,7 @@ abstract class AbsFragment : Fragment() {
 
     protected abstract val layoutResId: Int
 
-    open val handleBackPress: Boolean = false
+    open val handleBackPress: Boolean = true
 
     private val backPressCallback by lazy {
         object : OnBackPressedCallback(handleBackPress) {
@@ -79,6 +80,7 @@ abstract class AbsFragment : Fragment() {
 
     open fun onBackPress() {
         logI("onBackPress")
+        parentFragmentManager.commit { remove(this@AbsFragment) }
     }
 
     override fun onStart() {

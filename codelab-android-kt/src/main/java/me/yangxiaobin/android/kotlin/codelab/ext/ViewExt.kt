@@ -12,17 +12,20 @@ import kotlin.math.*
 
 private val logI = L.logI("codeLab-ext")
 
+val View.getScreenLocation: Pair<Int, Int>
+    get() {
+        val posPair = IntArray(2)
+        this.getLocationOnScreen(posPair)
+        return posPair[0] to posPair[1]
+    }
+
 // MotionEvent
 fun MotionEvent.isOnView(v: View): Boolean {
 
     val motionRawX = this.rawX
     val motionRawY = this.rawY
 
-    val posPair = IntArray(2)
-    v.getLocationOnScreen(posPair)
-
-    val viewRawX = posPair[0]
-    val viewRawY = posPair[1]
+    val (viewRawX,viewRawY) = v.getScreenLocation
 
     return (motionRawX >= viewRawX && motionRawX <= viewRawX + v.width)
             && (motionRawY >= viewRawY && motionRawY <= viewRawY + v.height)
@@ -59,7 +62,7 @@ fun RecyclerView.setOnItemClickListener(
         private var downTimestamp: Long = 0L
 
         override fun onInterceptTouchEvent(rv: RecyclerView, e: MotionEvent): Boolean {
-            logI("rv OnItemTouchListener onInterceptTouchEvent, e: $e")
+            //logI("rv OnItemTouchListener onInterceptTouchEvent, e: $e")
 
             when (e.action) {
 
