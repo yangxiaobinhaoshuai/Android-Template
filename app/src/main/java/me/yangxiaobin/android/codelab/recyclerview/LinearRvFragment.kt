@@ -17,6 +17,9 @@ class LinearRvFragment : AbsFragment() {
 
     override val AbsFragment.TAG: String get() = "LinearRv"
 
+    override val handleBackPress: Boolean
+        get() = false
+
     override val layoutResId: Int
         get() = R.layout.fragment_recyclerview
 
@@ -42,5 +45,10 @@ class LinearRvFragment : AbsFragment() {
             logD("Linear onClick pos :${it.second}")
         }
 
+    }
+
+    override fun onBackPress() {
+        super.onBackPress()
+        logD("Linear backPress")
     }
 }

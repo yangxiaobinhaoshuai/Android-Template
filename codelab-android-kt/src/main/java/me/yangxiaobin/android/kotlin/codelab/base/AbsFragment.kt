@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.Animation
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import me.yangxiaobin.android.kotlin.codelab.log.L
 import me.yangxiaobin.kotlin.codelab.log.logD
@@ -25,6 +26,16 @@ abstract class AbsFragment : Fragment() {
 
     protected abstract val layoutResId: Int
 
+    open val handleBackPress: Boolean = false
+
+    private val backPressCallback by lazy {
+        object : OnBackPressedCallback(handleBackPress) {
+            override fun handleOnBackPressed() {
+                this@AbsFragment.onBackPress()
+            }
+        }
+    }
+
     init {
         logI("onConstruct")
     }
@@ -32,6 +43,7 @@ abstract class AbsFragment : Fragment() {
     override fun onAttach(context: Context) {
         super.onAttach(context)
         logI("onAttach, context : $context")
+        requireActivity().onBackPressedDispatcher.addCallback(this, backPressCallback)
     }
 
     override fun onCreateView(
@@ -39,7 +51,9 @@ abstract class AbsFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        beforeViewCreated()
         return inflater.inflate(layoutResId, container, false)
+            .let(this::beforeViewReturned)
             .apply { this.isClickable = true }
             .also { logI("onAttach, rootView : $it") }
     }
@@ -50,7 +64,22 @@ abstract class AbsFragment : Fragment() {
         afterViewCreated(view)
     }
 
-    open fun afterViewCreated(view:View){}
+    open fun afterViewCreated(view: View) {
+        logI("afterViewCreated, view :$view")
+    }
+
+    open fun beforeViewReturned(view: View): View {
+        logI("beforeViewReturned, view :$view")
+        return view
+    }
+
+    open fun beforeViewCreated() {
+        logI("beforeViewCreated")
+    }
+
+    open fun onBackPress() {
+        logI("onBackPress")
+    }
 
     override fun onStart() {
         super.onStart()
