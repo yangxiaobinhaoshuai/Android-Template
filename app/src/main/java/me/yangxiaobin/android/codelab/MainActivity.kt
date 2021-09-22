@@ -20,6 +20,13 @@ class MainActivity : AbsActivity() {
     override val contentResId: Int
         get() = R.layout.activity_main
 
+    override val handleBackPress: Boolean
+        get() = this.isTaskRoot
+
+    override fun onHandleBackPress() {
+        super.onHandleBackPress()
+        this.moveTaskToBack(true)
+    }
 
     override fun afterOnCreate() {
         super.afterOnCreate()

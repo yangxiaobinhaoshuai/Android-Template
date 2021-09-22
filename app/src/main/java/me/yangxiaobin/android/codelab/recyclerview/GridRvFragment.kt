@@ -26,7 +26,7 @@ class GridRvFragment : AbsFragment() {
         repeat(30) { mockList += it }
 
         rv_fragment.layoutManager = GridLayoutManager(requireContext(),4)
-        rv_fragment.adapter = SimpleRvAdapter<Int>(
+        rv_fragment.adapter = SimpleRvAdapter(
             mockList,
             android.R.layout.simple_list_item_1
         ) { (vh: AbsVH, pos, _) ->
@@ -37,11 +37,11 @@ class GridRvFragment : AbsFragment() {
 
         }
 
-        val helperCallback = object: ItemTouchHelper.Callback(){
+        val shadowBuilder = View.DragShadowBuilder()
+//        rv_fragment.startDrag()
+//        rv_fragment.startDragAndDrop()
 
-            override fun isLongPressDragEnabled(): Boolean {
-                return super.isLongPressDragEnabled()
-            }
+        val helperCallback = object: ItemTouchHelper.Callback(){
 
             override fun getMovementFlags(
                 recyclerView: RecyclerView,
@@ -55,8 +55,8 @@ class GridRvFragment : AbsFragment() {
                 viewHolder: RecyclerView.ViewHolder,
                 target: RecyclerView.ViewHolder
             ): Boolean {
-                val oldPos = viewHolder.adapterPosition
-                val newPos = target.adapterPosition
+                val oldPos = viewHolder.bindingAdapterPosition
+                val newPos = target.bindingAdapterPosition
                 rv.adapter?.notifyItemMoved(oldPos,newPos)
                 return true
             }

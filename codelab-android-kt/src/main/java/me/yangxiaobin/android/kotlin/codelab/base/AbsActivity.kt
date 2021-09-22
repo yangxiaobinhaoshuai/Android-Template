@@ -3,6 +3,7 @@ package me.yangxiaobin.android.kotlin.codelab.base
 import android.content.Intent
 import android.content.res.Configuration
 import android.os.Bundle
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import me.yangxiaobin.android.kotlin.codelab.log.L
 import me.yangxiaobin.kotlin.codelab.log.logD
@@ -12,7 +13,8 @@ import me.yangxiaobin.kotlin.codelab.log.logI
 abstract class AbsActivity : AppCompatActivity() {
 
     @Suppress("PrivatePropertyName")
-    protected open val AbsActivity.TAG: String get() = "AbsActivity:${this.javaClass.simpleName.take(11)}"
+    protected open val AbsActivity.TAG: String
+        get() = "AbsActivity:${this.javaClass.simpleName.take(11)}"
 
     protected val logI by lazy { L.logI(TAG) }
     protected val logD by lazy { L.logD(TAG) }
@@ -20,14 +22,28 @@ abstract class AbsActivity : AppCompatActivity() {
 
     protected abstract val contentResId: Int
 
+    open val handleBackPress = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(contentResId)
         logI("onCreate, savedInstanceState :$savedInstanceState")
+        registerBackHandler()
         afterOnCreate()
+
     }
 
+    private fun registerBackHandler() = this.onBackPressedDispatcher.addCallback(this,
+        object : OnBackPressedCallback(handleBackPress) {
+            override fun handleOnBackPressed() {
+                onHandleBackPress()
+            }
+
+        })
+
     protected open fun afterOnCreate() {}
+
+    protected open fun onHandleBackPress() {}
 
     override fun onStart() {
         super.onStart()
