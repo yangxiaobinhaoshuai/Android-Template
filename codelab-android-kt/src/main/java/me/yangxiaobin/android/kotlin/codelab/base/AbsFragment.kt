@@ -38,12 +38,12 @@ abstract class AbsFragment : Fragment() {
     }
 
     init {
-        logI("onConstruct")
+        logI("${this.hashCode()} onConstruct")
     }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        logI("onAttach, context : $context")
+        logI("${this.hashCode()} onAttach, context : $context")
         requireActivity().onBackPressedDispatcher.addCallback(this, backPressCallback)
     }
 
@@ -56,85 +56,85 @@ abstract class AbsFragment : Fragment() {
         return inflater.inflate(layoutResId, container, false)
             .let(this::beforeViewReturned)
             .apply { this.isClickable = true }
-            .also { logI("onAttach, rootView : $it") }
+            .also { logI("${this.hashCode()} onAttach, rootView : $it") }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        logI("onViewCreated, view : $view, savedInstanceState: $savedInstanceState")
+        logI("${this.hashCode()} onViewCreated, view : $view, savedInstanceState: $savedInstanceState")
         afterViewCreated(view)
     }
 
     open fun afterViewCreated(view: View) {
-        logI("afterViewCreated, view :$view")
+        logI("${this.hashCode()} afterViewCreated, view :$view")
     }
 
     open fun beforeViewReturned(view: View): View {
-        logI("beforeViewReturned, view :$view")
+        logI("${this.hashCode()} beforeViewReturned, view :$view")
         return view
     }
 
     open fun beforeViewCreated() {
-        logI("beforeViewCreated")
+        logI("${this.hashCode()} beforeViewCreated")
     }
 
     open fun onBackPress() {
-        logI("onBackPress")
+        logI("${this.hashCode()} onBackPress")
         parentFragmentManager.commit { remove(this@AbsFragment) }
     }
 
     override fun onStart() {
         super.onStart()
-        logI("onStart")
+        logI("${this.hashCode()} onStart")
     }
 
     override fun onResume() {
         super.onResume()
-        logI("onResume")
+        logI("${this.hashCode()} onResume")
     }
 
     override fun onPause() {
         super.onPause()
-        logI("onPause")
+        logI("${this.hashCode()} onPause")
     }
 
 
     override fun onStop() {
         super.onStop()
-        logI("onStop")
+        logI("${this.hashCode()} onStop")
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
-        logI("onDestroyView")
+        logI("${this.hashCode()} onDestroyView")
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        logI("onDestroy")
+        logI("${this.hashCode()} onDestroy")
     }
 
     override fun onDetach() {
         super.onDetach()
-        logI("onDetach")
+        logI("${this.hashCode()} onDetach")
     }
 
     override fun onConfigurationChanged(newConfig: Configuration) {
         super.onConfigurationChanged(newConfig)
-        logI("onConfigurationChanged, newConfig: $newConfig")
+        logI("${this.hashCode()} onConfigurationChanged, newConfig: $newConfig")
     }
 
     override fun onCreateAnimation(transit: Int, enter: Boolean, nextAnim: Int): Animation? {
-        return super.onCreateAnimation(transit, enter, nextAnim).also { logI("onCreateAnimation") }
+        return super.onCreateAnimation(transit, enter, nextAnim).also { logI("${this.hashCode()} onCreateAnimation") }
     }
 
     override fun onCreateAnimator(transit: Int, enter: Boolean, nextAnim: Int): Animator? {
-        return super.onCreateAnimator(transit, enter, nextAnim).also { logI("onCreateAnimator") }
+        return super.onCreateAnimator(transit, enter, nextAnim).also { logI("${this.hashCode()} onCreateAnimator") }
     }
 
     override fun onLowMemory() {
         super.onLowMemory()
-        logI("onLowMemory")
+        logI("${this.hashCode()} onLowMemory")
     }
 
 }

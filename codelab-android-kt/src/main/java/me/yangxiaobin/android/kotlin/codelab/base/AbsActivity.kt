@@ -12,7 +12,6 @@ import me.yangxiaobin.kotlin.codelab.log.logI
 
 abstract class AbsActivity : AppCompatActivity() {
 
-    @Suppress("PrivatePropertyName")
     protected open val AbsActivity.TAG: String
         get() = "AbsActivity:${this.javaClass.simpleName.take(11)}"
 
@@ -27,7 +26,7 @@ abstract class AbsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(contentResId)
-        logI("onCreate, savedInstanceState :$savedInstanceState")
+        logI("${this.hashCode()} onCreate, savedInstanceState :$savedInstanceState")
         registerBackHandler()
         afterOnCreate()
 
@@ -47,51 +46,56 @@ abstract class AbsActivity : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
-        logI("onStart")
+        logI("${this.hashCode()} onStart")
     }
 
     override fun onRestart() {
         super.onRestart()
-        logI("onRestart")
+        logI("${this.hashCode()} onRestart")
     }
 
     override fun onResume() {
         super.onResume()
-        logI("onResume")
+        logI("${this.hashCode()} onResume")
     }
 
     override fun onPause() {
         super.onPause()
-        logI("onPause")
+        logI("${this.hashCode()} onPause")
     }
 
     override fun onStop() {
         super.onStop()
-        logI("onStop")
+        logI("${this.hashCode()} onStop")
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        logI("onDestroy")
+        logI("${this.hashCode()} onDestroy")
     }
 
     override fun onConfigurationChanged(newConfig: Configuration) {
         super.onConfigurationChanged(newConfig)
-        logI("onConfigurationChanged, newConfig: $newConfig")
+        logI("${this.hashCode()} onConfigurationChanged, newConfig: $newConfig")
     }
 
     override fun onNewIntent(intent: Intent?) {
         super.onNewIntent(intent)
-        logI("onNewIntent, intent: $intent")
+        logI("${this.hashCode()} onNewIntent, intent: $intent")
     }
 
     override fun onLowMemory() {
         super.onLowMemory()
-        logI("onLowMemory")
+        logI("${this.hashCode()} onLowMemory")
     }
 
     override fun onTrimMemory(level: Int) {
         super.onTrimMemory(level)
-        logI("onTrimMemory, level :$level")
+        logI("${this.hashCode()} onTrimMemory, level :$level")
+    }
+
+    override fun finish() {
+        super.finish()
+        logI("${this.hashCode()} finish")
     }
 }
