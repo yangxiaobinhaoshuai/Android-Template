@@ -27,6 +27,8 @@ class GridRvFragment : AbsFragment() {
     override val layoutResId: Int
         get() = R.layout.fragment_recyclerview
 
+    override val handleBackPress: Boolean
+        get() = false
 
     override fun afterViewCreated(view: View) {
         super.afterViewCreated(view)

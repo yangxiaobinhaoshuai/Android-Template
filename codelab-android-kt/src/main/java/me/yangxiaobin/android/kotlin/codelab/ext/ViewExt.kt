@@ -19,28 +19,6 @@ val View.getScreenLocation: Pair<Int, Int>
         return posPair[0] to posPair[1]
     }
 
-// MotionEvent
-fun MotionEvent.isOnView(v: View): Boolean {
-
-    val motionRawX = this.rawX
-    val motionRawY = this.rawY
-
-    val (viewRawX,viewRawY) = v.getScreenLocation
-
-    return (motionRawX >= viewRawX && motionRawX <= viewRawX + v.width)
-            && (motionRawY >= viewRawY && motionRawY <= viewRawY + v.height)
-}
-
-val MotionEvent.getActionString: String
-    get() = when (this.action) {
-        MotionEvent.ACTION_DOWN -> "DOWN"
-        MotionEvent.ACTION_MOVE -> "MOVE"
-        MotionEvent.ACTION_UP -> "UP"
-        MotionEvent.ACTION_CANCEL -> "CANCEL"
-        else -> this.action.toString()
-    }
-
-
 // RecyclerView
 // TODO
 private val KEY_HAS_LONG_CLICK_LISTENER: Int = View.generateViewId() + 2 shl 24
