@@ -29,6 +29,9 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+    buildFeatures {
+        viewBinding true
+    }
 }
 
 dependencies {
@@ -43,4 +46,5 @@ dependencies {
     api deps.bundles.ktx
     api project(":codelab-kt")
 
+    compileOnly deps.viewbinding
 }

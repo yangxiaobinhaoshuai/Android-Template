@@ -8,6 +8,4 @@ class PagingRvFragment: AbsFragment() {
     override val layoutResId: Int
         get() = R.layout.fragment_recyclerview
 
-    override val handleBackPress: Boolean
-        get() = false
 }

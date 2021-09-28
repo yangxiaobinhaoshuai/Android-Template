@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.Animation
 import androidx.activity.OnBackPressedCallback
+import androidx.annotation.CallSuper
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
 import me.yangxiaobin.android.kotlin.codelab.log.L
@@ -27,7 +28,8 @@ abstract class AbsFragment : Fragment() {
 
     protected abstract val layoutResId: Int
 
-    open val handleBackPress: Boolean = true
+    protected val handleBackPress: Boolean = true
+
 
     private val backPressCallback by lazy {
         object : OnBackPressedCallback(handleBackPress) {
@@ -47,12 +49,14 @@ abstract class AbsFragment : Fragment() {
         requireActivity().onBackPressedDispatcher.addCallback(this, backPressCallback)
     }
 
+    @Deprecated("Consider beforeViewCreated or beforeViewReturned")
+    @CallSuper
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        beforeViewCreated()
+        beforeViewCreated(inflater, container, savedInstanceState)
         return inflater.inflate(layoutResId, container, false)
             .let(this::beforeViewReturned)
             .apply { this.isClickable = true }
@@ -74,8 +78,12 @@ abstract class AbsFragment : Fragment() {
         return view
     }
 
-    open fun beforeViewCreated() {
-        logI("${this.hashCode()} beforeViewCreated")
+    open fun beforeViewCreated(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ) {
+        logI("${this.hashCode()} beforeViewCreated, bundle :$savedInstanceState")
     }
 
     open fun onBackPress() {
@@ -125,11 +133,13 @@ abstract class AbsFragment : Fragment() {
     }
 
     override fun onCreateAnimation(transit: Int, enter: Boolean, nextAnim: Int): Animation? {
-        return super.onCreateAnimation(transit, enter, nextAnim).also { logI("${this.hashCode()} onCreateAnimation") }
+        return super.onCreateAnimation(transit, enter, nextAnim)
+            .also { logI("${this.hashCode()} onCreateAnimation") }
     }
 
     override fun onCreateAnimator(transit: Int, enter: Boolean, nextAnim: Int): Animator? {
-        return super.onCreateAnimator(transit, enter, nextAnim).also { logI("${this.hashCode()} onCreateAnimator") }
+        return super.onCreateAnimator(transit, enter, nextAnim)
+            .also { logI("${this.hashCode()} onCreateAnimator") }
     }
 
     override fun onLowMemory() {

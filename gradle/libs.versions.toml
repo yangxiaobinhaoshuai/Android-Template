@@ -76,6 +76,8 @@ coil = { module = "io.coil-kt:coil", version.ref = "coilV" }
 # guava
 guava = { module = "com.google.guava:guava", version.ref = "guavaV" }
 
+viewbinding = { module = "androidx.databinding:viewbinding", version = "7.0.2" }
+
 
 [bundles]
 widgets = ["recyclerView", "rv-selection", "constraint", ]
