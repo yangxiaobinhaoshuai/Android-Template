@@ -24,7 +24,7 @@ class ChainImpl<O, P>(
 
     override fun proceed(origin: O): P {
         val nextInterceptor = interceptors[index]
-        val nextChain = ChainImpl(interceptors, index + 1, this.origin)
+        val nextChain = ChainImpl(interceptors, index + 1, origin)
         return nextInterceptor.intercept(nextChain)
     }
 }
