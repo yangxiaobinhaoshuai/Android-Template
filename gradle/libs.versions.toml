@@ -4,7 +4,7 @@
 
 [versions]
 junitV = "4.13.2"
-kotlinV = "1.5.30"
+kotlinV = "1.5.31"
 coilV = "1.3.2"
 
 # widget
