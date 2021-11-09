@@ -14,6 +14,8 @@ interface ILog {
     fun e(tag: String, message: String)
 
     fun getConfig(): ILogConfig
+
+    fun copy(): ILog
 }
 
 

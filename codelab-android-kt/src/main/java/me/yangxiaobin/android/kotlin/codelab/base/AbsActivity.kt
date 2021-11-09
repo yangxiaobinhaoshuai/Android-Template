@@ -5,19 +5,22 @@ import android.content.res.Configuration
 import android.os.Bundle
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
+import me.yangxiaobin.android.kotlin.codelab.ext.simpleName
 import me.yangxiaobin.android.kotlin.codelab.log.L
 import me.yangxiaobin.kotlin.codelab.log.logD
 import me.yangxiaobin.kotlin.codelab.log.logE
 import me.yangxiaobin.kotlin.codelab.log.logI
 
+@Suppress("MemberVisibilityCanBePrivate")
 abstract class AbsActivity : AppCompatActivity() {
 
     protected open val AbsActivity.TAG: String
         get() = "AbsActivity:${this.javaClass.simpleName.take(11)}"
 
-    protected val logI by lazy { L.logI(TAG) }
-    protected val logD by lazy { L.logD(TAG) }
-    protected val logE by lazy { L.logE(TAG) }
+    protected val logger by lazy { L.copy() }
+    protected val logI by lazy { logger.logI(TAG) }
+    protected val logD by lazy { logger.logD(TAG) }
+    protected val logE by lazy { logger.logE(TAG) }
 
     protected abstract val contentResId: Int
 
@@ -26,7 +29,7 @@ abstract class AbsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(contentResId)
-        logI("${this.hashCode()} onCreate, savedInstanceState :$savedInstanceState")
+        logI("${this.simpleName}(hash:${this.hashCode()}) onCreate, savedInstanceState :$savedInstanceState")
         registerBackHandler()
         afterOnCreate()
 
@@ -46,56 +49,56 @@ abstract class AbsActivity : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
-        logI("${this.hashCode()} onStart")
+        logI("${this.simpleName}(hash:${this.hashCode()}) onStart")
     }
 
     override fun onRestart() {
         super.onRestart()
-        logI("${this.hashCode()} onRestart")
+        logI("${this.simpleName}(hash:${this.hashCode()}) onRestart")
     }
 
     override fun onResume() {
         super.onResume()
-        logI("${this.hashCode()} onResume")
+        logI("${this.simpleName}(hash:${this.hashCode()}) onResume")
     }
 
     override fun onPause() {
         super.onPause()
-        logI("${this.hashCode()} onPause")
+        logI("${this.simpleName}(hash:${this.hashCode()}) onPause")
     }
 
     override fun onStop() {
         super.onStop()
-        logI("${this.hashCode()} onStop")
+        logI("${this.simpleName}(hash:${this.hashCode()}) onStop")
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        logI("${this.hashCode()} onDestroy")
+        logI("${this.simpleName}(hash:${this.hashCode()}) onDestroy")
     }
 
     override fun onConfigurationChanged(newConfig: Configuration) {
         super.onConfigurationChanged(newConfig)
-        logI("${this.hashCode()} onConfigurationChanged, newConfig: $newConfig")
+        logI("${this.simpleName}(hash:${this.hashCode()}) onConfigurationChanged, newConfig: $newConfig")
     }
 
     override fun onNewIntent(intent: Intent?) {
         super.onNewIntent(intent)
-        logI("${this.hashCode()} onNewIntent, intent: $intent")
+        logI("${this.simpleName}(hash:${this.hashCode()}) onNewIntent, intent: $intent")
     }
 
     override fun onLowMemory() {
         super.onLowMemory()
-        logI("${this.hashCode()} onLowMemory")
+        logI("${this.simpleName}(hash:${this.hashCode()}) onLowMemory")
     }
 
     override fun onTrimMemory(level: Int) {
         super.onTrimMemory(level)
-        logI("${this.hashCode()} onTrimMemory, level :$level")
+        logI("${this.simpleName}(hash:${this.hashCode()}) onTrimMemory, level :$level")
     }
 
     override fun finish() {
         super.finish()
-        logI("${this.hashCode()} finish")
+        logI("${this.simpleName}(hash:${this.hashCode()}) finish")
     }
 }

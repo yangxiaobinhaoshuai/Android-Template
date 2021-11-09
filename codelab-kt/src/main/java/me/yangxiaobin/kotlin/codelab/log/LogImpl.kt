@@ -38,7 +38,22 @@ abstract class AbsLogger : ILog {
 
         if (!innerConfig.enable && currentLevel < level) return
 
-        printLog(innerConfig.printer,level,tag,message)
+        printLog(innerConfig.printer, level, tag, message)
+    }
+
+    override fun copy(): ILog {
+        return object : AbsLogger() {
+            override fun printLog(
+                printer: IPrinter?,
+                level: LogLevel,
+                tag: String,
+                message: String
+            ) {
+                this@AbsLogger.printLog(printer, level, tag, message)
+            }
+
+            override fun getConfig(): ILogConfig = this@AbsLogger.getConfig()
+        }
     }
 
     abstract fun printLog(printer: IPrinter?, level: LogLevel, tag: String, message: String)
