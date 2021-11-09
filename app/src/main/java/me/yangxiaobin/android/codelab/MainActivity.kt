@@ -1,13 +1,16 @@
 package me.yangxiaobin.android.codelab
 
+import android.content.Intent
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_main.*
+import me.yangxiaobin.android.codelab.multi_process.RemoteActivity
 import me.yangxiaobin.android.codelab.recyclerview.GridRvFragment
 import me.yangxiaobin.android.codelab.recyclerview.LinearRvFragment
 import me.yangxiaobin.android.codelab.recyclerview.PagingRvFragment
+import me.yangxiaobin.android.kotlin.codelab.base.LogAbility
 import me.yangxiaobin.android.kotlin.codelab.base.AbsActivity
 import me.yangxiaobin.android.kotlin.codelab.ext.setOnItemClickListener
 import me.yangxiaobin.android.kotlin.codelab.ext.setSimpleDivider
@@ -15,9 +18,9 @@ import me.yangxiaobin.android.kotlin.codelab.recyclerview.SimpleRvAdapter
 
 class MainActivity : AbsActivity() {
 
-    private val dataList = listOf("LinearRv", "GridRv","PagingRv")
+    private val dataList = listOf("LinearRv", "GridRv", "PagingRv", "Test")
 
-    override val AbsActivity.TAG: String get() = "Sample-app"
+    override val LogAbility.TAG: String get() = "Sample-app"
 
 
     override val contentResId: Int
@@ -59,6 +62,14 @@ class MainActivity : AbsActivity() {
                 0 -> navigateFragment(LinearRvFragment())
                 1 -> navigateFragment(GridRvFragment())
                 2 -> navigateFragment(PagingRvFragment())
+                3 -> {
+                    startActivity(Intent().apply {
+                        this.setClass(
+                            this@MainActivity,
+                            RemoteActivity::class.java
+                        )
+                    })
+                }
             }
         }
 

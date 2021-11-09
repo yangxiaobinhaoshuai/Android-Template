@@ -5,31 +5,18 @@ import android.content.res.Configuration
 import android.os.Bundle
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
-import me.yangxiaobin.android.kotlin.codelab.ext.getCurrentPid
-import me.yangxiaobin.android.kotlin.codelab.ext.getCurrentProcessName
-import me.yangxiaobin.android.kotlin.codelab.ext.requireCurrentProcessName
-import me.yangxiaobin.android.kotlin.codelab.ext.simpleName
-import me.yangxiaobin.android.kotlin.codelab.log.L
-import me.yangxiaobin.kotlin.codelab.log.logD
-import me.yangxiaobin.kotlin.codelab.log.logE
-import me.yangxiaobin.kotlin.codelab.log.logI
 
 @Suppress("MemberVisibilityCanBePrivate")
-abstract class AbsActivity : AppCompatActivity() {
+abstract class AbsActivity : AppCompatActivity(), LogAbility {
 
-    protected open val AbsActivity.TAG: String
+    open override val LogAbility.TAG: String
         get() = "AbsActivity:${this.javaClass.simpleName.take(11)}"
-
-    protected val logger by lazy { L.copy() }
-    protected val logI by lazy { logger.logI(TAG) }
-    protected val logD by lazy { logger.logD(TAG) }
-    protected val logE by lazy { logger.logE(TAG) }
 
     protected abstract val contentResId: Int
 
     open val handleBackPress = false
 
-    private val logPrefix by lazy { "${this.simpleName}(hash:${this.hashCode()}, pName:${this.getCurrentProcessName}, pid:$getCurrentPid)" }
+    private val logPrefix by lazy { this.getLogPrefix }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,7 +46,7 @@ abstract class AbsActivity : AppCompatActivity() {
 
     override fun onRestart() {
         super.onRestart()
-        logI("logPrefix onRestart")
+        logI("$logPrefix onRestart")
     }
 
     override fun onResume() {
