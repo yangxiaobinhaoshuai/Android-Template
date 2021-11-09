@@ -10,6 +10,7 @@ import me.yangxiaobin.android.codelab.recyclerview.LinearRvFragment
 import me.yangxiaobin.android.codelab.recyclerview.PagingRvFragment
 import me.yangxiaobin.android.kotlin.codelab.base.AbsActivity
 import me.yangxiaobin.android.kotlin.codelab.ext.setOnItemClickListener
+import me.yangxiaobin.android.kotlin.codelab.ext.setSimpleDivider
 import me.yangxiaobin.android.kotlin.codelab.recyclerview.SimpleRvAdapter
 
 class MainActivity : AbsActivity() {
@@ -38,6 +39,7 @@ class MainActivity : AbsActivity() {
     private fun init() {
         val rv = rv_main_activity
 
+        rv.setSimpleDivider()
         rv.layoutManager = LinearLayoutManager(this)
 
         rv.adapter =

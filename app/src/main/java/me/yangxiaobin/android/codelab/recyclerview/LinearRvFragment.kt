@@ -3,6 +3,7 @@ package me.yangxiaobin.android.codelab.recyclerview
 import android.view.Gravity
 import android.view.View
 import android.widget.TextView
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.fragment_recyclerview.*
@@ -10,6 +11,7 @@ import me.yangxiaobin.android.codelab.R
 import me.yangxiaobin.android.kotlin.codelab.base.AbsActivity
 import me.yangxiaobin.android.kotlin.codelab.base.AbsFragment
 import me.yangxiaobin.android.kotlin.codelab.ext.setOnItemClickListener
+import me.yangxiaobin.android.kotlin.codelab.ext.setSimpleDivider
 import me.yangxiaobin.android.kotlin.codelab.recyclerview.AbsVH
 import me.yangxiaobin.android.kotlin.codelab.recyclerview.SimpleRvAdapter
 
@@ -37,6 +39,8 @@ class LinearRvFragment : AbsFragment() {
                 text = mockList[pos].toString()
             }
         }
+
+        rv_fragment.setSimpleDivider()
 
         rv_fragment.setOnItemClickListener {
             logD("Linear onClick pos :${it.second}")
