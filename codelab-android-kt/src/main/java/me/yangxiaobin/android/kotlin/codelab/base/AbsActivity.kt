@@ -5,6 +5,9 @@ import android.content.res.Configuration
 import android.os.Bundle
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
+import me.yangxiaobin.android.kotlin.codelab.ext.getCurrentPid
+import me.yangxiaobin.android.kotlin.codelab.ext.getCurrentProcessName
+import me.yangxiaobin.android.kotlin.codelab.ext.requireCurrentProcessName
 import me.yangxiaobin.android.kotlin.codelab.ext.simpleName
 import me.yangxiaobin.android.kotlin.codelab.log.L
 import me.yangxiaobin.kotlin.codelab.log.logD
@@ -26,10 +29,12 @@ abstract class AbsActivity : AppCompatActivity() {
 
     open val handleBackPress = false
 
+    private val logPrefix by lazy { "${this.simpleName}(hash:${this.hashCode()}, pName:${this.getCurrentProcessName}, pid:$getCurrentPid)" }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(contentResId)
-        logI("${this.simpleName}(hash:${this.hashCode()}) onCreate, savedInstanceState :$savedInstanceState")
+        logI("$logPrefix onCreate, savedInstanceState :$savedInstanceState")
         registerBackHandler()
         afterOnCreate()
 
@@ -49,56 +54,56 @@ abstract class AbsActivity : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
-        logI("${this.simpleName}(hash:${this.hashCode()}) onStart")
+        logI("$logPrefix onStart")
     }
 
     override fun onRestart() {
         super.onRestart()
-        logI("${this.simpleName}(hash:${this.hashCode()}) onRestart")
+        logI("logPrefix onRestart")
     }
 
     override fun onResume() {
         super.onResume()
-        logI("${this.simpleName}(hash:${this.hashCode()}) onResume")
+        logI("$logPrefix onResume")
     }
 
     override fun onPause() {
         super.onPause()
-        logI("${this.simpleName}(hash:${this.hashCode()}) onPause")
+        logI("$logPrefix onPause")
     }
 
     override fun onStop() {
         super.onStop()
-        logI("${this.simpleName}(hash:${this.hashCode()}) onStop")
+        logI("$logPrefix onStop")
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        logI("${this.simpleName}(hash:${this.hashCode()}) onDestroy")
+        logI("$logPrefix onDestroy")
     }
 
     override fun onConfigurationChanged(newConfig: Configuration) {
         super.onConfigurationChanged(newConfig)
-        logI("${this.simpleName}(hash:${this.hashCode()}) onConfigurationChanged, newConfig: $newConfig")
+        logI("$logPrefix onConfigurationChanged, newConfig: $newConfig")
     }
 
     override fun onNewIntent(intent: Intent?) {
         super.onNewIntent(intent)
-        logI("${this.simpleName}(hash:${this.hashCode()}) onNewIntent, intent: $intent")
+        logI("$logPrefix onNewIntent, intent: $intent")
     }
 
     override fun onLowMemory() {
         super.onLowMemory()
-        logI("${this.simpleName}(hash:${this.hashCode()}) onLowMemory")
+        logI("$logPrefix onLowMemory")
     }
 
     override fun onTrimMemory(level: Int) {
         super.onTrimMemory(level)
-        logI("${this.simpleName}(hash:${this.hashCode()}) onTrimMemory, level :$level")
+        logI("$logPrefix onTrimMemory, level :$level")
     }
 
     override fun finish() {
         super.finish()
-        logI("${this.simpleName}(hash:${this.hashCode()}) finish")
+        logI("$logPrefix finish")
     }
 }
