@@ -3,6 +3,8 @@ package me.yangxiaobin.kotlin.codelab.log
 
 typealias LogFun = (message: String) -> Unit
 
+fun ILog.logV(tag: String): LogFun = fun(message: String) = this.v(tag, message)
+
 fun ILog.logI(tag: String): LogFun = fun(message: String) = this.i(tag, message)
 
 /**

@@ -81,6 +81,9 @@ guava = { module = "com.google.guava:guava", version.ref = "guavaV" }
 
 viewbinding = { module = "androidx.databinding:viewbinding", version = "4.2.0" }
 
+# https://github.com/JakeWharton/picnic
+picnic = { module = "com.jakewharton.picnic:picnic", version = "0.5.0" }
+
 
 [bundles]
 widgets = ["recyclerView", "rv-selection", "constraint", ]

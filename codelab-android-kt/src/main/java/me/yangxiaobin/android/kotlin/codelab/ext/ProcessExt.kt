@@ -10,32 +10,27 @@ import java.io.FileReader
 
 val Context.getPkgName: String get() = this.applicationContext.packageName
 
-val Context.isMainProcess: Boolean get() = this.getPkgName == getCurrentProcessNameInternal
+val Context.isMainProcess: Boolean get() = this.getPkgName == requireCurrentProcessNameInternal
+
+val currentProcessName: String get() = requireCurrentProcessNameInternal
 
 val Context.getCurrentProcessName: String
-    get() = if (this.isMainProcess) "Main($getCurrentProcessNameInternal)"
-    else requireCurrentProcessName
+    get() = cacheProcessName ?: if (this.isMainProcess) "Main($requireCurrentProcessNameInternal)"
+    else requireCurrentProcessNameInternal
+
 
 
 val getCurrentPid = android.os.Process.myPid()
 
-val requireCurrentProcessName: String =
-    getCurrentProcessNameInternal ?: throw RuntimeException("Can't get current process name.")
+private var cacheProcessName: String? = null
 
-val getCurrentProcessName: String?
-    get() = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-        Application.getProcessName();
-    } else {
-        getCurProcessNameByCmd()
-    }
-
-
-private val getCurrentProcessNameInternal: String?
-    get() = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-        Application.getProcessName()
-    } else {
-        getCurProcessNameByCmd()
-    }
+private val requireCurrentProcessNameInternal: String
+    get() = cacheProcessName
+        ?: (if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P)
+            Application.getProcessName()
+        else getCurProcessNameByCmd())
+            .also { cacheProcessName = it }
+        ?: throw RuntimeException("Can't get current process name.")
 
 private fun getCurProcessNameByCmd(): String? =
     try {

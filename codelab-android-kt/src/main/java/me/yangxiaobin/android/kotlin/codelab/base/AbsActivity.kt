@@ -16,7 +16,7 @@ abstract class AbsActivity : AppCompatActivity(), LogAbility {
 
     open val handleBackPress = false
 
-    private val logPrefix by lazy { this.getLogPrefix }
+    private val logPrefix by lazy { this.getLogSuffix }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
