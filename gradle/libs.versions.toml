@@ -70,6 +70,9 @@ ktx-navigation-ui = { module = "androidx.navigation:navigation-ui-ktx", version.
 # jetpack paging3 https://developer.android.com/topic/libraries/architecture/paging/v3-overview
 paging3 = { module = "androidx.paging:paging-runtime", version.ref = "pagingV" }
 
+archLifecycleExt = { module = "android.arch.lifecycle:extensions", version = "1.1.1" }
+lifecycleProcess = { module = "androidx.lifecycle:lifecycle-process", version = "2.3.1" }
+
 # retrofit
 retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofitV" }
 
@@ -86,9 +89,36 @@ picnic = { module = "com.jakewharton.picnic:picnic", version = "0.5.0" }
 
 
 [bundles]
-widgets = ["recyclerView", "rv-selection", "constraint", ]
-compose = ["composeUI-Core","composeUI-Tooling","composeFoundation","composeMaterial","composeIcons","composeIconsExt","composeActivities","composeViewModels","composeLiveData",]
-ktx = ["ktx-core","ktx-collection","ktx-fragment","ktx-lifecycle","ktx-liveData","ktx-viewModel","ktx-room","ktx-SQLite",]
+widgets = [
+    "recyclerView",
+    "rv-selection",
+    "constraint",
+]
+
+compose = [
+    "composeUI-Core",
+    "composeUI-Tooling",
+    "composeFoundation",
+    "composeMaterial",
+    "composeIcons",
+    "composeIconsExt",
+    "composeActivities",
+    "composeViewModels",
+    "composeLiveData",
+]
+
+ktx = [
+    "ktx-core",
+    "ktx-collection",
+    "ktx-fragment",
+    "ktx-lifecycle",
+    "ktx-liveData",
+    "ktx-viewModel",
+    "ktx-room",
+    "ktx-SQLite",
+    "archLifecycleExt",
+    "lifecycleProcess",
+]
 
 #[plugins]
 #jmh = { id = "me.champeau.jmh", version = "0.6.5" }

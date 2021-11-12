@@ -16,13 +16,14 @@ import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.fragment_recyclerview.*
 import me.yangxiaobin.android.codelab.R
 import me.yangxiaobin.android.kotlin.codelab.base.AbsFragment
+import me.yangxiaobin.android.kotlin.codelab.base.LogAbility
 import me.yangxiaobin.android.kotlin.codelab.ext.getScreenLocation
 import me.yangxiaobin.android.kotlin.codelab.recyclerview.AbsVH
 import me.yangxiaobin.android.kotlin.codelab.recyclerview.SimpleRvAdapter
 
 class GridRvFragment : AbsFragment() {
 
-    override val AbsFragment.TAG: String get() = "GridRv"
+    override val LogAbility.TAG: String get() = "GridRv"
 
     override val layoutResId: Int
         get() = R.layout.fragment_recyclerview
