@@ -17,14 +17,11 @@ import me.yangxiaobin.kotlin.codelab.log.logD
 import me.yangxiaobin.kotlin.codelab.log.logE
 import me.yangxiaobin.kotlin.codelab.log.logI
 
-abstract class AbsFragment : Fragment() {
+@Suppress("LeakingThis")
+abstract class AbsFragment : Fragment(), LogAbility {
 
-    open val AbsFragment.TAG: String
+    override val LogAbility.TAG: String
         get() = "AbsFragment:${this.javaClass.simpleName.take(11)}"
-
-    protected val logI by lazy { L.logI(TAG) }
-    protected val logD by lazy { L.logD(TAG) }
-    protected val logE by lazy { L.logE(TAG) }
 
     protected abstract val layoutResId: Int
 
@@ -40,12 +37,12 @@ abstract class AbsFragment : Fragment() {
     }
 
     init {
-        logI("${this.hashCode()} onConstruct")
+        logI("onConstruct ,${context?.getLogSuffix}")
     }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        logI("${this.hashCode()} onAttach, context : $context")
+        logI("onAttach, context : $context ,${context.getLogSuffix}")
         requireActivity().onBackPressedDispatcher.addCallback(this, backPressCallback)
     }
 
@@ -60,21 +57,21 @@ abstract class AbsFragment : Fragment() {
         return inflater.inflate(layoutResId, container, false)
             .let(this::beforeViewReturned)
             .apply { this.isClickable = true }
-            .also { logI("${this.hashCode()} onAttach, rootView : $it") }
+            .also { logI("onCreateView, rootView : $it ,${context?.getLogSuffix}") }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        logI("${this.hashCode()} onViewCreated, view : $view, savedInstanceState: $savedInstanceState")
+        logI("onViewCreated, view : $view, savedInstanceState: $savedInstanceState ,${context?.getLogSuffix}")
         afterViewCreated(view)
     }
 
     open fun afterViewCreated(view: View) {
-        logI("${this.hashCode()} afterViewCreated, view :$view")
+        logI("afterViewCreated, view :$view ,${context?.getLogSuffix}")
     }
 
     open fun beforeViewReturned(view: View): View {
-        logI("${this.hashCode()} beforeViewReturned, view :$view")
+        logI("beforeViewReturned, view :$view ,${context?.getLogSuffix}")
         return view
     }
 
@@ -83,68 +80,68 @@ abstract class AbsFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ) {
-        logI("${this.hashCode()} beforeViewCreated, bundle :$savedInstanceState")
+        logI("beforeViewCreated, bundle :$savedInstanceState ,${context?.getLogSuffix}")
     }
 
     open fun onBackPress() {
-        logI("${this.hashCode()} onBackPress")
+        logI("onBackPress ,${context?.getLogSuffix}")
         parentFragmentManager.commit { remove(this@AbsFragment) }
     }
 
     override fun onStart() {
         super.onStart()
-        logI("${this.hashCode()} onStart")
+        logI("onStart ,${context?.getLogSuffix}")
     }
 
     override fun onResume() {
         super.onResume()
-        logI("${this.hashCode()} onResume")
+        logI("onResume ,${context?.getLogSuffix}")
     }
 
     override fun onPause() {
         super.onPause()
-        logI("${this.hashCode()} onPause")
+        logI("onPause ,${context?.getLogSuffix}")
     }
 
 
     override fun onStop() {
         super.onStop()
-        logI("${this.hashCode()} onStop")
+        logI("onStop ,${context?.getLogSuffix}")
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
-        logI("${this.hashCode()} onDestroyView")
+        logI("onDestroyView ,${context?.getLogSuffix}")
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        logI("${this.hashCode()} onDestroy")
+        logI("onDestroy ,${context?.getLogSuffix}")
     }
 
     override fun onDetach() {
         super.onDetach()
-        logI("${this.hashCode()} onDetach")
+        logI("onDetach ,${context?.getLogSuffix}")
     }
 
     override fun onConfigurationChanged(newConfig: Configuration) {
         super.onConfigurationChanged(newConfig)
-        logI("${this.hashCode()} onConfigurationChanged, newConfig: $newConfig")
+        logI("onConfigurationChanged, newConfig: $newConfig ,${context?.getLogSuffix}")
     }
 
     override fun onCreateAnimation(transit: Int, enter: Boolean, nextAnim: Int): Animation? {
         return super.onCreateAnimation(transit, enter, nextAnim)
-            .also { logI("${this.hashCode()} onCreateAnimation") }
+            .also { logI("onCreateAnimation ,${context?.getLogSuffix}") }
     }
 
     override fun onCreateAnimator(transit: Int, enter: Boolean, nextAnim: Int): Animator? {
         return super.onCreateAnimator(transit, enter, nextAnim)
-            .also { logI("${this.hashCode()} onCreateAnimator") }
+            .also { logI("onCreateAnimator ,${context?.getLogSuffix}") }
     }
 
     override fun onLowMemory() {
         super.onLowMemory()
-        logI("${this.hashCode()} onLowMemory")
+        logI("onLowMemory ,${context?.getLogSuffix}")
     }
 
 }

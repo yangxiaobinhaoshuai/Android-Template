@@ -9,7 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 @Suppress("MemberVisibilityCanBePrivate")
 abstract class AbsActivity : AppCompatActivity(), LogAbility {
 
-    open override val LogAbility.TAG: String
+    override val LogAbility.TAG: String
         get() = "AbsActivity:${this.javaClass.simpleName.take(11)}"
 
     protected abstract val contentResId: Int

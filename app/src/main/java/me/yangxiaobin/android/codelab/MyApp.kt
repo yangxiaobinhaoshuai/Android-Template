@@ -6,7 +6,7 @@ class MyApp : AbsApplication() {
 
     override fun onCreate() {
         super.onCreate()
-        println(getTable("app","asdfasdfasdfsd"))
+
     }
 
 }
