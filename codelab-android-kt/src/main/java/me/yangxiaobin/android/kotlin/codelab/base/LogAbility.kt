@@ -14,7 +14,10 @@ import me.yangxiaobin.kotlin.codelab.log.logE
 import me.yangxiaobin.kotlin.codelab.log.logI
 
 
-internal val Context.getLogSuffix get() = "${this.simpleName}(hash:${this.hashCode()}, tName:${Thread.currentThread().name}, tid:${Thread.currentThread().id}, pName:${this.getCurrentProcessName}, pid:$getCurrentPid)"
+/**
+ * Used in derived context classes.
+ */
+internal val Context?.getLogSuffix get() = "${this.simpleName}(hash:${this.hashCode()}, tName:${Thread.currentThread().name}, tid:${Thread.currentThread().id}, pName:${this?.getCurrentProcessName}, pid:$getCurrentPid)"
 
 interface LogAbility {
 

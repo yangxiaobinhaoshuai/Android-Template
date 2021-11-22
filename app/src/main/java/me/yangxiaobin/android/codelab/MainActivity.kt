@@ -1,12 +1,16 @@
 package me.yangxiaobin.android.codelab
 
 import android.content.Intent
+import android.database.Cursor
+import android.net.Uri
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_main.*
+import me.yangxiaobin.android.codelab.multi_process.LocalService
 import me.yangxiaobin.android.codelab.multi_process.RemoteActivity
+import me.yangxiaobin.android.codelab.multi_process.RemoteService
 import me.yangxiaobin.android.codelab.recyclerview.GridRvFragment
 import me.yangxiaobin.android.codelab.recyclerview.LinearRvFragment
 import me.yangxiaobin.android.codelab.recyclerview.PagingRvFragment
@@ -18,7 +22,17 @@ import me.yangxiaobin.android.kotlin.codelab.recyclerview.SimpleRvAdapter
 
 class MainActivity : AbsActivity() {
 
-    private val dataList = listOf("LinearRv", "GridRv", "PagingRv", "Test")
+    private val dataList = listOf(
+        "0.LinearRv",
+        "1.GridRv",
+        "2.PagingRv",
+        "3.startRemoteActivity",
+        "4.StartLocalService",
+        "5.StartRemoteService",
+        "6.AccessLocalProvider",
+        "7.AccessRemoteProvider",
+
+        )
 
     override val LogAbility.TAG: String get() = "Sample-app"
 
@@ -63,12 +77,46 @@ class MainActivity : AbsActivity() {
                 1 -> navigateFragment(GridRvFragment())
                 2 -> navigateFragment(PagingRvFragment())
                 3 -> {
+                    // start remote activity
                     startActivity(Intent().apply {
                         this.setClass(
                             this@MainActivity,
                             RemoteActivity::class.java
                         )
                     })
+                }
+                4 -> {
+                    // start local service
+                    startService(Intent().apply {
+                        this.setClass(
+                            this@MainActivity,
+                            LocalService::class.java
+                        )
+                    })
+                }
+                5 -> {
+                    // start remote service
+                    startService(Intent().apply {
+                        this.setClass(
+                            this@MainActivity,
+                            RemoteService::class.java
+                        )
+                    })
+                }
+                6 -> {
+                    // start local content Provider
+
+                    val uri = Uri.parse("content://me.yangxiaobin.local.authorities")
+                    val cur: Cursor? = contentResolver.query(uri, null, null, null, null)
+                    cur?.close()
+
+                }
+                7 -> {
+                    // start remote service
+                    val uri = Uri.parse("content://me.yangxiaobin.remote.authorities")
+                    val cur: Cursor? = contentResolver.query(uri, null, null, null, null)
+                    cur?.close()
+
                 }
             }
         }

@@ -8,16 +8,16 @@ import java.io.BufferedReader
 import java.io.FileReader
 
 
-val Context.getPkgName: String get() = this.applicationContext.packageName
+val Context?.getPkgName: String get() = this?.applicationContext?.packageName ?: ""
 
-val Context.isMainProcess: Boolean get() = this.getPkgName == requireCurrentProcessNameInternal
+val Context?.isMainProcess: Boolean get() = this?.getPkgName == requireCurrentProcessNameInternal
 
 val currentProcessName: String get() = requireCurrentProcessNameInternal
 
-val Context.getCurrentProcessName: String
-    get() = cacheProcessName ?: if (this.isMainProcess) "Main($requireCurrentProcessNameInternal)"
-    else requireCurrentProcessNameInternal
-
+val Context?.getCurrentProcessName: String
+    get() = cacheProcessName
+        ?: if (this?.isMainProcess == true) "Main($requireCurrentProcessNameInternal)"
+        else requireCurrentProcessNameInternal
 
 
 val getCurrentPid = android.os.Process.myPid()

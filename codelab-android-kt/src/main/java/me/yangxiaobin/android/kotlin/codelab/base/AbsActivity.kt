@@ -6,7 +6,6 @@ import android.os.Bundle
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 
-@Suppress("MemberVisibilityCanBePrivate")
 abstract class AbsActivity : AppCompatActivity(), LogAbility {
 
     override val LogAbility.TAG: String

@@ -8,6 +8,7 @@ class MyApp : AbsApplication() {
 
     override fun onCreate() {
         super.onCreate()
+
         ProcessLifecycleOwner.get().lifecycle.addObserver(object : LifecycleObserver{
 
         })
