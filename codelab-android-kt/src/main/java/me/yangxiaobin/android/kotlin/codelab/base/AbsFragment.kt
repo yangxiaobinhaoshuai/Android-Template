@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.Animation
 import androidx.activity.OnBackPressedCallback
+import androidx.activity.addCallback
 import androidx.annotation.CallSuper
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
@@ -25,17 +26,6 @@ abstract class AbsFragment : Fragment(), LogAbility {
 
     protected abstract val layoutResId: Int
 
-    protected val handleBackPress: Boolean = true
-
-
-    private val backPressCallback by lazy {
-        object : OnBackPressedCallback(handleBackPress) {
-            override fun handleOnBackPressed() {
-                this@AbsFragment.onBackPress()
-            }
-        }
-    }
-
     init {
         logI("onConstruct ,${context?.getLogSuffix}")
     }
@@ -43,7 +33,7 @@ abstract class AbsFragment : Fragment(), LogAbility {
     override fun onAttach(context: Context) {
         super.onAttach(context)
         logI("onAttach, context : $context ,${context.getLogSuffix}")
-        requireActivity().onBackPressedDispatcher.addCallback(this, backPressCallback)
+        requireActivity().onBackPressedDispatcher.addCallback(this) { onBackPress() }
     }
 
     @Deprecated("Consider beforeViewCreated or beforeViewReturned")

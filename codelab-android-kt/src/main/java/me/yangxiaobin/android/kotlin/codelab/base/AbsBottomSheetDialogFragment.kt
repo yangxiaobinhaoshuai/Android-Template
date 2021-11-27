@@ -4,12 +4,15 @@ import android.animation.Animator
 import android.app.Dialog
 import android.content.Context
 import android.os.Bundle
+import android.system.Os.remove
 import android.view.View
 import android.view.animation.Animation
+import androidx.activity.addCallback
+import androidx.fragment.app.commit
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import me.yangxiaobin.kotlin.codelab.ext.neatName
 
-open class AbsBottomSheetDialogFragment : BottomSheetDialogFragment(),LogAbility {
+open class AbsBottomSheetDialogFragment : BottomSheetDialogFragment(), LogAbility {
 
     override val LogAbility.TAG: String
         get() = "AbsBSDF:${this.javaClass.simpleName.take(11)}"
@@ -20,6 +23,7 @@ open class AbsBottomSheetDialogFragment : BottomSheetDialogFragment(),LogAbility
     override fun onAttach(context: Context) {
         super.onAttach(context)
         logI("$logPrefix onAttach, context :$context")
+        requireActivity().onBackPressedDispatcher.addCallback(this) { onBackPress() }
     }
 
     override fun onCreateAnimation(transit: Int, enter: Boolean, nextAnim: Int): Animation? {
@@ -90,5 +94,10 @@ open class AbsBottomSheetDialogFragment : BottomSheetDialogFragment(),LogAbility
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         logI("$logPrefix onCreateDialog,savedInstanceState:$savedInstanceState")
         return super.onCreateDialog(savedInstanceState)
+    }
+
+    open fun onBackPress() {
+        logI("onBackPress ,${context?.getLogSuffix}")
+        parentFragmentManager.commit { remove(this@AbsBottomSheetDialogFragment) }
     }
 }

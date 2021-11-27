@@ -9,6 +9,7 @@ import android.widget.EditText
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.viewinterop.AndroidView
+import me.yangxiaobin.android.codelab.R
 import me.yangxiaobin.android.kotlin.codelab.base.AbsBottomSheetDialogFragment
 import me.yangxiaobin.android.kotlin.codelab.ext.dp2px
 
@@ -18,7 +19,10 @@ class MyBottomSheetDialogFragment : AbsBottomSheetDialogFragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View = hybridContentView()
+    ): View {
+        return inflater.inflate(R.layout.fragment_my_bottom_sheet_dialog, container, false)
+    }
+
 
     private fun hybridContentView() = ComposeView(requireContext())
         .apply {
@@ -31,7 +35,8 @@ class MyBottomSheetDialogFragment : AbsBottomSheetDialogFragment() {
     private fun AndroidEditTextView() = AndroidView(
         factory = { context: Context ->
             EditText(context).apply {
-                this.layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 200.dp2px.toInt())
+                this.layoutParams =
+                    ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 200.dp2px.toInt())
 
                 this.hint = "I'm Android EditText."
             }
