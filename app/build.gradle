@@ -33,6 +33,13 @@ android {
 
     buildFeatures {
         viewBinding true
+        // Enables Jetpack Compose for this module
+        compose true
+    }
+
+    composeOptions {
+        kotlinCompilerVersion "1.5.31"
+        kotlinCompilerExtensionVersion '1.0.5'
     }
 }
 
@@ -43,7 +50,6 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
 
     implementation deps.appcompatX
-    implementation 'com.google.android.material:material:1.4.0'
     implementation deps.bundles.compose
 
     implementation deps.paging3

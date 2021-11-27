@@ -16,7 +16,7 @@ navigatonKtxV = "2.3.5"
 pagingV = "3.0.1"
 
 #  compose setup doc : https://developer.android.com/jetpack/compose/setup
-composeV = "1.0.1"
+composeV = "1.0.5"
 
 # retrofit https://github.com/square/retrofit
 retrofitV = "2.9.0"
@@ -32,6 +32,7 @@ appcompatX = { group = "androidx.appcompat", name = "appcompat", version = { str
 recyclerView = { module = "androidx.recyclerview:recyclerview", version.ref = "recyclerViewV" }
 rv-selection = { module = "androidx.recyclerview:recyclerview-selection", version = "1.1.0" }
 constraint = { module = "androidx.constraintlayout:constraintlayout", version.ref = "constraintLayoutV" }
+androidMaterial = { module = "com.google.android.material:material", version = "1.4.0" }
 
 kgp153 = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlinV" }
 
@@ -41,8 +42,8 @@ agp4 = { module = "com.android.tools.build:gradle", version = "4.2.0" }
 junit = { module = "junit:junit", version.ref = "junitV" }
 
 # compose
-composeUI-Core = { module = "androidx.compose.ui:ui", version.ref = "composeV" }
-composeUI-Tooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "composeV" }
+composeUI = { module = "androidx.compose.ui:ui", version.ref = "composeV" }
+composeUITooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "composeV" }
 composeFoundation = { module = "androidx.compose.foundation:foundation", version.ref = "composeV" }
 composeMaterial = { module = "androidx.compose.material:material", version.ref = "composeV" }
 composeIcons = { module = "androidx.compose.material:material-icons-core", version.ref = "composeV" }
@@ -52,6 +53,9 @@ composeViewModels = { module = "androidx.lifecycle:lifecycle-viewmodel-compose",
 composeLiveData = { module = "androidx.compose.runtime:runtime-livedata", version.ref = "composeV" }
 composeRxJava2 = { module = "androidx.compose.runtime:runtime-rxjava2", version.ref = "composeV" }
 composePaging3 = { module = "androidx.paging:paging-compose", version = "1.0.0-alpha12" }
+
+composeRuntime = { module = "androidx.compose.runtime:runtime", version = "1.0.5" }
+composeCompiler = { module = "androidx.compose.compiler:compiler", version = "1.0.5" }
 
 # ktx : https://developer.android.com/kotlin/ktx
 ktx-core = { module = "androidx.core:core-ktx", version = "1.6.0" }
@@ -96,8 +100,8 @@ widgets = [
 ]
 
 compose = [
-    "composeUI-Core",
-    "composeUI-Tooling",
+    "composeUI",
+    "composeUITooling",
     "composeFoundation",
     "composeMaterial",
     "composeIcons",
@@ -105,6 +109,8 @@ compose = [
     "composeActivities",
     "composeViewModels",
     "composeLiveData",
+    "composeRuntime",
+    "composeCompiler",
 ]
 
 ktx = [

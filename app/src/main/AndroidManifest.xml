@@ -56,7 +56,7 @@
             android:authorities="me.yangxiaobin.remote.service.authorities"
             android:name=".multi_process.RemoteServiceProvider"
             android:process=":remote_service"
-            >
+            android:exported="false">
 
         </provider>
 

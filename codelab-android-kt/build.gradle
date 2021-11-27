@@ -45,6 +45,7 @@ dependencies {
 
     api deps.bundles.widgets
     api deps.bundles.ktx
+    api deps.androidMaterial
     api project(":codelab-kt")
 
     compileOnly deps.viewbinding

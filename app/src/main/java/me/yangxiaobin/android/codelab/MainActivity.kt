@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_main.*
+import me.yangxiaobin.android.codelab.compose.MyBottomSheetDialogFragment
 import me.yangxiaobin.android.codelab.multi_process.LocalService
 import me.yangxiaobin.android.codelab.multi_process.RemoteActivity
 import me.yangxiaobin.android.codelab.multi_process.RemoteService
@@ -31,7 +32,7 @@ class MainActivity : AbsActivity() {
         "5.StartRemoteService",
         "6.AccessLocalProvider",
         "7.AccessRemoteProvider",
-
+        "8.ComposeBottomDialogFragment",
         )
 
     override val LogAbility.TAG: String get() = "Sample-app"
@@ -105,7 +106,6 @@ class MainActivity : AbsActivity() {
                 }
                 6 -> {
                     // start local content Provider
-
                     val uri = Uri.parse("content://me.yangxiaobin.local.authorities")
                     val cur: Cursor? = contentResolver.query(uri, null, null, null, null)
                     cur?.close()
@@ -117,6 +117,10 @@ class MainActivity : AbsActivity() {
                     val cur: Cursor? = contentResolver.query(uri, null, null, null, null)
                     cur?.close()
 
+                }
+
+                8 ->{
+                    navigateFragment(MyBottomSheetDialogFragment())
                 }
             }
         }
