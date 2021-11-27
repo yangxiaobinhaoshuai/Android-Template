@@ -51,6 +51,7 @@ dependencies {
 
     implementation deps.appcompatX
     implementation deps.bundles.compose
+    implementation deps.bundles.anko
 
     implementation deps.paging3
     implementation deps.coil

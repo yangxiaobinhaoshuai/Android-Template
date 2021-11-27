@@ -20,6 +20,7 @@ import me.yangxiaobin.android.kotlin.codelab.base.AbsActivity
 import me.yangxiaobin.android.kotlin.codelab.ext.setOnItemClickListener
 import me.yangxiaobin.android.kotlin.codelab.ext.setSimpleDivider
 import me.yangxiaobin.android.kotlin.codelab.recyclerview.SimpleRvAdapter
+import org.jetbrains.anko.intentFor
 
 class MainActivity : AbsActivity() {
 
@@ -77,51 +78,32 @@ class MainActivity : AbsActivity() {
                 0 -> navigateFragment(LinearRvFragment())
                 1 -> navigateFragment(GridRvFragment())
                 2 -> navigateFragment(PagingRvFragment())
-                3 -> {
-                    // start remote activity
-                    startActivity(Intent().apply {
-                        this.setClass(
-                            this@MainActivity,
-                            RemoteActivity::class.java
-                        )
-                    })
-                }
-                4 -> {
-                    // start local service
-                    startService(Intent().apply {
-                        this.setClass(
-                            this@MainActivity,
-                            LocalService::class.java
-                        )
-                    })
-                }
-                5 -> {
-                    // start remote service
-                    startService(Intent().apply {
-                        this.setClass(
-                            this@MainActivity,
-                            RemoteService::class.java
-                        )
-                    })
-                }
+
+                // start remote activity
+                3 -> startActivity(intentFor<RemoteActivity>())
+
+                // start local service
+                4 -> startService(intentFor<LocalService>())
+
+                // start remote service
+                5 -> startService(intentFor<RemoteService>())
+
                 6 -> {
                     // start local content Provider
                     val uri = Uri.parse("content://me.yangxiaobin.local.authorities")
                     val cur: Cursor? = contentResolver.query(uri, null, null, null, null)
                     cur?.close()
-
                 }
+
                 7 -> {
-                    // start remote service
+                    // start remote content Provider
                     val uri = Uri.parse("content://me.yangxiaobin.remote.authorities")
                     val cur: Cursor? = contentResolver.query(uri, null, null, null, null)
                     cur?.close()
 
                 }
 
-                8 ->{
-                    navigateFragment(MyBottomSheetDialogFragment())
-                }
+                8 -> navigateFragment(MyBottomSheetDialogFragment())
             }
         }
 

@@ -91,6 +91,9 @@ viewbinding = { module = "androidx.databinding:viewbinding", version = "4.2.0" }
 # https://github.com/JakeWharton/picnic
 picnic = { module = "com.jakewharton.picnic:picnic", version = "0.5.0" }
 
+# kotlin anko : https://github.com/Kotlin/anko
+#  anko common : https://github.com/Kotlin/anko/wiki/Anko-Commons-%E2%80%93-Intents
+ankoCommon = { module = "org.jetbrains.anko:anko-commons", version = "0.10.8" }
 
 [bundles]
 widgets = [
@@ -124,6 +127,10 @@ ktx = [
     "ktx-SQLite",
     "archLifecycleExt",
     "lifecycleProcess",
+]
+
+anko = [
+    "ankoCommon",
 ]
 
 #[plugins]
