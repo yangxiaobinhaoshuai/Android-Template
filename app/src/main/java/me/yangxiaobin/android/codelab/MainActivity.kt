@@ -1,6 +1,5 @@
 package me.yangxiaobin.android.codelab
 
-import android.content.Intent
 import android.database.Cursor
 import android.net.Uri
 import android.widget.TextView
@@ -100,7 +99,6 @@ class MainActivity : AbsActivity() {
                     val uri = Uri.parse("content://me.yangxiaobin.remote.authorities")
                     val cur: Cursor? = contentResolver.query(uri, null, null, null, null)
                     cur?.close()
-
                 }
 
                 8 -> navigateFragment(MyBottomSheetDialogFragment())
