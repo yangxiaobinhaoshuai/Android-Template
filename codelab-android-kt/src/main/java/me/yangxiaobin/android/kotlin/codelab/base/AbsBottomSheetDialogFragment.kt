@@ -92,8 +92,9 @@ open class AbsBottomSheetDialogFragment : BottomSheetDialogFragment(), LogAbilit
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        logI("$logPrefix onCreateDialog,savedInstanceState:$savedInstanceState")
-        return super.onCreateDialog(savedInstanceState)
+        return super.onCreateDialog(savedInstanceState).also {
+            logI("$logPrefix onCreateDialog,savedInstanceState:$savedInstanceState,dialog:$it")
+        }
     }
 
     open fun onBackPress() {

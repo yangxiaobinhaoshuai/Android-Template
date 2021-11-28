@@ -101,7 +101,7 @@ class MainActivity : AbsActivity() {
                     cur?.close()
                 }
 
-                8 -> navigateFragment(MyBottomSheetDialogFragment())
+                8 -> MyBottomSheetDialogFragment().show(supportFragmentManager,null)
             }
         }
 
