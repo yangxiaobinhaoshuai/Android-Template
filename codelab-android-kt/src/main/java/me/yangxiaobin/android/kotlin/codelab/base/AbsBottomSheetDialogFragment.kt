@@ -93,7 +93,7 @@ open class AbsBottomSheetDialogFragment : BottomSheetDialogFragment(), LogAbilit
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         return super.onCreateDialog(savedInstanceState).also {
-            logI("$logPrefix onCreateDialog,savedInstanceState:$savedInstanceState,dialog:$it")
+            logI("$logPrefix onCreateDialog,savedInstanceState:$savedInstanceState,dialog:${it.neatName}")
         }
     }
 
