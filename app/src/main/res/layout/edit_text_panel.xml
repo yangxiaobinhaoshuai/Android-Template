@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<EditText xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@null"
+    android:hint="我是 Hint"
+    android:layerType="software"
+    android:lineSpacingMultiplier="1.3"
+    android:maxHeight="160dp"
+    android:minHeight="51dp"
+    android:overScrollMode="ifContentScrolls"
+    android:paddingHorizontal="12dp"
+    android:paddingVertical="10dp"
+    android:scrollbarStyle="insideInset"
+    android:scrollbars="vertical"
+    android:textColor="@color/black"
+    android:textCursorDrawable="@color/design_default_color_primary"
+    android:textSize="17sp"
+    tools:text="我是创建待办" />
+

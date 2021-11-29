@@ -35,10 +35,6 @@ class MyBottomSheetDialogFragment : AbsBottomSheetDialogFragment() {
         savedInstanceState: Bundle?
     ): View = hybridContentView()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        //this.setStyle(DialogFragment.STYLE_NORMAL,R.style.BottomDialogStyle)
-    }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         return super.onCreateDialog(savedInstanceState).also { d ->
@@ -59,15 +55,18 @@ class MyBottomSheetDialogFragment : AbsBottomSheetDialogFragment() {
     @Composable
     private fun AndroidEditTextView() = AndroidView(
         factory = { context: Context ->
-            EditText(context).apply {
-                this.layoutParams =
-                    ViewGroup.LayoutParams(
-                        ViewGroup.LayoutParams.MATCH_PARENT,
-                        ViewGroup.LayoutParams.WRAP_CONTENT
-                    )
 
-                this.hint = "I'm Android EditText."
-            }
+//            EditText(context).apply {
+//                this.layoutParams =
+//                    ViewGroup.LayoutParams(
+//                        ViewGroup.LayoutParams.MATCH_PARENT,
+//                        ViewGroup.LayoutParams.WRAP_CONTENT
+//                    )
+//
+//                this.hint = "I'm Android EditText."
+//            }
+
+            layoutInflater.inflate(R.layout.edit_text_panel, view as ViewGroup, false)
         }
     )
 

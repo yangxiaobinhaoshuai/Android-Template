@@ -8,5 +8,5 @@ class RemoteActivity : AbsActivity() {
 
     override val LogAbility.TAG: String get() = "Sample-app"
 
-    override val contentResId: Int = R.layout.activity_remove
+    override val contentResId: Int = R.layout.activity_remote
 }
