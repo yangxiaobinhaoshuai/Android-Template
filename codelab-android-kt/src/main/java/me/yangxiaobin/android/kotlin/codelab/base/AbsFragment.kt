@@ -14,9 +14,6 @@ import androidx.annotation.CallSuper
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
 import me.yangxiaobin.android.kotlin.codelab.log.L
-import me.yangxiaobin.kotlin.codelab.log.logD
-import me.yangxiaobin.kotlin.codelab.log.logE
-import me.yangxiaobin.kotlin.codelab.log.logI
 
 @Suppress("LeakingThis")
 abstract class AbsFragment : Fragment(), LogAbility {

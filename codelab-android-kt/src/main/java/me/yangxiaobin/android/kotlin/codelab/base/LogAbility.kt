@@ -8,10 +8,10 @@ import me.yangxiaobin.android.kotlin.codelab.ext.getCurrentPid
 import me.yangxiaobin.android.kotlin.codelab.ext.getCurrentProcessName
 import me.yangxiaobin.android.kotlin.codelab.ext.simpleName
 import me.yangxiaobin.android.kotlin.codelab.log.L
-import me.yangxiaobin.kotlin.codelab.log.ILog
-import me.yangxiaobin.kotlin.codelab.log.logD
-import me.yangxiaobin.kotlin.codelab.log.logE
-import me.yangxiaobin.kotlin.codelab.log.logI
+import me.yangxiaobin.logger.clone
+import me.yangxiaobin.logger.core.LogFacade
+import me.yangxiaobin.logger.core.LogLevel
+import me.yangxiaobin.logger.log
 
 
 /**
@@ -24,10 +24,10 @@ interface LogAbility {
     val LogAbility.TAG: String
         get() = "LogAbility:${this@LogAbility.simpleName.take(11)}"
 
-    val logger: ILog get() = L.copy()
-    val logI: (message: String) -> Unit get() = logger.logI(TAG)
-    val logD: (message: String) -> Unit get() = logger.logD(this@LogAbility.TAG)
-    val logE: (message: String) -> Unit get() = logger.logE(this@LogAbility.TAG)
+    val logger: LogFacade get() = L.clone()
+    val logI: (message: String) -> Unit get() = logger.log(LogLevel.INFO,TAG)
+    val logD: (message: String) -> Unit get() = logger.log(LogLevel.DEBUG,this@LogAbility.TAG)
+    val logE: (message: String) -> Unit get() = logger.log(LogLevel.ERROR,this@LogAbility.TAG)
 
     fun getTable(tag: String, message: String): String = table {
         cellStyle {

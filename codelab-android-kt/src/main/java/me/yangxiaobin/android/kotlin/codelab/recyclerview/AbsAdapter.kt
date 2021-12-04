@@ -8,14 +8,15 @@ import androidx.core.util.set
 import androidx.recyclerview.widget.RecyclerView
 import me.yangxiaobin.android.kotlin.codelab.ext.inflater
 import me.yangxiaobin.android.kotlin.codelab.log.L
-import me.yangxiaobin.kotlin.codelab.log.logI
+import me.yangxiaobin.logger.core.LogLevel
+import me.yangxiaobin.logger.log
 
 open class AbsVH(wholeItemView: View) : RecyclerView.ViewHolder(wholeItemView) {
 
     private val viewCache = SparseArray<View>(16)
 
     private val tag = "AbsVH"
-    private val logI by lazy { L.logI(tag) }
+    private val logI by lazy { L.log(LogLevel.INFO,tag) }
 
     @Suppress("UNCHECKED_CAST")
     open fun <T : View?> findView(@IdRes resId: Int): T? = (viewCache[resId] as? T)
@@ -35,7 +36,7 @@ class SimpleRvAdapter<T>(
 ) : RecyclerView.Adapter<AbsVH>() {
 
     private val tag = "SimpleRvAdapter"
-    private val logI by lazy { L.logI(tag) }
+    private val logI by lazy { L.log(LogLevel.INFO,tag) }
 
     override fun getItemCount(): Int = dataList.size
 

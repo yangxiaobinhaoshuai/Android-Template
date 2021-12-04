@@ -9,5 +9,5 @@ java {
 }
 
 dependencies {
-    implementation "me.yangxiaobin.jvm:logger:1.0-SNAPSHOT"
+    api "me.yangxiaobin.jvm:logger:1.0-SNAPSHOT"
 }

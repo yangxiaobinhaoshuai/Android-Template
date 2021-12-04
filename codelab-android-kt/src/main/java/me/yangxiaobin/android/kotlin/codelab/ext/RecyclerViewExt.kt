@@ -7,12 +7,12 @@ import androidx.core.view.children
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
 import me.yangxiaobin.android.kotlin.codelab.log.L
-import me.yangxiaobin.kotlin.codelab.log.logI
-import org.intellij.lang.annotations.JdkConstants
+import me.yangxiaobin.logger.core.LogLevel
+import me.yangxiaobin.logger.log
 import kotlin.math.*
 
 
-private val logI = L.logI("codeLab-ext")
+private val logI = L.log(LogLevel.INFO,"codeLab-ext")
 
 typealias OnRvLongItemClickListener = (Pair<View, Int>) -> Boolean
 typealias OnRvItemClickListener = (Pair<View, Int>) -> Unit
