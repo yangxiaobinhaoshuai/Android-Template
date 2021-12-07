@@ -42,6 +42,7 @@ dependencies {
 
     implementation deps.appcompatX
     implementation deps.picnic
+    implementation deps.retrofit
 
     api deps.bundles.widgets
     api deps.bundles.ktx
