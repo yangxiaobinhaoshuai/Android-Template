@@ -8,6 +8,7 @@ import androidx.fragment.app.commit
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_main.*
 import me.yangxiaobin.android.codelab.compose.ComposableFragment
+import me.yangxiaobin.android.codelab.compose.ComposeFragment
 import me.yangxiaobin.android.codelab.compose.MyBottomSheetDialogFragment
 import me.yangxiaobin.android.codelab.multi_process.LocalService
 import me.yangxiaobin.android.codelab.multi_process.RemoteActivity
@@ -35,7 +36,8 @@ class MainActivity : AbsActivity() {
         "7.AccessRemoteProvider",
         "8.ComposeBottomDialogFragment",
         "9.ComposeBottomDialogUIComponent",
-        )
+        "10.Compose",
+    )
 
     override val LogAbility.TAG: String get() = "Sample-app"
 
@@ -103,8 +105,9 @@ class MainActivity : AbsActivity() {
                     cur?.close()
                 }
 
-                8 -> MyBottomSheetDialogFragment().show(supportFragmentManager,null)
-                9 -> navigateFragment(ComposableFragment())
+                8 -> MyBottomSheetDialogFragment().show(supportFragmentManager, null)
+                9 -> Unit
+                10 -> navigateFragment(ComposeFragment())
             }
         }
 
