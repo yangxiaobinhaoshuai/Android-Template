@@ -8,12 +8,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.Animation
-import androidx.activity.OnBackPressedCallback
 import androidx.activity.addCallback
 import androidx.annotation.CallSuper
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
-import me.yangxiaobin.android.kotlin.codelab.log.L
 
 @Suppress("LeakingThis")
 abstract class AbsFragment : Fragment(), LogAbility {
@@ -21,7 +19,7 @@ abstract class AbsFragment : Fragment(), LogAbility {
     override val LogAbility.TAG: String
         get() = "AbsFragment:${this.javaClass.simpleName.take(11)}"
 
-    protected abstract val layoutResId: Int
+    protected open val layoutResId: Int = 0
 
     init {
         logI("onConstruct ,${context?.getLogSuffix}")
@@ -40,12 +38,19 @@ abstract class AbsFragment : Fragment(), LogAbility {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+       val rootView = createRootView()
+           ?: if (layoutResId <= 0) return super.onCreateView(inflater, container, savedInstanceState)
+           else inflater.inflate(layoutResId, container, false)
+
         beforeViewCreated(inflater, container, savedInstanceState)
-        return inflater.inflate(layoutResId, container, false)
+        return rootView
             .let(this::beforeViewReturned)
             .apply { this.isClickable = true }
             .also { logI("onCreateView, rootView : $it ,${context?.getLogSuffix}") }
     }
+
+    protected open fun createRootView(): View? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
