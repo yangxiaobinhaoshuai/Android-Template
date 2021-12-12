@@ -97,6 +97,9 @@ ankoCommon = { module = "org.jetbrains.anko:anko-commons", version = "0.10.8" }
 #  anko common -- dialogs
 ankoDesign = { module = "org.jetbrains.anko:anko-design", version = "0.10.8" }
 
+# Kotlin redux : https://github.com/reduxkotlin/redux-kotlin
+reduxKt = { module = "org.reduxkotlin:redux-kotlin-threadsafe-jvm", version = "0.5.5" }
+
 [bundles]
 widgets = [
     "recyclerView",

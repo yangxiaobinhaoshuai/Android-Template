@@ -27,12 +27,17 @@ open class AbsVH(wholeItemView: View) : RecyclerView.ViewHolder(wholeItemView) {
         ?: throw NullPointerException("Can NOT find view relative to id: $this")
 }
 
-typealias  BindVH <T> = (Triple<T, Int, MutableList<Any>>) -> Unit
+/**
+ * T for ViewHolder
+ */
+typealias VhBinding <VH,T> = (VhTuple<VH,T>) -> Unit
+
+data class VhTuple<VH, T>(val vh: VH, val entity: T?, val pos: Int, val payloads: MutableList<Any>)
 
 class SimpleRvAdapter<T>(
     private val dataList: List<T>,
     private val itemLayoutResId: Int,
-    private val binding: BindVH<AbsVH>,
+    private val binding: VhBinding<AbsVH,T>,
 ) : RecyclerView.Adapter<AbsVH>() {
 
     private val tag = "SimpleRvAdapter"
@@ -53,14 +58,19 @@ class SimpleRvAdapter<T>(
     override fun onBindViewHolder(holder: AbsVH, position: Int, payloads: MutableList<Any>) {
         logI("onBindViewHolder with payloads")
 
-        if (payloads.isNotEmpty()) binding.invoke(Triple(holder, position, payloads))
+        if (payloads.isNotEmpty())
+            binding.invoke(
+                VhTuple(holder, dataList.getOrNull(position), position, payloads)
+            )
         else super.onBindViewHolder(holder, position, payloads)
 
     }
 
     override fun onBindViewHolder(holder: AbsVH, position: Int) {
         logI("onBindViewHolder")
-        binding.invoke(Triple(holder, position, mutableListOf()))
+        binding.invoke(
+            VhTuple(holder, dataList.getOrNull(position),position, mutableListOf())
+        )
     }
 
 }

@@ -12,6 +12,7 @@ import androidx.activity.addCallback
 import androidx.annotation.CallSuper
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
+import me.yangxiaobin.kotlin.codelab.ext.neatName
 
 @Suppress("LeakingThis")
 abstract class AbsFragment : Fragment(), LogAbility {
@@ -31,6 +32,10 @@ abstract class AbsFragment : Fragment(), LogAbility {
         requireActivity().onBackPressedDispatcher.addCallback(this) { onBackPress() }
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        logI("onCreate, savedInstanceState : $savedInstanceState getArguments :${arguments}, ${context.getLogSuffix}")
+    }
     @Deprecated("Consider beforeViewCreated or beforeViewReturned")
     @CallSuper
     override fun onCreateView(
@@ -47,23 +52,23 @@ abstract class AbsFragment : Fragment(), LogAbility {
         return rootView
             .let(this::beforeViewReturned)
             .apply { this.isClickable = true }
-            .also { logI("onCreateView, rootView : $it ,${context?.getLogSuffix}") }
+            .also { logI("onCreateView, rootView : ${it.neatName} ,${context?.getLogSuffix}") }
     }
 
     protected open fun createRootView(): View? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        logI("onViewCreated, view : $view, savedInstanceState: $savedInstanceState ,${context?.getLogSuffix}")
+        logI("onViewCreated, view : ${view.neatName}, savedInstanceState: $savedInstanceState ,${context?.getLogSuffix}")
         afterViewCreated(view)
     }
 
     open fun afterViewCreated(view: View) {
-        logI("afterViewCreated, view :$view ,${context?.getLogSuffix}")
+        logI("afterViewCreated, view :${view.neatName} ,${context?.getLogSuffix}")
     }
 
     open fun beforeViewReturned(view: View): View {
-        logI("beforeViewReturned, view :$view ,${context?.getLogSuffix}")
+        logI("beforeViewReturned, view :${view.neatName} ,${context?.getLogSuffix}")
         return view
     }
 

@@ -17,5 +17,6 @@ rootProject.name = "AndroidCodelab"
 include ':app'
 include ':codelab-kt'
 include ':codelab-android-kt'
+include ':kt-compose-lib'
 
 enableFeaturePreview('VERSION_CATALOGS')

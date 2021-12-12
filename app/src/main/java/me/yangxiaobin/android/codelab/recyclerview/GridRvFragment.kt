@@ -38,7 +38,7 @@ class GridRvFragment : AbsFragment() {
         rv_fragment.adapter = SimpleRvAdapter(
             mockList,
             android.R.layout.simple_list_item_1
-        ) { (vh: AbsVH, pos, _) ->
+        ) { (vh: AbsVH, _, pos, _) ->
             vh.requireView<TextView>(android.R.id.text1).run {
                 gravity = Gravity.CENTER
                 text = mockList[pos].toString()

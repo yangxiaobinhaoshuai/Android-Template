@@ -1,20 +1,19 @@
 plugins {
-    id 'com.android.application'
+    id 'com.android.library'
     id 'kotlin-android'
-    id 'kotlin-android-extensions'
 }
 
 android {
-    compileSdk 30
+    compileSdkVersion 30
 
     defaultConfig {
-        applicationId "me.yangxiaobin.android.codelab"
-        minSdk 21
-        targetSdk 30
+        minSdkVersion 21
+        targetSdkVersion 30
         versionCode 1
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
     }
 
     buildTypes {
@@ -32,8 +31,9 @@ android {
     }
 
     buildFeatures {
-        viewBinding true
         // Enables Jetpack Compose for this module
+        // Or will cause :
+        //  java.lang.NoSuchMethodError: No virtual method setContent(Lkotlin/jvm/functions/Function0;)V in class Landroidx/compose/ui/platform/ComposeView; or its super classes (declaration of 'androidx.compose.ui.platform.ComposeView' appears in /data/app/me.yangxiaobin.android.codelab-OxUfI_uu307Ob1EJ_-xNpQ==/base.apk)
         compose true
     }
 
@@ -46,19 +46,16 @@ android {
 dependencies {
 
     testImplementation deps.junit
+
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
 
     implementation deps.appcompatX
-    implementation deps.bundles.compose
-    implementation deps.bundles.anko
+    implementation 'com.google.android.material:material:1.4.0'
 
-    implementation deps.paging3
-    implementation deps.coil
-    implementation deps.retrofit
-    implementation deps.guava
-
+    implementation project(":codelab-kt")
     implementation project(":codelab-android-kt")
-    implementation project(":kt-compose-lib")
+    implementation deps.bundles.ktx
 
+    api deps.bundles.compose
 }
