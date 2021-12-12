@@ -10,4 +10,5 @@ java {
 
 dependencies {
     api "me.yangxiaobin.jvm:logger:1.0-SNAPSHOT"
+    implementation deps.jvmCoroutine
 }

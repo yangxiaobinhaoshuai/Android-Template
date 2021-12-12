@@ -20,3 +20,4 @@ include ':codelab-android-kt'
 include ':kt-compose-lib'
 
 enableFeaturePreview('VERSION_CATALOGS')
+include ':network-lib'

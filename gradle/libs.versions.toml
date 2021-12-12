@@ -36,6 +36,10 @@ androidMaterial = { module = "com.google.android.material:material", version = "
 
 kgp153 = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlinV" }
 
+# Kt coroutine : https://github.com/Kotlin/kotlinx.coroutines
+jvmCoroutine = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version = "1.6.0-RC2" }
+androidCoroutine = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version = "1.6.0-RC2" }
+
 agp7 = { module = "com.android.tools.build:gradle", version = "7.0.2" }
 agp4 = { module = "com.android.tools.build:gradle", version = "4.2.0" }
 
@@ -98,7 +102,7 @@ ankoCommon = { module = "org.jetbrains.anko:anko-commons", version = "0.10.8" }
 ankoDesign = { module = "org.jetbrains.anko:anko-design", version = "0.10.8" }
 
 # Kotlin redux : https://github.com/reduxkotlin/redux-kotlin
-reduxKt = { module = "org.reduxkotlin:redux-kotlin-threadsafe-jvm", version = "0.5.5" }
+ktRedux = { module = "org.reduxkotlin:redux-kotlin-threadsafe-jvm", version = "0.5.5" }
 
 [bundles]
 widgets = [
