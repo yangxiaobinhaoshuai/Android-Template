@@ -12,6 +12,12 @@ class MyApp : AbsApplication() {
         ProcessLifecycleOwner.get().lifecycle.addObserver(object : LifecycleObserver{
 
         })
+
+        init()
+    }
+
+    private fun init(){
+
     }
 
 }
