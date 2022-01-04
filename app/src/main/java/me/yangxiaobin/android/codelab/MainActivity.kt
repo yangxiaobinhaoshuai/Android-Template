@@ -22,6 +22,7 @@ import me.yangxiaobin.android.codelab.recyclerview.PagingRvFragment
 import me.yangxiaobin.android.kotlin.codelab.base.AbsActivity
 import me.yangxiaobin.android.kotlin.codelab.base.LogAbility
 import me.yangxiaobin.android.kotlin.codelab.ext.setSimpleDivider
+import me.yangxiaobin.android.kotlin.codelab.ext.showToast
 import me.yangxiaobin.android.kotlin.codelab.recyclerview.AbsVH
 import me.yangxiaobin.android.kotlin.codelab.recyclerview.SimpleRvAdapter
 import org.jetbrains.anko.intentFor
@@ -57,7 +58,9 @@ class MainActivity : AbsActivity() {
                 // Compose
                 "MyBottomSheetDialogFragment" -> navigateToFragment(MyBottomSheetDialogFragment())
 
-                else -> throw IllegalArgumentException("UnSupport key :$dest")
+                else -> {
+                    showToast("UnSupport key :$dest.")
+                }
             }
         }
 
@@ -74,7 +77,6 @@ class MainActivity : AbsActivity() {
             arrayOf(
                 "LinearRv",
                 "GridRv",
-                "PagingRv",
             )
         },
 
@@ -85,6 +87,25 @@ class MainActivity : AbsActivity() {
                 "Remote Service",
                 "Local ContentProvider",
                 "Remote ContentProvider",
+            )
+        },
+
+        "DI" to navigateListFunc {
+            arrayOf(
+                "Dagger2",
+                "Dagger2.android",
+                "Hilt",
+            )
+        },
+
+        "Kotlin Jetpack Components" to navigateListFunc {
+            arrayOf(
+                "LifeCycle",
+                "LiveData",
+                "ViewModel",
+                "Paging3",
+                "Room",
+                "Navigation",
             )
         },
 
