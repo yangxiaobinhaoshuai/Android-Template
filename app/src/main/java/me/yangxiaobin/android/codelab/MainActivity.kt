@@ -13,6 +13,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 import me.yangxiaobin.android.codelab.common.BaseClick
 import me.yangxiaobin.android.codelab.common.ComposeVerticalListFragment
 import me.yangxiaobin.android.codelab.compose.MyBottomSheetDialogFragment
+import me.yangxiaobin.android.codelab.di.dagger2.Dagger2Fragment
 import me.yangxiaobin.android.codelab.multi_process.LocalService
 import me.yangxiaobin.android.codelab.multi_process.RemoteActivity
 import me.yangxiaobin.android.codelab.multi_process.RemoteService
@@ -22,7 +23,7 @@ import me.yangxiaobin.android.codelab.recyclerview.PagingRvFragment
 import me.yangxiaobin.android.kotlin.codelab.base.AbsActivity
 import me.yangxiaobin.android.kotlin.codelab.base.LogAbility
 import me.yangxiaobin.android.kotlin.codelab.ext.setSimpleDivider
-import me.yangxiaobin.android.kotlin.codelab.ext.showToast
+import me.yangxiaobin.android.kotlin.codelab.ext.showContextToast
 import me.yangxiaobin.android.kotlin.codelab.recyclerview.AbsVH
 import me.yangxiaobin.android.kotlin.codelab.recyclerview.SimpleRvAdapter
 import org.jetbrains.anko.intentFor
@@ -58,8 +59,11 @@ class MainActivity : AbsActivity() {
                 // Compose
                 "MyBottomSheetDialogFragment" -> navigateToFragment(MyBottomSheetDialogFragment())
 
+                // DI / dagger2
+                "Dagger2" -> navigateToFragment(Dagger2Fragment())
+
                 else -> {
-                    showToast("UnSupport key :$dest.")
+                    showContextToast("UnSupport key :$dest.")
                 }
             }
         }
