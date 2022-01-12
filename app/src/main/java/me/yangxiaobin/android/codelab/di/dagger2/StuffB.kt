@@ -2,14 +2,13 @@ package me.yangxiaobin.android.codelab.di.dagger2
 
 import javax.inject.Inject
 
-
-class StuffManager @Inject constructor() {
+class StuffB @Inject constructor() {
 
     init {
-        logDI("StuffManager init.")
+        logDI("StuffB init.")
     }
 
     fun work(){
-        logDI("StuffManager work hard!!")
+        logDI("StuffB work.")
     }
 }

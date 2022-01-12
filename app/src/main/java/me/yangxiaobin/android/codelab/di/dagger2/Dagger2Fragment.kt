@@ -14,6 +14,12 @@ class Dagger2Fragment : AbsComposableFragment() {
     @Inject
     lateinit var stuffManager: StuffManager
 
+    @Inject
+    lateinit var stuffA : StuffA
+
+    @Inject
+    lateinit var stuffB : StuffB
+
 
     override val composableContent: @Composable () -> Unit = {
 
@@ -30,5 +36,7 @@ class Dagger2Fragment : AbsComposableFragment() {
         super.onViewCreated(view, savedInstanceState)
         DaggerStuffComponent.create().injectDagger2Fragment(this)
         stuffManager.work()
+        stuffA.work()
+        stuffB.work()
     }
 }
