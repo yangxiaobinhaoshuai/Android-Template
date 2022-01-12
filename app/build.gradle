@@ -4,7 +4,7 @@ plugins {
     id 'kotlin-android-extensions'
 
     id 'kotlin-kapt'
-    id 'dagger.hilt.android.plugin'
+    //id 'dagger.hilt.android.plugin'
 }
 
 android {
@@ -65,12 +65,12 @@ dependencies {
     implementation deps.dagger2
     kapt deps.dagger2Processor
 
-    implementation deps.dagger2Android
-    implementation deps.dagger2AndroidSupport
-    kapt deps.dagger2AndroidProcessor
+//    implementation deps.dagger2Android
+//    implementation deps.dagger2AndroidSupport
+//    kapt deps.dagger2AndroidProcessor
 
-    implementation deps.hiltAndroid
-    kapt deps.hiltAndroidCompiler
+//    implementation deps.hiltAndroid
+//    kapt deps.hiltAndroidCompiler
 
     implementation project(":codelab-android-kt")
     implementation project(":kt-compose-lib")
