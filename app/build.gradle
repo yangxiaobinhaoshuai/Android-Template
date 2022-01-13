@@ -65,9 +65,9 @@ dependencies {
     implementation deps.dagger2
     kapt deps.dagger2Processor
 
-//    implementation deps.dagger2Android
-//    implementation deps.dagger2AndroidSupport
-//    kapt deps.dagger2AndroidProcessor
+    implementation deps.dagger2Android
+    implementation deps.dagger2AndroidSupport
+    kapt deps.dagger2AndroidProcessor
 
 //    implementation deps.hiltAndroid
 //    kapt deps.hiltAndroidCompiler
