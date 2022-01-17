@@ -14,10 +14,12 @@ dependencyResolutionManagement {
     }
 }
 rootProject.name = "AndroidCodelab"
+enableFeaturePreview('VERSION_CATALOGS')
+
 include ':app'
 include ':codelab-kt'
 include ':codelab-android-kt'
 include ':kt-compose-lib'
 
-enableFeaturePreview('VERSION_CATALOGS')
 include ':network-lib'
+include ':multi-process'
