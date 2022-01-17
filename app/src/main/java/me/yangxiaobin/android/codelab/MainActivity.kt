@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_main.*
 import me.yangxiaobin.android.codelab.common.BaseClick
@@ -20,6 +21,7 @@ import me.yangxiaobin.android.codelab.multi_process.RemoteService
 import me.yangxiaobin.android.codelab.recyclerview.GridRvFragment
 import me.yangxiaobin.android.codelab.recyclerview.LinearRvFragment
 import me.yangxiaobin.android.codelab.recyclerview.PagingRvFragment
+import me.yangxiaobin.android.codelab.retrofit.RetrofitFragment
 import me.yangxiaobin.android.kotlin.codelab.base.AbsActivity
 import me.yangxiaobin.android.kotlin.codelab.base.LogAbility
 import me.yangxiaobin.android.kotlin.codelab.ext.setSimpleDivider
@@ -62,6 +64,8 @@ class MainActivity : AbsActivity() {
                 // DI / dagger2
                 "Dagger2" -> navigateToFragment(Dagger2Fragment())
 
+                "CustomConverter" -> navigateToFragment(RetrofitFragment())
+
                 else -> {
                     showContextToast("UnSupport key :$dest.")
                 }
@@ -77,6 +81,7 @@ class MainActivity : AbsActivity() {
 
     private val dataList: LinkedHashMap<String, BaseClick<String>> = linkedMapOf(
 
+        // 1.
         "RecyclerView" to navigateListFunc {
             arrayOf(
                 "LinearRv",
@@ -84,6 +89,7 @@ class MainActivity : AbsActivity() {
             )
         },
 
+        // 2.
         "Multi Process" to navigateListFunc {
             arrayOf(
                 "Remote Activity",
@@ -94,6 +100,7 @@ class MainActivity : AbsActivity() {
             )
         },
 
+        // 3.
         "DI" to navigateListFunc {
             arrayOf(
                 "Dagger2",
@@ -102,6 +109,7 @@ class MainActivity : AbsActivity() {
             )
         },
 
+        // 4.
         "Kotlin Jetpack Components" to navigateListFunc {
             arrayOf(
                 "LifeCycle",
@@ -113,9 +121,17 @@ class MainActivity : AbsActivity() {
             )
         },
 
+        // 5.
         "Kotlin Jetpack Compose" to navigateListFunc {
             arrayOf(
                 "MyBottomSheetDialogFragment",
+            )
+        },
+
+        // 6.
+        "Retrofit" to navigateListFunc {
+            arrayOf(
+                "CustomConverter",
             )
         },
     )
