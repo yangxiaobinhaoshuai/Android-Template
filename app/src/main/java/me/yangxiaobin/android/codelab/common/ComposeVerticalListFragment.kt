@@ -1,5 +1,7 @@
 package me.yangxiaobin.android.codelab.common
 
+import android.database.Cursor
+import android.net.Uri
 import android.os.Bundle
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -7,62 +9,102 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.Divider
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.MutableLiveData
-import me.yangxiaobin.kotlin.codelab.ext.getByIndex
+import me.yangxiaobin.android.codelab.compose.MyBottomSheetDialogFragment
+import me.yangxiaobin.android.codelab.di.dagger2.Dagger2Fragment
+import me.yangxiaobin.android.codelab.multi_process.LocalService
+import me.yangxiaobin.android.codelab.multi_process.RemoteActivity
+import me.yangxiaobin.android.codelab.multi_process.RemoteService
+import me.yangxiaobin.android.codelab.navigateToFragment
+import me.yangxiaobin.android.codelab.recyclerview.GridRvFragment
+import me.yangxiaobin.android.codelab.recyclerview.LinearRvFragment
+import me.yangxiaobin.android.codelab.recyclerview.PagingRvFragment
+import me.yangxiaobin.android.codelab.retrofit.RetrofitFragment
+import me.yangxiaobin.android.kotlin.codelab.ext.showContextToast
 import me.yangxiaobin.kotlin.compose.lib.AbsComposableFragment
+import org.jetbrains.anko.intentFor
 
 class ComposeVerticalListFragment : AbsComposableFragment() {
 
-    private val options: LinkedHashMap<String, Function0<Unit>> by lazy {
+    private val subMenus: Array<String> by lazy {
         @Suppress("UNCHECKED_CAST")
-        arguments?.getSerializable("map") as? LinkedHashMap<String, Function0<Unit>>
-            ?: LinkedHashMap()
+        arguments?.getSerializable("subMenus") as? Array<String> ?: emptyArray()
     }
 
-    private val argsLiveData: MutableLiveData<LinkedHashMap<String, Function0<Unit>>> =
-        MutableLiveData()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        logI("getOptions :$options")
-        argsLiveData.value = options
+        logI("getOptions :$subMenus.")
     }
 
     override val composableContent: @Composable () -> Unit = {
-        val stateValue: LinkedHashMap<String, Function0<Unit>> =
-            argsLiveData.observeAsState(LinkedHashMap()).value
-        ComposeList(stateValue)
+        ComposeList(subMenus)
     }
 
     @Composable
-    private fun ComposeList(args: LinkedHashMap<String, Function0<Unit>>) = LazyColumn(
+    private fun ComposeList(subMenus: Array<String>) = LazyColumn(
         modifier = Modifier,
         contentPadding = PaddingValues(20.dp)
     ) {
 
-        items(args.size) { index: Int ->
-            val (itemString, onClick) = args.getByIndex(index)
+        items(subMenus.size) { index: Int ->
 
-            ListItem("${index + 1}. $itemString", onClick)
+            ListItem(index,subMenus[index])
 
         }
     }
 
     @Composable
-    private fun ListItem(itemString: String, onClick: Function0<Unit>) = Column(
+    private fun ListItem(index: Int, originalName: String) = Column(
         modifier = Modifier
             .height(50.dp)
-            .clickable { onClick.invoke() }
+            .clickable { fragmentNavigator(originalName) }
     ) {
 
         Box(Modifier.padding(horizontal = 10.dp, vertical = 5.dp)) {
-            Text(text = itemString)
+            Text(text = "${index + 1}. $originalName")
         }
 
         Divider(color = androidx.compose.ui.graphics.Color.Black)
     }
+
+    private fun fragmentNavigator(dest: String) {
+
+        val ctx = requireActivity()
+
+        when (dest) {
+            // Rv
+            "LinearRv" -> ctx.navigateToFragment(LinearRvFragment())
+            "GridRv" -> ctx.navigateToFragment(GridRvFragment())
+            "PagingRv" -> ctx.navigateToFragment(PagingRvFragment())
+
+            // Remote
+            "Remote Activity" -> ctx.startActivity(ctx.intentFor<RemoteActivity>())
+            "Local Service" -> ctx.startService(ctx.intentFor<LocalService>())
+            "Remote Service" -> ctx.startService(ctx.intentFor<RemoteService>())
+            "Local ContentProvider" -> {
+                val uri = Uri.parse("content://me.yangxiaobin.local.authorities")
+                val cur: Cursor? = ctx.contentResolver.query(uri, null, null, null, null)
+                cur?.close()
+            }
+            "Remote ContentProvider" -> {
+                val uri = Uri.parse("content://me.yangxiaobin.remote.authorities")
+                val cur: Cursor? = ctx.contentResolver.query(uri, null, null, null, null)
+                cur?.close()
+            }
+
+            // Compose
+            "MyBottomSheetDialogFragment" -> ctx.navigateToFragment(MyBottomSheetDialogFragment())
+
+            // DI / dagger2
+            "Dagger2" -> ctx.navigateToFragment(Dagger2Fragment())
+
+            "CustomConverter" -> ctx.navigateToFragment(RetrofitFragment())
+
+            else -> ctx.showContextToast("UnSupport key :$dest.")
+        }
+    }
+
 
 }

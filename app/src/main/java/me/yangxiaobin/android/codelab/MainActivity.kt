@@ -1,140 +1,69 @@
 package me.yangxiaobin.android.codelab
 
 import android.annotation.SuppressLint
-import android.app.Activity
-import android.database.Cursor
-import android.net.Uri
 import android.widget.TextView
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.commit
-import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_main.*
-import me.yangxiaobin.android.codelab.common.BaseClick
 import me.yangxiaobin.android.codelab.common.ComposeVerticalListFragment
-import me.yangxiaobin.android.codelab.compose.MyBottomSheetDialogFragment
-import me.yangxiaobin.android.codelab.di.dagger2.Dagger2Fragment
-import me.yangxiaobin.android.codelab.multi_process.LocalService
-import me.yangxiaobin.android.codelab.multi_process.RemoteActivity
-import me.yangxiaobin.android.codelab.multi_process.RemoteService
-import me.yangxiaobin.android.codelab.recyclerview.GridRvFragment
-import me.yangxiaobin.android.codelab.recyclerview.LinearRvFragment
-import me.yangxiaobin.android.codelab.recyclerview.PagingRvFragment
-import me.yangxiaobin.android.codelab.retrofit.RetrofitFragment
 import me.yangxiaobin.android.kotlin.codelab.base.AbsActivity
 import me.yangxiaobin.android.kotlin.codelab.base.LogAbility
 import me.yangxiaobin.android.kotlin.codelab.ext.setSimpleDivider
-import me.yangxiaobin.android.kotlin.codelab.ext.showContextToast
 import me.yangxiaobin.android.kotlin.codelab.recyclerview.AbsVH
 import me.yangxiaobin.android.kotlin.codelab.recyclerview.SimpleRvAdapter
-import org.jetbrains.anko.intentFor
+
 
 class MainActivity : AbsActivity() {
 
-    private fun navigateListFunc(listDataLambda: () -> Array<String>) = BaseClick<String> {
-        logI("navigate to  vertical list")
-        val destinations: Array<String> = listDataLambda.invoke()
 
-        fun fragmentNavigator(dest: String) {
-            when (dest) {
-                // Rv
-                "LinearRv" -> navigateToFragment(LinearRvFragment())
-                "GridRv" -> navigateToFragment(GridRvFragment())
-                "PagingRv" -> navigateToFragment(PagingRvFragment())
-
-                // Remote
-                "Remote Activity" -> startActivity(intentFor<RemoteActivity>())
-                "Local Service" -> startService(intentFor<LocalService>())
-                "Remote Service" -> startService(intentFor<RemoteService>())
-                "Local ContentProvider" -> {
-                    val uri = Uri.parse("content://me.yangxiaobin.local.authorities")
-                    val cur: Cursor? = contentResolver.query(uri, null, null, null, null)
-                    cur?.close()
-                }
-                "Remote ContentProvider" -> {
-                    val uri = Uri.parse("content://me.yangxiaobin.remote.authorities")
-                    val cur: Cursor? = contentResolver.query(uri, null, null, null, null)
-                    cur?.close()
-                }
-
-                // Compose
-                "MyBottomSheetDialogFragment" -> navigateToFragment(MyBottomSheetDialogFragment())
-
-                // DI / dagger2
-                "Dagger2" -> navigateToFragment(Dagger2Fragment())
-
-                "CustomConverter" -> navigateToFragment(RetrofitFragment())
-
-                else -> {
-                    showContextToast("UnSupport key :$dest.")
-                }
-            }
-        }
-
-        val stringToClick: Map<String, () -> Unit> =
-            destinations.associateWith { dest: String -> { fragmentNavigator(dest) } }
-
-        this.navigateToFragment(ComposeVerticalListFragment(), "map" to stringToClick)
-    }
-
-
-    private val dataList: LinkedHashMap<String, BaseClick<String>> = linkedMapOf(
+    private val catalog: Map<String, Array<String>> = mapOf(
 
         // 1.
-        "RecyclerView" to navigateListFunc {
-            arrayOf(
-                "LinearRv",
-                "GridRv",
-            )
-        },
+        "RecyclerView" to arrayOf(
+            "LinearRv",
+            "GridRv",
+        ),
 
         // 2.
-        "Multi Process" to navigateListFunc {
-            arrayOf(
-                "Remote Activity",
-                "Local Service",
-                "Remote Service",
-                "Local ContentProvider",
-                "Remote ContentProvider",
-            )
-        },
+        "Multi Process" to arrayOf(
+            "Remote Activity",
+            "Local Service",
+            "Remote Service",
+            "Local ContentProvider",
+            "Remote ContentProvider",
+        ),
 
         // 3.
-        "DI" to navigateListFunc {
-            arrayOf(
-                "Dagger2",
-                "Dagger2.android",
-                "Hilt",
-            )
-        },
+        "DI" to arrayOf(
+            "Dagger2",
+            "Dagger2.android",
+            "Hilt",
+        ),
 
         // 4.
-        "Kotlin Jetpack Components" to navigateListFunc {
-            arrayOf(
-                "LifeCycle",
-                "LiveData",
-                "ViewModel",
-                "Paging3",
-                "Room",
-                "Navigation",
-            )
-        },
+        "Kotlin Jetpack Components" to arrayOf(
+            "LifeCycle",
+            "LiveData",
+            "ViewModel",
+            "Paging3",
+            "Room",
+            "Navigation",
+        ),
 
         // 5.
-        "Kotlin Jetpack Compose" to navigateListFunc {
-            arrayOf(
-                "MyBottomSheetDialogFragment",
-            )
-        },
+        "Kotlin Jetpack Compose" to arrayOf(
+            "MyBottomSheetDialogFragment",
+        ),
 
         // 6.
-        "Retrofit" to navigateListFunc {
-            arrayOf(
-                "CustomConverter",
-            )
-        },
+        "Retrofit" to arrayOf(
+            "CustomConverter",
+        ),
     )
+
 
     override val LogAbility.TAG: String get() = "Sample-app"
 
@@ -159,10 +88,10 @@ class MainActivity : AbsActivity() {
         rv.setSimpleDivider()
         rv.layoutManager = LinearLayoutManager(this)
 
-        rv.adapter = SimpleRvAdapter<String>(
-            dataList.keys.toList(),
+        rv.adapter = SimpleRvAdapter(
+            catalog.keys.toList(),
             android.R.layout.simple_list_item_1
-        ) { (vh: AbsVH, entity, pos: Int, _: MutableList<Any>) ->
+        ) { (vh: AbsVH, entity: String?, pos: Int, _: MutableList<Any>) ->
 
 
             vh.requireView<TextView>(android.R.id.text1).run {
@@ -170,7 +99,13 @@ class MainActivity : AbsActivity() {
                 @SuppressLint("SetTextI18n")
                 text = "${pos + 1}. $entity"
 
-                setOnClickListener { dataList.values.toList()[pos].click(entity ?: "") }
+                setOnClickListener {
+                    val subMenus: Array<String> = catalog.values.toList()[pos]
+                    this@MainActivity.navigateToFragment(
+                        ComposeVerticalListFragment(),
+                        "subMenus" to subMenus
+                    )
+                }
             }
 
 
@@ -178,11 +113,14 @@ class MainActivity : AbsActivity() {
 
     }
 
-    private fun Activity.navigateToFragment(target: Fragment, vararg pairs: Pair<String, Any?>) =
-        supportFragmentManager.commit {
-            target.arguments = bundleOf(*pairs)
-            addToBackStack(null)
-            add(R.id.content_main_activity, target)
-        }
+}
 
+
+fun FragmentActivity.navigateToFragment(
+    target: Fragment,
+    vararg pairs: Pair<String, Any?>
+) = supportFragmentManager.commit {
+    target.arguments = bundleOf(*pairs)
+    addToBackStack(null)
+    add(R.id.content_main_activity, target)
 }
