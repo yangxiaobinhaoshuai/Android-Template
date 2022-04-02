@@ -1,4 +1,4 @@
-package me.yangxiaobin.android.codelab
+package me.yangxiaobin.android.codelab.common
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Button
@@ -12,7 +12,7 @@ import me.yangxiaobin.kotlin.compose.lib.AbsComposableFragment
 
 private const val COUNT = 5
 
-class ButtonsFragment : AbsComposableFragment() {
+open class ButtonsFragment : AbsComposableFragment() {
 
 
     override val composableContent = @Composable {
@@ -50,7 +50,7 @@ class ButtonsFragment : AbsComposableFragment() {
 
     }
 
-    private fun onClick(index: Int) = when (index) {
+    protected open fun onClick(index: Int) = when (index) {
         0 -> {}
         1 -> Unit
         2 -> Unit

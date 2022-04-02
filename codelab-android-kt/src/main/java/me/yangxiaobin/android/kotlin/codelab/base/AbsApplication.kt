@@ -10,22 +10,22 @@ open class AbsApplication : Application(), LogAbility {
 
     override fun attachBaseContext(base: Context?) {
         super.attachBaseContext(base)
-        logI("attachBaseContext,base:$base, ${base?.getLogSuffix}")
+        logI("attachBaseContext,base:$base.")
     }
 
     override fun onCreate() {
         super.onCreate()
-        logI("onCreate, ${this.getLogSuffix}")
+        logI("onCreate.")
     }
 
     override fun onTrimMemory(level: Int) {
         super.onTrimMemory(level)
-        logI("onTrimMemory, ${this.getLogSuffix}")
+        logI("onTrimMemory.")
     }
 
     override fun onLowMemory() {
         super.onLowMemory()
-        logI("onLowMemory, ${this.getLogSuffix}")
+        logI("onLowMemory.")
     }
 
 }

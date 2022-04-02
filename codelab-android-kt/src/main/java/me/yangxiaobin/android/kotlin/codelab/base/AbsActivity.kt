@@ -15,12 +15,11 @@ abstract class AbsActivity : AppCompatActivity(), LogAbility {
 
     open val handleBackPress = false
 
-    private val logPrefix by lazy { this.getLogSuffix }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(contentResId)
-        logI("$logPrefix onCreate, savedInstanceState :$savedInstanceState")
+        logI("onCreate, savedInstanceState :$savedInstanceState")
         registerBackHandler()
         afterOnCreate()
 
@@ -40,56 +39,56 @@ abstract class AbsActivity : AppCompatActivity(), LogAbility {
 
     override fun onStart() {
         super.onStart()
-        logI("$logPrefix onStart")
+        logI("onStart")
     }
 
     override fun onRestart() {
         super.onRestart()
-        logI("$logPrefix onRestart")
+        logI("onRestart")
     }
 
     override fun onResume() {
         super.onResume()
-        logI("$logPrefix onResume")
+        logI("onResume")
     }
 
     override fun onPause() {
         super.onPause()
-        logI("$logPrefix onPause")
+        logI("onPause")
     }
 
     override fun onStop() {
         super.onStop()
-        logI("$logPrefix onStop")
+        logI("onStop")
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        logI("$logPrefix onDestroy")
+        logI("onDestroy")
     }
 
     override fun onConfigurationChanged(newConfig: Configuration) {
         super.onConfigurationChanged(newConfig)
-        logI("$logPrefix onConfigurationChanged, newConfig: $newConfig")
+        logI("onConfigurationChanged, newConfig: $newConfig")
     }
 
     override fun onNewIntent(intent: Intent?) {
         super.onNewIntent(intent)
-        logI("$logPrefix onNewIntent, intent: $intent")
+        logI("onNewIntent, intent: $intent")
     }
 
     override fun onLowMemory() {
         super.onLowMemory()
-        logI("$logPrefix onLowMemory")
+        logI("onLowMemory")
     }
 
     override fun onTrimMemory(level: Int) {
         super.onTrimMemory(level)
-        logI("$logPrefix onTrimMemory, level :$level")
+        logI("onTrimMemory, level :$level")
     }
 
     override fun finish() {
         super.finish()
-        logI("$logPrefix finish")
+        logI("finish")
     }
 }

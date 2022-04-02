@@ -1,11 +1,9 @@
 package me.yangxiaobin.android.kotlin.codelab.base
 
-import android.content.Context
 import com.jakewharton.picnic.TextAlignment
 import com.jakewharton.picnic.table
 import me.yangxiaobin.android.kotlin.codelab.ext.currentProcessName
 import me.yangxiaobin.android.kotlin.codelab.ext.getCurrentPid
-import me.yangxiaobin.android.kotlin.codelab.ext.getCurrentProcessName
 import me.yangxiaobin.android.kotlin.codelab.ext.simpleName
 import me.yangxiaobin.android.kotlin.codelab.log.L
 import me.yangxiaobin.logger.clone
@@ -14,20 +12,15 @@ import me.yangxiaobin.logger.core.LogLevel
 import me.yangxiaobin.logger.log
 
 
-/**
- * Used in derived context classes.
- */
-internal val Context?.getLogSuffix get() = "${this.simpleName}(hash:${this.hashCode()}, tName:${Thread.currentThread().name}, tid:${Thread.currentThread().id}, pName:${this?.getCurrentProcessName}, pid:$getCurrentPid)"
-
 interface LogAbility {
 
     val LogAbility.TAG: String
         get() = "LogAbility:${this@LogAbility.simpleName.take(11)}"
 
     val logger: LogFacade get() = L.clone()
-    val logI: (message: String) -> Unit get() = logger.log(LogLevel.INFO,TAG)
-    val logD: (message: String) -> Unit get() = logger.log(LogLevel.DEBUG,this@LogAbility.TAG)
-    val logE: (message: String) -> Unit get() = logger.log(LogLevel.ERROR,this@LogAbility.TAG)
+    val logI: (message: String) -> Unit get() = logger.log(LogLevel.INFO, TAG)
+    val logD: (message: String) -> Unit get() = logger.log(LogLevel.DEBUG, TAG)
+    val logE: (message: String) -> Unit get() = logger.log(LogLevel.ERROR, TAG)
 
     fun getTable(tag: String, message: String): String = table {
         cellStyle {

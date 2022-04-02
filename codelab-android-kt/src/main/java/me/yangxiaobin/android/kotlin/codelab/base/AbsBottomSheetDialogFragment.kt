@@ -4,7 +4,6 @@ import android.animation.Animator
 import android.app.Dialog
 import android.content.Context
 import android.os.Bundle
-import android.system.Os.remove
 import android.view.View
 import android.view.animation.Animation
 import androidx.activity.addCallback
@@ -17,88 +16,86 @@ open class AbsBottomSheetDialogFragment : BottomSheetDialogFragment(), LogAbilit
     override val LogAbility.TAG: String
         get() = "AbsBSDF:${this.javaClass.simpleName.take(11)}"
 
-    private val logPrefix by lazy { requireContext().getLogSuffix }
-
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        logI("$logPrefix onAttach, context :$context")
+        logI("onAttach, context :${context.neatName}.")
         requireActivity().onBackPressedDispatcher.addCallback(this) { onBackPress() }
     }
 
     override fun onCreateAnimation(transit: Int, enter: Boolean, nextAnim: Int): Animation? {
-        logI("$logPrefix onCreateAnimation, transit :$transit,enter:$enter,nextAnim:$nextAnim")
+        logI("onCreateAnimation, transit :$transit,enter:$enter,nextAnim:$nextAnim")
         return super.onCreateAnimation(transit, enter, nextAnim)
     }
 
     override fun onCreateAnimator(transit: Int, enter: Boolean, nextAnim: Int): Animator? {
-        logI("$logPrefix onCreateAnimator, transit :$transit,enter:$enter,nextAnim:$nextAnim")
+        logI("onCreateAnimator, transit :$transit,enter:$enter,nextAnim:$nextAnim")
         return super.onCreateAnimator(transit, enter, nextAnim)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        logI("$logPrefix onCreate, savedInstanceState :$savedInstanceState")
+        logI("onCreate, savedInstanceState :$savedInstanceState.")
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        logI("$logPrefix onViewCreated, view :${view.neatName},savedInstanceState:$savedInstanceState")
+        logI("onViewCreated, view :${view.neatName},savedInstanceState:$savedInstanceState.")
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        logI("$logPrefix onActivityCreated, savedInstanceState :$savedInstanceState")
+        logI("onActivityCreated, savedInstanceState :$savedInstanceState")
     }
 
     override fun onStart() {
         super.onStart()
-        logI("$logPrefix onStart")
+        logI("onStart")
     }
 
     override fun onResume() {
         super.onResume()
-        logI("$logPrefix onResume")
+        logI("onResume")
     }
 
     override fun onPause() {
         super.onPause()
-        logI("$logPrefix onPause")
+        logI("onPause")
     }
 
     override fun onStop() {
         super.onStop()
-        logI("$logPrefix onStop")
+        logI("onStop")
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
-        logI("$logPrefix onDestroyView")
+        logI("onDestroyView")
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        logI("$logPrefix onDestroy")
+        logI("onDestroy")
     }
 
     override fun onDetach() {
         super.onDetach()
-        logI("$logPrefix onDestroy")
+        logI("onDestroy")
     }
 
     override fun dismiss() {
         super.dismiss()
-        logI("$logPrefix dismiss")
+        logI("dismiss")
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         return super.onCreateDialog(savedInstanceState).also {
-            logI("$logPrefix onCreateDialog,savedInstanceState:$savedInstanceState,dialog:${it.neatName}")
+            logI("onCreateDialog,savedInstanceState:$savedInstanceState,dialog:${it.neatName}")
         }
     }
 
     open fun onBackPress() {
-        logI("onBackPress ,${context?.getLogSuffix}")
+        logI("onBackPress.")
         parentFragmentManager.commit { remove(this@AbsBottomSheetDialogFragment) }
     }
 }
