@@ -9,8 +9,14 @@ import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import me.yangxiaobin.android.codelab.common.ButtonsFragment
 import me.yangxiaobin.android.kotlin.codelab.base.LogAbility
+import me.yangxiaobin.android.kotlin.codelab.log.AndroidLogger
+import me.yangxiaobin.android.kotlin.codelab.log.L
+import me.yangxiaobin.logger.core.LogAction
+import me.yangxiaobin.logger.core.LogFacade
 
 class MutableSharedFlowFragment : ButtonsFragment() {
+
+    override val logger: LogFacade get() = AndroidLogger
 
     override val LogAbility.TAG: String get() = "MutableSharedFlow"
 
