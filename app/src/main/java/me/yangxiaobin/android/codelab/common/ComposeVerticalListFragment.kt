@@ -11,7 +11,8 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import me.yangxiaobin.android.codelab.compose.MyBottomSheetDialogFragment
+import me.yangxiaobin.android.codelab.ButtonsFragment
+import me.yangxiaobin.android.codelab.jepack_compose.MyBottomSheetDialogFragment
 import me.yangxiaobin.android.codelab.di.dagger2.Dagger2Fragment
 import me.yangxiaobin.android.codelab.multi_process.LocalService
 import me.yangxiaobin.android.codelab.multi_process.RemoteActivity
@@ -25,6 +26,9 @@ import me.yangxiaobin.android.kotlin.codelab.ext.showContextToast
 import me.yangxiaobin.kotlin.compose.lib.AbsComposableFragment
 import org.jetbrains.anko.intentFor
 
+/**
+ * 二级子菜单 Compose 列表
+ */
 class ComposeVerticalListFragment : AbsComposableFragment() {
 
     private val subMenus: Array<String> by lazy {
@@ -79,6 +83,7 @@ class ComposeVerticalListFragment : AbsComposableFragment() {
             "GridRv" -> ctx.navigateToFragment(GridRvFragment())
             "PagingRv" -> ctx.navigateToFragment(PagingRvFragment())
 
+
             // Remote
             "Remote Activity" -> ctx.startActivity(ctx.intentFor<RemoteActivity>())
             "Local Service" -> ctx.startService(ctx.intentFor<LocalService>())
@@ -94,12 +99,20 @@ class ComposeVerticalListFragment : AbsComposableFragment() {
                 cur?.close()
             }
 
-            // Compose
+
+            // Jetpack Components
+            "MutableSharedFlow" -> ctx.navigateToFragment(ButtonsFragment())
+
+
+            // Kotlin Jetpack Compose
             "MyBottomSheetDialogFragment" -> ctx.navigateToFragment(MyBottomSheetDialogFragment())
+
 
             // DI / dagger2
             "Dagger2" -> ctx.navigateToFragment(Dagger2Fragment())
 
+
+            // Retrofit Custom Converter.
             "CustomConverter" -> ctx.navigateToFragment(RetrofitFragment())
 
             else -> ctx.showContextToast("UnSupport key :$dest.")

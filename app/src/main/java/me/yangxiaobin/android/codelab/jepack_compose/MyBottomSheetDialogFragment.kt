@@ -1,4 +1,4 @@
-package me.yangxiaobin.android.codelab.compose
+package me.yangxiaobin.android.codelab.jepack_compose
 
 import android.app.Dialog
 import android.content.Context
@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
-import android.widget.EditText
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.material.Text
