@@ -10,9 +10,6 @@ import kotlinx.coroutines.launch
 import me.yangxiaobin.android.codelab.common.ButtonsFragment
 import me.yangxiaobin.android.kotlin.codelab.base.LogAbility
 import me.yangxiaobin.android.kotlin.codelab.log.AndroidLogger
-import me.yangxiaobin.android.kotlin.codelab.log.L
-import me.yangxiaobin.logger.clone
-import me.yangxiaobin.logger.core.LogAction
 import me.yangxiaobin.logger.core.LogFacade
 import me.yangxiaobin.logger.core.LogLevel
 import me.yangxiaobin.logger.elements.LogLevelLogElement
@@ -28,6 +25,7 @@ class MutableSharedFlowFragment : ButtonsFragment() {
     override fun afterViewCreated(view: View) {
         super.afterViewCreated(view)
 
+        logD("logger context :${logger.dumpContext()}.")
         defaultFlow.tryEmit(1)
 
         defaultFlow.subscriptionCount
