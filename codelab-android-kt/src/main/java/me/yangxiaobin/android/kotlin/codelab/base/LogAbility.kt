@@ -17,7 +17,13 @@ interface LogAbility {
     val LogAbility.TAG: String
         get() = "LogAbility:${this@LogAbility.simpleName.take(11)}"
 
+    /**
+     * Must be getter, or u will get 'java.lang.NullPointerException: Parameter specified as non-null is null: method kotlin.jvm.internal.Intrinsics.checkNotNullParameter, parameter <this>'
+     *
+     * trigger this leaking.
+     */
     val logger: LogFacade get() = L.clone()
+
     val logI: (message: String) -> Unit get() = logger.log(LogLevel.INFO, TAG)
     val logD: (message: String) -> Unit get() = logger.log(LogLevel.DEBUG, TAG)
     val logE: (message: String) -> Unit get() = logger.log(LogLevel.ERROR, TAG)

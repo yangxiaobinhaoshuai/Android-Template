@@ -63,6 +63,11 @@ class MainActivity : AbsActivity() {
         "Retrofit" to arrayOf(
             "CustomConverter",
         ),
+
+        // 7. Multi Threads
+        "Multi Threads" to arrayOf(
+            "Thread",
+        )
     )
 
 

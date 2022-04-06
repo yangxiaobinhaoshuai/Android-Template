@@ -18,6 +18,7 @@ import me.yangxiaobin.android.codelab.jetpack_components.MutableSharedFlowFragme
 import me.yangxiaobin.android.codelab.multi_process.LocalService
 import me.yangxiaobin.android.codelab.multi_process.RemoteActivity
 import me.yangxiaobin.android.codelab.multi_process.RemoteService
+import me.yangxiaobin.android.codelab.multi_thread.ThreadFragment
 import me.yangxiaobin.android.codelab.navigateToFragment
 import me.yangxiaobin.android.codelab.recyclerview.GridRvFragment
 import me.yangxiaobin.android.codelab.recyclerview.LinearRvFragment
@@ -115,6 +116,9 @@ class ComposeVerticalListFragment : AbsComposableFragment() {
 
             // Retrofit Custom Converter.
             "CustomConverter" -> ctx.navigateToFragment(RetrofitFragment())
+
+            // Multi Threads
+            "Thread" -> ctx.navigateToFragment(ThreadFragment())
 
             else -> ctx.showContextToast("UnSupport key :$dest.")
         }

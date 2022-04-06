@@ -1,6 +1,5 @@
 package me.yangxiaobin.android.codelab.common
 
-import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -13,9 +12,10 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import me.yangxiaobin.kotlin.compose.lib.AbsComposableFragment
 
-private const val COUNT = 8
 
 open class ButtonsFragment : AbsComposableFragment() {
+
+    protected open val buttonCount = 8
 
 
     override val composableContent = @Composable {
@@ -31,7 +31,7 @@ open class ButtonsFragment : AbsComposableFragment() {
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
 
-            repeat(COUNT) { index ->
+            repeat(buttonCount) { index ->
 
                 Button(
                     modifier = Modifier
