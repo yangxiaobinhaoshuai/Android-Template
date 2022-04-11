@@ -67,6 +67,7 @@ class MainActivity : AbsActivity() {
         // 7. Multi Threads
         "Multi Threads" to arrayOf(
             "Thread",
+            "ReentrantLock",
         ),
 
        // 8. Android alerts

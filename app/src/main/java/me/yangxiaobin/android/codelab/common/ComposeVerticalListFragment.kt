@@ -18,6 +18,7 @@ import me.yangxiaobin.android.codelab.jetpack_components.MutableSharedFlowFragme
 import me.yangxiaobin.android.codelab.multi_process.LocalService
 import me.yangxiaobin.android.codelab.multi_process.RemoteActivity
 import me.yangxiaobin.android.codelab.multi_process.RemoteService
+import me.yangxiaobin.android.codelab.multi_thread.ReentrantLockFragment
 import me.yangxiaobin.android.codelab.multi_thread.ThreadFragment
 import me.yangxiaobin.android.codelab.navigateToFragment
 import me.yangxiaobin.android.codelab.recyclerview.GridRvFragment
@@ -119,6 +120,7 @@ class ComposeVerticalListFragment : AbsComposableFragment() {
 
             // Multi Threads
             "Thread" -> ctx.navigateToFragment(ThreadFragment())
+            "ReentrantLock" -> ctx.navigateToFragment(ReentrantLockFragment())
 
             // Alerts
             "PopupWindow" -> ctx.navigateToFragment(PopupWindowBtsFragment())
