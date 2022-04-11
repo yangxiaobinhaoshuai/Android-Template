@@ -1,25 +1,36 @@
 package me.yangxiaobin.android.codelab.alerts
 
+import android.annotation.SuppressLint
 import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.FrameLayout
 import android.widget.PopupWindow
 import android.widget.TextView
 import androidx.core.view.children
+import androidx.core.view.doOnPreDraw
 import me.yangxiaobin.android.codelab.common.EmptyFragment
+import me.yangxiaobin.android.kotlin.codelab.ext.WrapContent
+import me.yangxiaobin.colors.HexColors
+import me.yangxiaobin.colors.toColor
 
 class PopupWindowBtsFragment : EmptyFragment() {
 
     private lateinit var pop: PopupWindow
 
 
+    @SuppressLint("SetTextI18n")
     override fun afterViewCreated(view: View) {
         super.afterViewCreated(view)
 
         pop = PopupWindow()
-        pop.contentView = TextView(requireContext()).apply { this.text = "I'm PopupWindow Text." }
-        pop.height = 100
-        pop.width = 200
+        pop.contentView = TextView(requireContext()).apply {
+            this.text = "I'm PopupWindow Text."
+            this.setBackgroundColor(HexColors.BLUE_A200.toColor)
+        }
+        pop.height = 200
+        pop.width = 600
 
 
         var offset = 100
@@ -40,6 +51,21 @@ class PopupWindowBtsFragment : EmptyFragment() {
                 preIndex = index
             }
 
+        }
+
+
+        val bt = Button(requireContext())
+        bt.text = "Edge Button"
+        (view as ViewGroup).addView(bt)
+        bt.doOnPreDraw {
+            val lp = it.layoutParams as FrameLayout.LayoutParams
+            lp.gravity = Gravity.END
+            lp.width = WrapContent
+            lp.height = WrapContent
+            it.layoutParams = lp
+        }
+        bt.setOnClickListener {
+            pop.showAsDropDown(it, -600, -20)
         }
 
     }
