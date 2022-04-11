@@ -11,9 +11,9 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import kotlinx.coroutines.flow.MutableSharedFlow
-import me.yangxiaobin.android.codelab.jepack_compose.MyBottomSheetDialogFragment
+import me.yangxiaobin.android.codelab.alerts.PopupWindowBtsFragment
 import me.yangxiaobin.android.codelab.di.dagger2.Dagger2Fragment
+import me.yangxiaobin.android.codelab.jepack_compose.MyBottomSheetDialogFragment
 import me.yangxiaobin.android.codelab.jetpack_components.MutableSharedFlowFragment
 import me.yangxiaobin.android.codelab.multi_process.LocalService
 import me.yangxiaobin.android.codelab.multi_process.RemoteActivity
@@ -119,6 +119,9 @@ class ComposeVerticalListFragment : AbsComposableFragment() {
 
             // Multi Threads
             "Thread" -> ctx.navigateToFragment(ThreadFragment())
+
+            // Alerts
+            "PopupWindow" -> ctx.navigateToFragment(PopupWindowBtsFragment())
 
             else -> ctx.showContextToast("UnSupport key :$dest.")
         }

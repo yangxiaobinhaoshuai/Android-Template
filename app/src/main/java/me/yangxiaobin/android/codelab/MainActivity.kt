@@ -67,7 +67,12 @@ class MainActivity : AbsActivity() {
         // 7. Multi Threads
         "Multi Threads" to arrayOf(
             "Thread",
-        )
+        ),
+
+       // 8. Android alerts
+       "Alerts" to arrayOf(
+           "PopupWindow",
+       ),
     )
 
 

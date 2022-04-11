@@ -23,3 +23,4 @@ include ':kt-compose-lib'
 
 include ':network-lib'
 include ':multi-process'
+include ':android-colors'

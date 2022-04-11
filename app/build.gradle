@@ -74,5 +74,6 @@ dependencies {
 
     implementation project(":codelab-android-kt")
     implementation project(":kt-compose-lib")
+    implementation project(":android-colors")
 
 }
