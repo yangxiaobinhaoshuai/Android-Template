@@ -6,10 +6,13 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Button
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import kotlinx.coroutines.flow.MutableStateFlow
 import me.yangxiaobin.kotlin.compose.lib.AbsComposableFragment
 
 
@@ -17,9 +20,10 @@ open class ButtonsFragment : AbsComposableFragment() {
 
     protected open val buttonCount = 8
 
+    protected val textFlow = mutableStateOf("")
+
 
     override val composableContent = @Composable {
-
 
         Column(
             modifier = Modifier
@@ -30,6 +34,8 @@ open class ButtonsFragment : AbsComposableFragment() {
             verticalArrangement = Arrangement.Top,
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
+
+            Text(text = textFlow.value)
 
             repeat(buttonCount) { index ->
 
