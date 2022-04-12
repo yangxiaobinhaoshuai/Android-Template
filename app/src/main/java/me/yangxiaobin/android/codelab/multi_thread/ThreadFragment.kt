@@ -7,6 +7,7 @@ import kotlinx.coroutines.launch
 import me.yangxiaobin.android.codelab.common.ButtonsFragment
 import me.yangxiaobin.android.kotlin.codelab.base.LogAbility
 import me.yangxiaobin.android.kotlin.codelab.log.AndroidLogger
+import me.yangxiaobin.kotlin.codelab.ext.curThread
 import me.yangxiaobin.kotlin.codelab.ext.getFullStacktrace
 import me.yangxiaobin.kotlin.codelab.ext.getLimitStacktrace
 import me.yangxiaobin.logger.core.LogFacade
@@ -16,9 +17,6 @@ class ThreadFragment : ButtonsFragment() {
     override val LogAbility.TAG: String get() = "ThreadFragment"
 
     override val logger: LogFacade get() = AndroidLogger
-
-    private val curThread get() = Thread.currentThread()
-
 
     override fun afterViewCreated(view: View) {
         super.afterViewCreated(view)
@@ -62,14 +60,14 @@ class ThreadFragment : ButtonsFragment() {
                 curThread.interrupt()
                 dumpThread()
             }
-            2 -> twoRunnables()
-            3 -> oneRunnable()
-            4 -> singleThreeRunnables()
+            2 -> twoThs()
+            3 -> oneTh()
+            4 -> optThreeThs()
             else -> Unit
         }
     }
 
-    private fun oneRunnable() {
+    private fun oneTh() {
         val runnable = Runnable {
 
             while (count < 50) {
@@ -87,7 +85,7 @@ class ThreadFragment : ButtonsFragment() {
         Thread(runnable, "t2").start()
     }
 
-    private fun twoRunnables() {
+    private fun twoThs() {
         val runnable1 = Runnable {
 
             while (count < 50) {
@@ -124,7 +122,7 @@ class ThreadFragment : ButtonsFragment() {
         Thread(runnable2, "t2").start()
     }
 
-    private fun threeRunnables() {
+    private fun threeThs() {
 
         val l1 = Object()
         val l2 = Object()
@@ -177,7 +175,7 @@ class ThreadFragment : ButtonsFragment() {
         Thread(r3, "t3").start()
     }
 
-    private fun singleThreeRunnables() {
+    private fun optThreeThs() {
 
         val a = Object()
         val b = Object()
