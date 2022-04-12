@@ -1,16 +1,21 @@
 package me.yangxiaobin.android.codelab.multi_thread
 
+import android.os.Handler
+import android.os.Looper
+import android.os.Message
 import android.view.View
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import me.yangxiaobin.android.codelab.common.ButtonsFragment
 import me.yangxiaobin.android.kotlin.codelab.base.LogAbility
+import me.yangxiaobin.android.kotlin.codelab.ext.getMainHandler
 import me.yangxiaobin.android.kotlin.codelab.log.AndroidLogger
 import me.yangxiaobin.kotlin.codelab.ext.curThread
 import me.yangxiaobin.kotlin.codelab.ext.getFullStacktrace
 import me.yangxiaobin.kotlin.codelab.ext.getLimitStacktrace
 import me.yangxiaobin.logger.core.LogFacade
+import kotlin.concurrent.thread
 
 class ThreadFragment : ButtonsFragment() {
 
@@ -63,6 +68,9 @@ class ThreadFragment : ButtonsFragment() {
             2 -> twoThs()
             3 -> oneTh()
             4 -> optThreeThs()
+            5 -> invokeCallback {
+                logD("res :$it, callback invoke in cur :${curThread.name}.")
+            }
             else -> Unit
         }
     }
@@ -212,4 +220,29 @@ class ThreadFragment : ButtonsFragment() {
     }
 
     private fun dumpThread() = logD("cur interrupt :${curThread.isInterrupted}.")
+
+
+    private val mainHandler = getMainHandler {
+        logD("myHandler message: $it.")
+        if (it.what == 1) callback?.invoke(it.obj as Int)
+    }
+
+    private var callback: ((Int) -> Unit)? = null
+
+
+    private fun invokeCallback(callback: (Int) -> Unit) {
+        this.callback = callback
+
+        thread {
+            logD("compute in ${curThread.name}.")
+            Thread.sleep(500)
+//            Looper.getMainLooper().thread.join()
+
+            val message = Message.obtain()
+            message.what = 1
+            message.obj = 345
+            mainHandler.sendMessage(message)
+        }
+
+    }
 }
