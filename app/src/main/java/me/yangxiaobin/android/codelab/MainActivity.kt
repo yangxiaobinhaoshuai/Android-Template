@@ -52,6 +52,7 @@ class MainActivity : AbsActivity() {
             "Room",
             "Navigation",
             "MutableSharedFlow",
+            "Flow",
         ),
 
         // 5.

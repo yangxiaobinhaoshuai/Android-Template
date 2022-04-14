@@ -14,6 +14,7 @@ import androidx.compose.ui.unit.dp
 import me.yangxiaobin.android.codelab.alerts.PopupWindowBtsFragment
 import me.yangxiaobin.android.codelab.di.dagger2.Dagger2Fragment
 import me.yangxiaobin.android.codelab.jepack_compose.MyBottomSheetDialogFragment
+import me.yangxiaobin.android.codelab.jetpack_components.FlowFragment
 import me.yangxiaobin.android.codelab.jetpack_components.MutableSharedFlowFragment
 import me.yangxiaobin.android.codelab.multi_process.LocalService
 import me.yangxiaobin.android.codelab.multi_process.RemoteActivity
@@ -106,6 +107,7 @@ class ComposeVerticalListFragment : AbsComposableFragment() {
 
             // Jetpack Components
             "MutableSharedFlow" -> ctx.navigateToFragment(MutableSharedFlowFragment())
+            "Flow" -> ctx.navigateToFragment(FlowFragment())
 
 
             // Kotlin Jetpack Compose
