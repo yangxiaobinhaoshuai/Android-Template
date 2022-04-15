@@ -1,5 +1,8 @@
 package me.yangxiaobin.android.codelab.multi_thread;
 
+import java.util.Date;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.LockSupport;
 
 /**
@@ -174,11 +177,6 @@ public class MyAQS {
         return false;
     }
 
-
-    protected MyAQS () {
-        super();
-    }
-
     /**
      * 用 update 更换 except
      */
@@ -240,7 +238,7 @@ public class MyAQS {
     }
 
     /**
-     * 独占模式请求获取锁
+     * 独占模式请求获取锁,忽略中断
      *
      * @param arg
      */
@@ -385,7 +383,64 @@ public class MyAQS {
 
     }
 
-    public void release (int arg) {
+    /**
+     * 释放锁，唤醒阻塞队列第一个
+     */
+    public boolean release (int arg) {
+        if (tryRelease(arg)) {
+            Node h = head;
+            if (h != null && h.waitStatus != 0) {
+                unparkSuccessor(h);
+            }
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * 获取共享锁，忽略中断
+     *
+     * @param arg
+     */
+    public void acquireShared (int arg) {
+        if (tryAcquireShared(arg) < 0) {
+            doAcquireShared(arg);
+        }
+    }
+
+    // TODO
+    private void doAcquireShared (int arg) {
+        Node node = addWaiter(new Node(Node.SHARED));
+        try {
+            boolean interrupted = false;
+            for (; ; ) {
+                Node p = node.predecessor();
+
+                // 如果处于阻塞队列头部
+                if (p == head) {
+                    int res = tryAcquireShared(arg);
+                    if (res > 0) {
+                        p.next = null; // help GC
+                        if (interrupted) Thread.currentThread().interrupt();
+                        return;
+
+                    }
+                }
+
+                if (shouldParkAfterAcquireFailed(p, node) && parkAndCheckInterrupt()) {
+                    interrupted = true;
+                }
+
+            }
+
+        } catch (Throwable throwable) {
+            cancelAcquire(node);
+            throw throwable;
+        }
+    }
+
+    // TODO
+    private void setHeadAndPropagate (Node node, int propagate) {
 
     }
 
@@ -397,6 +452,10 @@ public class MyAQS {
         return false;
     }
 
+    /**
+     * @param arg
+     * @return < 0 表示异常； = 0 表示该次成功，但是后续 share 请求不会成功； >0 表示该次成功，后续 shared 请求也可能成功；
+     */
     protected int tryAcquireShared (int arg) {
         return 0;
     }
@@ -407,5 +466,51 @@ public class MyAQS {
 
     protected boolean isHeldExclusively () {
         return false;
+    }
+
+    public boolean hasQueuedThreads () {
+        return head != tail;
+    }
+
+    public boolean hasContended () {
+        return head != null;
+    }
+
+    class ConditionObject implements Condition {
+
+        @Override
+        public void await () throws InterruptedException {
+
+        }
+
+        @Override
+        public void awaitUninterruptibly () {
+
+        }
+
+        @Override
+        public long awaitNanos (long nanosTimeout) throws InterruptedException {
+            return 0;
+        }
+
+        @Override
+        public boolean await (long time, TimeUnit unit) throws InterruptedException {
+            return false;
+        }
+
+        @Override
+        public boolean awaitUntil (Date deadline) throws InterruptedException {
+            return false;
+        }
+
+        @Override
+        public void signal () {
+
+        }
+
+        @Override
+        public void signalAll () {
+
+        }
     }
 }
