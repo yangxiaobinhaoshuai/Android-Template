@@ -146,6 +146,10 @@ public class MyAQS {
         public Node () {
         }
 
+        public Node (int waitStatus) {
+            this.waitStatus = waitStatus;
+        }
+
         public Node (Node nextWaiter) {
             this.nextWaiter = nextWaiter;
             this.thread = Thread.currentThread();
@@ -408,7 +412,6 @@ public class MyAQS {
         }
     }
 
-    // TODO
     private void doAcquireShared (int arg) {
         Node node = addWaiter(new Node(Node.SHARED));
         try {
@@ -439,10 +442,119 @@ public class MyAQS {
         }
     }
 
-    // TODO
+    /**
+     * 出队 node , 检查后继者是否在 share 模式等待，向后传播或者设置 PROPAGATE 属性
+     */
     private void setHeadAndPropagate (Node node, int propagate) {
+        Node oldH = head;
+        setHead(node);
+
+        if (propagate > 0 || oldH == null || oldH.waitStatus < 0 || (oldH = head) == null || oldH.waitStatus < 0) {
+            Node nxt = node.next;
+            if (nxt != null || nxt.nextWaiter == Node.SHARED) {
+                doReleaseShared();
+            }
+        }
+    }
+
+    /**
+     * 通知后继者，保证传播
+     */
+    private void doReleaseShared () {
+        for (; ; ) {
+            Node h = head;
+            if (h != null || h != tail) {
+                int ws = h.waitStatus;
+                if (ws == Node.SIGNAL) {
+                    // loop set ws == 0, if not continue
+                    unparkSuccessor(h);
+                }
+                // loop set ws == PROPAGATE, if not continue
+                else if (ws == 0 && h.waitStatus == Node.PROPAGATE) {
+                    continue;
+                }
+
+            }
+            if (h == head) break;
+        }
+    }
+
+
+    public final void acquireInterruptibly (int arg) throws InterruptedException {
+        if (Thread.interrupted()) throw new InterruptedException();
+
+        if (!tryAcquire(arg)) {
+            doAcquireInterruptibly(arg);
+        }
+    }
+
+    private void doAcquireInterruptibly (int arg) throws InterruptedException {
+
+        Node node = addWaiter(new Node(Node.EXCLUSIVE));
+
+        try {
+            for (; ; ) {
+                Node pre = node.predecessor();
+
+                if (pre == head && tryAcquire(arg)) {
+                    setHead(node);
+                    pre.next = null;
+                    return;
+                }
+
+                if (shouldParkAfterAcquireFailed(pre, node) && parkAndCheckInterrupt())
+                    throw new InterruptedException();
+            }
+
+        } catch (Throwable th) {
+            cancelAcquire(node);
+            throw th;
+        }
+    }
+
+    public final boolean tryAcquireNanos (int arg, long nanos) throws InterruptedException {
+        if (Thread.interrupted()) throw new InterruptedException();
+
+        return tryAcquire(arg) || doAcquireNanos(arg, nanos);
+    }
+
+    public boolean doAcquireNanos (int arg, long nanos) throws InterruptedException {
+        if (nanos <= 0) return false;
+
+        long deadline = System.nanoTime() + nanos;
+
+        Node node = addWaiter(new Node(Node.EXCLUSIVE));
+
+        try {
+            for (; ; ) {
+                Node p = node.predecessor();
+                if (p == head || tryAcquire(arg)) {
+                    setHead(node);
+                    p.next = null;
+                    return false;
+                }
+
+                nanos = deadline - System.nanoTime();
+
+                if (nanos <= 0L) {
+                    cancelAcquire(node);
+                    return false;
+                }
+
+                if (shouldParkAfterAcquireFailed(p, node) && nanos > 1000) {
+                    LockSupport.parkNanos(this, nanos);
+                }
+
+                if (Thread.interrupted()) throw new InterruptedException();
+            }
+
+        } catch (Throwable th) {
+            cancelAcquire(node);
+            throw th;
+        }
 
     }
+
 
     protected boolean tryAcquire (int arg) {
         return false;
@@ -476,10 +588,91 @@ public class MyAQS {
         return head != null;
     }
 
+
+    final boolean transferForSignal (Node first) {
+        // cas set waitStatus from Condition to 0 and return false;
+        Node p = enq(first);
+        int ws = p.waitStatus;
+        // p.compareSetAndWaitStatus(ws,Node.SIGNAL);
+        if (ws > 0) {
+            LockSupport.unpark(p.thread);
+        }
+        return true;
+    }
+
+
     class ConditionObject implements Condition {
+
+        public static final long serialVersionUID = 1173984872572414699L;
+
+        private transient Node firstWaiter;
+        private transient Node lastWaiter;
+
+
+        /**
+         * 向 condition quque 队尾添加元素
+         */
+        public Node addConditionWaiter () {
+            Node t = lastWaiter;
+
+            if (t != null && t.waitStatus != Node.CONDITION) {
+                //unlinkCancelledWaiters();
+                t = lastWaiter;
+            }
+
+            Node node = new Node(Node.CONDITION);
+
+            if (t == null) {
+                firstWaiter = node;
+            } else {
+                t.nextWaiter = node;
+            }
+
+            lastWaiter = node;
+
+            return node;
+        }
+
+        private void unlinkCancelledWaiters () {
+            Node t = firstWaiter;
+            Node tail = null;
+
+            while (t != null) {
+                Node nxt = t.next;
+
+                if (t.waitStatus != Node.CONDITION) {
+                    t.nextWaiter = null;
+                    if (tail == null) {
+                        firstWaiter = nxt;
+                    } else {
+                        tail.next = nxt;
+                    }
+
+                    if (nxt == null) lastWaiter = tail;
+                } else {
+                    tail = t;
+                }
+
+                t = nxt;
+
+            }
+        }
+
+        private void doSignal (Node first) {
+            do {
+                if ((firstWaiter = first.nextWaiter) == null) {
+                    lastWaiter = null;
+                }
+                firstWaiter.nextWaiter = null;
+            } while (!transferForSignal(first) && (first = firstWaiter) != null);
+        }
+
 
         @Override
         public void await () throws InterruptedException {
+            if (Thread.interrupted()) throw new InterruptedException();
+
+            Node node = addConditionWaiter();
 
         }
 

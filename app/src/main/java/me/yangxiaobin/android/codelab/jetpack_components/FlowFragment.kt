@@ -2,6 +2,7 @@ package me.yangxiaobin.android.codelab.jetpack_components
 
 import android.view.View
 import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.*
 import me.yangxiaobin.android.codelab.common.ButtonsFragment
@@ -22,14 +23,17 @@ class FlowFragment : ButtonsFragment() {
             this.emit(it)
         }
 
+    private val mutableIntFlow = MutableSharedFlow<Int>(extraBufferCapacity = 1, onBufferOverflow = BufferOverflow.DROP_OLDEST)
+
     override fun afterViewCreated(view: View) {
         super.afterViewCreated(view)
 
-//        lifecycleScope.launch {
-//            intFlow.collectLatest {
-//                logD(" int flow collect : $it.")
-//            }
-//        }
+        mutableIntFlow
+            .distinctUntilChanged()
+            .onEach {
+                logD("mutableIntFlow value :$it.")
+            }
+            .launchIn(lifecycleScope)
     }
 
     override fun onClick(index: Int) {
@@ -58,7 +62,9 @@ class FlowFragment : ButtonsFragment() {
                 }
                 .onEach { logD("transform after: $it.") }
                 .launchIn(lifecycleScope)
-            3 -> {}
+            3 -> mutableIntFlow.tryEmit(9)
+            4 -> {}
+            5 -> {}
             else -> {}
         }
     }
