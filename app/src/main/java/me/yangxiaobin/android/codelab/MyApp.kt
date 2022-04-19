@@ -1,6 +1,7 @@
 package me.yangxiaobin.android.codelab
 
 import me.yangxiaobin.android.kotlin.codelab.base.AbsApplication
+import me.yangxiaobin.android.kotlin.codelab.ext.getRomName
 
 class MyApp : AbsApplication() {
 
@@ -11,6 +12,7 @@ class MyApp : AbsApplication() {
 
     private fun init() {
 
+        println("------> Current device rom :${getRomName()}.")
     }
 
 }
