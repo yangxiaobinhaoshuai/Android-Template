@@ -1,13 +1,16 @@
 package me.yangxiaobin.android.codelab.multi_thread
 
 import android.view.View
+import kotlinx.coroutines.delay
 import me.yangxiaobin.android.codelab.common.ButtonsFragment
 import me.yangxiaobin.android.kotlin.codelab.base.LogAbility
+import me.yangxiaobin.android.kotlin.codelab.ext.now
 import me.yangxiaobin.android.kotlin.codelab.log.AndroidLogger
 import me.yangxiaobin.kotlin.codelab.ext.curThread
 import me.yangxiaobin.logger.core.LogFacade
 import java.util.concurrent.locks.Condition
 import java.util.concurrent.locks.ReentrantLock
+import kotlin.concurrent.thread
 
 class ReentrantLockFragment : ButtonsFragment() {
 
@@ -19,10 +22,25 @@ class ReentrantLockFragment : ButtonsFragment() {
     private val condition = lock.newCondition()
     private var count = 0
 
+     private val interruptRunnable = Runnable {
+         try {
+             lock.lockInterruptibly()
+             logD("cur : ${curThread.name} locked, now :$now.")
+         } catch (e: Exception) {
+             e.printStackTrace()
+             logD("cur :${curThread.name}, interruptRunnable catch :${e.stackTraceToString()}.")
+         }
+     }
+
 
     override fun afterViewCreated(view: View) {
         super.afterViewCreated(view)
 
+        Thread(interruptRunnable,"interrupt1").start()
+        Thread.sleep(200)
+        val t2 = Thread(interruptRunnable, "interrupt2")
+        t2.start()
+        t2.interrupt()
     }
 
     override fun onClick(index: Int) {
