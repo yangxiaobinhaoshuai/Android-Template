@@ -13,3 +13,17 @@ val Number.dp2px: Float
         )
     }
 
+fun Number.toFixed(fractionDigits: Int): String {
+    return try {
+        "%.${fractionDigits}f".format(this)
+    } catch (e: Exception) {
+        e.printStackTrace()
+        this.toString()
+    }
+}
+
+
+val Int.isPosition get() = this > 0
+val Int.isNonPosition get() = this <= 0
+val Int.isNegative get() = this < 0
+val Int.isNonNegative get() = this >= 0
