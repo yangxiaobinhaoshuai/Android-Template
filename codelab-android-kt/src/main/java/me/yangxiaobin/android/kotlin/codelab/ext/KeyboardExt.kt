@@ -40,7 +40,7 @@ fun View.isKeyboardShown():Boolean =  ViewCompat.getRootWindowInsets(this)?.isVi
  *
  * @receiver Used to retrieve the window, Any view in the target window is ok.
  */
-internal fun View?.getKeyboardVisibilityFLow(xMs: Long = 200L): Flow<Boolean> =
+fun View?.getKeyboardVisibilityFLow(xMs: Long = 200L): Flow<Boolean> =
     if (this == null) emptyFlow()
     else flow {
 
@@ -49,7 +49,8 @@ internal fun View?.getKeyboardVisibilityFLow(xMs: Long = 200L): Flow<Boolean> =
             delay(xMs)
 
             val isShown = ViewCompat.getRootWindowInsets(this@getKeyboardVisibilityFLow)
-                ?.isVisible(WindowInsetsCompat.Type.ime()) ?: false
+                ?.isVisible(WindowInsetsCompat.Type.ime())
+                ?: false
 
 
             emit(isShown)
