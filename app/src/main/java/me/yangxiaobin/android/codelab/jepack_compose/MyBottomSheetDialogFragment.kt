@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
+import android.widget.EditText
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Surface
@@ -17,21 +18,27 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
+import androidx.core.os.postDelayed
+import androidx.core.widget.doOnTextChanged
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.asLiveData
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import kotlinx.android.synthetic.main.edit_text_panel.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.drop
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.onEach
+import me.yangxiaobin.android.codelab.EmptyActivity
 import me.yangxiaobin.android.codelab.R
 import me.yangxiaobin.android.kotlin.codelab.base.AbsBottomSheetDialogFragment
 import me.yangxiaobin.android.kotlin.codelab.base.LogAbility
-import me.yangxiaobin.android.kotlin.codelab.ext.getKeyboardVisibilityFLow
-import me.yangxiaobin.android.kotlin.codelab.ext.launchIn
+import me.yangxiaobin.android.kotlin.codelab.ext.*
 import me.yangxiaobin.android.kotlin.codelab.log.AndroidLogger
 import me.yangxiaobin.kotlin.codelab.ext.curThread
 import me.yangxiaobin.logger.core.LogFacade
+import org.jetbrains.anko.intentFor
 
 class MyBottomSheetDialogFragment : AbsBottomSheetDialogFragment() {
 
@@ -46,9 +53,35 @@ class MyBottomSheetDialogFragment : AbsBottomSheetDialogFragment() {
     ): View = hybridContentView()
 
 
+    private val resumeLifecycleOwner = ResumeLifecycleOwner()
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        //observeKeyboardVisibilityFlow()
+
+        view.getKeyboardVisibilityFLow()
+            .drop(1)
+            .asLiveData(Dispatchers.IO)
+            .doOnActive { logD("live data active") }
+            .doOnInactive { logD("live data inactive") }
+            .observe(resumeLifecycleOwner) { isVisible ->
+                logD("Keyboard visibility live data :$isVisible.")
+            }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        mainHandler.postDelayed(500){resumeLifecycleOwner.handleLifecycleEvent(Lifecycle.Event.ON_START)}
+        edt_bottom_sheet_dialog?.showKeyboard()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        resumeLifecycleOwner.handleLifecycleEvent(Lifecycle.Event.ON_STOP)
+    }
+
+    private fun observeKeyboardVisibilityFlow() {
         view.getKeyboardVisibilityFLow()
             // 丢掉第一次 false
             .drop(1)
@@ -113,7 +146,22 @@ class MyBottomSheetDialogFragment : AbsBottomSheetDialogFragment() {
     private fun AndroidEditTextView() = AndroidView(
         factory = { _: Context ->
 
-            layoutInflater.inflate(R.layout.edit_text_panel, view as ViewGroup, false)
+            val edt = layoutInflater.inflate(R.layout.edit_text_panel, view as ViewGroup, false)
+
+            edt.findViewById<EditText>(R.id.edt_bottom_sheet_dialog)
+                .doOnTextChanged { text: CharSequence?,
+                                   start: Int,
+                                   before: Int,
+                                   count: Int ->
+
+                    if (count == 1 && text?.get(start) == '@') {
+                        // startFragment
+                        //requireActivity().navigateToFragment(EmptyFragment())
+                        startActivity(requireContext().intentFor<EmptyActivity>())
+                    }
+                }
+
+            edt
 
         },
 

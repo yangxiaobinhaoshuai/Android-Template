@@ -6,6 +6,7 @@
     android:background="@null"
     android:hint="我是 Hint"
     android:layerType="software"
+    android:id="@+id/edt_bottom_sheet_dialog"
     android:lineSpacingMultiplier="1.3"
     android:maxHeight="160dp"
     android:minHeight="51dp"

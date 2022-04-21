@@ -12,6 +12,10 @@
         android:theme="@style/Theme.AndroidCodelab">
 
         <activity
+            android:name=".EmptyActivity"
+            android:exported="false" />
+
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
@@ -24,17 +28,14 @@
         <activity
             android:name=".multi_process.RemoteActivity"
             android:process=":remote_activity">
-
         </activity>
 
         <service android:name=".multi_process.LocalService">
-
         </service>
 
         <service
             android:name=".multi_process.RemoteService"
             android:process=":remote_service">
-
         </service>
 
         <provider
@@ -42,22 +43,19 @@
             android:authorities="me.yangxiaobin.remote.authorities"
             android:exported="false"
             android:process=":remote_provider">
-
         </provider>
 
         <provider
             android:name=".multi_process.LocalContentProvider"
             android:authorities="me.yangxiaobin.local.authorities"
             android:exported="false">
-
         </provider>
 
         <provider
-            android:authorities="me.yangxiaobin.remote.service.authorities"
             android:name=".multi_process.RemoteServiceProvider"
-            android:process=":remote_service"
-            android:exported="false">
-
+            android:authorities="me.yangxiaobin.remote.service.authorities"
+            android:exported="false"
+            android:process=":remote_service">
         </provider>
 
     </application>
