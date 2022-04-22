@@ -4,14 +4,12 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.OnLifecycleEvent
 import me.yangxiaobin.android.kotlin.codelab.ext.Action
+import me.yangxiaobin.android.kotlin.codelab.ext.emptyAction
 
-
-operator fun Action.plus(other: Action): SimpleLifecycleObserver =
-    SimpleLifecycleObserver(this, other)
 
 class SimpleLifecycleObserver(
-    private val onForeground: Action,
-    private val onBackground: Action,
+    private val onForeground: Action = emptyAction,
+    private val onBackground: Action = emptyAction,
 ) : LifecycleObserver {
 
     @OnLifecycleEvent(Lifecycle.Event.ON_START)

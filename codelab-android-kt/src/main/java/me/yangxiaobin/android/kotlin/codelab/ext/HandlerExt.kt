@@ -3,15 +3,28 @@ package me.yangxiaobin.android.kotlin.codelab.ext
 import android.os.Handler
 import android.os.Looper
 import android.os.Message
+import androidx.lifecycle.LifecycleOwner
+import me.yangxiaobin.android.kotlin.codelab.lifecycle.SimpleLifecycleObserver
 
 
-val mainLopper get() = Looper.getMainLooper()
+val mainLopper: Looper get() = Looper.getMainLooper()
 
-val mainHandler get() = Handler(mainLopper)
+val mainHandler: Handler get() = Handler(mainLopper)
 
 fun getMainHandler(handleMessage: (Message) -> Unit): Handler = object : Handler(mainLopper) {
     override fun handleMessage(msg: Message) {
         super.handleMessage(msg)
         handleMessage(msg)
     }
+}
+
+fun Handler.postDelayCancellable(lifecycleOwner: LifecycleOwner, delay: Long = 0L, action: Action) {
+
+    val simpleObserver = SimpleLifecycleObserver(
+        onBackground = {
+            this.removeCallbacks(action)
+        }
+    )
+
+    lifecycleOwner.lifecycle.addObserver(simpleObserver)
 }
