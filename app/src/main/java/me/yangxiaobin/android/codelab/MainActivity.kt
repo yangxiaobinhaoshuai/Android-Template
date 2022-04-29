@@ -58,6 +58,7 @@ class MainActivity : AbsActivity() {
         // 5.
         "Kotlin Jetpack Compose" to arrayOf(
             "MyBottomSheetDialogFragment",
+            "Compose CheckBox",
         ),
 
         // 6.

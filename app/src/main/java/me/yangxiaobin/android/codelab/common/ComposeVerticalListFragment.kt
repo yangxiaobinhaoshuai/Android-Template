@@ -13,6 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import me.yangxiaobin.android.codelab.alerts.PopupWindowBtsFragment
 import me.yangxiaobin.android.codelab.di.dagger2.Dagger2Fragment
+import me.yangxiaobin.android.codelab.jepack_compose.CheckBoxFragment
 import me.yangxiaobin.android.codelab.jepack_compose.MyBottomSheetDialogFragment
 import me.yangxiaobin.android.codelab.jetpack_components.FlowFragment
 import me.yangxiaobin.android.codelab.jetpack_components.MutableSharedFlowFragment
@@ -112,6 +113,7 @@ class ComposeVerticalListFragment : AbsComposableFragment() {
 
             // Kotlin Jetpack Compose
             "MyBottomSheetDialogFragment" -> ctx.navigateToFragment(MyBottomSheetDialogFragment())
+            "Compose CheckBox" -> ctx.navigateToFragment(CheckBoxFragment())
 
 
             // DI / dagger2
