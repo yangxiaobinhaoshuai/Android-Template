@@ -5,9 +5,8 @@ import android.util.Log
 
 private val logEnable by lazy { BuildConfig.DEBUG }
 
-// TODO
-private const val LOG_TAG = "PermissionFragment"
-//private const val LOG_TAG = "PermissionFragment"
+
+private const val LOG_TAG = "PermissionHelper"
 
 
 internal fun logInner(message: String) {

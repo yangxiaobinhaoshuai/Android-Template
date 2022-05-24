@@ -2,18 +2,20 @@ package me.yangxiaobin.android.permission
 
 import android.os.Bundle
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
-import kotlin.properties.Delegates
-import kotlin.reflect.KProperty
 
 /**
  *  请求应用权限: https://developer.android.com/training/permissions/requesting
+ *
+ *
+ *  shouldShowRationale & neverAskAgain see : https://stackoverflow.com/a/34612503/10247834
  */
-class PermissionFragment : Fragment() {
+internal class PermissionFragment : Fragment() {
 
 
-    private lateinit var diode:PermissionRequest.Diode
     private lateinit var permissionString: String
+    private lateinit var result: PermissionResult
 
     init {
         logInner("PermissionFragment init ,hash : ${this.hashCode()}.")
@@ -27,7 +29,15 @@ class PermissionFragment : Fragment() {
     private val requestPermissionLauncher = registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted: Boolean ->
         logInner("permission request launcher callback, isGranted:$isGranted.")
 
-        diode.isGranted?.invoke(isGranted)
+        result.onResult?.invoke(isGranted)
+
+
+        if (!isGranted) {
+            val should = ActivityCompat.shouldShowRequestPermissionRationale(requireActivity(), permissionString)
+
+            if (should) result.shouldShowRationale?.invoke(permissionString)
+            else result.onNeverAskAgain?.invoke(permissionString)
+        }
 
         //if (isGranted) {
                 // Permission is granted. Continue the action or workflow in your
@@ -41,10 +51,9 @@ class PermissionFragment : Fragment() {
            // }
         }
 
-    fun requestPermission(permissionString: String, diode: PermissionRequest.Diode) {
-        logInner("requestPermission :#$permissionString, diode : $diode.")
-        this.diode = diode
+    fun requestPermission(permissionString: String, result: PermissionResult) {
         this.permissionString = permissionString
+        this.result = result
         if (this.isResumed) requestPermissionLauncher.launch(permissionString)
     }
 

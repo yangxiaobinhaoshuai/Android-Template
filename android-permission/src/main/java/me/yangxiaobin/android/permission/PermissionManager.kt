@@ -10,15 +10,15 @@ import java.lang.IllegalStateException
 
 object PermissionManager {
 
-    fun within(f: Fragment): PermissionRequest = withContext(f.requireActivity())
+    fun createReq(f: Fragment): PermissionRequest = createReqFrom(f.requireActivity())
 
-    fun within(a: Activity): PermissionRequest = withContext(a)
+    fun createReq(a: Activity): PermissionRequest = createReqFrom(a)
 
-    fun within(c: Context): PermissionRequest = withContext(c)
+    fun createReq(c: Context): PermissionRequest = createReqFrom(c)
 
-    private fun withContext(context: Context): PermissionRequest = when (context) {
+    private fun createReqFrom(context: Context): PermissionRequest = when (context) {
         is FragmentActivity -> PermissionRequest(context)
-        is ContextWrapper -> withContext(context.baseContext)
+        is ContextWrapper -> createReqFrom(context.baseContext)
         is Activity -> throw IllegalStateException("Can't support Activity, use FragmentActivity instead.")
         else -> throw IllegalArgumentException("Can't convert ${context.javaClass.simpleName} to FragmentActivity.")
     }

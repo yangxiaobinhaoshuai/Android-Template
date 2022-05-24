@@ -6,8 +6,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.commit
 
-typealias OnPermissionResult = (Boolean) -> Unit
-
 
 class PermissionRequest(private val fragmentActivity: FragmentActivity) {
 
@@ -16,12 +14,11 @@ class PermissionRequest(private val fragmentActivity: FragmentActivity) {
      */
     fun request(
         permissionString: String,
-    ): Diode {
-
-        val diode = Diode(fragmentActivity)
+        resultBuilder: ResultBuilder,
+    ) = apply {
 
         val alreadyGranted = ActivityCompat.checkSelfPermission(fragmentActivity, permissionString)
-        if (alreadyGranted == PackageManager.PERMISSION_GRANTED) return diode
+        if (alreadyGranted == PackageManager.PERMISSION_GRANTED) return@apply
 
         val manager = fragmentActivity.supportFragmentManager
 
@@ -32,32 +29,14 @@ class PermissionRequest(private val fragmentActivity: FragmentActivity) {
                 }
             }
 
-        if (shadowFragment !is PermissionFragment) return diode
-        shadowFragment.requestPermission(permissionString, diode)
-        return diode
+        if (shadowFragment !is PermissionFragment) return@apply
+
+        val builder = PermissionResultBuilder()
+        resultBuilder.invoke(builder)
+
+        shadowFragment.requestPermission(permissionString, builder.permissionResult)
     }
 
-
-    /**
-     * 临时中转类
-     */
-    class Diode(private val fragmentActivity: FragmentActivity) {
-
-        init {
-            logInner("Diode init, hash : ${this.hashCode()}.")
-        }
-
-        var isGranted: OnPermissionResult? = null
-            private set
-
-        fun onResult(
-            isGranted: OnPermissionResult,
-        ): PermissionRequest {
-            this.isGranted = isGranted
-            return PermissionRequest(fragmentActivity)
-        }
-
-    }
 
 
     companion object {

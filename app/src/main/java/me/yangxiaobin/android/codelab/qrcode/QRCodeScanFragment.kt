@@ -4,9 +4,7 @@ import android.content.pm.PackageManager
 import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
-import androidx.core.util.Predicate
 import me.yangxiaobin.android.codelab.common.ButtonsFragment
-import me.yangxiaobin.android.codelab.di.dagger2.logDI
 import me.yangxiaobin.android.kotlin.codelab.base.LogAbility
 import me.yangxiaobin.android.kotlin.codelab.log.AndroidLogger
 import me.yangxiaobin.android.permission.PermissionManager
@@ -22,8 +20,8 @@ class QRCodeScanFragment : ButtonsFragment() {
 
 
     private val launcher = registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted: Boolean ->
-        logD("registerForActivityResult, isGranted :$isGranted.")
-    }
+            logD("registerForActivityResult, isGranted :$isGranted.")
+        }
 
     override fun afterViewCreated(view: View) {
         super.afterViewCreated(view)
@@ -43,10 +41,12 @@ class QRCodeScanFragment : ButtonsFragment() {
         } else logD("has camera permission.")
 
 
-        PermissionManager.within(this).request(android.Manifest.permission.CAMERA)
-            .onResult {
-                logD("My permission manager onResult : $it.")
-            }
+        PermissionManager.createReq(this).request(android.Manifest.permission.CAMERA) {
+
+            onResult { logD("onResult : $it.") }
+            shouldShowRationale { logD("shouldShowRationale : $it.") }
+            onNeverAskAgain { logD("onNeverAskAgain : $it.") }
+        }
 
     }
 
@@ -70,10 +70,12 @@ class QRCodeScanFragment : ButtonsFragment() {
         super.onClick(index)
         when (index) {
             0 -> {
-                PermissionManager.within(this).request(android.Manifest.permission.CAMERA)
-                    .onResult {
-                        logD("Click button request : $it.")
-                    }
+                PermissionManager.createReq(this).request(android.Manifest.permission.CAMERA) {
+
+                    onResult { logD("click onResult : $it.") }
+                    shouldShowRationale { logD("click shouldShowRationale : $it.") }
+                    onNeverAskAgain { logD("click onNeverAskAgain : $it.") }
+                }
             }
 
             1 -> {
