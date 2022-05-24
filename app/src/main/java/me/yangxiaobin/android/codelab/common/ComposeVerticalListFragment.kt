@@ -11,6 +11,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.fragment.app.Fragment
 import me.yangxiaobin.android.codelab.alerts.PopupWindowBtsFragment
 import me.yangxiaobin.android.codelab.di.dagger2.Dagger2Fragment
 import me.yangxiaobin.android.codelab.jepack_compose.CheckBoxFragment
@@ -24,12 +25,13 @@ import me.yangxiaobin.android.codelab.multi_thread.FutureFragment
 import me.yangxiaobin.android.codelab.multi_thread.ReentrantLockFragment
 import me.yangxiaobin.android.codelab.multi_thread.ThreadFragment
 import me.yangxiaobin.android.codelab.navigateToFragment
+import me.yangxiaobin.android.codelab.qrcode.QRCodeScanFragment
 import me.yangxiaobin.android.codelab.recyclerview.GridRvFragment
 import me.yangxiaobin.android.codelab.recyclerview.LinearRvFragment
 import me.yangxiaobin.android.codelab.recyclerview.PagingRvFragment
 import me.yangxiaobin.android.codelab.retrofit.RetrofitFragment
 import me.yangxiaobin.android.codelab.touch_event.ActionCancelEventFragment
-import me.yangxiaobin.android.kotlin.codelab.ext.showContextToast
+import me.yangxiaobin.android.kotlin.codelab.ext.showFragmentToast
 import me.yangxiaobin.kotlin.compose.lib.AbsComposableFragment
 import org.jetbrains.anko.intentFor
 
@@ -84,14 +86,16 @@ class ComposeVerticalListFragment : AbsComposableFragment() {
 
         val ctx = requireActivity()
 
+        fun naviToFragment(f:Fragment) = ctx.navigateToFragment(f)
+
         when (dest) {
-            // Rv
-            "LinearRv" -> ctx.navigateToFragment(LinearRvFragment())
-            "GridRv" -> ctx.navigateToFragment(GridRvFragment())
-            "PagingRv" -> ctx.navigateToFragment(PagingRvFragment())
+            // 1.Rv
+            "LinearRv" -> naviToFragment(LinearRvFragment())
+            "GridRv" -> naviToFragment(GridRvFragment())
+            "PagingRv" -> naviToFragment(PagingRvFragment())
 
 
-            // Remote
+            // 2.Remote
             "Remote Activity" -> ctx.startActivity(ctx.intentFor<RemoteActivity>())
             "Local Service" -> ctx.startService(ctx.intentFor<LocalService>())
             "Remote Service" -> ctx.startService(ctx.intentFor<RemoteService>())
@@ -106,36 +110,37 @@ class ComposeVerticalListFragment : AbsComposableFragment() {
                 cur?.close()
             }
 
-
-            // Jetpack Components
-            "MutableSharedFlow" -> ctx.navigateToFragment(MutableSharedFlowFragment())
-            "Flow" -> ctx.navigateToFragment(FlowFragment())
+            // 3.DI / dagger2
+            "Dagger2" -> naviToFragment(Dagger2Fragment())
 
 
-            // Kotlin Jetpack Compose
-            "MyBottomSheetDialogFragment" -> ctx.navigateToFragment(MyBottomSheetDialogFragment())
-            "Compose CheckBox" -> ctx.navigateToFragment(CheckBoxFragment())
+            // 4.Jetpack Components
+            "MutableSharedFlow" -> naviToFragment(MutableSharedFlowFragment())
+            "Flow" -> naviToFragment(FlowFragment())
+
+            // 5.Kotlin Jetpack Compose
+            "MyBottomSheetDialogFragment" -> naviToFragment(MyBottomSheetDialogFragment())
+            "Compose CheckBox" -> naviToFragment(CheckBoxFragment())
 
 
-            // DI / dagger2
-            "Dagger2" -> ctx.navigateToFragment(Dagger2Fragment())
+            // 6.Retrofit Custom Converter.
+            "CustomConverter" -> naviToFragment(RetrofitFragment())
 
+            // 7.Multi Threads
+            "Thread" -> naviToFragment(ThreadFragment())
+            "ReentrantLock" -> naviToFragment(ReentrantLockFragment())
+            "Future" -> naviToFragment(FutureFragment())
 
-            // Retrofit Custom Converter.
-            "CustomConverter" -> ctx.navigateToFragment(RetrofitFragment())
+            // 8.Alerts
+            "PopupWindow" -> naviToFragment(PopupWindowBtsFragment())
 
-            // Multi Threads
-            "Thread" -> ctx.navigateToFragment(ThreadFragment())
-            "ReentrantLock" -> ctx.navigateToFragment(ReentrantLockFragment())
-            "Future" -> ctx.navigateToFragment(FutureFragment())
+            // 9.Touch Events
+            "ACTION_CANCEL" -> naviToFragment(ActionCancelEventFragment())
 
-            // Alerts
-            "PopupWindow" -> ctx.navigateToFragment(PopupWindowBtsFragment())
+            // 10.
+            "QRCode Scan" -> naviToFragment(QRCodeScanFragment())
 
-            // Touch Events
-            "ACTION_CANCEL" -> ctx.navigateToFragment(ActionCancelEventFragment())
-
-            else -> ctx.showContextToast("UnSupport key :$dest.")
+            else -> showFragmentToast("UnSupport key :$dest.")
         }
     }
 

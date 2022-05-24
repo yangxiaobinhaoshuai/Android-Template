@@ -76,5 +76,6 @@ dependencies {
     implementation project(":kt-compose-lib")
     implementation project(":android-colors")
     implementation project(":android-permission")
+    implementation project(":android-qrcode")
 
 }

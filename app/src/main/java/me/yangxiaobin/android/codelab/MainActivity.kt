@@ -79,10 +79,16 @@ class MainActivity : AbsActivity() {
        "Alerts" to arrayOf(
            "PopupWindow",
        ),
+
         // 9. Android Touch Events
        "Touch Events" to arrayOf(
            "ACTION_CANCEL"
-       )
+       ),
+
+       // 10. qrcode scan
+       "QRCode" to arrayOf(
+           "QRCode Scan"
+       ),
     )
 
 
