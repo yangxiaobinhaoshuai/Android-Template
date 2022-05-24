@@ -2,10 +2,14 @@ package me.yangxiaobin.android.codelab.qrcode
 
 import android.content.pm.PackageManager
 import android.view.View
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
+import androidx.core.util.Predicate
 import me.yangxiaobin.android.codelab.common.ButtonsFragment
+import me.yangxiaobin.android.codelab.di.dagger2.logDI
 import me.yangxiaobin.android.kotlin.codelab.base.LogAbility
 import me.yangxiaobin.android.kotlin.codelab.log.AndroidLogger
+import me.yangxiaobin.android.permission.PermissionManager
 import me.yangxiaobin.logger.clone
 import me.yangxiaobin.logger.core.LogFacade
 import me.yangxiaobin.logger.core.LogLevel
@@ -16,6 +20,10 @@ class QRCodeScanFragment : ButtonsFragment() {
 
     override val LogAbility.TAG: String get() = "PermissionFragment"
 
+
+    private val launcher = registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted: Boolean ->
+        logD("registerForActivityResult, isGranted :$isGranted.")
+    }
 
     override fun afterViewCreated(view: View) {
         super.afterViewCreated(view)
@@ -32,11 +40,13 @@ class QRCodeScanFragment : ButtonsFragment() {
             ActivityCompat.checkSelfPermission(requireContext(), android.Manifest.permission.CAMERA)
         if (res == PackageManager.PERMISSION_DENIED) {
             logD("Does NOT has camera permission, so request it.")
-            ActivityCompat.requestPermissions(
-                requireActivity(),
-                arrayOf(android.Manifest.permission.CAMERA),
-                1234)
         } else logD("has camera permission.")
+
+
+        PermissionManager.within(this).request(android.Manifest.permission.CAMERA)
+            .onResult {
+                logD("My permission manager onResult : $it.")
+            }
 
     }
 
@@ -54,6 +64,25 @@ class QRCodeScanFragment : ButtonsFragment() {
             permissions : $permissions
             grantResults : $grantResults
         """.trimIndent())
+    }
+
+    override fun onClick(index: Int) {
+        super.onClick(index)
+        when (index) {
+            0 -> {
+                PermissionManager.within(this).request(android.Manifest.permission.CAMERA)
+                    .onResult {
+                        logD("Click button request : $it.")
+                    }
+            }
+
+            1 -> {
+                launcher.launch(android.Manifest.permission.CAMERA)
+            }
+
+            else -> {
+            }
+        }
     }
 
 }
