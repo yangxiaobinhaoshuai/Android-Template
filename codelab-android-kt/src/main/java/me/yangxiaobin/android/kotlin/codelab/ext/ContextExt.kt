@@ -2,6 +2,7 @@ package me.yangxiaobin.android.kotlin.codelab.ext
 
 import android.content.Context
 import android.content.ContextWrapper
+import android.content.pm.PackageManager
 import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
 import androidx.annotation.ColorInt
@@ -42,3 +43,5 @@ fun @receiver:ColorRes Int.toResColor(context: Context): Int = ContextCompat.get
 
 fun @receiver:DrawableRes Int.toResDrawable(context: Context): Drawable = requireNotNull(ContextCompat.getDrawable(context, this)){"toResDrawable null."}
 
+
+fun Context.hasPermission(permission: String) = ContextCompat.checkSelfPermission(this, permission) == PackageManager.PERMISSION_GRANTED

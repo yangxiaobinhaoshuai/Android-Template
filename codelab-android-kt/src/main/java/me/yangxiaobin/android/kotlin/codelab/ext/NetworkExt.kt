@@ -1,5 +1,6 @@
 package me.yangxiaobin.android.kotlin.codelab.ext
 
+import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Context
 import android.net.ConnectivityManager
@@ -15,8 +16,14 @@ enum class NetworkType(value: String) {
 }
 
 
+/**
+ *  Need permission.
+ *     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+ */
 @SuppressLint("MissingPermission")
 fun Context?.getNetworkType(): NetworkType {
+
+    if (!this?.hasPermission(Manifest.permission.ACCESS_NETWORK_STATE).nullAsFalse()) return NetworkType.NETWORK_TYPE_UNKNOWN
 
     val conn: ConnectivityManager? by lazy { this?.getSystemService(Context.CONNECTIVITY_SERVICE) as? ConnectivityManager }
 
