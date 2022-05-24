@@ -1,7 +1,7 @@
-package me.yangxiaobin.android.codelab
+package me.yangxiaobin.common_ui
 
+import android.view.View
 import androidx.core.os.postDelayed
-import kotlinx.android.synthetic.main.activity_empty_main.*
 import me.yangxiaobin.android.kotlin.codelab.base.AbsActivity
 import me.yangxiaobin.android.kotlin.codelab.base.LogAbility
 import me.yangxiaobin.android.kotlin.codelab.ext.mainHandler
@@ -35,7 +35,7 @@ class EmptyActivity : AbsActivity() {
             logD("delay cancelled executed.")
         }
 
-        bt_empty_activity.setOnClickListener {
+        findViewById<View>(R.id.bt_empty_activity).setOnClickListener {
 
         }
     }

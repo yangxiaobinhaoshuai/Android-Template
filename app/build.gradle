@@ -77,5 +77,6 @@ dependencies {
     implementation project(":android-colors")
     implementation project(":android-permission")
     implementation project(":android-qrcode")
+    implementation project(":common-ui")
 
 }

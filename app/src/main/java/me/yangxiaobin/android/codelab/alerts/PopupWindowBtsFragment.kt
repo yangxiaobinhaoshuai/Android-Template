@@ -10,12 +10,11 @@ import android.widget.PopupWindow
 import android.widget.TextView
 import androidx.core.view.children
 import androidx.core.view.doOnPreDraw
-import me.yangxiaobin.android.codelab.common.EmptyFragment
 import me.yangxiaobin.android.kotlin.codelab.ext.WrapContent
 import me.yangxiaobin.colors.HexColors
 import me.yangxiaobin.colors.toColor
 
-class PopupWindowBtsFragment : EmptyFragment() {
+class PopupWindowBtsFragment : me.yangxiaobin.common_ui.EmptyFragment() {
 
     private lateinit var pop: PopupWindow
 

@@ -10,7 +10,6 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
-import me.yangxiaobin.android.codelab.common.ButtonsFragment
 import me.yangxiaobin.android.kotlin.codelab.base.LogAbility
 import me.yangxiaobin.android.kotlin.codelab.log.AndroidLogger
 import me.yangxiaobin.kotlin.codelab.ext.DelegateAdapter
@@ -19,7 +18,7 @@ import me.yangxiaobin.logger.core.LogFacade
 import me.yangxiaobin.logger.core.LogLevel
 
 @Suppress("EXPERIMENTAL_API_USAGE_FUTURE_ERROR")
-class MutableSharedFlowFragment : ButtonsFragment() {
+class MutableSharedFlowFragment : me.yangxiaobin.common_ui.ButtonsFragment() {
 
     override val logger: LogFacade get() = AndroidLogger.clone(logLevel = LogLevel.DEBUG, globalTagPrefix = Thread.currentThread().id.toString())
 

@@ -30,7 +30,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.drop
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.onEach
-import me.yangxiaobin.android.codelab.EmptyActivity
 import me.yangxiaobin.android.codelab.R
 import me.yangxiaobin.android.kotlin.codelab.base.AbsBottomSheetDialogFragment
 import me.yangxiaobin.android.kotlin.codelab.base.LogAbility
@@ -157,7 +156,7 @@ class MyBottomSheetDialogFragment : AbsBottomSheetDialogFragment() {
                     if (count == 1 && text?.get(start) == '@') {
                         // startFragment
                         //requireActivity().navigateToFragment(EmptyFragment())
-                        startActivity(requireContext().intentFor<EmptyActivity>())
+                        startActivity(requireContext().intentFor<me.yangxiaobin.common_ui.EmptyActivity>())
                     }
                 }
 

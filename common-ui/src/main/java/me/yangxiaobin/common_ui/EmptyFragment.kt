@@ -1,8 +1,7 @@
-package me.yangxiaobin.android.codelab.common
+package me.yangxiaobin.common_ui
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.view.ContextMenu
 import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup

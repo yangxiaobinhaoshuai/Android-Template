@@ -1,8 +1,6 @@
 package me.yangxiaobin.android.codelab.multi_thread
 
 import android.view.View
-import kotlinx.coroutines.delay
-import me.yangxiaobin.android.codelab.common.ButtonsFragment
 import me.yangxiaobin.android.kotlin.codelab.base.LogAbility
 import me.yangxiaobin.android.kotlin.codelab.ext.now
 import me.yangxiaobin.android.kotlin.codelab.log.AndroidLogger
@@ -10,9 +8,8 @@ import me.yangxiaobin.kotlin.codelab.ext.curThread
 import me.yangxiaobin.logger.core.LogFacade
 import java.util.concurrent.locks.Condition
 import java.util.concurrent.locks.ReentrantLock
-import kotlin.concurrent.thread
 
-class ReentrantLockFragment : ButtonsFragment() {
+class ReentrantLockFragment : me.yangxiaobin.common_ui.ButtonsFragment() {
 
     override val LogAbility.TAG: String get() = "ReentrantLock"
 

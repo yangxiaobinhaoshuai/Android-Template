@@ -1,13 +1,10 @@
 package me.yangxiaobin.android.codelab.multi_thread
 
-import android.os.Handler
-import android.os.Looper
 import android.os.Message
 import android.view.View
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import me.yangxiaobin.android.codelab.common.ButtonsFragment
 import me.yangxiaobin.android.kotlin.codelab.base.LogAbility
 import me.yangxiaobin.android.kotlin.codelab.ext.getMainHandler
 import me.yangxiaobin.android.kotlin.codelab.log.AndroidLogger
@@ -17,7 +14,7 @@ import me.yangxiaobin.kotlin.codelab.ext.getLimitStacktrace
 import me.yangxiaobin.logger.core.LogFacade
 import kotlin.concurrent.thread
 
-class ThreadFragment : ButtonsFragment() {
+class ThreadFragment : me.yangxiaobin.common_ui.ButtonsFragment() {
 
     override val LogAbility.TAG: String get() = "ThreadFragment"
 

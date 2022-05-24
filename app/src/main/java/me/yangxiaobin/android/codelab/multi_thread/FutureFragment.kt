@@ -3,7 +3,6 @@ package me.yangxiaobin.android.codelab.multi_thread
 import android.os.Build
 import android.view.View
 import androidx.annotation.RequiresApi
-import me.yangxiaobin.android.codelab.common.ButtonsFragment
 import me.yangxiaobin.android.kotlin.codelab.base.LogAbility
 import me.yangxiaobin.android.kotlin.codelab.log.AndroidLogger
 import me.yangxiaobin.kotlin.codelab.ext.curThread
@@ -13,7 +12,7 @@ import java.util.concurrent.CompletableFuture
 import java.util.concurrent.FutureTask
 import java.util.concurrent.TimeUnit
 
-class FutureFragment : ButtonsFragment() {
+class FutureFragment : me.yangxiaobin.common_ui.ButtonsFragment() {
 
     override val LogAbility.TAG: String get() = "FutureFragment"
 

@@ -5,12 +5,11 @@ import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.*
-import me.yangxiaobin.android.codelab.common.ButtonsFragment
 import me.yangxiaobin.android.kotlin.codelab.base.LogAbility
 import me.yangxiaobin.android.kotlin.codelab.log.AndroidLogger
 import me.yangxiaobin.logger.core.LogFacade
 
-class FlowFragment : ButtonsFragment() {
+class FlowFragment : me.yangxiaobin.common_ui.ButtonsFragment() {
 
     override val logger: LogFacade get() = AndroidLogger
 

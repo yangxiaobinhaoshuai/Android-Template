@@ -2,4 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="me.yangxiaobin.common_ui">
 
+    <application>
+        <activity
+            android:name="me.yangxiaobin.common_ui.EmptyActivity"
+            android:exported="false" />
+    </application>
+
 </manifest>

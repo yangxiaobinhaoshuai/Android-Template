@@ -15,9 +15,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AndroidCodelab">
 
-        <activity
-            android:name=".EmptyActivity"
-            android:exported="false" />
 
         <activity
             android:name=".MainActivity"
