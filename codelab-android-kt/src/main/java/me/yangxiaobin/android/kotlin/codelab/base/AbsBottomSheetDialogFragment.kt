@@ -43,10 +43,6 @@ open class AbsBottomSheetDialogFragment : BottomSheetDialogFragment(), LogAbilit
         logI("onViewCreated, view :${view.neatName},savedInstanceState:$savedInstanceState.")
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        logI("onActivityCreated, savedInstanceState :$savedInstanceState")
-    }
 
     override fun onStart() {
         super.onStart()

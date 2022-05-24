@@ -15,11 +15,4 @@ fun MotionEvent.isOnView(v: View): Boolean {
             && (motionRawY >= viewRawY && motionRawY <= viewRawY + v.height)
 }
 
-val MotionEvent.getActionString: String
-    get() = when (this.action) {
-        MotionEvent.ACTION_DOWN -> "DOWN"
-        MotionEvent.ACTION_MOVE -> "MOVE"
-        MotionEvent.ACTION_UP -> "UP"
-        MotionEvent.ACTION_CANCEL -> "CANCEL"
-        else -> this.action.toString()
-    }
+val MotionEvent?.getActionString: String get() = if (this != null) MotionEvent.actionToString(this.action) else ""

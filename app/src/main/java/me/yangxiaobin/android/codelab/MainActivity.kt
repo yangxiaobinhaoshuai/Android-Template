@@ -1,6 +1,7 @@
 package me.yangxiaobin.android.codelab
 
 import android.annotation.SuppressLint
+import android.view.MotionEvent
 import android.widget.TextView
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
@@ -11,6 +12,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 import me.yangxiaobin.android.codelab.common.ComposeVerticalListFragment
 import me.yangxiaobin.android.kotlin.codelab.base.AbsActivity
 import me.yangxiaobin.android.kotlin.codelab.base.LogAbility
+import me.yangxiaobin.android.kotlin.codelab.ext.getActionString
 import me.yangxiaobin.android.kotlin.codelab.ext.setSimpleDivider
 import me.yangxiaobin.android.kotlin.codelab.recyclerview.AbsVH
 import me.yangxiaobin.android.kotlin.codelab.recyclerview.SimpleRvAdapter
@@ -77,6 +79,10 @@ class MainActivity : AbsActivity() {
        "Alerts" to arrayOf(
            "PopupWindow",
        ),
+        // 9. Android Touch Events
+       "Touch Events" to arrayOf(
+           "ACTION_CANCEL"
+       )
     )
 
 
@@ -126,6 +132,14 @@ class MainActivity : AbsActivity() {
 
         }
 
+    }
+
+    override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
+        return super.dispatchTouchEvent(ev).also { logI("ActionCancelFragment, MainActivity, dispatchTouchEvent:$it, ${ev.getActionString}.") }
+    }
+
+    override fun onTouchEvent(event: MotionEvent?): Boolean {
+        return super.onTouchEvent(event).also { logI("ActionCancelFragment, MainActivity, onTouchEvent:$it, ${event.getActionString}.") }
     }
 
 }

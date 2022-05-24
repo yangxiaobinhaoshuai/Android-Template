@@ -1,8 +1,11 @@
 package me.yangxiaobin.android.codelab.common
 
 import android.annotation.SuppressLint
+import android.content.Context
+import android.view.ContextMenu
 import android.view.Gravity
 import android.view.View
+import android.view.ViewGroup
 import android.widget.Button
 import android.widget.FrameLayout
 import me.yangxiaobin.android.kotlin.codelab.base.AbsFragment
@@ -16,31 +19,41 @@ open class EmptyFragment : AbsFragment() {
 
     protected open val buttonsCount: Int = 4
 
+    private val topMargin =  100.dp2px.toInt()
+
 
     @SuppressLint("SetTextI18n")
     override fun createRootView(): View {
-        return FrameLayout(requireContext())
+        return (customRootViewGroup(requireContext()) ?: FrameLayout(requireContext()))
             .apply {
                 this.layoutParams = MatchParentParams
                 this.setBackgroundColor(HexColors.YELLOW_A200.toColor)
 
 
-                repeat(buttonsCount) { index: Int ->
+                repeat(buttonsCount + customChildren().size) { index: Int ->
 
-                    val bt = Button(requireContext())
-                        .apply {
-                            val lp = FrameLayout.LayoutParams(WrapContent, WrapContent)
-                            lp.gravity = Gravity.CENTER_HORIZONTAL
-                            lp.topMargin = if (index == 0) 100.dp2px.toInt()
-                            else 100.dp2px.toInt() + (40 + 40).dp2px.toInt() * index
+                    val lp = FrameLayout.LayoutParams(WrapContent, WrapContent)
+                    lp.gravity = Gravity.CENTER_HORIZONTAL
+                    lp.topMargin = if (index == 0) topMargin
+                    else topMargin + (40 + 40).dp2px.toInt() * index
 
-                            this.layoutParams = lp
-                            this.text = "Button: $index"
-                        }
 
-                    this.addView(bt)
+                    if (index < buttonsCount) {
+                        val bt = Button(requireContext())
+                            .apply {
+                                this.text = "Button: $index"
+                            }
+
+                        this.addView(bt, lp)
+                    } else {
+                        this.addView(customChildren()[index - buttonsCount], lp)
+                    }
                 }
 
             }
     }
+
+    protected open fun customChildren(): List<View> = emptyList()
+
+    protected open fun customRootViewGroup(context: Context): ViewGroup? = null
 }

@@ -28,6 +28,7 @@ import me.yangxiaobin.android.codelab.recyclerview.GridRvFragment
 import me.yangxiaobin.android.codelab.recyclerview.LinearRvFragment
 import me.yangxiaobin.android.codelab.recyclerview.PagingRvFragment
 import me.yangxiaobin.android.codelab.retrofit.RetrofitFragment
+import me.yangxiaobin.android.codelab.touch_event.ActionCancelEventFragment
 import me.yangxiaobin.android.kotlin.codelab.ext.showContextToast
 import me.yangxiaobin.kotlin.compose.lib.AbsComposableFragment
 import org.jetbrains.anko.intentFor
@@ -130,6 +131,9 @@ class ComposeVerticalListFragment : AbsComposableFragment() {
 
             // Alerts
             "PopupWindow" -> ctx.navigateToFragment(PopupWindowBtsFragment())
+
+            // Touch Events
+            "ACTION_CANCEL" -> ctx.navigateToFragment(ActionCancelEventFragment())
 
             else -> ctx.showContextToast("UnSupport key :$dest.")
         }
