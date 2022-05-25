@@ -23,7 +23,7 @@
 ### [ViewBinding](https://developer.android.com/topic/libraries/view-binding?hl=zh-cn)
 
 
-Kt synthetics Vs Jetpack View binding
+#### Kt synthetics Vs Jetpack View binding
 
 kt synthetics 由 Jetbrains 团队发布，两大便利
 1. synthetics 视图，通过 id 引用 xml view
@@ -44,6 +44,9 @@ ViewBinding 优势：
 4. 提供  kotlin-parcelize 专门插件来支持 @parcelize
 
 viewBinding 和 synthetics plugin 同时 apply 会报错
+
+#### [Gson](https://github.com/google/gson) vs [Mosh](https://github.com/square/moshi)
+-  https://proandroiddev.com/goodbye-gson-hello-moshi-4e591116231e
 
 
 ### View app dependencies tree
