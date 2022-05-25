@@ -7,7 +7,7 @@ junitV = "4.13.2"
 kotlinV = "1.5.31"
 coilV = "1.3.2"
 
-# widget
+# widget312s
 recyclerViewV = "1.2.1"
 constraintLayoutV = "2.1.0"
 
@@ -185,12 +185,12 @@ dagger2Processors = [
 ]
 
 cameraX = [
-#     "cameraCore",
-#     "cameraCamera2",
-#     "cameraLifecycle",
-#     "cameraVideo",
-#     "cameraView",
-#     "cameraExtension",
+    "cameraCore",
+    "cameraCamera2",
+    "cameraLifecycle",
+    "cameraVideo",
+    "cameraView",
+    "cameraExtension",
 ]
 
 #[plugins]

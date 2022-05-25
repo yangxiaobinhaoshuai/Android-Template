@@ -59,6 +59,6 @@ dependencies {
     compileOnly project(":kt-compose-lib")
     compileOnly project(":android-colors")
 
-    //implementation deps.bundles.cameraX
+    implementation deps.bundles.cameraX
 
 }

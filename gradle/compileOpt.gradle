@@ -22,7 +22,7 @@ build_versions.min_sdk = 21
  *
  * The compileSdkVersion is the version of the API the app is compiled against.
  */
-build_versions.compile_sdk = 30
+build_versions.compile_sdk = 31
 /**
  *  期望运行在哪个版本
  *  是向前兼容的主要依据
@@ -39,3 +39,24 @@ build_versions.compile_sdk = 30
 build_versions.target_sdk = 30
 
 ext.build_versions = build_versions
+
+/**
+ *  buildscript {
+ *    apply from: 'versions.gradle'
+ *    addRepos(repositories)
+ *
+ *    dependencies {
+ *      classpath deps.android_gradle_plugin
+ *
+ *   // NOTE: Do not place your application dependencies here; they belong
+ *   // in the individual module build.gradle files
+ *    }
+ *  }
+ */
+
+def addRepos(RepositoryHandler handler) {
+    handler.google()
+    handler.jcenter()
+    handler.maven { url 'https://oss.sonatype.org/content/repositories/snapshots' }
+}
+ext.addRepos = this.&addRepos

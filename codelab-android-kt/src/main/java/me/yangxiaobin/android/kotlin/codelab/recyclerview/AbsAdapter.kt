@@ -20,7 +20,7 @@ open class AbsVH(wholeItemView: View) : RecyclerView.ViewHolder(wholeItemView) {
 
     @Suppress("UNCHECKED_CAST")
     open fun <T : View?> findView(@IdRes resId: Int): T? = (viewCache[resId] as? T)
-        ?: itemView.findViewById<T>(resId)?.also { viewCache[resId] = it }
+        ?: itemView.findViewById<T>(resId)?.also { viewCache.put(resId,it) }
         ?: run { logI("Can not find associated view with id: $resId");null }
 
     open fun <T : View> requireView(@IdRes resId: Int): T = this.findView<T>(resId)
