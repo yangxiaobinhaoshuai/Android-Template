@@ -4,7 +4,9 @@
 
 [versions]
 junitV = "4.13.2"
-kotlinV = "1.5.31"
+
+# https://kotlinlang.org/docs/gradle.html#targeting-the-jvm
+kotlinV = "1.6.21"
 coilV = "1.3.2"
 
 # widget312s
@@ -16,7 +18,7 @@ navigatonKtxV = "2.3.5"
 pagingV = "3.0.1"
 
 #  compose setup doc : https://developer.android.com/jetpack/compose/setup
-composeV = "1.0.5"
+composeV = "1.1.1"
 
 # retrofit https://github.com/square/retrofit
 retrofitV = "2.9.0"
@@ -41,13 +43,15 @@ rv-selection = { module = "androidx.recyclerview:recyclerview-selection", versio
 constraint = { module = "androidx.constraintlayout:constraintlayout", version.ref = "constraintLayoutV" }
 androidMaterial = { module = "com.google.android.material:material", version = "1.4.0" }
 
-kgp153 = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlinV" }
+kgp153 = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version = "1.5.31" }
+kgp162 = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlinV" }
 
 # Kt coroutine : https://github.com/Kotlin/kotlinx.coroutines
 jvmCoroutine = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version = "1.6.0-RC2" }
 androidCoroutine = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version = "1.6.0-RC2" }
 
-agp7 = { module = "com.android.tools.build:gradle", version = "7.0.2" }
+# AGP version vs Gradle version : https://developer.android.com/studio/releases/gradle-plugin?hl=zh-cn
+agp7 = { module = "com.android.tools.build:gradle", version = "7.2.0" }
 agp4 = { module = "com.android.tools.build:gradle", version = "4.2.0" }
 
 junit = { module = "junit:junit", version.ref = "junitV" }
@@ -59,14 +63,14 @@ composeFoundation = { module = "androidx.compose.foundation:foundation", version
 composeMaterial = { module = "androidx.compose.material:material", version.ref = "composeV" }
 composeIcons = { module = "androidx.compose.material:material-icons-core", version.ref = "composeV" }
 composeIconsExt = { module = "androidx.compose.material:material-icons-extended", version.ref = "composeV" }
-composeActivities = { module = "androidx.activity:activity-compose", version = "1.3.1" }
-composeViewModels = { module = "androidx.lifecycle:lifecycle-viewmodel-compose", version = "1.0.0-alpha07" }
+composeActivities = { module = "androidx.activity:activity-compose", version = "1.4.0" }
+composeViewModels = { module = "androidx.lifecycle:lifecycle-viewmodel-compose", version = "2.4.1" }
 composeLiveData = { module = "androidx.compose.runtime:runtime-livedata", version.ref = "composeV" }
 composeRxJava2 = { module = "androidx.compose.runtime:runtime-rxjava2", version.ref = "composeV" }
 composePaging3 = { module = "androidx.paging:paging-compose", version = "1.0.0-alpha12" }
 
-composeRuntime = { module = "androidx.compose.runtime:runtime", version = "1.0.5" }
-composeCompiler = { module = "androidx.compose.compiler:compiler", version = "1.0.5" }
+composeRuntime = { module = "androidx.compose.runtime:runtime", version.ref = "composeV" }
+composeCompiler = { module = "androidx.compose.compiler:compiler", version.ref = "composeV" }
 
 # ktx : https://developer.android.com/kotlin/ktx
 ktxCore = { module = "androidx.core:core-ktx", version = "1.6.0" }

@@ -13,6 +13,9 @@
  * https://stackoverflow.com/a/26694276/10247834
  */
 def build_versions = [:]
+/**
+ * Compose 最低要求
+ */
 build_versions.min_sdk = 21
 /**
  * 使用哪个版本的 SDK api.
@@ -38,18 +41,27 @@ build_versions.compile_sdk = 31
  */
 build_versions.target_sdk = 30
 
+build_versions.source_compatibility = JavaVersion.VERSION_1_8
+build_versions.target_compatibility = JavaVersion.VERSION_1_8
+
+build_versions.kt_jvm_target = "1.8"
+
+
+
 ext.build_versions = build_versions
 
 
 /**
  * Compose 统一配置
+ *
+ * 将 compose 添加应用 ： https://developer.android.com/jetpack/compose/interop/adding
  */
 def compose_versions = [:]
-compose_versions.ktCompilerVersion = "1.5.31"
-compose_versions.ktCompilerExtVersion = "1.0.5"
-
-
+compose_versions.ktCompilerVersion = "1.6.21"
+compose_versions.ktCompilerExtVersion = "1.2.0-beta02"
 ext.compose_versions = compose_versions
+
+
 /**
  *  buildscript {
  *    apply from: 'versions.gradle'

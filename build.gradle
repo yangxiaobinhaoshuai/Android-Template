@@ -6,8 +6,8 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath deps.agp4
-        classpath deps.kgp153
+        classpath deps.agp7
+        classpath deps.kgp162
 
         classpath deps.hiltAndroidPlugin
 
