@@ -5,11 +5,11 @@ plugins {
 }
 
 android {
-    compileSdkVersion 30
+    compileSdkVersion build_versions.compile_sdk
 
     defaultConfig {
-        minSdkVersion 21
-        targetSdkVersion 30
+        minSdkVersion build_versions.min_sdk
+        targetSdkVersion build_versions.target_sdk
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
@@ -21,16 +21,20 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
+    // cameraX needs.
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+    
     kotlinOptions {
         jvmTarget = '1.8'
     }
 
     buildFeatures {
-        //viewBinding true
+        // cameraX needs.
+       // viewBinding true
         // Enables Jetpack Compose for this module
         compose true
     }
@@ -54,5 +58,7 @@ dependencies {
     compileOnly project(":codelab-android-kt")
     compileOnly project(":kt-compose-lib")
     compileOnly project(":android-colors")
+
+    //implementation deps.bundles.cameraX
 
 }

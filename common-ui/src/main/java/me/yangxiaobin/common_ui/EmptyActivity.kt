@@ -17,8 +17,7 @@ open class EmptyActivity : AbsActivity() {
 
     override val logger: LogFacade get() = AndroidLogger
 
-    override val LogAbility.TAG: String get() = "EmptyActivity####"
-
+    override val LogAbility.TAG: String get() = "EmptyActivity"
 
     override val contentResId: Int = R.layout.activity_empty_main
 
@@ -38,9 +37,9 @@ open class EmptyActivity : AbsActivity() {
             logD("delay cancelled executed.")
         }
 
-        findViewById<View>(R.id.bt_empty_activity).setOnClickListener {
-
-        }
+        findViewById<View>(R.id.bt_empty_activity).setOnClickListener (::onButtonClick)
     }
+
+    protected open fun onButtonClick(v:View) {}
 
 }

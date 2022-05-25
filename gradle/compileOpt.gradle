@@ -1,0 +1,41 @@
+
+
+
+/**
+ * Shared file between builds so that they can all use the same dependencies and
+ * maven repositories.
+ **/
+
+
+/**
+ * What is the difference between compileSdkVersion and targetSdkVersion?
+ *
+ * https://stackoverflow.com/a/26694276/10247834
+ */
+def build_versions = [:]
+build_versions.min_sdk = 21
+/**
+ * 使用哪个版本的 SDK api.
+ * 使用最新
+ *
+ * Changing compileSdkVersion to a higher version would mean you want to use some new APIs that are only included in that particular release.
+ *
+ * The compileSdkVersion is the version of the API the app is compiled against.
+ */
+build_versions.compile_sdk = 30
+/**
+ *  期望运行在哪个版本
+ *  是向前兼容的主要依据
+ *
+ *  如,Android 6.0 系统引用了运行时权限这个功能,如果你将targetSdkVersion 指定为23或者更高,那么系统就会为你的程序启动运行时权限
+ *  如果你将targetSdkVersion 指定为22,那么就说明你的程序最高只在Android 5.1系统上做过充分的测试,Android6.0系统中引入的新功能就不会启动了。
+ *
+ *  targetSdkVersion to indicate your app runs like you expect (target) on API 21,
+ *  The targetSdkVersion is supposed to indicate that you have tested your app
+ *
+ *
+ * For all practical purposes, most apps are going to want to set targetSdkVersion to the latest released version of the API.
+ */
+build_versions.target_sdk = 30
+
+ext.build_versions = build_versions

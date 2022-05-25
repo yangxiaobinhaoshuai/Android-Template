@@ -1,0 +1,17 @@
+buildscript {
+
+    repositories {
+
+    }
+    dependencies {
+
+    }
+}
+
+repositories {
+
+}
+
+dependencies {
+
+}

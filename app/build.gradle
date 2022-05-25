@@ -8,12 +8,12 @@ plugins {
 }
 
 android {
-    compileSdk 30
+    compileSdk build_versions.compile_sdk
 
     defaultConfig {
         applicationId "me.yangxiaobin.android.codelab"
-        minSdk 21
-        targetSdk 30
+        minSdk build_versions.min_sdk
+        targetSdk build_versions.target_sdk
         versionCode 1
         versionName "1.0"
 

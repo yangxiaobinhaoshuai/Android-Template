@@ -28,6 +28,9 @@ guavaV = "31.0.1-android"
 dagger2V = "2.40.5"
 hiltV = "2.28-alpha"
 
+# cameraX : https://developer.android.com/codelabs/camerax-getting-started#1
+cameraXV = "1.1.0-beta01"
+
 
 [libraries]
 appcompatX = { group = "androidx.appcompat", name = "appcompat", version = { strictly = "1.3.1", prefer = "1.3.1" } }
@@ -122,6 +125,14 @@ hiltAndroidPlugin  = { module = "com.google.dagger:hilt-android-gradle-plugin", 
 hiltAndroid  = { module = "com.google.dagger:hilt-android", version.ref = "hiltV" }
 hiltAndroidCompiler  = { module = "com.google.dagger:hilt-android-compiler", version.ref = "hiltV" }
 
+# cameraX The minCompileSdk (31) specified in it.
+cameraCore =  { module = "androidx.camera:camera-core", version.ref = "cameraXV" }
+cameraCamera2 =  { module = "androidx.camera:camera-camera2", version.ref = "cameraXV" }
+cameraLifecycle =  { module = "androidx.camera:camera-lifecycle", version.ref = "cameraXV" }
+cameraVideo =  { module = "androidx.camera:camera-video", version.ref = "cameraXV" }
+cameraView =  { module = "androidx.camera:camera-view", version.ref = "cameraXV" }
+cameraExtension =  { module = "androidx.camera:camera-extensions", version.ref = "cameraXV" }
+
 [bundles]
 widgets = [
     "recyclerView",
@@ -167,9 +178,19 @@ dagger2 = [
     "dagger2Android",
     "dagger2AndroidSupport",
 ]
+
 dagger2Processors = [
     "dagger2Processor",
     "dagger2AndroidProcessor",
+]
+
+cameraX = [
+#     "cameraCore",
+#     "cameraCamera2",
+#     "cameraLifecycle",
+#     "cameraVideo",
+#     "cameraView",
+#     "cameraExtension",
 ]
 
 #[plugins]
