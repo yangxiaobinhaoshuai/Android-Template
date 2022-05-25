@@ -34,8 +34,11 @@ android {
         jvmTarget = build_versions.kt_jvm_target
     }
 
+    viewBinding {
+        enabled = true
+    }
+
     buildFeatures {
-        viewBinding true
         // Enables Jetpack Compose for this module
         compose true
     }

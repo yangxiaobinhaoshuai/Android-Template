@@ -51,7 +51,6 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
 
     implementation deps.appcompatX
-    implementation 'com.google.android.material:material:1.4.0'
 
     implementation project(":codelab-kt")
     implementation project(":codelab-android-kt")

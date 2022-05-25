@@ -7,7 +7,6 @@ import android.content.pm.ApplicationInfo
 import android.net.wifi.WifiManager
 import android.os.Build
 import android.provider.Settings
-import androidx.compose.ui.text.toUpperCase
 import java.io.InputStreamReader
 import java.io.LineNumberReader
 import java.lang.StringBuilder
@@ -124,7 +123,13 @@ val Context?.getAndroidId: String
         }
 
 
-@SuppressLint("HardwareIds")
+/**
+ * Permissions required.
+ *
+ *     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+ *     <uses-permission android:name=" android.permission.LOCAL_MAC_ADDRESS"/>
+ */
+@SuppressLint("HardwareIds", "MissingPermission")
 fun Context?.getMacAddress(): String {
 
     if (sMacAddress.isNotEmpty() || this == null || !this.hasPermission(Manifest.permission.ACCESS_WIFI_STATE)) return sMacAddress

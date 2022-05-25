@@ -31,9 +31,12 @@ android {
         jvmTarget = build_versions.kt_jvm_target
     }
 
-    buildFeatures {
+    viewBinding {
         // cameraX needs.
-        viewBinding true
+        enabled = true
+    }
+
+    buildFeatures {
         // Enables Jetpack Compose for this module
         compose true
     }
@@ -54,9 +57,9 @@ dependencies {
 //    implementation 'androidx.appcompat:appcompat:1.4.1'
 //    implementation 'com.google.android.material:material:1.6.0'
 
-    compileOnly project(":codelab-android-kt")
-    compileOnly project(":kt-compose-lib")
-    compileOnly project(":android-colors")
+    implementation project(":codelab-android-kt")
+    implementation project(":kt-compose-lib")
+    implementation project(":android-colors")
 
     implementation deps.bundles.cameraX
 
