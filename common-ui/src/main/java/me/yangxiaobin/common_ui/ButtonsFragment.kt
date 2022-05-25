@@ -13,10 +13,13 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import me.yangxiaobin.kotlin.compose.lib.AbsComposableFragment
 
-
+/**
+ * Composable button 页面
+ */
 open class ButtonsFragment : AbsComposableFragment() {
 
     protected open val buttonCount = 8
+
 
     protected val textFlow = mutableStateOf("")
 

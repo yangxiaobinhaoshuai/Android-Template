@@ -11,7 +11,7 @@ import me.yangxiaobin.logger.clone
 import me.yangxiaobin.logger.core.LogFacade
 import me.yangxiaobin.logger.core.LogLevel
 
-class QRCodeScanFragment : me.yangxiaobin.common_ui.ButtonsFragment() {
+class PermissionRequestFragment : me.yangxiaobin.common_ui.ButtonsFragment() {
 
     override val logger: LogFacade get() = AndroidLogger.clone(logLevel = LogLevel.DEBUG)
 

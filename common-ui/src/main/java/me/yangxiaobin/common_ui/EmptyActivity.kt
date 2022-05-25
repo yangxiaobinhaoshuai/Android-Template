@@ -9,7 +9,10 @@ import me.yangxiaobin.android.kotlin.codelab.ext.postDelayCancellable
 import me.yangxiaobin.android.kotlin.codelab.log.AndroidLogger
 import me.yangxiaobin.logger.core.LogFacade
 
-class EmptyActivity : AbsActivity() {
+/**
+ * 只带有一个 button
+ */
+open class EmptyActivity : AbsActivity() {
 
 
     override val logger: LogFacade get() = AndroidLogger

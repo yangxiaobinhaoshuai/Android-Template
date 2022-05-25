@@ -16,3 +16,7 @@
 ### codelab-androd-kt
 
 #### Kotlin extension functions
+
+
+### build tips
+- Keep eye on  buildFeature & composeOptions config block.

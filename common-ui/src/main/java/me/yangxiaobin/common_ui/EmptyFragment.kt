@@ -14,6 +14,9 @@ import me.yangxiaobin.android.kotlin.codelab.ext.dp2px
 import me.yangxiaobin.colors.HexColors
 import me.yangxiaobin.colors.toColor
 
+/**
+ * Native ui button 页面
+ */
 open class EmptyFragment : AbsFragment() {
 
     protected open val buttonsCount: Int = 4

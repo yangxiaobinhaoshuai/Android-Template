@@ -87,7 +87,8 @@ class MainActivity : AbsActivity() {
 
        // 10. qrcode scan
        "QRCode" to arrayOf(
-           "QRCode Scan"
+           "PermissionRequest",
+           "QRCodeScanActivity",
        ),
     )
 

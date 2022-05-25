@@ -1,4 +1,6 @@
 package me.yangxiaobin.qrcode
 
-class QrCodeScanActivity  {
+import me.yangxiaobin.common_ui.EmptyActivity
+
+class QrCodeScanActivity : EmptyActivity()  {
 }

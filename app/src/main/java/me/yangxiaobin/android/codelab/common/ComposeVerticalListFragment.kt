@@ -25,7 +25,7 @@ import me.yangxiaobin.android.codelab.multi_thread.FutureFragment
 import me.yangxiaobin.android.codelab.multi_thread.ReentrantLockFragment
 import me.yangxiaobin.android.codelab.multi_thread.ThreadFragment
 import me.yangxiaobin.android.codelab.navigateToFragment
-import me.yangxiaobin.android.codelab.qrcode.QRCodeScanFragment
+import me.yangxiaobin.android.codelab.qrcode.PermissionRequestFragment
 import me.yangxiaobin.android.codelab.recyclerview.GridRvFragment
 import me.yangxiaobin.android.codelab.recyclerview.LinearRvFragment
 import me.yangxiaobin.android.codelab.recyclerview.PagingRvFragment
@@ -33,6 +33,7 @@ import me.yangxiaobin.android.codelab.retrofit.RetrofitFragment
 import me.yangxiaobin.android.codelab.touch_event.ActionCancelEventFragment
 import me.yangxiaobin.android.kotlin.codelab.ext.showFragmentToast
 import me.yangxiaobin.kotlin.compose.lib.AbsComposableFragment
+import me.yangxiaobin.qrcode.QrCodeScanActivity
 import org.jetbrains.anko.intentFor
 
 /**
@@ -138,7 +139,8 @@ class ComposeVerticalListFragment : AbsComposableFragment() {
             "ACTION_CANCEL" -> naviToFragment(ActionCancelEventFragment())
 
             // 10.
-            "QRCode Scan" -> naviToFragment(QRCodeScanFragment())
+            "PermissionRequest" -> naviToFragment(PermissionRequestFragment())
+            "QRCodeScanActivity" -> ctx.startActivity(ctx.intentFor<QrCodeScanActivity>())
 
             else -> showFragmentToast("UnSupport key :$dest.")
         }
