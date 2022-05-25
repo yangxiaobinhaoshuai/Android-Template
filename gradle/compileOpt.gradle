@@ -40,6 +40,16 @@ build_versions.target_sdk = 30
 
 ext.build_versions = build_versions
 
+
+/**
+ * Compose 统一配置
+ */
+def compose_versions = [:]
+compose_versions.ktCompilerVersion = "1.5.31"
+compose_versions.ktCompilerExtVersion = "1.0.5"
+
+
+ext.compose_versions = compose_versions
 /**
  *  buildscript {
  *    apply from: 'versions.gradle'
@@ -54,7 +64,7 @@ ext.build_versions = build_versions
  *  }
  */
 
-def addRepos(RepositoryHandler handler) {
+static def addRepos(RepositoryHandler handler) {
     handler.google()
     handler.jcenter()
     handler.maven { url 'https://oss.sonatype.org/content/repositories/snapshots' }
