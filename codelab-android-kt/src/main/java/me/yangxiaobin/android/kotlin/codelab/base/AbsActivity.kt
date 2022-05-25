@@ -5,6 +5,7 @@ import android.content.res.Configuration
 import android.os.Bundle
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
+import androidx.viewbinding.ViewBinding
 
 abstract class AbsActivity : AppCompatActivity(), LogAbility {
 
@@ -19,10 +20,9 @@ abstract class AbsActivity : AppCompatActivity(), LogAbility {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(contentResId)
-        logI("onCreate, savedInstanceState :$savedInstanceState")
+        logI("onCreate, savedInstanceState :$savedInstanceState.")
         registerBackHandler()
         afterOnCreate()
-
     }
 
     private fun registerBackHandler() = this.onBackPressedDispatcher.addCallback(this,

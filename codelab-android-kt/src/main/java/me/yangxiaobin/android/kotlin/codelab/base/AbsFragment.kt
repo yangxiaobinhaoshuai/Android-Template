@@ -53,7 +53,7 @@ abstract class AbsFragment : Fragment(), LogAbility {
         savedInstanceState: Bundle?,
     ): View? {
 
-        val rootView = createRootView()
+        val rootView = createRootView(inflater, container, savedInstanceState)
             ?: if (layoutResId <= 0) return super.onCreateView(inflater,
                 container,
                 savedInstanceState)
@@ -66,7 +66,11 @@ abstract class AbsFragment : Fragment(), LogAbility {
             .also { logI("onCreateView, rootView : ${it.neatName}.") }
     }
 
-    protected open fun createRootView(): View? = null
+    protected open fun createRootView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?,
+    ): View? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

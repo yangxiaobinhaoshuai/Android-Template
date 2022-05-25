@@ -2,7 +2,9 @@ package me.yangxiaobin.common_ui
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.os.Bundle
 import android.view.Gravity
+import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
@@ -25,7 +27,11 @@ open class EmptyFragment : AbsFragment() {
 
 
     @SuppressLint("SetTextI18n")
-    override fun createRootView(): View {
+    override fun createRootView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?,
+    ): View {
         return (customRootViewGroup(requireContext()) ?: FrameLayout(requireContext()))
             .apply {
                 this.layoutParams = MatchParentParams
