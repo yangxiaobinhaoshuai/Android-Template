@@ -4,7 +4,7 @@ package me.yangxiaobin.android.permission
 /**
  * 有操作结果
  */
-typealias OnResult = (Boolean) -> Unit
+typealias OnResult = (String) -> Unit
 
 /**
  * 不再询问

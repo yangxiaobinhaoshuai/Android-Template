@@ -3,13 +3,14 @@ package me.yangxiaobin.android.permission
 import android.util.Log
 
 
-private val logEnable by lazy { BuildConfig.DEBUG }
+internal const val LOG_TAG = "PermissionHelper"
 
+private val logEnable = PermissionManagerOption.enableLog
 
-private const val LOG_TAG = "PermissionHelper"
+private val logTag = PermissionManagerOption.logTag
 
 
 internal fun logInner(message: String) {
     if (!logEnable) return
-    Log.d(LOG_TAG, message)
+    Log.d(logTag, message)
 }

@@ -9,6 +9,14 @@ import androidx.fragment.app.commit
 
 class PermissionRequest(private val fragmentActivity: FragmentActivity) {
 
+    private var enableLog = false
+    private var logTag = LOG_TAG
+
+    fun enableLog(enable: Boolean, logTag: String = LOG_TAG) = apply {
+        enableLog = enable
+        this.logTag = logTag
+    }
+
     /**
      * @see android.Manifest.permission
      */
@@ -18,7 +26,10 @@ class PermissionRequest(private val fragmentActivity: FragmentActivity) {
     ) = apply {
 
         val alreadyGranted = ActivityCompat.checkSelfPermission(fragmentActivity, permissionString)
-        if (alreadyGranted == PackageManager.PERMISSION_GRANTED) return@apply
+        if (alreadyGranted == PackageManager.PERMISSION_GRANTED) {
+            logInner("permission: $permissionString has been granted.")
+            return@apply
+        }
 
         val manager = fragmentActivity.supportFragmentManager
 

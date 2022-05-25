@@ -37,4 +37,7 @@ dependencies {
 
     implementation deps["ktxFragment"]
     implementation deps['ktxCore']
+
+    // exclusive to ktx
+    implementation deps.androidCoroutine
 }
