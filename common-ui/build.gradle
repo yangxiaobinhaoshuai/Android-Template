@@ -1,7 +1,7 @@
 plugins {
     id 'com.android.library'
     id 'kotlin-android'
-    //id 'kotlin-kapt'
+    id 'kotlin-kapt'
 }
 
 android {
@@ -34,7 +34,7 @@ android {
 
     buildFeatures {
         // cameraX needs.
-       // viewBinding true
+        viewBinding true
         // Enables Jetpack Compose for this module
         compose true
     }
