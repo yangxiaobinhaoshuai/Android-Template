@@ -85,7 +85,7 @@ class QrCodeScanActivity : AbsActivity() {
 
     private fun navigateCameraFragment() {
         supportFragmentManager.commit {
-            addToBackStack(null)
+            //addToBackStack(null)
             add(rootId, CameraFragment())
         }
     }

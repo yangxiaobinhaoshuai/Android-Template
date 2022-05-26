@@ -13,8 +13,8 @@
 4. qrcode analysis
 
 ### 可选扫码实现
-- 华为统一扫码服务
-- Google mlKit
+- [华为统一扫码服务](https://developer.huawei.com/consumer/cn/hms/huawei-scankit/)
+- [Google mlKit barcode scanning](https://developers.google.com/ml-kit/vision/barcode-scanning)
 - Zxing 默认实现
 
 

@@ -30,6 +30,11 @@ abstract class AbsFragment : Fragment(), LogAbility {
 
     protected open val layoutResId: Int = 0
 
+    /**
+     * Whether to handle back event.
+     */
+    protected open val handleBackPress = true
+
     init {
         logI("onConstruct")
     }
@@ -37,7 +42,7 @@ abstract class AbsFragment : Fragment(), LogAbility {
     override fun onAttach(context: Context) {
         super.onAttach(context)
         logI("onAttach, context : ${context.neatName}.")
-        requireActivity().onBackPressedDispatcher.addCallback(this) { onBackPress() }
+        requireActivity().onBackPressedDispatcher.addCallback(this, enabled = handleBackPress) { onBackPress() }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
