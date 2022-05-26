@@ -10,9 +10,12 @@ import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.core.content.ContextCompat
+import java.util.concurrent.Executor
 
 
 val Context.inflater: LayoutInflater get() = android.view.LayoutInflater.from(this)
+
+val Context.mainExecutor: Executor get() = ContextCompat.getMainExecutor(this)
 
 
 inline fun <reified T : Context> Context.findBaseContext(): T? {

@@ -8,6 +8,9 @@ import androidx.annotation.ColorInt
  */
 enum class HexColors(val hexVal: String) {
 
+    WHITE("#FFFFFF"),
+    BLACK("#000000"),
+
     // Red
     RED_50("#FFEBEE"),
     RED_100("#FFCDD2"),
@@ -62,7 +65,6 @@ enum class HexColors(val hexVal: String) {
 }
 
 @get:ColorInt
-val HexColors.toColor: Int
-    get() = Color.parseColor(this.hexVal)
+val HexColors.colorInt: Int get() = Color.parseColor(this.hexVal)
 
 

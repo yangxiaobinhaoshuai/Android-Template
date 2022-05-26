@@ -3,35 +3,46 @@ package me.yangxiaobin.android.kotlin.codelab.base
 import android.content.Intent
 import android.content.res.Configuration
 import android.os.Bundle
+import android.view.View
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
-import androidx.viewbinding.ViewBinding
+import me.yangxiaobin.kotlin.codelab.ext.neatName
 
 abstract class AbsActivity : AppCompatActivity(), LogAbility {
 
-    override val LogAbility.TAG: String
-        get() = "AbsActivity:${this.javaClass.simpleName.take(11)}"
+    override val LogAbility.TAG: String get() = "AbsActivity:${this.neatName.take(11)}"
 
-    protected abstract val contentResId: Int
+    protected open val contentResId: Int = 0
 
     open val handleBackPress = false
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(contentResId)
+        beforeOnCreate()
+        dispatchSetContent(contentResId)
         logI("onCreate, savedInstanceState :$savedInstanceState.")
         registerBackHandler()
         afterOnCreate()
     }
 
-    private fun registerBackHandler() = this.onBackPressedDispatcher.addCallback(this,
-        object : OnBackPressedCallback(handleBackPress) {
-            override fun handleOnBackPressed() {
-                onHandleBackPress()
-            }
+    private fun registerBackHandler() = this.onBackPressedDispatcher
+        .addCallback(
+            this,
+            object : OnBackPressedCallback(handleBackPress) {
+                override fun handleOnBackPressed() {
+                    onHandleBackPress()
+                }
+            })
 
-        })
+    private fun dispatchSetContent(contentResId: Int) {
+        if (contentResId > 0) setContentView(contentResId)
+        else setContentView(getRootView())
+    }
+
+    protected open fun getRootView(): View = View(this)
+
+    protected open fun beforeOnCreate() {}
 
     protected open fun afterOnCreate() {}
 

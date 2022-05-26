@@ -5,7 +5,7 @@ import kotlin.properties.Delegates
 
 abstract class AbsViewBindingActivity<T : ViewBinding> : AbsActivity() {
 
-    override val contentResId: Int = 0
+    override val contentResId = 0
 
     protected var binding: T by Delegates.notNull()
 

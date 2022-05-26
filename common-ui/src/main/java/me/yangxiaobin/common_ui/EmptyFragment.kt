@@ -14,7 +14,7 @@ import me.yangxiaobin.android.kotlin.codelab.ext.MatchParentParams
 import me.yangxiaobin.android.kotlin.codelab.ext.WrapContent
 import me.yangxiaobin.android.kotlin.codelab.ext.dp2px
 import me.yangxiaobin.colors.HexColors
-import me.yangxiaobin.colors.toColor
+import me.yangxiaobin.colors.colorInt
 
 /**
  * Native ui button 页面
@@ -35,7 +35,7 @@ open class EmptyFragment : AbsFragment() {
         return (customRootViewGroup(requireContext()) ?: FrameLayout(requireContext()))
             .apply {
                 this.layoutParams = MatchParentParams
-                this.setBackgroundColor(HexColors.YELLOW_A200.toColor)
+                this.setBackgroundColor(HexColors.YELLOW_A200.colorInt)
 
 
                 repeat(buttonsCount + customChildren().size) { index: Int ->

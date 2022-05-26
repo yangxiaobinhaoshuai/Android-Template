@@ -61,6 +61,4 @@ dependencies {
     implementation project(":kt-compose-lib")
     implementation project(":android-colors")
 
-    implementation deps.bundles.cameraX
-
 }

@@ -12,7 +12,7 @@ import androidx.core.view.children
 import androidx.core.view.doOnPreDraw
 import me.yangxiaobin.android.kotlin.codelab.ext.WrapContent
 import me.yangxiaobin.colors.HexColors
-import me.yangxiaobin.colors.toColor
+import me.yangxiaobin.colors.colorInt
 
 class PopupWindowBtsFragment : me.yangxiaobin.common_ui.EmptyFragment() {
 
@@ -26,7 +26,7 @@ class PopupWindowBtsFragment : me.yangxiaobin.common_ui.EmptyFragment() {
         pop = PopupWindow()
         pop.contentView = TextView(requireContext()).apply {
             this.text = "I'm PopupWindow Text."
-            this.setBackgroundColor(HexColors.BLUE_A200.toColor)
+            this.setBackgroundColor(HexColors.BLUE_A200.colorInt)
         }
         pop.height = 200
         pop.width = 600

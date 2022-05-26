@@ -27,6 +27,20 @@ android {
     kotlinOptions {
         jvmTarget = build_versions.kt_jvm_target
     }
+
+    viewBinding {
+        enabled = true
+    }
+
+    buildFeatures {
+        // Enables Jetpack Compose for this module
+        compose true
+    }
+
+    composeOptions {
+        kotlinCompilerVersion compose_versions.ktCompilerVersion
+        kotlinCompilerExtensionVersion compose_versions.ktCompilerExtVersion
+    }
 }
 
 dependencies {
@@ -39,6 +53,10 @@ dependencies {
     compileOnly project(":codelab-android-kt")
     compileOnly project(":common-ui")
     implementation project(":android-permission")
+    implementation project(":kt-compose-lib")
+    implementation project(":android-colors")
+
+    implementation deps.bundles.cameraX
 
 //    implementation 'androidx.core:core-ktx:1.7.0'
 //    implementation 'androidx.appcompat:appcompat:1.4.1'

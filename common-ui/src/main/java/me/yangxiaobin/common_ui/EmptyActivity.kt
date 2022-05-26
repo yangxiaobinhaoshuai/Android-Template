@@ -15,12 +15,9 @@ import me.yangxiaobin.logger.core.LogFacade
  */
 open class EmptyActivity : AbsViewBindingActivity<ActivityEmptyMainBinding>() {
 
-
     override val logger: LogFacade get() = AndroidLogger
 
     override val LogAbility.TAG: String get() = "EmptyActivity"
-
-    override val contentResId: Int = R.layout.activity_empty_main
 
 
     override fun afterOnCreate() {
@@ -43,7 +40,6 @@ open class EmptyActivity : AbsViewBindingActivity<ActivityEmptyMainBinding>() {
 
     protected open fun onButtonClick(v: View) {}
 
-    override fun getActualBinding(): ActivityEmptyMainBinding =
-        ActivityEmptyMainBinding.inflate(this.layoutInflater)
+    override fun getActualBinding(): ActivityEmptyMainBinding = ActivityEmptyMainBinding.inflate(this.layoutInflater)
 
 }
