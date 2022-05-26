@@ -98,7 +98,7 @@ class CameraFragment : AbsComposableFragment() {
             .build()
             .apply {
                 setAnalyzer(Executors.newSingleThreadExecutor()){ imageProxy: ImageProxy ->
-
+                    logD("imageAnalysis.callback, $imageProxy.")
                 }
             }
 
