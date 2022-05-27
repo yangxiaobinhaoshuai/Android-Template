@@ -37,8 +37,6 @@ hiltV = "2.28-alpha"
 # cameraX : https://developer.android.com/codelabs/camerax-getting-started#1
 cameraXV = "1.1.0-beta01"
 
-# https://developer.android.com/jetpack/androidx/releases/activity
-
 
 
 [libraries]
@@ -57,6 +55,8 @@ androidMaterial = { module = "com.google.android.material:material", version = "
 
 kgp153 = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version = "1.5.31" }
 kgp162 = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlinV" }
+
+ktStdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib", version.ref = "kotlinV" }
 
 # Kt coroutine : https://github.com/Kotlin/kotlinx.coroutines
 jvmCoroutine = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version = "1.6.0-RC2" }
@@ -151,6 +151,9 @@ cameraLifecycle =  { module = "androidx.camera:camera-lifecycle", version.ref = 
 cameraVideo =  { module = "androidx.camera:camera-video", version.ref = "cameraXV" }
 cameraView =  { module = "androidx.camera:camera-view", version.ref = "cameraXV" }
 cameraExtension =  { module = "androidx.camera:camera-extensions", version.ref = "cameraXV" }
+
+# Google auto service : https://github.com/google/auto/tree/master/service
+autoService = { module = "com.google.auto.service:auto-service", version = "1.0.1" }
 
 [bundles]
 widgets = [

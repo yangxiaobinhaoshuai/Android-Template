@@ -50,10 +50,7 @@ KSP stands for 'Kotlin Symbol Processing', it's an API for building lightweight 
 
 ## Kotlin Compiler Plugin (KCP)
 
-缺点：
-1. API not stable.
-2. Complex api.
-3. Allow modifying existing code.
+[README](../Android-KtCompilerPlugin/README.md)
 
 ## JavaPoet / Kotlin Poet
 
@@ -69,7 +66,5 @@ KotlinPoet is a Kotlin and Java API for generating .kt source files.
 - [掘金 KSP](https://juejin.cn/post/6979759813467062309)
 - [KSP Doc](https://kotlinlang.org/docs/ksp-overview.html)
 - [Kotlin poet Doc](https://square.github.io/kotlinpoet/interop-ksp/)
-- [Kotlin Compiler Plugin Doc](https://kotlinlang.org/docs/all-open-plugin.html)
 - [Google KSP github](https://github.com/google/ksp)
 - [KSP Intro youtube](https://www.youtube.com/watch?v=bv-VyGM3HCY)
-- [Writing Your First Kotlin Compiler Plugin.pdf](https://resources.jetbrains.com/storage/products/kotlinconf2018/slides/5_Writing%20Your%20First%20Kotlin%20Compiler%20Plugin.pdf)

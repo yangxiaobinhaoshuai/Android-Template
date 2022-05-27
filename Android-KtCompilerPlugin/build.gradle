@@ -1,0 +1,36 @@
+plugins {
+    id 'java-library'
+    id 'java-gradle-plugin'
+    id 'org.jetbrains.kotlin.jvm'
+    id 'kotlin-kapt'
+}
+
+gradlePlugin {
+    plugins {
+        simplePlugin {
+            id = "debuglog.plugin"
+            implementationClass = "debuglog.DebugLogGradlePlugin"
+        }
+    }
+}
+
+java {
+    sourceCompatibility build_versions.source_compatibility
+    targetCompatibility build_versions.target_compatibility
+}
+
+dependencies {
+
+    implementation deps.ktStdlib
+    implementation "org.jetbrains.kotlin:kotlin-gradle-plugin-api:${build_versions.kt_version}"
+
+    compileOnly deps.autoService
+    kapt deps.autoService
+
+
+//    implementation "org.jetbrains.kotlin:kotlin-stdlib:$ktVersion"
+//    implementation "org.jetbrains.kotlin:kotlin-gradle-plugin-api:$ktVersion"
+//
+//    compileOnly "com.google.auto.service:auto-service:1.0-rc4"
+//    kapt "com.google.auto.service:auto-service:1.0-rc4"
+}
