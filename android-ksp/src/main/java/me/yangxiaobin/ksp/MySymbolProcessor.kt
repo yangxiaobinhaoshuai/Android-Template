@@ -1,4 +1,4 @@
-package me.yangxiaobin.module_service_provider_processor
+package me.yangxiaobin.ksp
 
 import com.google.devtools.ksp.processing.SymbolProcessor
 import com.google.devtools.ksp.processing.SymbolProcessorEnvironment

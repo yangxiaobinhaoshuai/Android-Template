@@ -27,9 +27,25 @@ KCP
 2. emit bytecode
 3. work ONLY on kt
 
+
+### Steps
+1. Intellij idea plugin (optional)
+2. Gradle plugin
+3. Jvm / js / native extension
+
+
+### Prior arts
+- noarg  constructor
+- Android-extension (findViewById)
+- parcelize
+- kotlin - serialization
+
 ### Ref
 - [Kotlin Compiler Plugin Doc](https://kotlinlang.org/docs/all-open-plugin.html)
 
 - [Writing Your First Kotlin Compiler Plugin.pdf](https://resources.jetbrains.com/storage/products/kotlinconf2018/slides/5_Writing%20Your%20First%20Kotlin%20Compiler%20Plugin.pdf)
 
 - [Writing Your First Kotlin Compiler Plugin YTB](https://www.youtube.com/watch?v=w-GMlaziIyo)
+
+-[What does a compiler do?](https://www.youtube.com/watch?v=iTdJJq_LyoY)
+
