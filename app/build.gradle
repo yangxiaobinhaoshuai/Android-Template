@@ -80,7 +80,7 @@ dependencies {
     implementation project(":android-colors")
     implementation project(":android-permission")
     implementation project(":android-qrcode")
-    implementation project(":android-qrcode-ability-provider")
+    implementation project(':android-qrcode-impl')
     implementation project(":common-ui")
 
 }
