@@ -13,7 +13,8 @@ gradle.beforeProject { Project p->
     if (p != rootProject){
         p.configurations.all {Configuration cfg->
             cfg.resolutionStrategy.dependencySubstitution{ substitute->
-                substitute.substitute(module("me.yangxiaobin:kcp-kt-module:0.0.1")).with (project(":kcp-kt-compiler-debuglog"))
+                substitute.substitute(module("me.yangxiaobin:kcp-kt-debuglog:0.0.1")).with (project(":kcp-kt-compiler-debuglog"))
+                substitute.substitute(module("me.yangxiaobin:kcp-kt-module-instrument:0.0.1")).with (project(":ksp-kt-compiler-module-instrument"))
             }
         }
     }
@@ -60,3 +61,4 @@ include ':android-ksp'
 includeBuild 'kcp-gradle-plugin'
 include ':module-service-provider-annotation'
 include ':kcp-kt-compiler-debuglog'
+include ':ksp-kt-compiler-module-instrument'

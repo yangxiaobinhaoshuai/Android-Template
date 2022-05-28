@@ -41,9 +41,7 @@ class DebugLogSubPlugin : KotlinCompilerPluginSupportPlugin {
 
     override fun getCompilerPluginId(): String = DEBUG_LOG_PLUGIN_ID
 
-    override fun getPluginArtifact(): SubpluginArtifact = YangSubPluginArtifact(artifactId = "kcp-kt-module")
-
-   // override fun getPluginArtifactForNative(): SubpluginArtifact  = getPluginArtifact()
+    override fun getPluginArtifact(): SubpluginArtifact = YangSubPluginArtifact(artifactId = "kcp-kt-debuglog")
 
     override fun isApplicable(kotlinCompilation: KotlinCompilation<*>): Boolean = true
 
