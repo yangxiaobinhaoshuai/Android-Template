@@ -51,7 +51,6 @@ dependencies {
 
     implementation deps.appcompatX
 
-    implementation project(":codelab-kt")
     implementation project(":codelab-android-kt")
     implementation deps.bundles.ktx
 

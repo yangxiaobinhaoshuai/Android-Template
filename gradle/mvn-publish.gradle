@@ -1,0 +1,20 @@
+
+apply plugin : 'maven-publish'
+apply plugin : 'java-library'
+
+java {
+    withSourcesJar()
+}
+
+publishing {
+    publications {
+        myPublication(MavenPublication) {
+
+            groupId = project.group
+            artifactId = project.description
+            version = project.version
+
+            from components.java
+        }
+    }
+}

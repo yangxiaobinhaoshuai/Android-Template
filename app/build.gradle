@@ -5,7 +5,13 @@ plugins {
 
     id 'kotlin-kapt'
     id 'module-service-provider'
+    id 'debug-log'
     //id 'dagger.hilt.android.plugin'
+}
+
+debugLog{
+    enable true
+    annotationList = ['me.yangxiaobin.module_service_provider_annotation.DebugLog']
 }
 
 android {
@@ -82,5 +88,6 @@ dependencies {
     implementation project(":android-qrcode")
     implementation project(':android-qrcode-impl')
     implementation project(":common-ui")
+    implementation project(':module-service-provider-annotation')
 
 }

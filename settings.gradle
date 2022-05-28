@@ -8,6 +8,17 @@ pluginManagement {
     }
 }
 
+
+gradle.beforeProject { Project p->
+    if (p != rootProject){
+        p.configurations.all {Configuration cfg->
+            cfg.resolutionStrategy.dependencySubstitution{ substitute->
+                substitute.substitute(module("me.yangxiaobin:kcp-kt-module:0.0.1")).with (project(":kcp-kt-compiler-debuglog"))
+            }
+        }
+    }
+}
+
 dependencyResolutionManagement {
     // module 声明 repo 会报错
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
@@ -46,5 +57,6 @@ include ':json-mediator'
 include ':android-qrcode-impl'
 include ':module-service-provider'
 include ':android-ksp'
-includeBuild 'Android-kcp'
+includeBuild 'kcp-gradle-plugin'
 include ':module-service-provider-annotation'
+include ':kcp-kt-compiler-debuglog'

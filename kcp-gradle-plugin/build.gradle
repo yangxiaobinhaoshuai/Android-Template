@@ -8,9 +8,18 @@ apply from: "../gradle/compileOpt.gradle"
 
 gradlePlugin {
     plugins {
-        simplePlugin {
+        moduleServicePlugin {
             id = "module-service-provider"
-            implementationClass = "me.yangxiaobin.android_kcp.ModuleServicePlugin"
+            implementationClass = "me.yangxiaobin.android_kcp.module_service.ModuleServicePlugin"
+        }
+    }
+}
+
+gradlePlugin {
+    plugins {
+        debugLogPlugin {
+            id = "debug-log"
+            implementationClass = "me.yangxiaobin.android_kcp.debuglog.DebugLogSubPlugin"
         }
     }
 }
@@ -21,9 +30,12 @@ java {
 }
 
 dependencies {
-
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation libDeps.ktStdlib
     implementation "org.jetbrains.kotlin:kotlin-gradle-plugin-api:${build_versions.kt_version}"
+
+    // for kcp ext
+    compileOnly "org.jetbrains.kotlin:kotlin-compiler-embeddable:${build_versions.kt_version}"
 
     compileOnly libDeps.autoService
     kapt libDeps.autoService

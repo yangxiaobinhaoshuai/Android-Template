@@ -47,5 +47,12 @@ KCP
 
 - [Writing Your First Kotlin Compiler Plugin YTB](https://www.youtube.com/watch?v=w-GMlaziIyo)
 
--[What does a compiler do?](https://www.youtube.com/watch?v=iTdJJq_LyoY)
+- [What does a compiler do?](https://www.youtube.com/watch?v=iTdJJq_LyoY)
+
+- [KMPerferHugo demo(Hugo demo)](https://github.com/roths/KMPerformance)
+
+- [KCP 埋点插件](https://toutiao.io/posts/uaiab50/preview)
+
+
+- [ZacSweers](https://github.com/ZacSweers/redacted-compiler-plugin)
 

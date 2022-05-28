@@ -1,10 +1,15 @@
 package me.yangxiaobin.android.codelab
 
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import me.yangxiaobin.android.kotlin.codelab.base.AbsApplication
 import me.yangxiaobin.android.kotlin.codelab.base.LogAbility
 import me.yangxiaobin.android.kotlin.codelab.ext.*
 import me.yangxiaobin.android.kotlin.codelab.log.AndroidLogger
 import me.yangxiaobin.logger.core.LogFacade
+import me.yangxiaobin.module_service_provider_annotation.DebugLog
 
 class MyApp : AbsApplication() {
 
@@ -18,6 +23,7 @@ class MyApp : AbsApplication() {
         init()
     }
 
+    @DebugLog
     private fun init() {
 
         logD("""
@@ -40,6 +46,18 @@ class MyApp : AbsApplication() {
             DNS : ${this.getDNS()}
         """.trimIndent())
 
+    }
+
+    @DebugLog
+    private suspend fun mockHeavyWork(): Int {
+        delay(200)
+        return 200
+    }
+
+    @DebugLog
+    private fun mockHeavyWork2(): Int {
+        Thread.sleep(200)
+        return 400
     }
 
 }
