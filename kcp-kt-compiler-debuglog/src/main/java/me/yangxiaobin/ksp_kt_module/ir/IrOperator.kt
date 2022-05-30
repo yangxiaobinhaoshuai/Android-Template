@@ -75,8 +75,9 @@ abstract class IrOperator(val pluginContext: IrPluginContext) : IrElementTransfo
      * start >>>>>>>>>>>>>>>>>>>>>>>>>
      */
 
-    fun String.ir() = IrConstImpl.string(
-        UNDEFINED_OFFSET, UNDEFINED_OFFSET,
+    fun String.ir(): IrConstImpl<String> = IrConstImpl.string(
+        UNDEFINED_OFFSET,
+        UNDEFINED_OFFSET,
         pluginContext.irBuiltIns.stringType,
         this
     )

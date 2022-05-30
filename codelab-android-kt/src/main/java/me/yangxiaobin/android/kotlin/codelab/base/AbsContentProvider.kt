@@ -6,14 +6,14 @@ import android.database.Cursor
 import android.net.Uri
 import me.yangxiaobin.android.kotlin.codelab.ext.currentProcessName
 import me.yangxiaobin.android.kotlin.codelab.ext.getCurrentPid
-import me.yangxiaobin.android.kotlin.codelab.ext.simpleName
+import me.yangxiaobin.kotlin.codelab.ext.neatName
 
 open class AbsContentProvider : ContentProvider(), LogAbility {
 
     override val LogAbility.TAG: String
         get() = "AbsProvider:${this.javaClass.simpleName.take(11)}"
 
-    private val logPrefix by lazy { "${this.simpleName}(hash:${this.hashCode()}, tName:${Thread.currentThread().name}, tid:${Thread.currentThread().id}, pName:${currentProcessName}, pid:$getCurrentPid)" }
+    private val logPrefix by lazy { "${this.neatName}(hash:${this.hashCode()}, tName:${Thread.currentThread().name}, tid:${Thread.currentThread().id}, pName:${currentProcessName}, pid:$getCurrentPid)" }
 
     override fun onCreate(): Boolean {
         logI("$logPrefix onCreate")

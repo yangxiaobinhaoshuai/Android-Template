@@ -4,9 +4,8 @@ import com.jakewharton.picnic.TextAlignment
 import com.jakewharton.picnic.table
 import me.yangxiaobin.android.kotlin.codelab.ext.currentProcessName
 import me.yangxiaobin.android.kotlin.codelab.ext.getCurrentPid
-import me.yangxiaobin.android.kotlin.codelab.ext.simpleName
 import me.yangxiaobin.android.kotlin.codelab.log.L
-import me.yangxiaobin.logger.clone
+import me.yangxiaobin.kotlin.codelab.ext.neatName
 import me.yangxiaobin.logger.core.LogFacade
 import me.yangxiaobin.logger.core.LogLevel
 import me.yangxiaobin.logger.log
@@ -15,7 +14,7 @@ import me.yangxiaobin.logger.log
 interface LogAbility {
 
     val LogAbility.TAG: String
-        get() = "LogAbility:${this@LogAbility.simpleName.take(11)}"
+        get() = "LogAbility:${this@LogAbility.neatName.take(11)}"
 
     /**
      * Must be getter, or u will get 'java.lang.NullPointerException: Parameter specified as non-null is null: method kotlin.jvm.internal.Intrinsics.checkNotNullParameter, parameter <this>'
@@ -58,7 +57,7 @@ interface LogAbility {
             cell(tag) {
                 alignment = TextAlignment.MiddleCenter
             }
-            cell(this@LogAbility.simpleName) {
+            cell(this@LogAbility.neatName) {
                 alignment = TextAlignment.MiddleCenter
             }
             cell(this.hashCode()) {

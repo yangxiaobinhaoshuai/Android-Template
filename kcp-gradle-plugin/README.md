@@ -2,6 +2,18 @@
 # KCP
 
 
+### 使用探索
+
+暂无可用文档，需要 debug gradle build
+
+可用接口：
+- IrGenerationExtension，用于增/删/改/查代码
+
+- DiagnosticSuppressor，用于抑制语法错误，Jetpack Compose有使用
+
+- StorageComponentContainerContributor，用于实现IOC
+
+
 ### KCP 相比 KSP 的缺点
 1. API not stable.
 2. Complex api.
@@ -55,4 +67,10 @@ KCP
 
 
 - [ZacSweers](https://github.com/ZacSweers/redacted-compiler-plugin)
+
+- [experiment with kotlin compiler](https://www.youtube.com/watch?v=dXg2golPDqM)
+
+- [k2 compiler](https://www.youtube.com/watch?v=iTdJJq_LyoY)
+
+- [Kt compiler 架构理解](https://github.com/ahinchman1/Kotlin-Compiler-Crash-Course)
 
