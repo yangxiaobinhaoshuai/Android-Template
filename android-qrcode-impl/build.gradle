@@ -43,6 +43,8 @@ dependencies {
     implementation 'com.huawei.hms:scanplus:2.1.0.300'
     implementation project(":android-qrcode")
 
+    implementation deps.bundles.cameraX
+
     implementation project(':module-service-provider')
     implementation project(':module-service-provider-annotation')
 

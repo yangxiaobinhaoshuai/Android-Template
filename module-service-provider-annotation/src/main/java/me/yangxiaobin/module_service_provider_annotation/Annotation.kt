@@ -1,5 +1,7 @@
 package me.yangxiaobin.module_service_provider_annotation
 
+import kotlin.reflect.KClass
+
 
 /**
  * 允许的参数类型有：
@@ -14,7 +16,7 @@ package me.yangxiaobin.module_service_provider_annotation
 
 @Retention(AnnotationRetention.RUNTIME)
 @Target(AnnotationTarget.CLASS)
-annotation class ModuleService
+annotation class ModuleService(val kClazzInterface: KClass<*>)
 
 
 /**

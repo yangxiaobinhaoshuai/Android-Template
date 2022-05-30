@@ -43,6 +43,9 @@ dependencyResolutionManagement {
 rootProject.name = "AndroidCodelab"
 enableFeaturePreview('VERSION_CATALOGS')
 
+includeBuild 'kcp-gradle-plugin'
+include ':android-ksp'
+
 include ':app'
 include ':codelab-kt'
 include ':codelab-android-kt'
@@ -52,13 +55,13 @@ include ':network-lib'
 include ':multi-process'
 include ':android-colors'
 include ':android-permission'
-include ':android-qrcode'
 include ':common-ui'
 include ':json-mediator'
+
+include ':android-qrcode'
 include ':android-qrcode-impl'
-include ':module-service-provider'
-include ':android-ksp'
-includeBuild 'kcp-gradle-plugin'
+
 include ':module-service-provider-annotation'
+include ':module-service-provider'
 include ':kcp-kt-compiler-debuglog'
 include ':ksp-kt-compiler-module-instrument'

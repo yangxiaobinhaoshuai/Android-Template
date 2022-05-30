@@ -29,4 +29,14 @@ object ServiceProvider {
         null
     }
 
+    fun dumpRegistry(tag: String = "") {
+
+        val message = """
+            class registry : $serviceMapping
+            instance registry :$instanceCache
+        """.trimIndent()
+
+        println(tag + message)
+    }
+
 }

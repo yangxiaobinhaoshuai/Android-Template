@@ -14,6 +14,10 @@ debugLog{
     annotationList = ['me.yangxiaobin.module_service_provider_annotation.DebugLog']
 }
 
+moduleService{
+    annotations = ['me.yangxiaobin.module_service_provider_annotation.ModuleService']
+}
+
 android {
     compileSdk build_versions.compile_sdk
 
@@ -89,5 +93,6 @@ dependencies {
     implementation project(':android-qrcode-impl')
     implementation project(":common-ui")
     implementation project(':module-service-provider-annotation')
+    implementation project(':module-service-provider')
 
 }

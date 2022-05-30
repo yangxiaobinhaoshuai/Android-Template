@@ -15,6 +15,8 @@ import me.yangxiaobin.colors.HexColors
 import me.yangxiaobin.colors.colorInt
 import me.yangxiaobin.kotlin.compose.lib.AbsComposableFragment
 import me.yangxiaobin.logger.core.LogFacade
+import me.yangxiaobin.module_service_provider.ServiceProvider
+import me.yangxiaobin.qrcode.impl.QrCodeUtilityProvider
 import java.util.concurrent.Executors
 import kotlin.math.abs
 import kotlin.math.max
@@ -99,6 +101,9 @@ class CameraFragment : AbsComposableFragment() {
             .apply {
                 setAnalyzer(Executors.newSingleThreadExecutor()){ imageProxy: ImageProxy ->
                     logD("imageAnalysis.callback, $imageProxy.")
+
+                    ServiceProvider.getServiceOrNull(QrCodeUtilityProvider::class.java)?.readImageProxy(imageProxy)
+
                 }
             }
 

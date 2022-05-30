@@ -56,3 +56,7 @@ viewBinding 和 synthetics plugin 同时 apply 会报错
 
 ### build tips
 - Keep eye on  buildFeature & composeOptions config block.
+
+
+### Reference
+- [Simple Logging Facade for Java (SLF4J)](https://www.slf4j.org/)

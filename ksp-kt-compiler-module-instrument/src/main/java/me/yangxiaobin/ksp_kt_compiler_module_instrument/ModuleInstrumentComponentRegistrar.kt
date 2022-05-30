@@ -5,6 +5,14 @@ import org.jetbrains.kotlin.com.intellij.mock.MockProject
 import org.jetbrains.kotlin.compiler.plugin.ComponentRegistrar
 import org.jetbrains.kotlin.config.CompilerConfiguration
 
+
+/**
+ *  因为 kcp 仅适用于单独 module 内的 kt 文件，其局限性无法实现 module api provide 需求
+ *
+ *  顾废弃
+
+ *  TODO
+ */
 @AutoService(ComponentRegistrar::class)
 class ModuleInstrumentComponentRegistrar : ComponentRegistrar {
 
@@ -13,5 +21,6 @@ class ModuleInstrumentComponentRegistrar : ComponentRegistrar {
         configuration: CompilerConfiguration,
     ) {
 
+        val annotations: List<String> = configuration.get(ModuleInstrumentCmdProcessor.annotationConfigurationKey, emptyList())
     }
 }

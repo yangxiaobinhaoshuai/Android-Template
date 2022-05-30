@@ -5,6 +5,7 @@ import me.yangxiaobin.android.kotlin.codelab.base.LogAbility
 import me.yangxiaobin.android.kotlin.codelab.ext.*
 import me.yangxiaobin.android.kotlin.codelab.log.AndroidLogger
 import me.yangxiaobin.logger.core.LogFacade
+import me.yangxiaobin.module_service_provider.ServiceProvider
 import me.yangxiaobin.module_service_provider_annotation.DebugLog
 import kotlin.time.ExperimentalTime
 import kotlin.time.measureTimedValue
@@ -21,6 +22,7 @@ class MyApp : AbsApplication() {
         super.onCreate()
         init()
         testForDebugLog(2)
+        ServiceProvider.dumpRegistry(TAG)
     }
 
     @DebugLog

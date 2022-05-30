@@ -20,6 +20,7 @@
 3. Allow modifying existing code.
 4. not easy
 5. not fast
+6. 仅限于修改当前 project 的 kt 源文件  (其他模块无法获取，非 kt 文件不会处理）
 
 
 ### 相比 KSP 的优点

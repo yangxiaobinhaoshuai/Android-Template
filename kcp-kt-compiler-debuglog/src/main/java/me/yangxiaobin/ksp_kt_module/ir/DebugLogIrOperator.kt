@@ -24,12 +24,11 @@ class DebugLogIrOperator(
     pluginContext: IrPluginContext,
 ) : IrOperator(pluginContext) {
 
-    @Suppress("PARAMETER_NAME_CHANGED_ON_OVERRIDE")
-    override fun visitFunction(irFuncDeclaration: IrFunction): IrStatement {
+    override fun visitFunction(declaration: IrFunction): IrStatement {
 
         // 判断函数是否包含注解
-        if (debugLogAnnotations.none { irFuncDeclaration.annotations.hasAnnotation(FqName(it)) }) {
-            return super.visitFunction(irFuncDeclaration)
+        if (debugLogAnnotations.none { declaration.annotations.hasAnnotation(FqName(it)) }) {
+            return super.visitFunction(declaration)
         }
 
         // get `println` FunctionDescriptor
@@ -59,7 +58,7 @@ class DebugLogIrOperator(
 
         // add mark Local
         //  store TimeMark instance
-        val markLocal: IrVariable = irFuncDeclaration.createTemporaryVariable(
+        val markLocal: IrVariable = declaration.createTemporaryVariable(
             "tmp_time$0",
             markNowFunc.call(
                 IrGetObjectValueImpl(
@@ -73,16 +72,16 @@ class DebugLogIrOperator(
 
         // add return Local
         //  store original return type
-        val returnLocal: IrVariable = irFuncDeclaration.createTemporaryVariable("tmp_return$0", irFuncDeclaration.returnType, true)
+        val returnLocal: IrVariable = declaration.createTemporaryVariable("tmp_return$0", declaration.returnType, true)
 
         // the function with unit return type may not have any return expression, we need to add a mock one
         var finalReturn: IrReturn? = null
-        if (irFuncDeclaration.returnType == pluginContext.irBuiltIns.unitType) {
+        if (declaration.returnType == pluginContext.irBuiltIns.unitType) {
             finalReturn = IrReturnImpl(
                 UNDEFINED_OFFSET,
                 UNDEFINED_OFFSET,
-                type = irFuncDeclaration.returnType,
-                returnTargetSymbol = irFuncDeclaration.symbol,
+                type = declaration.returnType,
+                returnTargetSymbol = declaration.symbol,
                 value = IrGetObjectValueImpl(
                     UNDEFINED_OFFSET,
                     UNDEFINED_OFFSET,
@@ -92,9 +91,9 @@ class DebugLogIrOperator(
             )
         }
 
-        (irFuncDeclaration.body?.statements as? MutableList)?.run {
+        (declaration.body?.statements as? MutableList)?.run {
             // println function name before execute function body
-            add(0, printlnFunc.staticCall("⇢  ${irFuncDeclaration.name}".ir()))
+            add(0, printlnFunc.staticCall("⇢  ${declaration.name}".ir()))
             add(1, markLocal)
             add(2, returnLocal)
             if (finalReturn != null) {
@@ -102,11 +101,11 @@ class DebugLogIrOperator(
             }
         }
 
-        irFuncDeclaration.transformChildrenVoid(object : IrElementTransformerVoid() {
+        declaration.transformChildrenVoid(object : IrElementTransformerVoid() {
 
             override fun visitReturn(expression: IrReturn): IrExpression {
                 // if return target is current function, println elapsed time before return
-                if (expression.returnTargetSymbol != irFuncDeclaration.symbol) {
+                if (expression.returnTargetSymbol != declaration.symbol) {
                     return super.visitReturn(expression)
                 }
 
@@ -117,7 +116,7 @@ class DebugLogIrOperator(
                         UNDEFINED_OFFSET,
                         pluginContext.irBuiltIns.stringType,
                         listOf(
-                            "⇠ ${irFuncDeclaration.name} [ran in ".ir(),
+                            "⇠ ${declaration.name} [ran in ".ir(),
                             elapsedNow.call(
                                 IrGetValueImpl(
                                     UNDEFINED_OFFSET,
@@ -161,6 +160,6 @@ class DebugLogIrOperator(
             }
         })
 
-        return super.visitFunction(irFuncDeclaration)
+        return super.visitFunction(declaration)
     }
 }
