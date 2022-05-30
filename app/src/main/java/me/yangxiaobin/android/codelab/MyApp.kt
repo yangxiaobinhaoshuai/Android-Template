@@ -1,16 +1,15 @@
 package me.yangxiaobin.android.codelab
 
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 import me.yangxiaobin.android.kotlin.codelab.base.AbsApplication
 import me.yangxiaobin.android.kotlin.codelab.base.LogAbility
 import me.yangxiaobin.android.kotlin.codelab.ext.*
 import me.yangxiaobin.android.kotlin.codelab.log.AndroidLogger
 import me.yangxiaobin.logger.core.LogFacade
 import me.yangxiaobin.module_service_provider_annotation.DebugLog
+import kotlin.time.ExperimentalTime
+import kotlin.time.measureTimedValue
 
+@OptIn(ExperimentalTime::class)
 class MyApp : AbsApplication() {
 
 
@@ -21,6 +20,7 @@ class MyApp : AbsApplication() {
     override fun onCreate() {
         super.onCreate()
         init()
+        testForDebugLog(2)
     }
 
     @DebugLog
@@ -48,16 +48,15 @@ class MyApp : AbsApplication() {
 
     }
 
-    @DebugLog
-    private suspend fun mockHeavyWork(): Int {
-        delay(200)
-        return 200
-    }
 
     @DebugLog
-    private fun mockHeavyWork2(): Int {
-        Thread.sleep(200)
-        return 400
+    private fun testForDebugLog(value: Int): Boolean {
+        measureTimedValue {
+            if (value == 1) return@measureTimedValue 100L
+            else return@measureTimedValue 200L
+        }
+        return false
     }
+
 
 }

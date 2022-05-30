@@ -141,11 +141,11 @@ class DebugLogIrOperator(
                 )
 
                 // return local variable value
-                expression.value = IrGetValueImpl(
-                    startOffset = UNDEFINED_OFFSET,
-                    endOffset = UNDEFINED_OFFSET,
-                    symbol = returnLocal.symbol
-                )
+//                expression.value = IrGetValueImpl(
+//                    startOffset = UNDEFINED_OFFSET,
+//                    endOffset = UNDEFINED_OFFSET,
+//                    symbol = returnLocal.symbol
+//                )
 
                 return IrCompositeImpl(
                     expression.startOffset,
@@ -153,7 +153,7 @@ class DebugLogIrOperator(
                     type = expression.type,
                     origin = null,
                     statements = listOf(
-                        set,
+                        //set,
                         psta,
                         expression
                     )
