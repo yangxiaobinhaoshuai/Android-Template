@@ -29,6 +29,16 @@ java {
     targetCompatibility build_versions.target_compatibility
 }
 
+
+repositories {
+    maven {
+        url "../local-repo"
+    }
+    google()
+    mavenCentral()
+    jcenter()
+}
+
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation libDeps.ktStdlib
@@ -39,6 +49,13 @@ dependencies {
 
     compileOnly libDeps.autoService
     kapt libDeps.autoService
+
+    compileOnly gradleApi()
+    compileOnly libDeps.agp7
+    // For common logger.
+    implementation "me.yangxiaobin.jvm:logger:1.0-SNAPSHOT"
+    // For encapsulated gradle transform api.
+    implementation "me.yangxiaobin.gradle.plugin:base-plugin:0.0.1"
 
 //    implementation "org.jetbrains.kotlin:kotlin-stdlib:$ktVersion"
 //    implementation "org.jetbrains.kotlin:kotlin-gradle-plugin-api:$ktVersion"

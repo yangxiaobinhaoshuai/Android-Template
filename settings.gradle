@@ -2,6 +2,8 @@ import org.gradle.api.initialization.resolve.RepositoriesMode
 
 pluginManagement {
     repositories {
+        // For plugin dependencies.
+        maven { url "./local-repo" }
         gradlePluginPortal()
         google()
         mavenCentral()
@@ -27,9 +29,7 @@ dependencyResolutionManagement {
     defaultLibrariesExtensionName.set('deps')
     repositories {
         // Query local first.
-        maven {
-            url "./local-repo"
-        }
+        maven { url "./local-repo" }
         mavenLocal()
 
         google()
@@ -37,7 +37,7 @@ dependencyResolutionManagement {
         jcenter() // Warning: this repository is going to shut down soon
 
         // For hms scan kit
-        maven {url 'https://developer.huawei.com/repo/'}
+        maven { url 'https://developer.huawei.com/repo/' }
     }
 }
 rootProject.name = "AndroidCodelab"

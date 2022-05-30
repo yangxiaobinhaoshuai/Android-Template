@@ -33,7 +33,7 @@ class DebugLogSubPlugin : KotlinCompilerPluginSupportPlugin {
                     YangSubPluginOption(optKey = SUB_PLUGIN_OPTION_KEY_ANNOTATION, optVal = it)
                 } + YangSubPluginOption(optKey = SUB_PLUGIN_OPTION_KEY_ENABLE, optVal = ext.enable.toString())
 
-            PLog.d("SubPlugin provide sub options: $list.")
+            //PLog.d("SubPlugin provide sub options: $list.")
 
             list
         }

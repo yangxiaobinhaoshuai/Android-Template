@@ -4,6 +4,7 @@ import com.google.auto.service.AutoService
 import me.yangxiaobin.android_kcp.PLog
 import me.yangxiaobin.android_kcp.YangSubPluginArtifact
 import me.yangxiaobin.android_kcp.YangSubPluginOption
+import me.yangxiaobin.lib.ext.getAppExtension
 import org.gradle.api.Project
 import org.gradle.api.provider.Provider
 import org.jetbrains.kotlin.gradle.plugin.KotlinCompilation
@@ -13,12 +14,15 @@ import org.jetbrains.kotlin.gradle.plugin.SubpluginOption
 
 
 @AutoService(KotlinCompilerPluginSupportPlugin::class)
-class ModuleServicePlugin : KotlinCompilerPluginSupportPlugin {
+class ModuleServicePlugin : KotlinCompilerPluginSupportPlugin, me.yangxiaobin.lib.BasePlugin() {
 
-    override fun apply(target: Project) {
-        PLog.d("ModuleServicePlugin applied to ${target.name}.")
+    override fun apply(p: Project) {
+        super<me.yangxiaobin.lib.BasePlugin>.apply(p)
+        PLog.d("ModuleServicePlugin applied to ${p.name}.")
 
-        target.extensions.create("moduleService", ModuleServiceExt::class.java)
+        p.extensions.create("moduleService", ModuleServiceExt::class.java)
+
+        p.afterEvaluate { p.getAppExtension?.registerTransform(ModuleServiceTransform(p)) }
     }
 
     override fun applyToCompilation(kotlinCompilation: KotlinCompilation<*>): Provider<List<SubpluginOption>> {
@@ -38,7 +42,8 @@ class ModuleServicePlugin : KotlinCompilerPluginSupportPlugin {
 
     override fun getCompilerPluginId(): String = MODULE_INSTRUMENT_PLUGIN_ID
 
-    override fun getPluginArtifact(): SubpluginArtifact = YangSubPluginArtifact(artifactId = "kcp-kt-module-instrument")
+    override fun getPluginArtifact(): SubpluginArtifact =
+        YangSubPluginArtifact(artifactId = "kcp-kt-module-instrument")
 
     override fun isApplicable(kotlinCompilation: KotlinCompilation<*>): Boolean = true
 
@@ -48,6 +53,6 @@ class ModuleServicePlugin : KotlinCompilerPluginSupportPlugin {
     }
 }
 
-open class ModuleServiceExt{
+open class ModuleServiceExt {
     var annotations: List<String> = emptyList()
 }
