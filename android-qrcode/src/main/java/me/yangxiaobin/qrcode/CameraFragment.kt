@@ -1,5 +1,7 @@
 package me.yangxiaobin.qrcode
 
+import android.annotation.SuppressLint
+import android.media.Image
 import android.view.View
 import androidx.camera.core.*
 import androidx.camera.lifecycle.ProcessCameraProvider
@@ -8,15 +10,20 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.core.content.ContextCompat
 import bindView
+import com.google.android.gms.tasks.Task
+import com.google.mlkit.vision.barcode.BarcodeScanner
+import com.google.mlkit.vision.barcode.BarcodeScannerOptions
+import com.google.mlkit.vision.barcode.BarcodeScanning
+import com.google.mlkit.vision.barcode.common.Barcode
+import com.google.mlkit.vision.common.InputImage
 import me.yangxiaobin.android.kotlin.codelab.base.LogAbility
 import me.yangxiaobin.android.kotlin.codelab.ext.MatchParentParams
+import me.yangxiaobin.android.kotlin.codelab.ext.showFragmentToast
 import me.yangxiaobin.android.kotlin.codelab.log.AndroidLogger
 import me.yangxiaobin.colors.HexColors
 import me.yangxiaobin.colors.colorInt
 import me.yangxiaobin.kotlin.compose.lib.AbsComposableFragment
 import me.yangxiaobin.logger.core.LogFacade
-import me.yangxiaobin.module_service_provider.ServiceProvider
-import me.yangxiaobin.qrcode.impl.QrCodeUtilityProvider
 import java.util.concurrent.Executors
 import kotlin.math.abs
 import kotlin.math.max
@@ -81,6 +88,7 @@ class CameraFragment : AbsComposableFragment() {
 
     }
 
+    @SuppressLint("UnsafeOptInUsageError")
     private fun bindPreview(cameraProvider: ProcessCameraProvider) {
 
         val cameraSelector: CameraSelector = CameraSelector.Builder()
@@ -96,16 +104,75 @@ class CameraFragment : AbsComposableFragment() {
             .build()
 
         // imageAnalysis
-        val imageAnalysis = ImageAnalysis.Builder()
+        val imageAnalysis: ImageAnalysis = ImageAnalysis.Builder()
+            //.setTargetResolution(Size(width, height))
+            .setBackpressureStrategy(ImageAnalysis.STRATEGY_KEEP_ONLY_LATEST)
             .build()
-            .apply {
-                setAnalyzer(Executors.newSingleThreadExecutor()){ imageProxy: ImageProxy ->
-                    logD("imageAnalysis.callback, $imageProxy.")
 
-                    ServiceProvider.getServiceOrNull(QrCodeUtilityProvider::class.java)?.readImageProxy(imageProxy)
+//        imageAnalysis.setAnalyzer(Executors.newSingleThreadExecutor()) { imageProxy: ImageProxy ->
+//            logD("imageAnalysis.callback, $imageProxy.")
+//            ServiceProvider.getServiceOrNull(QrCodeUtilityProvider::class.java)?.readImageProxy(imageProxy)
+//        }
 
+
+        // mlkit : https://developers.google.com/ml-kit/vision/barcode-scanning/android
+        val options: BarcodeScannerOptions = BarcodeScannerOptions.Builder()
+            .setBarcodeFormats(
+                Barcode.FORMAT_QR_CODE,
+                Barcode.FORMAT_AZTEC,
+            )
+            .build()
+
+        val scanner: BarcodeScanner = BarcodeScanning.getClient(options)
+
+
+        imageAnalysis.setAnalyzer(Executors.newSingleThreadExecutor()) { imageProxy: ImageProxy ->
+
+            val mediaImage: Image = imageProxy.image ?: kotlin.run { imageProxy.close();return@setAnalyzer }
+
+            val image: InputImage = InputImage.fromMediaImage(mediaImage, imageProxy.imageInfo.rotationDegrees)
+
+            val res: Task<MutableList<Barcode>> = scanner.process(image)
+                .addOnSuccessListener { barCodes: MutableList<Barcode>->
+                    if (barCodes.size > 0){
+                        //listener.invoke(barCodes[0],imageProxy.width,imageProxy.height)
+
+                        for (barcode in barCodes) {
+                            val bounds = barcode.boundingBox
+                            val corners = barcode.cornerPoints
+
+                            val rawValue = barcode.rawValue
+
+                            val valueType: Int = barcode.valueType
+                            // See API reference for complete list of supported types
+                            when (valueType) {
+                                Barcode.TYPE_WIFI -> {
+                                    val ssid = barcode.wifi!!.ssid
+                                    val password = barcode.wifi!!.password
+                                    val type = barcode.wifi!!.encryptionType
+                                }
+                                Barcode.TYPE_URL -> {
+                                    val title = barcode.url!!.title
+                                    val url = barcode.url!!.url
+
+                                    logD("scan successful, title: $title, url: $url.")
+                                    showFragmentToast("QrCode for url type, title:$title, url:$url.")
+                                }
+                            }
+                        }
+                        //接收到结果后，就关闭解析
+                        scanner.close()
+                    }
                 }
-            }
+                .addOnFailureListener {
+                    logD("scan fail : ${it.message}.")
+                }
+                .addOnCompleteListener { it: Task<MutableList<Barcode>> ->
+                    logD("scan completed.")
+                    imageProxy.close()
+                }
+        }
+
 
         try {// A variable number of use-cases can be passed here -
             // camera provides access to CameraControl & CameraInfo
