@@ -24,7 +24,8 @@ class ExamplePlugin : Plugin<Project> {
         androidComponents.onVariants { variant: Variant ->
             variant.instrumentation.transformClassesWith(
                 ExampleClassVisitorFactory::class.java,
-                InstrumentationScope.ALL) {
+                InstrumentationScope.ALL
+            ) {
                 it.writeToStdout.set(true)
             }
             variant.instrumentation.setAsmFramesComputationMode(FramesComputationMode.COPY_FRAMES)

@@ -57,6 +57,8 @@ dependencies {
     // For encapsulated gradle transform api.
     implementation "me.yangxiaobin.gradle.plugin:base-plugin:0.0.1"
 
+    implementation("org.javassist:javassist:3.22.0-GA")
+
 //    implementation "org.jetbrains.kotlin:kotlin-stdlib:$ktVersion"
 //    implementation "org.jetbrains.kotlin:kotlin-gradle-plugin-api:$ktVersion"
 //

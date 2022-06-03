@@ -75,3 +75,5 @@ KCP
 
 - [Kt compiler 架构理解](https://github.com/ahinchman1/Kotlin-Compiler-Crash-Course)
 
+- [gradle-recipes](https://github.com/android/gradle-recipes)
+

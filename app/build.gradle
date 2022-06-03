@@ -4,9 +4,9 @@ plugins {
     id 'kotlin-android-extensions'
 
     id 'kotlin-kapt'
-    id 'module-service-provider'
+    //id 'module-service-provider'
     id 'debug-log'
-    id 'example'
+    //id 'example'
     //id 'dagger.hilt.android.plugin'
 }
 
@@ -15,9 +15,9 @@ debugLog{
     annotationList = ['me.yangxiaobin.module_service_provider_annotation.DebugLog']
 }
 
-moduleService{
-    annotations = ['me.yangxiaobin.module_service_provider_annotation.ModuleService']
-}
+//moduleService{
+//    annotations = ['me.yangxiaobin.module_service_provider_annotation.ModuleService']
+//}
 
 android {
     compileSdk build_versions.compile_sdk
