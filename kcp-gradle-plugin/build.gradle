@@ -1,9 +1,25 @@
+buildscript {
+    repositories {
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+    }
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.6.21"
+    }
+}
+
 plugins {
     id 'java-library'
     id 'java-gradle-plugin'
+
+    // Plugin [id: 'org.jetbrains.kotlin.kapt', version: '1.6.21'] was not found in any of the following sources:
     id 'org.jetbrains.kotlin.jvm' version '1.6.21'
     id "org.jetbrains.kotlin.kapt" version "1.6.21"
 }
+//apply plugin: "org.jetbrains.kotlin.jvm"
+//apply plugin: "org.jetbrains.kotlin.kapt"
+
 apply from: "../gradle/compileOpt.gradle"
 
 gradlePlugin {
