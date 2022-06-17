@@ -1,19 +1,35 @@
 package me.yangxiaobin.kotlin.codelab.ext
 
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 import kotlin.coroutines.CoroutineContext
+import kotlin.coroutines.EmptyCoroutineContext
 
 
-fun <T> debounce(delayMs: Long = 500L,
-                 coroutineContext: CoroutineContext,
-                 f: (T) -> Unit): (T) -> Unit {
+fun <T> debounce(
+    delayMs: Long = 500L,
+    coroutineContext: CoroutineContext = EmptyCoroutineContext,
+    f: (T) -> Unit
+): (T) -> Unit {
     var debounceJob: Job? = null
     return { param: T ->
         if (debounceJob?.isCompleted != false) {
             debounceJob = CoroutineScope(coroutineContext).launch {
+                delay(delayMs)
+                f(param)
+            }
+        }
+    }
+}
+
+fun <T> debounce(
+    delayMs: Long = 500L,
+    coroutineScope: CoroutineScope = CoroutineScope(Dispatchers.Main),
+    f: (T) -> Unit
+): (T) -> Unit {
+    var debounceJob: Job? = null
+    return { param: T ->
+        if (debounceJob?.isCompleted != false) {
+            debounceJob = coroutineScope.launch {
                 delay(delayMs)
                 f(param)
             }
