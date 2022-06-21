@@ -1,6 +1,7 @@
 package me.yangxiaobin.android.kotlin.codelab.ext
 
 import android.os.Handler
+import android.os.HandlerThread
 import android.os.Looper
 import android.os.Message
 import androidx.core.os.postDelayed
@@ -12,7 +13,7 @@ val mainLopper: Looper get() = Looper.getMainLooper()
 
 val mainHandler: Handler get() = Handler(mainLopper)
 
-fun getMainHandler(handleMessage: (Message) -> Unit): Handler = object : Handler(mainLopper) {
+fun createMainHandler(handleMessage: (Message) -> Unit): Handler = object : Handler(mainLopper) {
     override fun handleMessage(msg: Message) {
         super.handleMessage(msg)
         handleMessage(msg)
@@ -30,4 +31,19 @@ fun Handler.postDelayCancellable(lifecycleOwner: LifecycleOwner, delay: Long = 0
     )
 
     lifecycleOwner.lifecycle.addObserver(simpleObserver)
+}
+
+
+private val handlerThread by lazy { HandlerThread("async-post-delay") }
+
+private val workerHandler by lazy { Handler(handlerThread.looper) }
+
+/**
+ * Post action in worker thread named 'async-post-delay'
+ *
+ * Usage of handlerThread : https://www.jianshu.com/p/9c10beaa1c95
+ */
+fun postDelayAsync(delay: Long, action: Runnable) {
+    if (!handlerThread.isAlive) handlerThread.start()
+    workerHandler.postDelayed(action, delay)
 }

@@ -6,7 +6,7 @@ import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import me.yangxiaobin.android.kotlin.codelab.base.LogAbility
-import me.yangxiaobin.android.kotlin.codelab.ext.getMainHandler
+import me.yangxiaobin.android.kotlin.codelab.ext.createMainHandler
 import me.yangxiaobin.android.kotlin.codelab.log.AndroidLogger
 import me.yangxiaobin.kotlin.codelab.ext.curThread
 import me.yangxiaobin.kotlin.codelab.ext.getFullStacktrace
@@ -219,7 +219,7 @@ class ThreadFragment : me.yangxiaobin.common_ui.ButtonsFragment() {
     private fun dumpThread() = logD("cur interrupt :${curThread.isInterrupted}.")
 
 
-    private val mainHandler = getMainHandler {
+    private val mainHandler = createMainHandler {
         logD("myHandler message: $it.")
         if (it.what == 1) callback?.invoke(it.obj as Int)
     }
