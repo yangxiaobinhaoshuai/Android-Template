@@ -32,6 +32,7 @@ import me.yangxiaobin.android.codelab.recyclerview.PagingRvFragment
 import me.yangxiaobin.android.codelab.retrofit.RetrofitFragment
 import me.yangxiaobin.android.codelab.touch_event.ActionCancelEventFragment
 import me.yangxiaobin.android.kotlin.codelab.ext.showFragmentToast
+import me.yangxiaobin.android.proguard_lib.ReflectFragment
 import me.yangxiaobin.kotlin.compose.lib.AbsComposableFragment
 import me.yangxiaobin.qrcode.QrCodeScanActivity
 import org.jetbrains.anko.intentFor
@@ -141,6 +142,9 @@ class ComposeVerticalListFragment : AbsComposableFragment() {
             // 10.
             "PermissionRequest" -> naviToFragment(PermissionRequestFragment())
             "QRCodeScanActivity" -> ctx.startActivity(ctx.intentFor<QrCodeScanActivity>())
+
+            // 10. Proguard
+            "Reflection" -> naviToFragment(ReflectFragment())
 
             else -> showFragmentToast("UnSupport key :$dest.")
         }

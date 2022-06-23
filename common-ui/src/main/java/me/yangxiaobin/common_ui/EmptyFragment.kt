@@ -52,6 +52,8 @@ open class EmptyFragment : AbsFragment() {
                                 this.text = "Button: $index"
                             }
 
+                        bt.setOnClickListener { this@EmptyFragment::onButtonClick.invoke(index) }
+
                         this.addView(bt, lp)
                     } else {
                         this.addView(customChildren()[index - buttonsCount], lp)
@@ -60,6 +62,8 @@ open class EmptyFragment : AbsFragment() {
 
             }
     }
+
+    protected open fun onButtonClick(index: Int) {}
 
     protected open fun customChildren(): List<View> = emptyList()
 

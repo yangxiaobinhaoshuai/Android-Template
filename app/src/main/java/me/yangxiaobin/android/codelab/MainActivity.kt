@@ -75,21 +75,26 @@ class MainActivity : AbsActivity() {
             "Future",
         ),
 
-       // 8. Android alerts
-       "Alerts" to arrayOf(
-           "PopupWindow",
-       ),
+        // 8. Android alerts
+        "Alerts" to arrayOf(
+            "PopupWindow",
+        ),
 
         // 9. Android Touch Events
-       "Touch Events" to arrayOf(
-           "ACTION_CANCEL"
-       ),
+        "Touch Events" to arrayOf(
+            "ACTION_CANCEL"
+        ),
 
-       // 10. qrcode scan
-       "QRCode" to arrayOf(
-           "PermissionRequest",
-           "QRCodeScanActivity",
-       ),
+        // 10. qrcode scan
+        "QRCode" to arrayOf(
+            "PermissionRequest",
+            "QRCodeScanActivity",
+        ),
+
+        // 11. Proguard
+        "Proguard" to arrayOf(
+            "Reflection",
+        ),
     )
 
 

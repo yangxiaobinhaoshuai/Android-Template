@@ -35,7 +35,7 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
@@ -96,5 +96,6 @@ dependencies {
     implementation project(":common-ui")
     implementation project(':module-service-provider-annotation')
     implementation project(':module-service-provider')
+    implementation project(':proguard-lib')
 
 }
