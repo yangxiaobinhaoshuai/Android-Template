@@ -37,6 +37,7 @@ hiltV = "2.28-alpha"
 # cameraX : https://developer.android.com/codelabs/camerax-getting-started#1
 cameraXV = "1.1.0-beta01"
 
+navV = "2.4.2"
 
 
 [libraries]
@@ -144,6 +145,12 @@ hiltAndroidPlugin  = { module = "com.google.dagger:hilt-android-gradle-plugin", 
 hiltAndroid  = { module = "com.google.dagger:hilt-android", version.ref = "hiltV" }
 hiltAndroidCompiler  = { module = "com.google.dagger:hilt-android-compiler", version.ref = "hiltV" }
 
+# navigation : https://developer.android.com/guide/navigation/navigation-getting-started
+navFragmentKtx = { module = "androidx.navigation:navigation-fragment-ktx", version.ref = "navV" }
+navUIKtx = { module = "androidx.navigation:navigation-ui-ktx", version.ref = "navV" }
+navCompose = { module = "androidx.navigation:navigation-compose", version.ref = "navV" }
+
+
 # cameraX The minCompileSdk (31) specified in it.
 cameraCore =  { module = "androidx.camera:camera-core", version.ref = "cameraXV" }
 cameraCamera2 =  { module = "androidx.camera:camera-camera2", version.ref = "cameraXV" }
@@ -214,6 +221,12 @@ cameraX = [
     "cameraVideo",
     "cameraView",
     "cameraExtension",
+]
+
+nav = [
+    "navFragmentKtx",
+    "navUIKtx",
+    "navCompose",
 ]
 
 #[plugins]
