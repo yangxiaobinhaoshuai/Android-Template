@@ -28,6 +28,15 @@ android {
     kotlinOptions {
         jvmTarget = build_versions.kt_jvm_target
     }
+
+    buildFeatures {
+        // Enables Jetpack Compose for this module
+        compose true
+    }
+
+    composeOptions {
+        kotlinCompilerExtensionVersion compose_versions.ktCompilerExtVersion
+    }
 }
 
 dependencies {
@@ -44,5 +53,8 @@ dependencies {
     implementation project(":kt-compose-lib")
     implementation project(":common-ui")
     compileOnly project(":codelab-android-kt")
+
+    // https://github.com/jOOQ/jOOR
+    implementation "org.jooq:joor-java-8:0.9.14"
 
 }

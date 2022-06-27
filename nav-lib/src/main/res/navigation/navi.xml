@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation"
+    app:startDestination="@id/page1_graph"
+    tools:ignore="UnusedNavigation">
+
+    <navigation
+        android:id="@+id/page1_graph"
+        app:startDestination="@id/page1_fragment">
+
+        <fragment
+            android:id="@+id/page1_fragment"
+            android:name="me.yangxiaobin.android.nav_lib.Page1Fragment" />
+
+        <action
+            android:id="@+id/action_to_page2"
+            app:destination="@id/page2_graph"
+            app:popUpToInclusive="true" />
+
+    </navigation>
+
+    <navigation
+        android:id="@+id/page2_graph"
+        app:startDestination="@id/page2_fragment">
+
+
+        <fragment
+            android:id="@+id/page2_fragment"
+            android:name="me.yangxiaobin.android.nav_lib.Page2Fragment">
+
+        </fragment>
+
+    </navigation>
+
+</navigation>

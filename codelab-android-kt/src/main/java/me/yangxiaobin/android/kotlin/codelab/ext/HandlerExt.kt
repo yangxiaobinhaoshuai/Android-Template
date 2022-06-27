@@ -4,14 +4,14 @@ import android.os.Handler
 import android.os.HandlerThread
 import android.os.Looper
 import android.os.Message
-import androidx.core.os.postDelayed
+import android.view.View
 import androidx.lifecycle.LifecycleOwner
 import me.yangxiaobin.android.kotlin.codelab.lifecycle.SimpleLifecycleObserver
 
 
-val mainLopper: Looper get() = Looper.getMainLooper()
+val mainLopper: Looper by lazy { Looper.getMainLooper() }
 
-val mainHandler: Handler get() = Handler(mainLopper)
+val mainHandler: Handler by lazy { Handler(mainLopper) }
 
 fun createMainHandler(handleMessage: (Message) -> Unit): Handler = object : Handler(mainLopper) {
     override fun handleMessage(msg: Message) {
@@ -47,3 +47,35 @@ fun postDelayAsync(delay: Long, action: Runnable) {
     if (!handlerThread.isAlive) handlerThread.start()
     workerHandler.postDelayed(action, delay)
 }
+
+
+fun postUtilWithTimestamp(condition: Boolean, action: Action, timeout: Long, preTimestamp: Long) {
+    if (timeout <= 0) return
+
+    if (condition) {
+        action.invoke()
+    } else {
+        val curTimestamp = System.currentTimeMillis()
+
+        postUtilWithTimestamp(
+            condition,
+            action,
+            timeout = curTimestamp - preTimestamp,
+            preTimestamp = curTimestamp
+        )
+    }
+}
+
+fun <T : Handler> T.postUntil(
+    condition: Boolean,
+    timeout: Long = Long.MAX_VALUE,
+    action: Action
+): Unit = postUtilWithTimestamp(condition, action, timeout, System.currentTimeMillis())
+
+
+fun <T : View> T.postUntil(
+    condition: Boolean,
+    timeout: Long = Long.MAX_VALUE,
+    action: Action
+): Unit = postUtilWithTimestamp(condition, action, timeout, System.currentTimeMillis())
+

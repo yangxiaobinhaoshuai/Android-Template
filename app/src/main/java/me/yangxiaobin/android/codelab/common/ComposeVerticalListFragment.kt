@@ -32,7 +32,7 @@ import me.yangxiaobin.android.codelab.recyclerview.PagingRvFragment
 import me.yangxiaobin.android.codelab.retrofit.RetrofitFragment
 import me.yangxiaobin.android.codelab.touch_event.ActionCancelEventFragment
 import me.yangxiaobin.android.kotlin.codelab.ext.showFragmentToast
-import me.yangxiaobin.android.nav_lib.NavComposeFragment
+import me.yangxiaobin.android.nav_lib.NavHostComposeFragment
 import me.yangxiaobin.android.proguard_lib.ReflectFragment
 import me.yangxiaobin.kotlin.compose.lib.AbsComposableFragment
 import me.yangxiaobin.qrcode.QrCodeScanActivity
@@ -120,7 +120,7 @@ class ComposeVerticalListFragment : AbsComposableFragment() {
             // 4.Jetpack Components
             "MutableSharedFlow" -> naviToFragment(MutableSharedFlowFragment())
             "Flow" -> naviToFragment(FlowFragment())
-            "Navigation" -> naviToFragment(NavComposeFragment())
+            "Navigation" -> naviToFragment(NavHostComposeFragment())
 
             // 5.Kotlin Jetpack Compose
             "MyBottomSheetDialogFragment" -> naviToFragment(MyBottomSheetDialogFragment())

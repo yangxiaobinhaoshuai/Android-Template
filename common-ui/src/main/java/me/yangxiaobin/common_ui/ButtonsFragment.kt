@@ -20,7 +20,7 @@ open class ButtonsFragment : AbsComposableFragment() {
 
     protected open val buttonCount = 8
 
-    protected val textFlow = mutableStateOf("")
+    private val textFlow = mutableStateOf("")
 
 
     override val composableContent = @Composable {
