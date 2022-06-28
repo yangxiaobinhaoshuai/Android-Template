@@ -30,7 +30,7 @@ sealed interface PermissionResponse {
 suspend fun PermissionRequest.requestAsync(permissionString: String): PermissionResponse =
     suspendCancellableCoroutine { coun: CancellableContinuation<PermissionResponse> ->
         this.request(permissionString) {
-            onResult {
+            onGranted {
                 coun.resume(PermissionResponse.Success)
             }
             shouldShowRationale {

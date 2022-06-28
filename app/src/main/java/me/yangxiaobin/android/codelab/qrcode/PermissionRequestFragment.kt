@@ -35,14 +35,14 @@ class PermissionRequestFragment : me.yangxiaobin.common_ui.ButtonsFragment() {
     private fun requestPermissionInner() {
         val res: Int =
             ActivityCompat.checkSelfPermission(requireContext(), android.Manifest.permission.CAMERA)
-        if (res == PackageManager.PERMISSION_DENIED) {
-            logD("Does NOT has camera permission, so request it.")
-        } else logD("has camera permission.")
+
+        if (res == PackageManager.PERMISSION_DENIED) logD("Does NOT has camera permission, so request it.")
+        else logD("has camera permission.")
 
 
         PermissionManager.createReq(this).request(android.Manifest.permission.CAMERA) {
 
-            onResult { logD("onResult : $it.") }
+            onGranted { logD("onResult : $it.") }
             shouldShowRationale { logD("shouldShowRationale : $it.") }
             onNeverAskAgain { logD("onNeverAskAgain : $it.") }
         }
@@ -71,7 +71,7 @@ class PermissionRequestFragment : me.yangxiaobin.common_ui.ButtonsFragment() {
             0 -> {
                 PermissionManager.createReq(this).request(android.Manifest.permission.CAMERA) {
 
-                    onResult { logD("click onResult : $it.") }
+                    onGranted { logD("click onResult : $it.") }
                     shouldShowRationale { logD("click shouldShowRationale : $it.") }
                     onNeverAskAgain { logD("click onNeverAskAgain : $it.") }
                 }

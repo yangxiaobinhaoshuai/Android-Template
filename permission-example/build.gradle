@@ -41,5 +41,6 @@ dependencies {
 
     implementation project(":android-permission")
     implementation project(":common-ui")
+    implementation project(":codelab-android-kt")
 
 }

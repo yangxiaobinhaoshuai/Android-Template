@@ -31,7 +31,7 @@ class PermissionRequest(private val fragmentActivity: FragmentActivity) {
         val alreadyGranted = ActivityCompat.checkSelfPermission(fragmentActivity, permissionString)
         if (alreadyGranted == PackageManager.PERMISSION_GRANTED) {
             logInner("permissionRequest: $permissionString has been granted.")
-            builder.permissionResult.onResult?.invoke(permissionString)
+            builder.permissionResult.onGranted?.invoke(permissionString)
             return@apply
         }
 

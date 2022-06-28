@@ -1,16 +1,50 @@
 package me.yangxiaobin.android.permission
 
+import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.content.ContextWrapper
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.net.Uri
 import android.provider.Settings
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 
-
+/**
+ * Usage 1:
+ *   PermissionManager
+ *    .createReq(this)
+ *    .request(android.Manifest.permission.CAMERA) {
+ *
+ *        onResult {
+ *          logD("camera permission is granted : $it.")
+ *        }
+ *
+ *        onNeverAskAgain {
+ *          logD("camera permission never ask again: $it.")
+ *           PermissionManager.navigateAppDetailSettings(this@QrCodeScanActivity)
+ *        }
+ *
+ *    }
+ *
+ *    Usage 2:
+ *
+ *     lifecycleScope.launch {
+ *
+ *        val res = PermissionManager
+ *                .createReq(this@QrCodeScanActivity)
+ *                .requestAsync(android.Manifest.permission.CAMERA)
+ *
+ *          logD("async request permission, res :$res.")
+ *
+ *         if (res is PermissionResponse.Success) navigateCameraFragment()
+ *
+ *       }
+ *
+ */
 object PermissionManager {
 
     //region config option
@@ -53,6 +87,21 @@ object PermissionManager {
                 context.startActivity(settingIntent)
             }
         }
+    }
+
+
+    fun check(context: Context, permission: String): Boolean = ContextCompat.checkSelfPermission(context, permission) == PackageManager.PERMISSION_GRANTED
+
+  inline  fun  without (
+        context: Context,
+        permission: String,
+        action: () -> Unit
+    ) {
+        val isDenied = ContextCompat.checkSelfPermission(
+            context,
+            permission
+        ) == PackageManager.PERMISSION_DENIED
+        if (isDenied) action.invoke()
     }
 
 

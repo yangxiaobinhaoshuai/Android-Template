@@ -4,7 +4,7 @@ typealias ResultBuilder = PermissionResultBuilder.() -> Unit
 
 
 data class PermissionResult(
-    val onResult: OnResult? = null,
+    val onGranted: OnGranted? = null,
     val onNeverAskAgain: OnNeverAskAgain? = null,
     val shouldShowRationale: OnShouldShowRationale? = null,
 )
@@ -15,14 +15,20 @@ class PermissionResultBuilder {
     var permissionResult = PermissionResult()
         private set
 
-    fun onResult(result: OnResult) {
-        permissionResult = permissionResult.copy(onResult = result)
+    fun onGranted(result: OnGranted) {
+        permissionResult = permissionResult.copy(onGranted = result)
     }
 
+    /**
+     * 第二次及以后被拒绝
+     */
     fun onNeverAskAgain(onNeverAskAgain: OnNeverAskAgain) {
         permissionResult = permissionResult.copy(onNeverAskAgain = onNeverAskAgain)
     }
 
+    /**
+     * 第一次被拒绝
+     */
     fun shouldShowRationale(shouldShowRationale: OnShouldShowRationale) {
         permissionResult = permissionResult.copy(shouldShowRationale = shouldShowRationale)
     }

@@ -58,7 +58,7 @@ class QrCodeScanActivity : AbsActivity() {
         PermissionManager
             .createReq(this)
             .request(android.Manifest.permission.CAMERA) {
-                onResult {
+                onGranted {
                     logD("camera permission is granted : $it.")
                 }
                 onNeverAskAgain {

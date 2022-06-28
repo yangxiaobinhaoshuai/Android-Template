@@ -29,14 +29,14 @@ internal class PermissionFragment : Fragment() {
     private val requestPermissionLauncher = registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted: Boolean ->
         logInner("permission request launcher callback, isGranted:$isGranted.")
 
-        if (isGranted) result.onResult?.invoke(permissionString)
+        if (isGranted) result.onGranted?.invoke(permissionString)
 
 
         if (!isGranted) {
-            val should = ActivityCompat.shouldShowRequestPermissionRationale(requireActivity(), permissionString)
-            logInner("shouldShowRequestPermissionRationale: $should.")
+            val shouldShowRationale: Boolean = ActivityCompat.shouldShowRequestPermissionRationale(requireActivity(), permissionString)
+            logInner("shouldShowRequestPermissionRationale: $shouldShowRationale.")
 
-            if (should) result.shouldShowRationale?.invoke(permissionString)
+            if (shouldShowRationale) result.shouldShowRationale?.invoke(permissionString)
             else result.onNeverAskAgain?.invoke(permissionString)
         }
 
