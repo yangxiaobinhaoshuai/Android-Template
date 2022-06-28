@@ -1,6 +1,5 @@
 package me.yangxiaobin.android.permission
 
-import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
@@ -92,7 +91,7 @@ object PermissionManager {
 
     fun check(context: Context, permission: String): Boolean = ContextCompat.checkSelfPermission(context, permission) == PackageManager.PERMISSION_GRANTED
 
-  inline  fun  without (
+    inline fun without(
         context: Context,
         permission: String,
         action: () -> Unit

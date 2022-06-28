@@ -21,17 +21,17 @@ class PermissionRequest(private val fragmentActivity: FragmentActivity) {
      * @see android.Manifest.permission
      */
     fun request(
-        permissionString: String,
+        vararg permissions: String,
         resultBuilder: ResultBuilder,
     ) = apply {
 
         val builder = PermissionResultBuilder()
         resultBuilder.invoke(builder)
 
-        val alreadyGranted = ActivityCompat.checkSelfPermission(fragmentActivity, permissionString)
-        if (alreadyGranted == PackageManager.PERMISSION_GRANTED) {
-            logInner("permissionRequest: $permissionString has been granted.")
-            builder.permissionResult.onGranted?.invoke(permissionString)
+        val allGranted = permissions.all { permission-> ActivityCompat.checkSelfPermission(fragmentActivity, permission) == PackageManager.PERMISSION_GRANTED }
+        if (allGranted) {
+            logInner("permissionRequest: $permissions have been granted totally.")
+            builder.permissionResult.onGranted?.invoke(arrayOf(*permissions))
             return@apply
         }
 
@@ -45,7 +45,7 @@ class PermissionRequest(private val fragmentActivity: FragmentActivity) {
             }
 
         if (shadowFragment !is PermissionFragment) return@apply
-        shadowFragment.requestPermission(permissionString, builder.permissionResult)
+        shadowFragment.requestPermission(permissions = permissions, builder.permissionResult)
     }
 
 

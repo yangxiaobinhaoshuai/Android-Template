@@ -1,6 +1,7 @@
 package me.yangxiaobin.android.permission
 
 import android.os.Bundle
+import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
@@ -14,7 +15,7 @@ import androidx.fragment.app.Fragment
 internal class PermissionFragment : Fragment() {
 
 
-    private lateinit var permissionString: String
+    private lateinit var permissions: Array<String>
     private lateinit var result: PermissionResult
 
     init {
@@ -26,19 +27,34 @@ internal class PermissionFragment : Fragment() {
     // system permissions dialog. Save the return value, an instance of
     // ActivityResultLauncher. You can use either a val, as shown in this snippet,
     // or a lateinit var in your onAttach() or onCreate() method.
-    private val requestPermissionLauncher = registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted: Boolean ->
-        logInner("permission request launcher callback, isGranted:$isGranted.")
+    private val requestPermissionLauncher: ActivityResultLauncher<Array<String>> =
+        registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { resMap: MutableMap<String, Boolean> ->
 
-        if (isGranted) result.onGranted?.invoke(permissionString)
+            logInner("permission request launcher callback, resMap:$resMap.")
+
+            val grantedPermissions: Array<String> = resMap.entries.filter { it.value }.map { it.key }.toTypedArray()
+            if (grantedPermissions.isNotEmpty()) result.onGranted?.invoke(grantedPermissions)
 
 
-        if (!isGranted) {
-            val shouldShowRationale: Boolean = ActivityCompat.shouldShowRequestPermissionRationale(requireActivity(), permissionString)
-            logInner("shouldShowRequestPermissionRationale: $shouldShowRationale.")
+            // Non granted exits.
+            if (grantedPermissions.size < this.permissions.size) {
 
-            if (shouldShowRationale) result.shouldShowRationale?.invoke(permissionString)
-            else result.onNeverAskAgain?.invoke(permissionString)
-        }
+                val nonGrantedPermissions = resMap.entries.filterNot { it.value }.map { it.key }
+
+                val shouldShowRationalePermissions = nonGrantedPermissions
+                    .filter { permission -> ActivityCompat.shouldShowRequestPermissionRationale(requireActivity(), permission) }
+                    .also { logInner("shouldShowRequestPermissionRationale: $it.") }
+                    .toTypedArray()
+
+                val neverAskAgainPermissions = nonGrantedPermissions
+                    .filterNot { permission -> ActivityCompat.shouldShowRequestPermissionRationale(requireActivity(), permission) }
+                    .also { logInner("never ask again: $it.") }
+                    .toTypedArray()
+
+                if (shouldShowRationalePermissions.isNotEmpty()) result.shouldShowRationale?.invoke(shouldShowRationalePermissions)
+
+                if (neverAskAgainPermissions.isNotEmpty()) result.onNeverAskAgain?.invoke(neverAskAgainPermissions)
+            }
 
         //if (isGranted) {
                 // Permission is granted. Continue the action or workflow in your
@@ -52,10 +68,10 @@ internal class PermissionFragment : Fragment() {
            // }
         }
 
-    fun requestPermission(permissionString: String, result: PermissionResult) {
-        this.permissionString = permissionString
+    fun requestPermission(vararg permissions: String, result: PermissionResult) {
+        this.permissions = arrayOf(*permissions)
         this.result = result
-        if (this.isResumed) requestPermissionLauncher.launch(permissionString)
+        if (this.isResumed) requestPermissionLauncher.launch(this.permissions)
     }
 
 
@@ -68,7 +84,7 @@ internal class PermissionFragment : Fragment() {
         super.onCreate(savedInstanceState)
         logInner("onCreate.")
         // avoid "Operation cannot be started before fragment is in created state"
-        requestPermissionLauncher.launch(permissionString)
+        requestPermissionLauncher.launch(this.permissions)
     }
 
     override fun onStart() {

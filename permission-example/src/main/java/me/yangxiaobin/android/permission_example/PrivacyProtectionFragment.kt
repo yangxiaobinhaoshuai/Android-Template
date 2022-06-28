@@ -3,8 +3,10 @@ package me.yangxiaobin.android.permission_example
 import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Intent
 import android.location.Location
 import android.location.LocationManager
+import android.provider.MediaStore
 import android.view.View
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.Dispatchers
@@ -53,36 +55,50 @@ class PrivacyProtectionFragment : ButtonsFragment() {
         when (index) {
             0 -> getLocationInfo()
             1 -> getDeviceInfo()
-            2-> accessSysAlbum()
+            2 -> accessSysAlbum()
+            3 -> openSysAlbum()
             else -> Unit
         }
+    }
+
+
+    private fun openSysAlbum(){
+        val albumIntent = Intent(Intent.ACTION_PICK)
+        albumIntent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,"image/*")
+        startActivity(albumIntent)
     }
 
     /**
      * 访问存储文件或者相册
      */
-    private fun accessSysAlbum(){
+    private fun accessSysAlbum() {
 
-        PermissionManager.createReq(this).request(Manifest.permission.READ_EXTERNAL_STORAGE){
+        PermissionManager.createReq(this).request(
+            Manifest.permission.WRITE_EXTERNAL_STORAGE,
+            Manifest.permission.READ_EXTERNAL_STORAGE,
+            Manifest.permission.READ_PHONE_STATE,
+        ) {
             onGranted {
-                showFragmentToast("READ_EXTERNAL_STORAGE success")
+                logD("success :${it.contentToString()}.")
             }
 
-        }.request(Manifest.permission.WRITE_EXTERNAL_STORAGE){
-            onGranted {
-                showFragmentToast("WRITE_EXTERNAL_STORAGE success")
+            shouldShowRationale {
+                logD("should show rationale :${it.contentToString()}")
             }
-        }.request( android.Manifest.permission.READ_PHONE_STATE){
-            onGranted {
-                showFragmentToast("READ_PHONE_STATE success")
+
+            onNeverAskAgain {
+                logD("never ask again :${it.contentToString()}")
             }
         }
 
     }
 
-    private fun getLocationInfo(){
+    private fun getLocationInfo() {
 
-        PermissionManager.without(requireContext(),Manifest.permission.ACCESS_COARSE_LOCATION){return}
+        PermissionManager.without(
+            requireContext(),
+            Manifest.permission.ACCESS_COARSE_LOCATION
+        ) { return }
 
         // 获取的是位置服务
         val serviceString: String = Context.LOCATION_SERVICE
@@ -119,7 +135,7 @@ class PrivacyProtectionFragment : ButtonsFragment() {
      */
     private fun applyLocationInfo() {
         applyLocationInfoForeground()
-        applyLocationInfoBackground()
+        //applyLocationInfoBackground()
     }
 
     /**
@@ -153,7 +169,7 @@ class PrivacyProtectionFragment : ButtonsFragment() {
 
         lifecycleScope.launch(Dispatchers.IO) {
 
-            while (true){
+            while (true) {
                 delay(200)
                 getLocationInfo()
             }
@@ -163,8 +179,9 @@ class PrivacyProtectionFragment : ButtonsFragment() {
     /**
      * 获取唯一标识 Doc ：https://developer.android.com/training/articles/user-data-ids?hl=zh-cn
      */
-    private fun getDeviceInfo(){
-        logD("""
+    private fun getDeviceInfo() {
+        logD(
+            """
             getDeviceInfo:
             rom : ${getRomName()}
             curApi : $currentApiLevel
@@ -181,7 +198,8 @@ class PrivacyProtectionFragment : ButtonsFragment() {
             targetApi : ${requireContext().getTargetApi}
             processName  : $currentProcessName
             DNS : ${requireContext().getDNS()}
-        """.trimIndent())
+        """.trimIndent()
+        )
     }
 
 }
