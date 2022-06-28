@@ -95,6 +95,11 @@ class MainActivity : AbsActivity() {
         "Proguard" to arrayOf(
             "Reflection",
         ),
+
+        // 12. Permission example
+        "Permission examples" to arrayOf(
+            "MIUI Privacy Protection"
+        ),
     )
 
 

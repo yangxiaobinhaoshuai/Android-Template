@@ -99,5 +99,6 @@ dependencies {
     implementation project(':module-service-provider')
     implementation project(':proguard-lib')
     implementation project(':nav-lib')
+    implementation project(':permission-example')
 
 }

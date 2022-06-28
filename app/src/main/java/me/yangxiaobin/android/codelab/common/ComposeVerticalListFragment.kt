@@ -33,6 +33,7 @@ import me.yangxiaobin.android.codelab.retrofit.RetrofitFragment
 import me.yangxiaobin.android.codelab.touch_event.ActionCancelEventFragment
 import me.yangxiaobin.android.kotlin.codelab.ext.showFragmentToast
 import me.yangxiaobin.android.nav_lib.NavHostComposeFragment
+import me.yangxiaobin.android.permission_example.PrivacyProtectionFragment
 import me.yangxiaobin.android.proguard_lib.ReflectFragment
 import me.yangxiaobin.kotlin.compose.lib.AbsComposableFragment
 import me.yangxiaobin.qrcode.QrCodeScanActivity
@@ -141,12 +142,15 @@ class ComposeVerticalListFragment : AbsComposableFragment() {
             // 9.Touch Events
             "ACTION_CANCEL" -> naviToFragment(ActionCancelEventFragment())
 
-            // 10.
+            // 10. QrScan
             "PermissionRequest" -> naviToFragment(PermissionRequestFragment())
             "QRCodeScanActivity" -> ctx.startActivity(ctx.intentFor<QrCodeScanActivity>())
 
-            // 10. Proguard
+            // 11. Proguard
             "Reflection" -> naviToFragment(ReflectFragment())
+
+            // 12. permission
+            "MIUI Privacy Protection" -> naviToFragment(PrivacyProtectionFragment())
 
             else -> showFragmentToast("UnSupport key :$dest.")
         }
