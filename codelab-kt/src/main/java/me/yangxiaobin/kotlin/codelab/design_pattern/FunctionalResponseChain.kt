@@ -5,10 +5,10 @@ package me.yangxiaobin.kotlin.codelab.design_pattern
  * Composes a list of single argument functions from right to left.
  */
 fun <T> compose(vararg functions: (T) -> T): (T) -> T =
-    { x: T -> functions.foldRight(x, { f: (T) -> T, composed: T -> f(composed) }) }
+    { x: T -> functions.foldRight(x) { f: (T) -> T, composed: T -> f(composed) } }
 
 fun <T> compose(functions: List<(T) -> T>): (T) -> T =
-    { x: T -> functions.foldRight(x, { f: (T) -> T, composed: T -> f(composed) }) }
+    { x: T -> functions.foldRight(x) { f: (T) -> T, composed: T -> f(composed) } }
 
 
 typealias Conversion<BEFORE, AFTER> = (BEFORE) -> AFTER
