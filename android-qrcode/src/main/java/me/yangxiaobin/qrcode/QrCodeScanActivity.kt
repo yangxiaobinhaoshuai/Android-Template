@@ -63,7 +63,7 @@ class QrCodeScanActivity : AbsActivity() {
                 }
                 onNeverAskAgain {
                     logD("camera permission never ask again: $it.")
-                    PermissionManager.navigateAppDetailSettings(this@QrCodeScanActivity)
+                    PermissionManager.navigateToAppDetailSettings(this@QrCodeScanActivity)
                 }
             }
     }

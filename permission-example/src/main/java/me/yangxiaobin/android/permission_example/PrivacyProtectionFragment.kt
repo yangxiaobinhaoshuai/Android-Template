@@ -55,7 +55,7 @@ class PrivacyProtectionFragment : ButtonsFragment() {
         when (index) {
             0 -> getLocationInfo()
             1 -> getDeviceInfo()
-            2 -> accessSysAlbum()
+            2 -> requestWRStoragePermissions()
             3 -> openSysAlbum()
             else -> Unit
         }
@@ -69,9 +69,9 @@ class PrivacyProtectionFragment : ButtonsFragment() {
     }
 
     /**
-     * 访问存储文件或者相册
+     * 请求访问存储文件或者相册权限
      */
-    private fun accessSysAlbum() {
+    private fun requestWRStoragePermissions() {
 
         PermissionManager.createReq(this).request(
             Manifest.permission.WRITE_EXTERNAL_STORAGE,

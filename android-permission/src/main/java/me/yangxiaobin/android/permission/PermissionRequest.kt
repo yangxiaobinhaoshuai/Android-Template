@@ -1,7 +1,5 @@
 package me.yangxiaobin.android.permission
 
-import android.content.pm.PackageManager
-import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.commit
@@ -28,7 +26,7 @@ class PermissionRequest(private val fragmentActivity: FragmentActivity) {
         val builder = PermissionResultBuilder()
         resultBuilder.invoke(builder)
 
-        val allGranted = permissions.all { permission-> ActivityCompat.checkSelfPermission(fragmentActivity, permission) == PackageManager.PERMISSION_GRANTED }
+        val allGranted = permissions.all { permission-> PermissionManager.checkGranted(fragmentActivity, permission) }
         if (allGranted) {
             logInner("permissionRequest: $permissions have been granted totally.")
             builder.permissionResult.onGranted?.invoke(arrayOf(*permissions))

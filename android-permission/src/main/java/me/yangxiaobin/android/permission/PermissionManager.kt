@@ -44,6 +44,9 @@ import androidx.fragment.app.FragmentActivity
  *       }
  *
  */
+
+typealias PermissionAccessListener = (permission: String) -> Unit
+
 object PermissionManager {
 
     //region config option
@@ -74,7 +77,7 @@ object PermissionManager {
      * 'QueryPermissionsNeeded' @see https://developer.android.com/training/package-visibility
      */
     @SuppressLint("QueryPermissionsNeeded")
-    fun navigateAppDetailSettings(context: Context) {
+    fun navigateToAppDetailSettings(context: Context) {
         var settingIntent = Intent("android.settings.APPLICATION_DETAILS_SETTINGS")
         settingIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         settingIntent.data = Uri.fromParts("package", context.packageName, null)
@@ -88,18 +91,24 @@ object PermissionManager {
         }
     }
 
+    private var permissionAccessListener: PermissionAccessListener? = null
 
-    fun check(context: Context, permission: String): Boolean = ContextCompat.checkSelfPermission(context, permission) == PackageManager.PERMISSION_GRANTED
+    fun registerPermissionAccessListener(listener: PermissionAccessListener) {
+        permissionAccessListener = listener
+    }
+
+
+    fun checkGranted(context: Context, permission: String): Boolean {
+        permissionAccessListener?.invoke(permission)
+        return ContextCompat.checkSelfPermission(context, permission) == PackageManager.PERMISSION_GRANTED
+    }
 
     inline fun without(
         context: Context,
         permission: String,
         action: () -> Unit
     ) {
-        val isDenied = ContextCompat.checkSelfPermission(
-            context,
-            permission
-        ) == PackageManager.PERMISSION_DENIED
+        val isDenied = !checkGranted(context,permission)
         if (isDenied) action.invoke()
     }
 

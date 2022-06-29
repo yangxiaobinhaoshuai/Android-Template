@@ -15,8 +15,8 @@ import androidx.fragment.app.Fragment
 internal class PermissionFragment : Fragment() {
 
 
-    private lateinit var permissions: Array<String>
-    private lateinit var result: PermissionResult
+    private var permissions: Array<String> = emptyArray()
+    private var result: PermissionResult = PermissionResult.EMPTY_RESULT
 
     init {
         logInner("PermissionFragment init ,hash : ${this.hashCode()}.")

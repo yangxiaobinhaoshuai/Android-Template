@@ -7,7 +7,11 @@ data class PermissionResult(
     val onGranted: OnGranted? = null,
     val onNeverAskAgain: OnNeverAskAgain? = null,
     val shouldShowRationale: OnShouldShowRationale? = null,
-)
+){
+    companion object{
+        val EMPTY_RESULT = PermissionResult()
+    }
+}
 
 
 class PermissionResultBuilder {

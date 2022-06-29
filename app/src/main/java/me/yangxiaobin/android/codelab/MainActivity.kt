@@ -14,8 +14,11 @@ import me.yangxiaobin.android.kotlin.codelab.base.AbsActivity
 import me.yangxiaobin.android.kotlin.codelab.base.LogAbility
 import me.yangxiaobin.android.kotlin.codelab.ext.getActionString
 import me.yangxiaobin.android.kotlin.codelab.ext.setSimpleDivider
+import me.yangxiaobin.android.kotlin.codelab.log.AndroidLogger
 import me.yangxiaobin.android.kotlin.codelab.recyclerview.AbsVH
 import me.yangxiaobin.android.kotlin.codelab.recyclerview.SimpleRvAdapter
+import me.yangxiaobin.kotlin.codelab.ext.getLimitStacktrace
+import me.yangxiaobin.logger.core.LogFacade
 
 
 class MainActivity : AbsActivity() {
@@ -105,6 +108,8 @@ class MainActivity : AbsActivity() {
 
     override val LogAbility.TAG: String get() = "Sample-app"
 
+    override val logger: LogFacade get() = AndroidLogger
+
     override val contentResId: Int get() = R.layout.activity_main
 
     override val handleBackPress: Boolean get() = this.isTaskRoot
@@ -157,6 +162,11 @@ class MainActivity : AbsActivity() {
 
     override fun onTouchEvent(event: MotionEvent?): Boolean {
         return super.onTouchEvent(event).also { logI("ActionCancelFragment, MainActivity, onTouchEvent:$it, ${event.getActionString}.") }
+    }
+
+    override fun checkPermission(permission: String, pid: Int, uid: Int): Int {
+        logD("CheckPermission, permission :$permission, stacktrace :${getLimitStacktrace(20)}.")
+        return super.checkPermission(permission, pid, uid)
     }
 
 }
