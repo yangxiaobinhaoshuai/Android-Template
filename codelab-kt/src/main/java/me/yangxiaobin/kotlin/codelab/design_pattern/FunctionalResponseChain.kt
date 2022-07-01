@@ -4,34 +4,32 @@ package me.yangxiaobin.kotlin.codelab.design_pattern
 /**
  * Composes a list of single argument functions from right to left.
  */
-fun <T> compose(vararg functions: (T) -> T): (T) -> T =
-    { x: T -> functions.foldRight(x) { f: (T) -> T, composed: T -> f(composed) } }
+fun <T> compose(vararg functions: (T) -> T): (T) -> T = { x: T -> functions.foldRight(x) { f: (T) -> T, composed: T -> f(composed) } }
 
-fun <T> compose(functions: List<(T) -> T>): (T) -> T =
-    { x: T -> functions.foldRight(x) { f: (T) -> T, composed: T -> f(composed) } }
+fun <T> compose(functions: List<(T) -> T>): (T) -> T = { x: T -> functions.foldRight(x) { f: (T) -> T, composed: T -> f(composed) } }
 
 
-typealias Conversion<BEFORE, AFTER> = (BEFORE) -> AFTER
+typealias Transform<I, O> = (I) -> O
 
-typealias FunctionalInterceptor<BEFORE, AFTER> = (Conversion<BEFORE, AFTER>) -> (BEFORE) -> AFTER
+typealias TransformProcessor<I, O> = (Transform<I, O>) -> Transform<I, O>
+
+typealias TransformInterceptor<I, O> = (Transform<I, O>, I: I) -> O
 
 
-//fun <BEFORE, AFTER> createFunctionalInterceptor(
-//    intercept: (Conversion<BEFORE, AFTER>, before: BEFORE) -> AFTER,
-//): (Conversion<BEFORE, AFTER>) -> (BEFORE) -> AFTER =
-//    { convert: Conversion<BEFORE, AFTER> ->
-//        { before: BEFORE ->
-//            intercept(convert, before)
+//fun <I, O> createFunctionalInterceptor(
+//    intercept: (Conversion<I, O>, I: I) -> O,
+//): (Conversion<I, O>) -> (I) -> O =
+//    { convert: Conversion<I, O> ->
+//        { I: I ->
+//            intercept(convert, I)
 //        }
 //    }
 
-fun <BEFORE, AFTER> createFunctionalInterceptor(
-    intercept: (Conversion<BEFORE, AFTER>, before: BEFORE) -> AFTER,
-): (Conversion<BEFORE, AFTER>) -> (BEFORE) -> AFTER =
+fun <I, O> interceptTransform(interceptor: TransformInterceptor<I, O>): TransformProcessor<I, O> =
 
-    fun(convert: Conversion<BEFORE, AFTER>): (BEFORE) -> AFTER =
+    fun(transform: Transform<I, O>): (I) -> O =
 
-        fun(before: BEFORE): AFTER = intercept.invoke(convert, before)
+        fun(input: I): O = interceptor.invoke(transform, input)
 
 
 /**
@@ -44,10 +42,10 @@ fun <BEFORE, AFTER> createFunctionalInterceptor(
  *   val b = convertInFunctionalChains<Int, String>(0, { it.toString() }, a)
  *
  */
-fun <BEFORE, AFTER> convertViaFunctionalChains(
-    initialValue: BEFORE,
-    coreConversion: Conversion<BEFORE, AFTER>,
-    vararg interceptors: FunctionalInterceptor<BEFORE, AFTER>,
-): AFTER = compose(*interceptors).invoke(coreConversion)(initialValue)
+fun <I, O> assemble(
+    initialValue: I,
+    transform: Transform<I, O>,
+    vararg processors: TransformProcessor<I, O>,
+): O = compose(*processors).invoke(transform).invoke(initialValue)
 
 
