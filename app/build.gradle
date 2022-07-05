@@ -35,6 +35,7 @@ android {
 
     buildTypes {
         release {
+            // 可调式 release apk，但是有性能影响
             debuggable true
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
