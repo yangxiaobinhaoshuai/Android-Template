@@ -19,6 +19,8 @@ debugLog{
 //    annotations = ['me.yangxiaobin.module_service_provider_annotation.ModuleService']
 //}
 
+def enableMinify = gradle.startParameter.projectProperties["disableMinify"] != "true"
+
 android {
     compileSdk build_versions.compile_sdk
 
@@ -37,7 +39,8 @@ android {
         release {
             // 可调式 release apk，但是有性能影响
             debuggable true
-            minifyEnabled true
+            minifyEnabled enableMinify
+            shrinkResources enableMinify
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
