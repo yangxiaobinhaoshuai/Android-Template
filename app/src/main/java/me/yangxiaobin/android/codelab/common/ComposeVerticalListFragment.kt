@@ -31,6 +31,7 @@ import me.yangxiaobin.android.codelab.recyclerview.LinearRvFragment
 import me.yangxiaobin.android.codelab.recyclerview.PagingRvFragment
 import me.yangxiaobin.android.codelab.retrofit.RetrofitFragment
 import me.yangxiaobin.android.codelab.touch_event.ActionCancelEventFragment
+import me.yangxiaobin.android.jank_sample.PerfettoSampleFragment
 import me.yangxiaobin.android.kotlin.codelab.ext.showFragmentToast
 import me.yangxiaobin.android.nav_lib.NavHostComposeFragment
 import me.yangxiaobin.android.permission_example.PrivacyProtectionFragment
@@ -151,6 +152,9 @@ class ComposeVerticalListFragment : AbsComposableFragment() {
 
             // 12. permission
             "MIUI Privacy Protection" -> naviToFragment(PrivacyProtectionFragment())
+
+            // 13. Jank Samples
+            "Perfetto Sample" -> naviToFragment(PerfettoSampleFragment())
 
             else -> showFragmentToast("UnSupport key :$dest.")
         }

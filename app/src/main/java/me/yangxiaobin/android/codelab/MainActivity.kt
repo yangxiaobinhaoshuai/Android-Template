@@ -103,6 +103,11 @@ class MainActivity : AbsActivity() {
         "Permission examples" to arrayOf(
             "MIUI Privacy Protection"
         ),
+
+        // 13. Jank sample
+        "Jank Samples" to arrayOf(
+            "Perfetto Sample",
+        ),
     )
 
 
