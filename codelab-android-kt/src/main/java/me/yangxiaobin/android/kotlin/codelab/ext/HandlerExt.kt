@@ -7,17 +7,35 @@ import android.os.Message
 import android.view.View
 import androidx.lifecycle.LifecycleOwner
 import me.yangxiaobin.android.kotlin.codelab.lifecycle.SimpleLifecycleObserver
+import java.lang.IllegalArgumentException
 
 
-val mainLopper: Looper by lazy { Looper.getMainLooper() }
+val mainLooper: Looper by lazy { Looper.getMainLooper() }
 
-val mainHandler: Handler by lazy { Handler(mainLopper) }
+val mainHandler: Handler by lazy { Handler(mainLooper) }
 
-fun createMainHandler(handleMessage: (Message) -> Unit): Handler = object : Handler(mainLopper) {
+fun createMainHandler(handleMessage: (Message) -> Unit): Handler = object : Handler(mainLooper) {
     override fun handleMessage(msg: Message) {
         super.handleMessage(msg)
         handleMessage(msg)
     }
+}
+
+/**
+ * NB. Can't be mainHandler.
+ */
+fun Handler.makeCancellable(lifecycleOwner: LifecycleOwner): Handler {
+
+    if (this.looper == mainLooper) throw IllegalArgumentException("Can't make main handler cancellable.")
+
+    val simpleObserver = SimpleLifecycleObserver(
+        onBackground = {
+            this.removeCallbacksAndMessages(null)
+        }
+    )
+
+    lifecycleOwner.lifecycle.addObserver(simpleObserver)
+    return this
 }
 
 fun Handler.postDelayCancellable(lifecycleOwner: LifecycleOwner, delay: Long = 0L, action: Action) {
@@ -33,10 +51,18 @@ fun Handler.postDelayCancellable(lifecycleOwner: LifecycleOwner, delay: Long = 0
     lifecycleOwner.lifecycle.addObserver(simpleObserver)
 }
 
+fun Handler.postInterval(interval: Long, action: Action) {
+    val recursiveAction:Action = {
+        action.invoke()
+        this.postInterval(interval,action)
+    }
+    this.postDelayed(recursiveAction,interval)
+}
 
-private val handlerThread by lazy { HandlerThread("async-post-delay") }
 
-private val workerHandler by lazy { Handler(handlerThread.looper) }
+private val handlerThread by lazy { HandlerThread("async-post-delay").apply { this.start() } }
+
+val workerHandler by lazy { Handler(handlerThread.looper) }
 
 /**
  * Post action in worker thread named 'async-post-delay'

@@ -100,6 +100,9 @@ ktx-navigation-fragment = { module = "androidx.navigation:navigation-fragment-kt
 ktx-navigation-ui = { module = "androidx.navigation:navigation-ui-ktx", version.ref = "navigatonKtxV" }
 ktxActivity = { module = "androidx.activity:activity-ktx", version.ref = "activityV" }
 
+trace = { module = "aandroidx.tracing:tracing", version = "1.1.0" }
+ktxTrace = { module = "androidx.tracing:tracing-ktx", version = "1.1.0" }
+
 
 # jetpack paging3 https://developer.android.com/topic/libraries/architecture/paging/v3-overview
 paging3 = { module = "androidx.paging:paging-runtime", version.ref = "pagingV" }

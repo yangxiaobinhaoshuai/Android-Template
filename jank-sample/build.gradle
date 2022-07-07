@@ -54,5 +54,6 @@ dependencies {
 
     compileOnly project(":common-ui")
     implementation project(":kt-compose-lib")
+    implementation deps.ktxTrace
 
 }
