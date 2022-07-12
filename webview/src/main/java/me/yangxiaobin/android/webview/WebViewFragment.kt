@@ -1,13 +1,10 @@
 package me.yangxiaobin.android.webview
 
-import android.R
 import android.content.Context
 import android.webkit.WebResourceRequest
 import android.webkit.WebView
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.Button
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -17,6 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
+import me.yangxiaobin.android.android_icons.Icons
 import me.yangxiaobin.android.kotlin.codelab.base.LogAbility
 import me.yangxiaobin.android.kotlin.codelab.ext.MatchParentParams
 import me.yangxiaobin.android.kotlin.codelab.ext.showFragmentToast
@@ -52,9 +50,25 @@ class WebViewFragment : AbsComposableFragment() {
                 Text(text = "Load url")
             }
 
-            Row() {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 10.dp, vertical = 10.dp)
+                    .clickable { if (webView.canGoBack()) webView.goBack() },
+                horizontalArrangement = Arrangement.SpaceBetween,
+            ) {
 
-                SimpleImage(painter = painterResource(id = R.drawable.arrow_down_float) )
+                SimpleImage(
+                    modifier = Modifier.size(30.dp),
+                    painter = painterResource(id = Icons.arrow_back_black)
+                )
+
+                SimpleImage(
+                    modifier = Modifier
+                        .size(30.dp)
+                        .clickable { if (webView.canGoForward()) webView.goForward() },
+                    painter = painterResource(id = Icons.arrow_forward_black)
+                )
 
             }
 
@@ -114,11 +128,4 @@ class WebViewFragment : AbsComposableFragment() {
 
     }
 
-    override fun onBackPress() {
-        if (webView.canGoBack()) {
-            webView.goBack()
-            return
-        }
-        super.onBackPress()
-    }
 }
