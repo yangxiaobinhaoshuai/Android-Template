@@ -108,6 +108,11 @@ class MainActivity : AbsActivity() {
         "Jank Samples" to arrayOf(
             "Perfetto Sample",
         ),
+
+        // 14. webview
+        "WebView" to arrayOf(
+            "System WebView",
+        ),
     )
 
 
@@ -170,7 +175,7 @@ class MainActivity : AbsActivity() {
     }
 
     override fun checkPermission(permission: String, pid: Int, uid: Int): Int {
-        logD("CheckPermission, permission :$permission, stacktrace :${getLimitStacktrace(20)}.")
+        //logD("CheckPermission, permission :$permission, stacktrace :${getLimitStacktrace(20)}.")
         return super.checkPermission(permission, pid, uid)
     }
 

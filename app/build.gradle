@@ -105,5 +105,6 @@ dependencies {
     implementation project(':nav-lib')
     implementation project(':permission-example')
     implementation project(':jank-sample')
+    implementation project(':webview')
 
 }

@@ -36,6 +36,7 @@ import me.yangxiaobin.android.kotlin.codelab.ext.showFragmentToast
 import me.yangxiaobin.android.nav_lib.NavHostComposeFragment
 import me.yangxiaobin.android.permission_example.PrivacyProtectionFragment
 import me.yangxiaobin.android.proguard_lib.ReflectFragment
+import me.yangxiaobin.android.webview.WebViewFragment
 import me.yangxiaobin.kotlin.compose.lib.AbsComposableFragment
 import me.yangxiaobin.qrcode.QrCodeScanActivity
 import org.jetbrains.anko.intentFor
@@ -155,6 +156,9 @@ class ComposeVerticalListFragment : AbsComposableFragment() {
 
             // 13. Jank Samples
             "Perfetto Sample" -> naviToFragment(PerfettoSampleFragment())
+
+            // 14. WebView
+            "System WebView" -> naviToFragment(WebViewFragment())
 
             else -> showFragmentToast("UnSupport key :$dest.")
         }

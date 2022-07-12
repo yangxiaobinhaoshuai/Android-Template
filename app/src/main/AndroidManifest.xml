@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="me.yangxiaobin.android.codelab">
 
-    <uses-permission android:name="android.permission.CAMERA"/>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-    <uses-permission android:name=" android.permission.LOCAL_MAC_ADDRESS"/>
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name=" android.permission.LOCAL_MAC_ADDRESS" />
 
     <application
         android:name=".MyApp"
@@ -15,7 +16,9 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_android_logo"
         android:supportsRtl="true"
-        android:theme="@style/Theme.AndroidCodelab">
+        android:theme="@style/Theme.AndroidCodelab"
+        android:usesCleartextTraffic="true"
+        tools:targetApi="m">
 
 
         <activity
@@ -30,36 +33,30 @@
 
         <activity
             android:name=".multi_process.RemoteActivity"
-            android:process=":remote_activity">
-        </activity>
+            android:process=":remote_activity"></activity>
 
-        <service android:name=".multi_process.LocalService">
-        </service>
+        <service android:name=".multi_process.LocalService"></service>
 
         <service
             android:name=".multi_process.RemoteService"
-            android:process=":remote_service">
-        </service>
+            android:process=":remote_service"></service>
 
         <provider
             android:name=".multi_process.RemoteContentProvider"
             android:authorities="me.yangxiaobin.remote.authorities"
             android:exported="false"
-            android:process=":remote_provider">
-        </provider>
+            android:process=":remote_provider"></provider>
 
         <provider
             android:name=".multi_process.LocalContentProvider"
             android:authorities="me.yangxiaobin.local.authorities"
-            android:exported="false">
-        </provider>
+            android:exported="false"></provider>
 
         <provider
             android:name=".multi_process.RemoteServiceProvider"
             android:authorities="me.yangxiaobin.remote.service.authorities"
             android:exported="false"
-            android:process=":remote_service">
-        </provider>
+            android:process=":remote_service"></provider>
 
     </application>
 
