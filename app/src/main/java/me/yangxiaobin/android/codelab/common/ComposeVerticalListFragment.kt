@@ -18,6 +18,7 @@ import me.yangxiaobin.android.codelab.jepack_compose.CheckBoxFragment
 import me.yangxiaobin.android.codelab.jepack_compose.MyBottomSheetDialogFragment
 import me.yangxiaobin.android.codelab.jetpack_components.FlowFragment
 import me.yangxiaobin.android.codelab.jetpack_components.MutableSharedFlowFragment
+import me.yangxiaobin.android.codelab.log.LogTestFragment
 import me.yangxiaobin.android.codelab.multi_process.LocalService
 import me.yangxiaobin.android.codelab.multi_process.RemoteActivity
 import me.yangxiaobin.android.codelab.multi_process.RemoteService
@@ -159,6 +160,9 @@ class ComposeVerticalListFragment : AbsComposableFragment() {
 
             // 14. WebView
             "System WebView" -> naviToFragment(WebViewFragment())
+
+            // 15. Log
+            "LogTest" -> naviToFragment(LogTestFragment())
 
             else -> showFragmentToast("UnSupport key :$dest.")
         }

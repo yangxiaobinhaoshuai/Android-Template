@@ -113,6 +113,11 @@ class MainActivity : AbsActivity() {
         "WebView" to arrayOf(
             "System WebView",
         ),
+
+        // 15. LogTest
+        "Log" to arrayOf(
+            "LogTest",
+        ),
     )
 
 
