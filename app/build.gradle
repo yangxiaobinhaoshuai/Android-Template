@@ -15,11 +15,17 @@ debugLog{
     annotationList = ['me.yangxiaobin.module_service_provider_annotation.DebugLog']
 }
 
+println "===> all start params :${gradle.startParameter.projectProperties}."
+
 //moduleService{
 //    annotations = ['me.yangxiaobin.module_service_provider_annotation.ModuleService']
 //}
 
-def enableMinify = gradle.startParameter.projectProperties["disableMinify"] != "true"
+// -PdisableReleaseMinify=true
+def enableReleaseMinify = gradle.startParameter.projectProperties["enableReleaseMinify"] != "true"
+
+// -PenableDebugMinify=true
+def enableDebugMinify = gradle.startParameter.projectProperties["enableDebugMinify"] == "true"
 
 android {
     compileSdk build_versions.compile_sdk
@@ -36,11 +42,19 @@ android {
     }
 
     buildTypes {
+
+        debug{
+            println "==> enable debug minfiy :$enableDebugMinify."
+            minifyEnabled enableDebugMinify
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+
         release {
+            println "==> enable release minfiy :$enableReleaseMinify."
             // 可调式 release apk，但是有性能影响
             debuggable true
-            minifyEnabled enableMinify
-            shrinkResources enableMinify
+            minifyEnabled enableReleaseMinify
+            shrinkResources enableReleaseMinify
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }

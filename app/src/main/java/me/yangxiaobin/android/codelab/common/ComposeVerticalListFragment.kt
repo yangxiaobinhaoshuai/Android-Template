@@ -32,6 +32,7 @@ import me.yangxiaobin.android.codelab.recyclerview.LinearRvFragment
 import me.yangxiaobin.android.codelab.recyclerview.PagingRvFragment
 import me.yangxiaobin.android.codelab.retrofit.RetrofitFragment
 import me.yangxiaobin.android.codelab.touch_event.ActionCancelEventFragment
+import me.yangxiaobin.android.jank_sample.NPEFragment
 import me.yangxiaobin.android.jank_sample.PerfettoSampleFragment
 import me.yangxiaobin.android.kotlin.codelab.ext.showFragmentToast
 import me.yangxiaobin.android.nav_lib.NavHostComposeFragment
@@ -157,6 +158,7 @@ class ComposeVerticalListFragment : AbsComposableFragment() {
 
             // 13. Jank Samples
             "Perfetto Sample" -> naviToFragment(PerfettoSampleFragment())
+            "NPE" -> naviToFragment(NPEFragment())
 
             // 14. WebView
             "System WebView" -> naviToFragment(WebViewFragment())

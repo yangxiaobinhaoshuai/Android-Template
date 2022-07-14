@@ -23,3 +23,7 @@
 #-keep public class * extends androidx.fragment.app.Fragment
 
 -printconfiguration proguard-config.txt
+
+-printseeds seeds.txt
+
+-addconfigurationdebugging

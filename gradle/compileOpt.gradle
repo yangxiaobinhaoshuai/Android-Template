@@ -16,7 +16,7 @@ def build_versions = [:]
 /**
  * Compose 最低要求
  */
-build_versions.min_sdk = 21
+build_versions.min_sdk = 24
 /**
  * 使用哪个版本的 SDK api.
  * 使用最新

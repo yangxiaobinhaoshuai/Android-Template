@@ -107,6 +107,7 @@ class MainActivity : AbsActivity() {
         // 13. Jank sample
         "Jank Samples" to arrayOf(
             "Perfetto Sample",
+            "NPE",
         ),
 
         // 14. webview
