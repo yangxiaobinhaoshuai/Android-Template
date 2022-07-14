@@ -14,9 +14,25 @@ android {
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
+
+
+        // Test code below
+
+        def testStringField = "Test_String_Config_Field"
+        buildConfigField("String", "STRING_BUILD_CONFIG_FIELD", "\"${testStringField}\"")
+
+        buildConfigField("Boolean", "BOOLEAN_BUILD_CONFIG_FIELD", "true")
+
+        def hasConfigVal = gradle.startParameter.projectProperties["hasConfig"]?.toBoolean()
+        buildConfigField("Boolean", "HAS_CONFIG", "$hasConfigVal")
     }
 
     buildTypes {
+
+        debug{
+
+        }
+
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'

@@ -1,5 +1,6 @@
 package me.yangxiaobin.android.codelab
 
+import me.yangxiaobin.android.kotlin.codelab.BuildConfig
 import me.yangxiaobin.android.kotlin.codelab.base.AbsApplication
 import me.yangxiaobin.android.kotlin.codelab.base.LogAbility
 import me.yangxiaobin.android.kotlin.codelab.ext.*
@@ -26,6 +27,7 @@ class MyApp : AbsApplication() {
         PermissionManager.registerPermissionAccessListener {
             logD("permission accessed :$it.")
         }
+        testForBuildFields()
     }
 
     @DebugLog
@@ -61,6 +63,20 @@ class MyApp : AbsApplication() {
             else return@measureTimedValue 200L
         }
         return false
+    }
+
+
+    /**
+     * -PhasConfig=true
+     * -PhasConfig=false
+     * 未赋值为 null
+     */
+    private fun testForBuildFields(){
+        logD("""
+            string field :${BuildConfig.STRING_BUILD_CONFIG_FIELD}
+            boolean field :${BuildConfig.BOOLEAN_BUILD_CONFIG_FIELD}
+            boolean field from build param :${BuildConfig.HAS_CONFIG}
+        """.trimIndent())
     }
 
 
