@@ -10,15 +10,18 @@ import me.yangxiaobin.android.kotlin.codelab.base.AbsFragment
 import me.yangxiaobin.android.kotlin.codelab.base.LogAbility
 import me.yangxiaobin.android.kotlin.codelab.ext.setOnItemClickListener
 import me.yangxiaobin.android.kotlin.codelab.ext.setSimpleDivider
+import me.yangxiaobin.android.kotlin.codelab.log.AndroidLogger
 import me.yangxiaobin.android.kotlin.codelab.recyclerview.AbsVH
 import me.yangxiaobin.android.kotlin.codelab.recyclerview.SimpleRvAdapter
+import me.yangxiaobin.logger.core.LogFacade
 
 class LinearRvFragment : AbsFragment() {
 
+    override val logger: LogFacade get() = AndroidLogger
+
     override val LogAbility.TAG: String get() = "LinearRv"
 
-    override val layoutResId: Int
-        get() = R.layout.fragment_recyclerview
+    override val layoutResId: Int = R.layout.fragment_recyclerview
 
 
     override fun afterViewCreated(view: View) {

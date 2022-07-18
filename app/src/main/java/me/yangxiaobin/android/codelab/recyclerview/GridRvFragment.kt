@@ -18,15 +18,18 @@ import me.yangxiaobin.android.codelab.R
 import me.yangxiaobin.android.kotlin.codelab.base.AbsFragment
 import me.yangxiaobin.android.kotlin.codelab.base.LogAbility
 import me.yangxiaobin.android.kotlin.codelab.ext.getScreenLocation
+import me.yangxiaobin.android.kotlin.codelab.log.AndroidLogger
 import me.yangxiaobin.android.kotlin.codelab.recyclerview.AbsVH
 import me.yangxiaobin.android.kotlin.codelab.recyclerview.SimpleRvAdapter
+import me.yangxiaobin.logger.core.LogFacade
 
 class GridRvFragment : AbsFragment() {
 
+    override val logger: LogFacade get() = AndroidLogger
+
     override val LogAbility.TAG: String get() = "GridRv"
 
-    override val layoutResId: Int
-        get() = R.layout.fragment_recyclerview
+    override val layoutResId: Int = R.layout.fragment_recyclerview
 
     override fun afterViewCreated(view: View) {
         super.afterViewCreated(view)
@@ -46,7 +49,7 @@ class GridRvFragment : AbsFragment() {
 
         }
 
-        val helperCallback = object : ItemTouchHelper.Callback() {
+        val helperCallback = object : LogAwareItemTouchHelperCallback(logD) {
 
             private val fakeView by lazy {
                 TextView(requireContext())
@@ -63,17 +66,30 @@ class GridRvFragment : AbsFragment() {
             override fun getMovementFlags(
                 recyclerView: RecyclerView,
                 viewHolder: RecyclerView.ViewHolder
-            ): Int = makeMovementFlags(UP or DOWN or START or END, 0)
+            ): Int = makeMovementFlags(
+                UP or DOWN or START or END,
+                0
+            ).also { logD("getMovementFlags vh:$viewHolder, flag:$it.") }
 
             override fun onMove(
                 rv: RecyclerView,
                 viewHolder: RecyclerView.ViewHolder,
                 target: RecyclerView.ViewHolder
             ): Boolean {
+
                 val oldPos = viewHolder.bindingAdapterPosition
                 val newPos = target.bindingAdapterPosition
-                rv.adapter?.notifyItemMoved(oldPos, newPos)
-                return true
+
+                val canMove = if (oldPos > 0) {
+                    rv.adapter?.notifyItemMoved(oldPos, newPos)
+                    true
+                } else {
+                    false
+                }
+
+                logD("onMove, vh:$viewHolder, targetVh:$target, res:$canMove.")
+
+                return canMove
             }
 
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {}
