@@ -125,7 +125,7 @@ open class LogAwareWebChromeClient(private val log: (message: String) -> Unit) :
 
     override fun onConsoleMessage(consoleMessage: ConsoleMessage?): Boolean {
         return super.onConsoleMessage(consoleMessage)
-            .also { logD("onConsoleMessage, consoleMessage:$consoleMessage.") }
+            .also { logD("onConsoleMessage, consoleMessage:${consoleMessage?.message()}.") }
     }
 
     override fun getDefaultVideoPoster(): Bitmap? {

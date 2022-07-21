@@ -27,15 +27,19 @@ import kotlin.properties.Delegates
 private const val BAIDU = "https://www.baidu.com/"
 private const val JUEJIN = "https://juejin.cn/post/6844903591245774862"
 
-class WebViewFragment : AbsComposableFragment() {
+@Suppress("MemberVisibilityCanBePrivate")
+open class AbsWebViewFragment : AbsComposableFragment() {
 
     override val logger: LogFacade get() = AndroidLogger
 
     override val LogAbility.TAG: String get() = "WebViewFragment"
 
-    private val urlState: MutableState<String> = mutableStateOf(BAIDU)
+    protected open val initialUrl: String = BAIDU
 
-    private var webView: WebView by Delegates.notNull()
+    protected val urlState: MutableState<String> by lazy { mutableStateOf(initialUrl) }
+
+    protected var webView: WebView by Delegates.notNull()
+        private set
 
     override val composableContent: @Composable () -> Unit = {
 
@@ -43,9 +47,7 @@ class WebViewFragment : AbsComposableFragment() {
 
             Button(
                 modifier = Modifier,
-                onClick = {
-                    urlState.value = JUEJIN
-                }
+                onClick = (::onLoadUrlClick)
             ) {
                 Text(text = "Load url")
             }
@@ -78,6 +80,10 @@ class WebViewFragment : AbsComposableFragment() {
 
     }
 
+    protected open fun onLoadUrlClick(){
+        urlState.value = JUEJIN
+    }
+
     @Composable
     private fun AndroidWebView() {
         AndroidView(
@@ -88,7 +94,8 @@ class WebViewFragment : AbsComposableFragment() {
                     this.layoutParams = MatchParentParams
                     this.initialize()
                     this.loadUrl(urlState.value)
-                    this@WebViewFragment.webView = this
+                    this@AbsWebViewFragment.webView = this
+                    initWebView(this)
                 }
 
             },
@@ -119,7 +126,7 @@ class WebViewFragment : AbsComposableFragment() {
             override fun onProgressChanged(view: WebView?, newProgress: Int) {
                 super.onProgressChanged(view, newProgress)
                 if (!shown && newProgress == 100) {
-                    showFragmentToast("WebView page load complete.")
+                    //showFragmentToast("WebView page load complete.")
                     shown = true
                 }
             }
@@ -127,5 +134,7 @@ class WebViewFragment : AbsComposableFragment() {
         }
 
     }
+
+    protected open fun initWebView(webView: WebView) = Unit
 
 }

@@ -113,6 +113,7 @@ class MainActivity : AbsActivity() {
         // 14. webview
         "WebView" to arrayOf(
             "System WebView",
+            "Js Function",
         ),
 
         // 15. LogTest
@@ -170,6 +171,9 @@ class MainActivity : AbsActivity() {
 
         }
 
+
+        // Scroll to last one.
+        rv.scrollToPosition(rv.adapter?.itemCount?.minus(1) ?: 0)
     }
 
     override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {

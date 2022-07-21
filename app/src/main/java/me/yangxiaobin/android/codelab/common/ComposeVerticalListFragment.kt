@@ -38,7 +38,8 @@ import me.yangxiaobin.android.kotlin.codelab.ext.showFragmentToast
 import me.yangxiaobin.android.nav_lib.NavHostComposeFragment
 import me.yangxiaobin.android.permission_example.PrivacyProtectionFragment
 import me.yangxiaobin.android.proguard_lib.ReflectFragment
-import me.yangxiaobin.android.webview.WebViewFragment
+import me.yangxiaobin.android.webview.JsFunctionFragment
+import me.yangxiaobin.android.webview.AbsWebViewFragment
 import me.yangxiaobin.kotlin.compose.lib.AbsComposableFragment
 import me.yangxiaobin.qrcode.QrCodeScanActivity
 import org.jetbrains.anko.intentFor
@@ -161,7 +162,8 @@ class ComposeVerticalListFragment : AbsComposableFragment() {
             "NPE" -> naviToFragment(NPEFragment())
 
             // 14. WebView
-            "System WebView" -> naviToFragment(WebViewFragment())
+            "System WebView" -> naviToFragment(AbsWebViewFragment())
+            "Js Function" -> naviToFragment(JsFunctionFragment())
 
             // 15. Log
             "LogTest" -> naviToFragment(LogTestFragment())
