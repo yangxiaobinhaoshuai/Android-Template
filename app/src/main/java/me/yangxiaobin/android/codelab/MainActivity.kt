@@ -120,6 +120,11 @@ class MainActivity : AbsActivity() {
         "Log" to arrayOf(
             "LogTest",
         ),
+
+        // 16. Widgets
+        "Widgets" to arrayOf(
+            "TabLayout",
+        )
     )
 
 

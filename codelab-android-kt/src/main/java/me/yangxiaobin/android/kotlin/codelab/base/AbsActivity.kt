@@ -36,7 +36,7 @@ abstract class AbsActivity : AppCompatActivity(), LogAbility {
             })
 
     private fun dispatchSetContent(contentResId: Int) {
-        if (contentResId > 0) setContentView(contentResId)
+        if (contentResId >= 0) setContentView(contentResId)
         else setContentView(getRootView())
     }
 

@@ -32,6 +32,7 @@ import me.yangxiaobin.android.codelab.recyclerview.LinearRvFragment
 import me.yangxiaobin.android.codelab.recyclerview.PagingRvFragment
 import me.yangxiaobin.android.codelab.retrofit.RetrofitFragment
 import me.yangxiaobin.android.codelab.touch_event.ActionCancelEventFragment
+import me.yangxiaobin.android.embedding_compat.OppoEmbeddingActivity
 import me.yangxiaobin.android.jank_sample.NPEFragment
 import me.yangxiaobin.android.jank_sample.PerfettoSampleFragment
 import me.yangxiaobin.android.kotlin.codelab.ext.showFragmentToast
@@ -167,6 +168,9 @@ class ComposeVerticalListFragment : AbsComposableFragment() {
 
             // 15. Log
             "LogTest" -> naviToFragment(LogTestFragment())
+
+            // 16. Widgets
+            "TabLayout" -> ctx.startActivity(ctx.intentFor<OppoEmbeddingActivity>())
 
             else -> showFragmentToast("UnSupport key :$dest.")
         }
