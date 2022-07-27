@@ -1,5 +1,6 @@
 package me.yangxiaobin.android.codelab.recyclerview
 
+import android.annotation.SuppressLint
 import android.graphics.Canvas
 import android.graphics.Color
 import android.view.Gravity
@@ -49,7 +50,8 @@ class GridRvFragment : AbsFragment() {
 
         }
 
-        val helperCallback = object : LogAwareItemTouchHelperCallback(logD) {
+        val helperCallback = @SuppressLint("SetTextI18n")
+        object : LogAwareItemTouchHelperCallback(logD) {
 
             private val fakeView by lazy {
                 TextView(requireContext())

@@ -3,6 +3,7 @@ package me.yangxiaobin.android.kotlin.codelab.ext
 import android.content.Context
 import android.content.ContextWrapper
 import android.content.pm.PackageManager
+import android.content.res.Resources
 import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
 import androidx.annotation.ColorInt
@@ -12,6 +13,47 @@ import androidx.annotation.StringRes
 import androidx.core.content.ContextCompat
 import java.util.concurrent.Executor
 
+
+/**
+ * Resources.getSystem() vs context.getResource
+ *
+ * It comes with a downside though.
+ * Resources.getSystem() provides access to only system resources (no application resources),
+ * and is not configured for the current screen (can * not use dimension units, does not change based on orientation, etc).
+ */
+
+
+val systemResource: Resources get() = Resources.getSystem()
+
+val screenSize get() = systemResource.screenSize
+val statusBarSize get() = systemResource.statusBarSize
+val navigationBarSize get() = systemResource.navigationBarSize
+
+val Context.screenSize get() = this.resources.screenSize
+val Context.statusBarSize get() = this.resources.statusBarSize
+val Context.navigationBarSize get() = this.resources.navigationBarSize
+
+val Resources.screenSize: Pair<Int, Int> get() = this.displayMetrics.let { it.widthPixels to it.heightPixels }
+
+val Resources.statusBarSize: Int
+    get() {
+        var result = 0
+        val resourceId = this.getIdentifier("status_bar_height", "dimen", "android")
+        if (resourceId > 0) {
+            result = this.getDimensionPixelSize(resourceId)
+        }
+        return result
+    }
+
+val Resources.navigationBarSize: Int
+    get() {
+        val resourceId = this.getIdentifier("navigation_bar_height", "dimen", "android")
+        var height = this.getDimensionPixelSize(resourceId)
+        if (height < 0) {
+            height = 0
+        }
+        return height
+    }
 
 val Context.inflater: LayoutInflater get() = android.view.LayoutInflater.from(this)
 

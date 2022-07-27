@@ -14,6 +14,14 @@ import kotlin.math.*
 
 private val logI = L.log(LogLevel.INFO,"codeLab-ext")
 
+val Int.toRecyclerViewScrollStateString
+    get() = when (this) {
+        RecyclerView.SCROLL_STATE_IDLE -> "IDLE"
+        RecyclerView.SCROLL_STATE_DRAGGING -> "DRAGGING"
+        RecyclerView.SCROLL_STATE_SETTLING -> "SETTLING"
+        else -> throw IllegalArgumentException("Unexpected scroll state int $this.")
+    }
+
 typealias OnRvLongItemClickListener = (Pair<View, Int>) -> Boolean
 typealias OnRvItemClickListener = (Pair<View, Int>) -> Unit
 

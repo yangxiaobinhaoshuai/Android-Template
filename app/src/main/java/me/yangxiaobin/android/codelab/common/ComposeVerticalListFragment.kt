@@ -29,6 +29,7 @@ import me.yangxiaobin.android.codelab.navigateToFragment
 import me.yangxiaobin.android.codelab.qrcode.PermissionRequestFragment
 import me.yangxiaobin.android.codelab.recyclerview.GridRvFragment
 import me.yangxiaobin.android.codelab.recyclerview.LinearRvFragment
+import me.yangxiaobin.android.codelab.recyclerview.LinearRvStickyTailFragment
 import me.yangxiaobin.android.codelab.recyclerview.PagingRvFragment
 import me.yangxiaobin.android.codelab.retrofit.RetrofitFragment
 import me.yangxiaobin.android.codelab.touch_event.ActionCancelEventFragment
@@ -101,6 +102,7 @@ class ComposeVerticalListFragment : AbsComposableFragment() {
         when (dest) {
             // 1.Rv
             "LinearRv" -> naviToFragment(LinearRvFragment())
+            "LinearRvStickyTailFragment" -> naviToFragment(LinearRvStickyTailFragment())
             "GridRv" -> naviToFragment(GridRvFragment())
             "PagingRv" -> naviToFragment(PagingRvFragment())
 

@@ -29,6 +29,7 @@ class MainActivity : AbsActivity() {
         // 1.
         "RecyclerView" to arrayOf(
             "LinearRv",
+            "LinearRvStickyTailFragment",
             "GridRv",
         ),
 
@@ -178,7 +179,7 @@ class MainActivity : AbsActivity() {
 
 
         // Scroll to last one.
-        rv.scrollToPosition(rv.adapter?.itemCount?.minus(1) ?: 0)
+        //rv.scrollToPosition(rv.adapter?.itemCount?.minus(1) ?: 0)
     }
 
     override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
