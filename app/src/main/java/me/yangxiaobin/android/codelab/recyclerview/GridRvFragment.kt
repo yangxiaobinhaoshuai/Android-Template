@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.graphics.Canvas
 import android.graphics.Color
 import android.view.Gravity
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
@@ -18,7 +19,9 @@ import kotlinx.android.synthetic.main.fragment_recyclerview.*
 import me.yangxiaobin.android.codelab.R
 import me.yangxiaobin.android.kotlin.codelab.base.AbsFragment
 import me.yangxiaobin.android.kotlin.codelab.base.LogAbility
+import me.yangxiaobin.android.kotlin.codelab.ext.getActionString
 import me.yangxiaobin.android.kotlin.codelab.ext.getScreenLocation
+import me.yangxiaobin.android.kotlin.codelab.ext.setOnItemClickListener
 import me.yangxiaobin.android.kotlin.codelab.log.AndroidLogger
 import me.yangxiaobin.android.kotlin.codelab.recyclerview.AbsVH
 import me.yangxiaobin.android.kotlin.codelab.recyclerview.SimpleRvAdapter
@@ -32,6 +35,7 @@ class GridRvFragment : AbsFragment() {
 
     override val layoutResId: Int = R.layout.fragment_recyclerview
 
+    @SuppressLint("ClickableViewAccessibility")
     override fun afterViewCreated(view: View) {
         super.afterViewCreated(view)
 
@@ -48,7 +52,21 @@ class GridRvFragment : AbsFragment() {
                 text = mockList[pos].toString()
             }
 
+
+            vh.itemView.setOnTouchListener{  view: View, motionEvent: MotionEvent ->
+                logD("grid item onTouch: ${motionEvent.getActionString}")
+                true
+            }
+
         }
+
+        rv_fragment.setOnItemClickListener(onLongClick = {
+            logD("Grid onLongClick pos :${it.second}")
+            false
+        }, onClick = {
+            logD("Grid onClick pos :${it.second}")
+        })
+
 
         val helperCallback = @SuppressLint("SetTextI18n")
         object : LogAwareItemTouchHelperCallback(logD) {

@@ -13,6 +13,10 @@ import java.lang.StringBuilder
 import java.net.NetworkInterface
 import java.util.*
 
+/**
+ * 隐私合规问题，使用以下 API 需要慎重，最好在应用内统一收口
+ */
+
 private var sAppName = ""
 
 private var sAppVersionName = ""

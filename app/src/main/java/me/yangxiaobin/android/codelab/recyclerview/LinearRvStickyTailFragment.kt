@@ -13,7 +13,6 @@ import android.widget.TextView
 import androidx.core.view.doOnPreDraw
 import androidx.core.view.updateLayoutParams
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import me.yangxiaobin.android.codelab.R
 import me.yangxiaobin.android.codelab.databinding.FragmentLienarRvStickyTailBinding
@@ -28,7 +27,7 @@ class LinearRvStickyTailFragment : AbsViewBindingFragment<FragmentLienarRvSticky
 
     override val logger: LogFacade get() = AndroidLogger
 
-    override val LogAbility.TAG: String get() = "LinearRv"
+    override val LogAbility.TAG: String get() = "LinearRvSticky"
 
     private val mockList = mutableListOf<Int>()
 
@@ -99,6 +98,13 @@ class LinearRvStickyTailFragment : AbsViewBindingFragment<FragmentLienarRvSticky
                 """.trimIndent()
                 )
             }
+        })
+
+        binding.rvTailFragment.setOnItemClickListener(onLongClick = {
+            logD("LinearRvSticky onLongClick pos :${it.second}")
+            true
+        }, onClick = {
+            logD("LinearRvSticky onClick pos :${it.second}")
         })
 
     }
@@ -177,7 +183,7 @@ class StickyTailAdapter(private val dataList: List<Int>) : RecyclerView.Adapter<
     override fun getItemCount(): Int = dataList.size + 1
 
 
-    fun View?.isVisibleToUser(): Boolean {
+    private fun View?.isVisibleToUser(): Boolean {
         if (this == null) {
             return false
         }
@@ -191,7 +197,7 @@ class StickyTailAdapter(private val dataList: List<Int>) : RecyclerView.Adapter<
     }
 
 
-    fun View.isVisibleToUser2(): Boolean {
+    private fun View.isVisibleToUser2(): Boolean {
         val nodeInfo = AccessibilityNodeInfo.obtain()
         this.onInitializeAccessibilityNodeInfo(nodeInfo)
         val isVisibleToUser = nodeInfo.isVisibleToUser

@@ -43,9 +43,12 @@ class LinearRvFragment : AbsFragment() {
 
         rv_fragment.setSimpleDivider()
 
-        rv_fragment.setOnItemClickListener {
+        rv_fragment.setOnItemClickListener(onLongClick = {
+            logD("Linear onLongClick pos :${it.second}")
+            false
+        }, onClick = {
             logD("Linear onClick pos :${it.second}")
-        }
+        })
 
     }
 
