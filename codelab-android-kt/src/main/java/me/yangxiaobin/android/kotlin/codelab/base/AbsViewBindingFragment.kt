@@ -1,5 +1,6 @@
 package me.yangxiaobin.android.kotlin.codelab.base
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -23,6 +24,8 @@ abstract class AbsViewBindingFragment<T : ViewBinding> : AbsFragment() {
         savedInstanceState: Bundle?,
     ): View? {
         _binding = getActualBinding(inflater, container, savedInstanceState)
+        _binding?.root?.setBackgroundColor(Color.WHITE)
+        _binding?.root?.isClickable = true
         return binding.root
     }
 
