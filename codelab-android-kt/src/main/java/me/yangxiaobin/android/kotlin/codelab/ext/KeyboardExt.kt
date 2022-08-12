@@ -1,17 +1,21 @@
  package me.yangxiaobin.android.kotlin.codelab.ext
 
 import android.app.Activity
+import android.graphics.Point
+import android.graphics.Rect
+import android.graphics.drawable.ColorDrawable
+import android.view.Gravity
 import android.view.View
+import android.view.WindowManager
 import android.widget.PopupWindow
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.postDelayed
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.channels.ProducerScope
+import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.distinctUntilChanged
-import kotlinx.coroutines.flow.emptyFlow
-import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.withContext
 
  /**
@@ -61,7 +65,49 @@ fun View?.getKeyboardVisibilityFLow(xMs: Long = 100L): Flow<Boolean> =
     }.distinctUntilChanged()
 
 
- fun Activity.getKeyboardHeightFlow(): Flow<Int> = flow {
+ fun Activity.getKeyboardHeightFlow(): Flow<Int>  {
+
      val transparentPopupWindow = PopupWindow()
-     // TODO
+     val popupContentView = View(this@getKeyboardHeightFlow)
+     popupContentView.setBackgroundResource(android.R.color.transparent)
+
+
+     fun handleGlobalLayoutChange(producerScope: ProducerScope<Int>) {
+         val screenSize = Point()
+         this@getKeyboardHeightFlow.windowManager.defaultDisplay.getSize(screenSize)
+         val visibleR = Rect()
+         popupContentView.getWindowVisibleDisplayFrame(visibleR)
+
+         //val orientation: Int = this@getKeyboardHeightFlow.resources.configuration.orientation
+
+         val keyboardHeight: Int = screenSize.y - visibleR.bottom
+
+         if (keyboardHeight > 500)  producerScope.trySend(keyboardHeight)
+         else producerScope.trySend(0)
+     }
+
+     with(transparentPopupWindow) {
+         contentView = popupContentView
+         softInputMode = WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE or WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE
+         inputMethodMode = PopupWindow.INPUT_METHOD_NEEDED
+         width = 0
+         height = WindowManager.LayoutParams.MATCH_PARENT
+     }
+
+     val parentView = this.findViewById<View>(android.R.id.content)
+
+     if (!transparentPopupWindow.isShowing && parentView.windowToken != null) {
+         transparentPopupWindow.setBackgroundDrawable(ColorDrawable(0))
+         transparentPopupWindow.showAtLocation(parentView, Gravity.NO_GRAVITY, 0, 0)
+     }
+
+    return callbackFlow {
+
+         val listener = { handleGlobalLayoutChange(this) }
+
+         popupContentView.viewTreeObserver.addOnGlobalLayoutListener(listener)
+
+         awaitClose { popupContentView.viewTreeObserver.removeOnGlobalLayoutListener(listener) }
+     }.distinctUntilChanged()
+
  }
