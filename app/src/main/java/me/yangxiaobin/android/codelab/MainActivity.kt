@@ -125,7 +125,11 @@ class MainActivity : AbsActivity() {
         // 16. Widgets
         "Widgets" to arrayOf(
             "TabLayout",
-        )
+        ),
+        // 17. Keyboard
+        "Keyboard" to arrayOf(
+          "KeyboardHeight",
+        ),
     )
 
 
@@ -179,7 +183,7 @@ class MainActivity : AbsActivity() {
 
 
         // Scroll to last one.
-        //rv.scrollToPosition(rv.adapter?.itemCount?.minus(1) ?: 0)
+        rv.scrollToPosition(rv.adapter?.itemCount?.minus(1) ?: 0)
     }
 
     override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {

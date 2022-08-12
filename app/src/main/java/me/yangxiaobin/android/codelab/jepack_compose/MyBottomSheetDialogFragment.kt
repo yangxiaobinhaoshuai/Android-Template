@@ -72,7 +72,7 @@ class MyBottomSheetDialogFragment : AbsBottomSheetDialogFragment() {
     override fun onResume() {
         super.onResume()
         mainHandler.postDelayed(500){resumeLifecycleOwner.handleLifecycleEvent(Lifecycle.Event.ON_START)}
-        edt_bottom_sheet_dialog?.showKeyboard()
+        edt_bottom_sheet_dialog?.showKeyboardWithDelay()
     }
 
     override fun onPause() {

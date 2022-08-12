@@ -36,6 +36,7 @@ import me.yangxiaobin.android.codelab.touch_event.ActionCancelEventFragment
 import me.yangxiaobin.android.embedding_compat.OppoEmbeddingActivity
 import me.yangxiaobin.android.jank_sample.NPEFragment
 import me.yangxiaobin.android.jank_sample.PerfettoSampleFragment
+import me.yangxiaobin.android.keyboard.KeyboardFragment
 import me.yangxiaobin.android.kotlin.codelab.ext.showFragmentToast
 import me.yangxiaobin.android.nav_lib.NavHostComposeFragment
 import me.yangxiaobin.android.permission_example.PrivacyProtectionFragment
@@ -173,6 +174,9 @@ class ComposeVerticalListFragment : AbsComposableFragment() {
 
             // 16. Widgets
             "TabLayout" -> ctx.startActivity(ctx.intentFor<OppoEmbeddingActivity>())
+
+            // 17. Keyboard
+            "KeyboardHeight" -> naviToFragment(KeyboardFragment())
 
             else -> showFragmentToast("UnSupport key :$dest.")
         }

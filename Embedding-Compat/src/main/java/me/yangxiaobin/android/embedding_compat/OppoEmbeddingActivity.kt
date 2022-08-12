@@ -12,6 +12,9 @@ import me.yangxiaobin.android.kotlin.codelab.ext.inflater
 import me.yangxiaobin.android.kotlin.codelab.log.AndroidLogger
 import me.yangxiaobin.logger.core.LogFacade
 
+/**
+ * Oppo 折叠屏适配 WIP
+ */
 class OppoEmbeddingActivity : AbsViewBindingActivity<ActivityOppoEmbeddingBinding>() {
 
 
