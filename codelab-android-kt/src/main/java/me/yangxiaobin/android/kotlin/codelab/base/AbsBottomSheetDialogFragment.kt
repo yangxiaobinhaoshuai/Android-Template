@@ -4,13 +4,18 @@ import android.animation.Animator
 import android.app.Dialog
 import android.content.Context
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.view.animation.Animation
 import androidx.activity.addCallback
 import androidx.fragment.app.commit
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import me.yangxiaobin.kotlin.codelab.ext.neatName
 
+/**
+ * BottomSheetDialogFragment Usage : https://juejin.cn/post/6844903465542483981
+ */
 open class AbsBottomSheetDialogFragment : BottomSheetDialogFragment(), LogAbility {
 
     override val LogAbility.TAG: String
@@ -22,6 +27,27 @@ open class AbsBottomSheetDialogFragment : BottomSheetDialogFragment(), LogAbilit
         logI("onAttach, context :${context.neatName}.")
         requireActivity().onBackPressedDispatcher.addCallback(this) { onBackPress() }
     }
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        beforeCreateView()
+        val root = createRoot(inflater, container, savedInstanceState)
+        afterCreateView(root)
+        return root
+    }
+
+    open fun createRoot(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? = null
+
+    open fun beforeCreateView() = Unit
+
+    open fun afterCreateView(view: View?) = Unit
 
     override fun onCreateAnimation(transit: Int, enter: Boolean, nextAnim: Int): Animation? {
         logI("onCreateAnimation, transit :$transit,enter:$enter,nextAnim:$nextAnim")

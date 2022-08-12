@@ -36,6 +36,7 @@ import me.yangxiaobin.android.codelab.touch_event.ActionCancelEventFragment
 import me.yangxiaobin.android.embedding_compat.OppoEmbeddingActivity
 import me.yangxiaobin.android.jank_sample.NPEFragment
 import me.yangxiaobin.android.jank_sample.PerfettoSampleFragment
+import me.yangxiaobin.android.keyboard.BottomSheetKeyboardFragment
 import me.yangxiaobin.android.keyboard.KeyboardFragment
 import me.yangxiaobin.android.kotlin.codelab.ext.showFragmentToast
 import me.yangxiaobin.android.nav_lib.NavHostComposeFragment
@@ -177,6 +178,7 @@ class ComposeVerticalListFragment : AbsComposableFragment() {
 
             // 17. Keyboard
             "KeyboardHeight" -> naviToFragment(KeyboardFragment())
+            "BottomSheetDialogFragment_Keyboard" -> BottomSheetKeyboardFragment().show(childFragmentManager,null)
 
             else -> showFragmentToast("UnSupport key :$dest.")
         }

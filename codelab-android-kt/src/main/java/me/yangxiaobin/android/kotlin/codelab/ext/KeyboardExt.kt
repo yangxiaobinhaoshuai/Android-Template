@@ -65,6 +65,9 @@ fun View?.getKeyboardVisibilityFLow(xMs: Long = 100L): Flow<Boolean> =
     }.distinctUntilChanged()
 
 
+ /**
+  * Keyboard 高度通常都是 709
+  */
  fun Activity.getKeyboardHeightFlow(): Flow<Int>  {
 
      val transparentPopupWindow = PopupWindow()
@@ -82,6 +85,7 @@ fun View?.getKeyboardVisibilityFLow(xMs: Long = 100L): Flow<Boolean> =
 
          val keyboardHeight: Int = screenSize.y - visibleR.bottom
 
+         // 姑且认为键盘高度 > 500 ,若小于 500 则不认为是键盘高度引起变化
          if (keyboardHeight > 500)  producerScope.trySend(keyboardHeight)
          else producerScope.trySend(0)
      }

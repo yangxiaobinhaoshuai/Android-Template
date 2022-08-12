@@ -129,6 +129,7 @@ class MainActivity : AbsActivity() {
         // 17. Keyboard
         "Keyboard" to arrayOf(
           "KeyboardHeight",
+          "BottomSheetDialogFragment_Keyboard",
         ),
     )
 
