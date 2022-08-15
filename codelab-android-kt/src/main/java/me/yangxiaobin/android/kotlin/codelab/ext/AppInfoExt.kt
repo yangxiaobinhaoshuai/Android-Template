@@ -83,7 +83,7 @@ val Context?.getAppVersionCode: String
 
 val Context?.getTargetApi: Int
     get() = if (this == null) 0
-    else sTargetSdkVersion.convertIf(Int::isNonPosition) {
+    else sTargetSdkVersion.convertIf(Int::isNonPositive) {
 
         sTargetSdkVersion = runCatching {
 

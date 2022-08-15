@@ -5,8 +5,8 @@ import android.util.TypedValue
 import java.util.*
 
 
-val Int.isPosition get() = this > 0
-val Int.isNonPosition get() = this <= 0
+val Int.isPositive get() = this > 0
+val Int.isNonPositive get() = this <= 0
 val Int.isNegative get() = this < 0
 val Int.isNonNegative get() = this >= 0
 

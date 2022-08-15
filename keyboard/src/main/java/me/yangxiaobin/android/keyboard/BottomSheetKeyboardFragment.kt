@@ -80,6 +80,7 @@ class BottomSheetKeyboardFragment : AbsComposableBsdFragment() {
         return super.onCreateDialog(savedInstanceState)
             .also {
                 it.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE)
+                //it.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
             }
     }
 
@@ -87,7 +88,9 @@ class BottomSheetKeyboardFragment : AbsComposableBsdFragment() {
     override fun afterCreateView(view: View?) {
         super.afterCreateView(view)
 
-        val statusBarHeight = requireContext().statusBarSize.toFloat()
+        view ?: return
+
+        val statusBarHeight = requireContext().statusBarSize
 
         val naviBar = requireContext().navigationBarSize.toFloat()
 
@@ -96,29 +99,29 @@ class BottomSheetKeyboardFragment : AbsComposableBsdFragment() {
         logD(" status bar height :$statusBarHeight.")
 
         requireActivity()
-            .getKeyboardHeightFlow()
-            .onEach {
+            .getKeyboardHeightFlow(logFunc = { logD(it) })
+            .onEach {  keyboardHeight ->
                 //    BSDF keyboard height: 709
                 //    requireView() height: 420
                 //    edt height: 180
                 //    screen height: 2098
+
                 logD("""
-                    BSDF keyboard height: $it
+                    BSDF keyboard height: $keyboardHeight
                     requireView() height: ${requireView().height}
                     edt height: ${requireView().findViewById<View>(edtId)?.height}
                     screen height: $screenHeight
                     status: $statusBarHeight
                     navi: $naviBar
+                    view height: ${view.height}
                 """.trimIndent())
 
 
-                val h = screenHeight - statusBarHeight - naviBar
+                if (keyboardHeight.isPositive) {
 
-                if (it.isPosition) {
-                    //requireView().translationY = -126F
-                    requireView().updateLayoutParams { this.height = 709 + 180 + 80.dp2px.toInt() + 126 }
-                    //requireView().updateLayoutParams { this.height = 30000 }
-                    //requireView().setPadding(0, 0, 0, -126)
+                    //requireView().updateLayoutParams { this.height = it + view.height + statusBarHeight.toInt() }
+
+                    requireView().setPadding(0,0,0, keyboardHeight + statusBarHeight)
                 }
             }
             .launchIn(lifecycleScope)
