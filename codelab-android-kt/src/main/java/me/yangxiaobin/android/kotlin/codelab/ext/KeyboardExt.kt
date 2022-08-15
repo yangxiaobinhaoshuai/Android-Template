@@ -3,14 +3,12 @@
 import android.app.Activity
 import android.graphics.Point
 import android.graphics.Rect
-import android.graphics.drawable.ColorDrawable
 import android.view.Gravity
 import android.view.View
 import android.view.WindowManager
 import android.widget.PopupWindow
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import androidx.core.view.postDelayed
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.ProducerScope
 import kotlinx.coroutines.channels.awaitClose
@@ -20,12 +18,16 @@ import kotlinx.coroutines.withContext
 
  /**
   * 弹起软键盘
+  *
+  * @see com.google.android.material.internal.ViewUtils.requestFocusAndShowKeyboard
   */
- fun View.showKeyboardWithDelay(delay: Long = 200L) {
-     this.postDelayed(delay) {
-         ViewCompat.getWindowInsetsController(this)?.show(WindowInsetsCompat.Type.ime())
-     }
+ fun View.showKeyboardWithDelay(delay: Long = 200L): Runnable {
+     val r = Runnable { ViewCompat.getWindowInsetsController(this)?.show(WindowInsetsCompat.Type.ime()) }
+     this.postDelayed(r, delay)
+     return r
  }
+
+ fun View.showKeyboardImmediately() = ViewCompat.getWindowInsetsController(this)?.show(WindowInsetsCompat.Type.ime())
 
  /**
   * 隐藏软键盘
@@ -88,6 +90,8 @@ fun View?.getKeyboardVisibilityFLow(xMs: Long = 100L): Flow<Boolean> =
          // 姑且认为键盘高度 > 500 ,若小于 500 则不认为是键盘高度引起变化
          if (keyboardHeight > 500)  producerScope.trySend(keyboardHeight)
          else producerScope.trySend(0)
+
+         logFunc.invoke("Keyboard height changed: $keyboardHeight, screenY: ${screenSize.y}, visibleRect.bottom: ${visibleR.bottom}")
      }
 
      with(transparentPopupWindow) {
@@ -101,7 +105,6 @@ fun View?.getKeyboardVisibilityFLow(xMs: Long = 100L): Flow<Boolean> =
      val parentView = this.findViewById<View>(android.R.id.content)
 
      if (!transparentPopupWindow.isShowing && parentView.windowToken != null) {
-         //transparentPopupWindow.setBackgroundDrawable(ColorDrawable(0))
          transparentPopupWindow.showAtLocation(parentView, Gravity.NO_GRAVITY, 0, 0)
      } else logFunc.invoke("parentView windowToken is null, have the view be attached?")
 
@@ -112,6 +115,9 @@ fun View?.getKeyboardVisibilityFLow(xMs: Long = 100L): Flow<Boolean> =
          popupContentView.viewTreeObserver.addOnGlobalLayoutListener(listener)
 
          awaitClose { popupContentView.viewTreeObserver.removeOnGlobalLayoutListener(listener) }
-     }.distinctUntilChanged()
+     }
+        .distinctUntilChanged()
+         // 去掉第一次的 0
+        .drop(1)
 
  }

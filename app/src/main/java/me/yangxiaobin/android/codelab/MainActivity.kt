@@ -1,6 +1,7 @@
 package me.yangxiaobin.android.codelab
 
 import android.annotation.SuppressLint
+import android.view.KeyEvent
 import android.view.MotionEvent
 import android.widget.TextView
 import androidx.core.os.bundleOf
@@ -198,6 +199,11 @@ class MainActivity : AbsActivity() {
     override fun checkPermission(permission: String, pid: Int, uid: Int): Int {
         //logD("CheckPermission, permission :$permission, stacktrace :${getLimitStacktrace(20)}.")
         return super.checkPermission(permission, pid, uid)
+    }
+
+    override fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean {
+        if (event.action == KeyEvent.ACTION_DOWN) logD("onKeyDown, keyCode :$keyCode.")
+        return super.onKeyDown(keyCode, event)
     }
 
 }

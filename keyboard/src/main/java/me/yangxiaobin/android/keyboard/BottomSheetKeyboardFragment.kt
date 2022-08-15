@@ -17,7 +17,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
-import androidx.core.view.updateLayoutParams
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -99,12 +98,15 @@ class BottomSheetKeyboardFragment : AbsComposableBsdFragment() {
         logD(" status bar height :$statusBarHeight.")
 
         requireActivity()
-            .getKeyboardHeightFlow(logFunc = { logD(it) })
+            //.getKeyboardHeightFlow(logFunc = { logD(it) })
+            .getKeyboardHeightFlow()
             .onEach {  keyboardHeight ->
                 //    BSDF keyboard height: 709
                 //    requireView() height: 420
                 //    edt height: 180
                 //    screen height: 2098
+
+                val edt = requireView().findViewById<EditText>(edtId)
 
                 logD("""
                     BSDF keyboard height: $keyboardHeight
@@ -114,6 +116,8 @@ class BottomSheetKeyboardFragment : AbsComposableBsdFragment() {
                     status: $statusBarHeight
                     navi: $naviBar
                     view height: ${view.height}
+                    dialog?.isShowing: ${dialog?.isShowing}
+                    edt.isKeyboardShown() :${edt?.isKeyboardShown()}
                 """.trimIndent())
 
 
@@ -122,10 +126,40 @@ class BottomSheetKeyboardFragment : AbsComposableBsdFragment() {
                     //requireView().updateLayoutParams { this.height = it + view.height + statusBarHeight.toInt() }
 
                     requireView().setPadding(0,0,0, keyboardHeight + statusBarHeight)
+                } else {
+
+                    logD("""
+                        keyboard height == 0
+                        dialog?.isShowing: ${dialog?.isShowing}
+                        edt.isKeyboardShown() :${requireView().isKeyboardShown()}
+                    """.trimIndent())
+
+                    if (dialog?.isShowing == true) dismiss()
                 }
             }
             .launchIn(lifecycleScope)
 
+    }
+
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        requireView().findViewById<EditText>(edtId).also { logD("onActivityCreated edt is $it") }?.run {
+            this.requestFocus()
+
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        mainHandler.post {
+            requireView().showKeyboardImmediately()
+            requireView().findViewById<EditText>(edtId).also { logD("onResume post edt is $it") }?.showKeyboardImmediately()
+//            requireView().findViewById<EditText>(edtId).also { logD("onResume post edt is $it") }?.run {
+//               this.showKeyboardWithDelay()
+//            }
+        }
     }
 
 
