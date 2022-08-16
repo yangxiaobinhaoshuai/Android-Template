@@ -1,5 +1,6 @@
 package me.yangxiaobin.android.proguard_lib
 
+import android.view.View
 import me.yangxiaobin.android.kotlin.codelab.base.LogAbility
 import me.yangxiaobin.android.kotlin.codelab.ext.showFragmentToast
 import me.yangxiaobin.android.kotlin.codelab.log.AndroidLogger
@@ -14,8 +15,8 @@ class ReflectFragment : EmptyFragment() {
     override val LogAbility.TAG: String get() = "ReflectFragment"
 
 
-    override fun onButtonClick(index: Int) {
-        super.onButtonClick(index)
+    override fun onButtonClick(index: Int, v: View) {
+        super.onButtonClick(index,v)
 
         when (index) {
             0 -> testForReflection()

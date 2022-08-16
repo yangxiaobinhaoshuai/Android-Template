@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.FrameLayout
+import androidx.annotation.ColorInt
 import me.yangxiaobin.android.kotlin.codelab.base.AbsFragment
 import me.yangxiaobin.android.kotlin.codelab.ext.MatchParentParams
 import me.yangxiaobin.android.kotlin.codelab.ext.WrapContent
@@ -35,7 +36,7 @@ open class EmptyFragment : AbsFragment() {
         return (customRootViewGroup(requireContext()) ?: FrameLayout(requireContext()))
             .apply {
                 this.layoutParams = MatchParentParams
-                this.setBackgroundColor(HexColors.YELLOW_A200.colorInt)
+                this.setBackgroundColor(getBackgroundColor())
 
 
                 repeat(buttonsCount + customChildren().size) { index: Int ->
@@ -50,9 +51,10 @@ open class EmptyFragment : AbsFragment() {
                         val bt = Button(requireContext())
                             .apply {
                                 this.text = "Button: $index"
+                                this.setTextColor(HexColors.RED_A200.colorInt)
                             }
 
-                        bt.setOnClickListener { this@EmptyFragment::onButtonClick.invoke(index) }
+                        bt.setOnClickListener { this@EmptyFragment::onButtonClick.invoke(index,it) }
 
                         this.addView(bt, lp)
                     } else {
@@ -63,7 +65,9 @@ open class EmptyFragment : AbsFragment() {
             }
     }
 
-    protected open fun onButtonClick(index: Int) {}
+    protected open fun onButtonClick(index: Int,v:View) = Unit
+
+    @ColorInt protected open fun getBackgroundColor() = HexColors.YELLOW_A200.colorInt
 
     protected open fun customChildren(): List<View> = emptyList()
 
