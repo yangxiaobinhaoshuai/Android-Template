@@ -42,6 +42,7 @@ import me.yangxiaobin.android.kotlin.codelab.ext.showFragmentToast
 import me.yangxiaobin.android.nav_lib.NavHostComposeFragment
 import me.yangxiaobin.android.permission_example.PrivacyProtectionFragment
 import me.yangxiaobin.android.proguard_lib.ReflectFragment
+import me.yangxiaobin.android.ui.kit.samples.SelectorsFragment
 import me.yangxiaobin.android.webview.JsFunctionFragment
 import me.yangxiaobin.android.webview.AbsWebViewFragment
 import me.yangxiaobin.kotlin.compose.lib.AbsComposableFragment
@@ -174,7 +175,8 @@ class ComposeVerticalListFragment : AbsComposableFragment() {
             "LogTest" -> naviToFragment(LogTestFragment())
 
             // 16. Widgets
-            "TabLayout" -> ctx.startActivity(ctx.intentFor<OppoEmbeddingActivity>())
+            "TabLayout_OppoEmbed" -> ctx.startActivity(ctx.intentFor<OppoEmbeddingActivity>())
+            "SelectorsFragment" -> naviToFragment(SelectorsFragment())
 
             // 17. Keyboard
             "KeyboardHeight" -> naviToFragment(KeyboardFragment())

@@ -125,7 +125,8 @@ class MainActivity : AbsActivity() {
 
         // 16. Widgets
         "Widgets" to arrayOf(
-            "TabLayout",
+            "TabLayout_OppoEmbed",
+            "SelectorsFragment",
         ),
         // 17. Keyboard
         "Keyboard" to arrayOf(
