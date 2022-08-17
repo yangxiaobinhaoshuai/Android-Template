@@ -33,6 +33,7 @@ import me.yangxiaobin.android.codelab.recyclerview.LinearRvStickyTailFragment
 import me.yangxiaobin.android.codelab.recyclerview.PagingRvFragment
 import me.yangxiaobin.android.codelab.retrofit.RetrofitFragment
 import me.yangxiaobin.android.codelab.touch_event.ActionCancelEventFragment
+import me.yangxiaobin.android.codelab.touch_event.ContinuousClickFragment
 import me.yangxiaobin.android.embedding_compat.OppoEmbeddingActivity
 import me.yangxiaobin.android.jank_sample.NPEFragment
 import me.yangxiaobin.android.jank_sample.PerfettoSampleFragment
@@ -152,6 +153,7 @@ class ComposeVerticalListFragment : AbsComposableFragment() {
 
             // 9.Touch Events
             "ACTION_CANCEL" -> naviToFragment(ActionCancelEventFragment())
+            "ContinuousClick" -> naviToFragment(ContinuousClickFragment())
 
             // 10. QrScan
             "PermissionRequest" -> naviToFragment(PermissionRequestFragment())

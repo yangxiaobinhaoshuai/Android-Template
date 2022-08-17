@@ -87,7 +87,8 @@ class MainActivity : AbsActivity() {
 
         // 9. Android Touch Events
         "Touch Events" to arrayOf(
-            "ACTION_CANCEL"
+            "ACTION_CANCEL",
+            "ContinuousClick",
         ),
 
         // 10. qrcode scan
