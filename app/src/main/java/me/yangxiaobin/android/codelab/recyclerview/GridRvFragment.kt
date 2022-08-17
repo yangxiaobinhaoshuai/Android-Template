@@ -53,7 +53,7 @@ class GridRvFragment : AbsFragment() {
             }
 
 
-            vh.itemView.setOnTouchListener{  view: View, motionEvent: MotionEvent ->
+            vh.itemView.setOnTouchListener { _: View, motionEvent: MotionEvent ->
                 logD("grid item onTouch: ${motionEvent.getActionString}")
                 true
             }
@@ -67,7 +67,11 @@ class GridRvFragment : AbsFragment() {
             logD("Grid onClick pos :${it.second}")
         })
 
+        setupItemTouchHelper()
+        setupItemDecoration()
+    }
 
+    private fun setupItemTouchHelper() {
         val helperCallback = @SuppressLint("SetTextI18n")
         object : LogAwareItemTouchHelperCallback(logD) {
 
@@ -160,5 +164,9 @@ class GridRvFragment : AbsFragment() {
 
         ItemTouchHelper(helperCallback).attachToRecyclerView(rv_fragment)
 
+    }
+
+    private fun setupItemDecoration(){
+        rv_fragment.addItemDecoration(GridPaddingItemDecoration(4,20,false,logD))
     }
 }
