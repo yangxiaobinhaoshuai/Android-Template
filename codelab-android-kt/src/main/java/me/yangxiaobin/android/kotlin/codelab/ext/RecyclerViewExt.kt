@@ -17,7 +17,7 @@ import me.yangxiaobin.logger.log
 import kotlin.math.abs
 
 
-private val logI = L.log(LogLevel.INFO, "codeLab-ext")
+private val logI = L.log(LogLevel.INFO, "rv-ext")
 
 val Int.toRecyclerViewScrollStateString
     get() = when (this) {
@@ -41,6 +41,9 @@ class RvClickListener(
 ) : RecyclerView.SimpleOnItemTouchListener() {
 
     private val configuration by lazy { ViewConfiguration.get(context) }
+    // 21 in Samsung Galaxy S21 设备上
+    // 24 in Oppo reno android 11
+    private val touchSlop: Float by lazy { configuration.scaledTouchSlop.toFloat() }
 
     private var posRecord: Pair<Float, Float> = -1F to -1F
     private var canClickPerformed = true
@@ -48,9 +51,17 @@ class RvClickListener(
 
     private var hasPerformedLongClick: Boolean? = null
 
+    // 400 or 500 ms
+    // 400 in oppo
+    // 500 in samsung
     private val longClickTimeout by lazy { ViewConfiguration.getLongPressTimeout().toLong() }
 
+
     private var longClickAction: Runnable? = null
+
+    init {
+        logI("touchSlop: $touchSlop, longClickTimeout: $longClickTimeout")
+    }
 
 
     override fun onInterceptTouchEvent(rv: RecyclerView, e: MotionEvent): Boolean {
@@ -83,8 +94,13 @@ class RvClickListener(
 
                 if (canClickPerformed) {
 
-                    val (x, y) = posRecord
-                    if (x == e.rawX && y == e.rawY) {
+                    val (x: Float, y: Float) = posRecord
+
+                    // Samsung Galaxy S21 设备上
+                    // x = 707
+                    // e.rawX = 705
+                    // 会有细微差距
+                    if (abs(x - e.rawX) < touchSlop && abs(y - e.rawY) < touchSlop) {
 
                         rv.children.find { e.isOnView(it) }
                             ?.let { targetView ->
@@ -105,7 +121,7 @@ class RvClickListener(
 
                 if (x >= 0 && y >= 0) {
 
-                    if (abs(e.rawY - y) > configuration.scaledTouchSlop || abs(e.rawX - x) > configuration.scaledTouchSlop) {
+                    if (abs(e.rawY - y) > touchSlop || abs(e.rawX - x) > touchSlop) {
                         canClickPerformed = false
                         rv.removeCallbacks(longClickAction)
                     }

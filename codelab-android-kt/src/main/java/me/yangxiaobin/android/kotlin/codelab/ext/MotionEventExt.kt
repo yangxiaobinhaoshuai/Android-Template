@@ -3,7 +3,6 @@ package me.yangxiaobin.android.kotlin.codelab.ext
 import android.view.MotionEvent
 import android.view.View
 
-// MotionEvent
 fun MotionEvent.isOnView(v: View): Boolean {
 
     val motionRawX = this.rawX
@@ -11,8 +10,7 @@ fun MotionEvent.isOnView(v: View): Boolean {
 
     val (viewRawX,viewRawY) = v.getScreenLocation
 
-    return (motionRawX >= viewRawX && motionRawX <= viewRawX + v.width)
-            && (motionRawY >= viewRawY && motionRawY <= viewRawY + v.height)
+    return (motionRawX >= viewRawX && motionRawX <= viewRawX + v.width) && (motionRawY >= viewRawY && motionRawY <= viewRawY + v.height)
 }
 
 val MotionEvent?.getActionString: String get() = if (this != null) MotionEvent.actionToString(this.action) else ""
