@@ -15,3 +15,13 @@ val WrapContentParams get() = NormalLayoutParams(WrapContent, WrapContent)
 
 val MatchParentMarginParams get() = MarginLayoutParams(MatchParent, MatchParent)
 val WrapContentMarginParams get() = MarginLayoutParams(WrapContent, WrapContent)
+
+
+typealias androidColor = android.graphics.Color
+
+typealias androidView = android.view.View
+
+// This will be warned by IDE
+//typealias androidR = android.R
+
+

@@ -10,7 +10,7 @@ import android.view.View
 import androidx.annotation.ColorInt
 import androidx.annotation.ColorRes
 import androidx.core.content.ContextCompat
-import me.yangxiaobin.android.kotlin.codelab.androidColor
+import me.yangxiaobin.android.kotlin.codelab.ext.androidColor
 import me.yangxiaobin.android.kotlin.codelab.ext.dp2px
 
 
