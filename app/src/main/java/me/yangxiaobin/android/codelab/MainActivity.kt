@@ -65,6 +65,7 @@ class MainActivity : AbsActivity() {
         // 5.
         "Kotlin Jetpack Compose" to arrayOf(
             "MyBottomSheetDialogFragment",
+            "RoundCornerBSDF",
             "Compose CheckBox",
         ),
 

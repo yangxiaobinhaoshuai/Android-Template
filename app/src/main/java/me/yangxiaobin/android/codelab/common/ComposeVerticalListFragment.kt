@@ -16,6 +16,7 @@ import me.yangxiaobin.android.codelab.alerts.PopupWindowBtsFragment
 import me.yangxiaobin.android.codelab.di.dagger2.Dagger2Fragment
 import me.yangxiaobin.android.codelab.jepack_compose.CheckBoxFragment
 import me.yangxiaobin.android.codelab.jepack_compose.MyBottomSheetDialogFragment
+import me.yangxiaobin.android.codelab.jepack_compose.RoundCornerBottomSheetDialogFragment
 import me.yangxiaobin.android.codelab.jetpack_components.FlowFragment
 import me.yangxiaobin.android.codelab.jetpack_components.MutableSharedFlowFragment
 import me.yangxiaobin.android.codelab.log.LogTestFragment
@@ -137,6 +138,7 @@ class ComposeVerticalListFragment : AbsComposableFragment() {
 
             // 5.Kotlin Jetpack Compose
             "MyBottomSheetDialogFragment" -> naviToFragment(MyBottomSheetDialogFragment())
+            "RoundCornerBSDF" -> RoundCornerBottomSheetDialogFragment().show(childFragmentManager,null)
             "Compose CheckBox" -> naviToFragment(CheckBoxFragment())
 
 
