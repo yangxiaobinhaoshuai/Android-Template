@@ -1,21 +1,47 @@
 package me.yangxiaobin.android.kotlin.codelab.ext
 
+import androidx.annotation.CheckResult
 import androidx.annotation.IntRange
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
+import androidx.lifecycle.MutableLiveData
 
 
+@CheckResult
+fun <T> LiveData<T>.toMutable(): MutableLiveData<T> {
+
+    if (this is MediatorLiveData) return this
+
+    val mediator = MediatorLiveData<T>()
+    mediator.addSource(this) { data: T ->
+        mediator.value = data
+    }
+    return mediator
+}
+
+@CheckResult
+fun <T> LiveData<T>.onChanged(onChanged: (T) -> Unit): LiveData<T> {
+
+    val mediator = MediatorLiveData<T>()
+
+    this.observeForever { data: T ->
+        mediator.postValue(data)
+    }
+
+    return mediator
+}
 
 /**
  * 只监听获取LiveData的第一个值
  */
-fun <T> LiveData<T>.first(): LiveData<T> =
-    take(1)
+@CheckResult
+fun <T> LiveData<T>.first(): LiveData<T> = take(1)
 
 
 /**
  * 只监听获取LiveData的 [count] 个值
  */
+@CheckResult
 fun <T> LiveData<T>.take(@IntRange(from = 1, to = Long.MAX_VALUE) count: Int): LiveData<T> {
     require(count > 0) { "count must be greater than 1" }
     var counter = 0
@@ -25,6 +51,7 @@ fun <T> LiveData<T>.take(@IntRange(from = 1, to = Long.MAX_VALUE) count: Int): L
 /**
  * 只监听获取LiveData的 [count] 个值
  */
+@CheckResult
 fun <T> LiveData<T>.drop(@IntRange(from = 1, to = Long.MAX_VALUE) count: Int): LiveData<T> {
     require(count > 0) { "count must be greater than 1" }
     var counter = 0
@@ -35,6 +62,7 @@ fun <T> LiveData<T>.drop(@IntRange(from = 1, to = Long.MAX_VALUE) count: Int): L
 /**
  * 监听LiveData的值更新，直到 [predicate] 返回false
  */
+@CheckResult
 inline fun <T> LiveData<T>.takeWhile(crossinline predicate: (T) -> Boolean): LiveData<T> {
     val result = MediatorLiveData<T>()
     result.addSource(this) { value ->
@@ -44,11 +72,13 @@ inline fun <T> LiveData<T>.takeWhile(crossinline predicate: (T) -> Boolean): Liv
     return result
 }
 
+@CheckResult
 fun <T> LiveData<T>.skip(count: Int): LiveData<T> {
     var counter = 0
     return skipWhile { ++counter > count }
 }
 
+@CheckResult
 inline fun <T> LiveData<T>.skipWhile(crossinline predicate: (T) -> Boolean): LiveData<T> {
     val result = MediatorLiveData<T>()
     var drop = true
@@ -63,6 +93,7 @@ inline fun <T> LiveData<T>.skipWhile(crossinline predicate: (T) -> Boolean): Liv
 
 
 //过滤相关
+@CheckResult
 inline fun <T> LiveData<T>.filter(crossinline func: (T) -> Boolean): LiveData<T> {
     val result = MediatorLiveData<T>()
     result.addSource(this) { value ->
@@ -76,6 +107,7 @@ inline fun <T> LiveData<T>.filter(crossinline func: (T) -> Boolean): LiveData<T>
 /**
  * LiveData 触发 [LiveData.onActive] 回调
  */
+@CheckResult
 inline fun <T> LiveData<T>.doOnActive(crossinline func: () -> Unit): LiveData<T> {
     val hook = object : LiveData<T>() {
         override fun onActive() = func()
@@ -90,6 +122,7 @@ inline fun <T> LiveData<T>.doOnActive(crossinline func: () -> Unit): LiveData<T>
 /**
  * LiveData 触发 [LiveData.onInactive] 回调
  */
+@CheckResult
 inline fun <T> LiveData<T>.doOnInactive(crossinline func: () -> Unit): LiveData<T> {
     val hook = object : LiveData<T>() {
         override fun onInactive() = func()

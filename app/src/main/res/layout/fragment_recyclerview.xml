@@ -9,6 +9,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_fragment"
         android:layout_width="match_parent"
+        android:clipChildren="false"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toTopOf="@+id/fl_grid_fragment"
         app:layout_constraintTop_toTopOf="parent" />

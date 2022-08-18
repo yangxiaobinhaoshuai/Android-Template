@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="TransparentDialogTheme" parent="Theme.AppCompat.Light.NoActionBar">
+
+        <!-- 解决圆角白边问题 -->
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <!-- 背景色半透明 -->
+        <item name="android:backgroundDimEnabled">true</item>
+
+    </style>
+</resources>

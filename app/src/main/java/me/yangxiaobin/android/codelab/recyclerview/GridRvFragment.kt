@@ -48,6 +48,9 @@ class GridRvFragment : AbsFragment() {
             mockList,
             android.R.layout.simple_list_item_1
         ) { (vh: AbsVH, _, pos, _) ->
+
+            vh.itemView.translationY = 100F
+
             vh.requireView<TextView>(android.R.id.text1).run {
                 gravity = Gravity.CENTER
                 text = mockList[pos].toString()
@@ -81,6 +84,9 @@ class GridRvFragment : AbsFragment() {
         val helperCallback = @SuppressLint("SetTextI18n")
         object : LogAwareItemTouchHelperCallback(logD) {
 
+            private val enable = makeMovementFlags(ItemTouchHelper.UP or ItemTouchHelper.DOWN or ItemTouchHelper.START or ItemTouchHelper.END, 0)
+            private val disable = makeMovementFlags(0, 0)
+
             private val fakeView by lazy {
                 TextView(requireContext())
                     .apply {
@@ -96,10 +102,7 @@ class GridRvFragment : AbsFragment() {
             override fun getMovementFlags(
                 recyclerView: RecyclerView,
                 viewHolder: RecyclerView.ViewHolder
-            ): Int = makeMovementFlags(
-                UP or DOWN or START or END,
-                0
-            ).also { logD("getMovementFlags vh:$viewHolder, flag:$it.") }
+            ): Int = enable
 
             override fun onMove(
                 rv: RecyclerView,
@@ -126,7 +129,7 @@ class GridRvFragment : AbsFragment() {
 
             override fun onSelectedChanged(viewHolder: RecyclerView.ViewHolder?, actionState: Int) {
                 super.onSelectedChanged(viewHolder, actionState)
-                fakeView.isVisible = true
+                //fakeView.isVisible = true
             }
 
             override fun clearView(
@@ -134,7 +137,7 @@ class GridRvFragment : AbsFragment() {
                 viewHolder: RecyclerView.ViewHolder
             ) {
                 super.clearView(recyclerView, viewHolder)
-                fakeView.isGone = true
+                //fakeView.isGone = true
             }
 
             override fun onChildDraw(
@@ -158,12 +161,12 @@ class GridRvFragment : AbsFragment() {
 
                 val (screenX, screenY) = viewHolder.itemView.getScreenLocation
 
-                if (!fakeView.isAttachedToWindow) {
-                    (requireActivity().window.decorView as ViewGroup).addView(fakeView)
-                }
-
-                fakeView.translationX = screenX.toFloat()
-                fakeView.translationY = screenY.toFloat()
+//                if (!fakeView.isAttachedToWindow) {
+//                    (requireActivity().window.decorView as ViewGroup).addView(fakeView)
+//                }
+//
+//                fakeView.translationX = screenX.toFloat()
+//                fakeView.translationY = screenY.toFloat()
 
             }
         }
