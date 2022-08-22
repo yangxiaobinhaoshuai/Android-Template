@@ -133,5 +133,5 @@ dependencies {
     implementation project(':Embedding-Compat')
     implementation project(':keyboard')
     implementation project(':android-ui-kit')
-
+    implementation project(':log2Disk')
 }
