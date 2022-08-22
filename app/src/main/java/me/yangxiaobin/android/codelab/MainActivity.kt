@@ -18,7 +18,6 @@ import me.yangxiaobin.android.kotlin.codelab.ext.setSimpleDivider
 import me.yangxiaobin.android.kotlin.codelab.log.AndroidLogger
 import me.yangxiaobin.android.kotlin.codelab.recyclerview.AbsVH
 import me.yangxiaobin.android.kotlin.codelab.recyclerview.SimpleRvAdapter
-import me.yangxiaobin.kotlin.codelab.ext.getLimitStacktrace
 import me.yangxiaobin.logger.core.LogFacade
 
 
@@ -31,7 +30,8 @@ class MainActivity : AbsActivity() {
         "RecyclerView" to arrayOf(
             "LinearRv",
             "LinearRvStickyTailFragment",
-            "GridRv",
+            "DraggableGridRV",
+            "NormalGridRv",
         ),
 
         // 2.

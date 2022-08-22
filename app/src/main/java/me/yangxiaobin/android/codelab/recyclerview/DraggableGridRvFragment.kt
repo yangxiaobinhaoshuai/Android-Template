@@ -28,11 +28,11 @@ import me.yangxiaobin.android.kotlin.codelab.recyclerview.AbsVH
 import me.yangxiaobin.android.kotlin.codelab.recyclerview.SimpleRvAdapter
 import me.yangxiaobin.logger.core.LogFacade
 
-class GridRvFragment : AbsFragment() {
+class DraggableGridRvFragment : AbsFragment() {
 
     override val logger: LogFacade get() = AndroidLogger
 
-    override val LogAbility.TAG: String get() = "GridRv"
+    override val LogAbility.TAG: String get() = "DraggableGridRvFragment"
 
     override val layoutResId: Int = R.layout.fragment_recyclerview
 
@@ -48,8 +48,6 @@ class GridRvFragment : AbsFragment() {
             mockList,
             android.R.layout.simple_list_item_1
         ) { (vh: AbsVH, _, pos, _) ->
-
-            vh.itemView.translationY = 100F
 
             vh.requireView<TextView>(android.R.id.text1).run {
                 gravity = Gravity.CENTER
@@ -129,7 +127,7 @@ class GridRvFragment : AbsFragment() {
 
             override fun onSelectedChanged(viewHolder: RecyclerView.ViewHolder?, actionState: Int) {
                 super.onSelectedChanged(viewHolder, actionState)
-                //fakeView.isVisible = true
+                fakeView.isVisible = true
             }
 
             override fun clearView(
@@ -137,7 +135,7 @@ class GridRvFragment : AbsFragment() {
                 viewHolder: RecyclerView.ViewHolder
             ) {
                 super.clearView(recyclerView, viewHolder)
-                //fakeView.isGone = true
+                fakeView.isGone = true
             }
 
             override fun onChildDraw(
@@ -161,12 +159,12 @@ class GridRvFragment : AbsFragment() {
 
                 val (screenX, screenY) = viewHolder.itemView.getScreenLocation
 
-//                if (!fakeView.isAttachedToWindow) {
-//                    (requireActivity().window.decorView as ViewGroup).addView(fakeView)
-//                }
-//
-//                fakeView.translationX = screenX.toFloat()
-//                fakeView.translationY = screenY.toFloat()
+                if (!fakeView.isAttachedToWindow) {
+                    (requireActivity().window.decorView as ViewGroup).addView(fakeView)
+                }
+
+                fakeView.translationX = screenX.toFloat()
+                fakeView.translationY = screenY.toFloat()
 
             }
         }
