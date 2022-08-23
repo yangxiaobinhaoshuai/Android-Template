@@ -1,0 +1,51 @@
+initscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'io.github.adambl4:mirakle:1.5.2'
+    }
+}
+ 
+apply plugin: Mirakle
+ 
+rootProject {
+
+    println("start remote build ==> $rootProject.")
+
+    mirakle {
+
+        host "172.29.70.243"
+
+        sshArgs += ["-p 22"]
+
+        remoteFolder "/home/yangxiaobin/mirakle-compile"
+
+        downloadInParallel true
+
+        breakOnTasks += ["package"]
+
+        excludeLocal += ["*.hprof","local.properties"]
+
+        // excludeRemote += ["build/tmp", 
+        // "build/generated", 
+        // "build/kotlin",
+        // "local.properties",
+        // "build/intermediates/javac",
+        // "build/intermediates/assets",
+        // "build/intermediates/compressed_assets",
+        // "build/intermediates/dex",
+        // "build/intermediates/incremental",
+        // "build/intermediates/merged_native_libs",
+        // "build/intermediates/merged_res",
+        // "build/intermediates/transform",
+        // ]
+
+        //rsyncToRemoteArgs += ["-i"] 
+
+        rsyncFromRemoteArgs += ["--compress-level=5", "-h"]
+
+        // downloadInterval 2000
+
+    }
+}

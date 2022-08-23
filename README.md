@@ -56,6 +56,7 @@ viewBinding 和 synthetics plugin 同时 apply 会报错
 
 ### build tips
 - Keep eye on  buildFeature & composeOptions config block.
+- 远程编译 ： https://github.com/Adambl4/mirakle   see[miralke.gradle](/mirakle_init.gradle)
 
 
 ### Reference
