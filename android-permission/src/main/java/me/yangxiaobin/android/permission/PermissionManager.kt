@@ -45,6 +45,9 @@ import androidx.fragment.app.FragmentActivity
  *
  */
 
+/**
+ * Each time a permission has been checked, it's invoked.
+ */
 typealias PermissionAccessListener = (permission: String) -> Unit
 
 object PermissionManager {
