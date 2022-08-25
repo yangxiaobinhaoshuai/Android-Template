@@ -128,3 +128,8 @@ fun View.requestFocusAndShowKeyboard() {
         inputMethodManager.showSoftInput(this, InputMethodManager.SHOW_IMPLICIT)
     }
 }
+
+fun View.postCancellable(r: Runnable) {
+    this.post(r)
+    this.doOnDetach { it.removeCallbacks(r) }
+}
