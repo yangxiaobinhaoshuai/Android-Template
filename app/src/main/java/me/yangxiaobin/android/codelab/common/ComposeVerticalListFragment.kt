@@ -41,6 +41,7 @@ import me.yangxiaobin.android.kotlin.codelab.ext.showFragmentToast
 import me.yangxiaobin.android.nav_lib.NavHostComposeFragment
 import me.yangxiaobin.android.permission_example.PrivacyProtectionFragment
 import me.yangxiaobin.android.proguard_lib.ReflectFragment
+import me.yangxiaobin.android.proxylib.DynamicProxyFragment
 import me.yangxiaobin.android.ui.kit.samples.SelectorsFragment
 import me.yangxiaobin.android.webview.JsFunctionFragment
 import me.yangxiaobin.android.webview.AbsWebViewFragment
@@ -183,6 +184,9 @@ class ComposeVerticalListFragment : AbsComposableFragment() {
             // 17. Keyboard
             "KeyboardHeight" -> naviToFragment(KeyboardFragment())
             "BottomSheetDialogFragment_Keyboard" -> BottomSheetKeyboardFragment().show(childFragmentManager,null)
+
+            // 18. Proxy
+            "DynamicProxy" -> naviToFragment(DynamicProxyFragment())
 
             else -> showFragmentToast("UnSupport key :$dest.")
         }

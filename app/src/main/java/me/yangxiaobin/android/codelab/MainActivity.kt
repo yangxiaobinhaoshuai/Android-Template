@@ -130,11 +130,18 @@ class MainActivity : AbsActivity() {
             "TabLayout_OppoEmbed",
             "SelectorsFragment",
         ),
+
         // 17. Keyboard
         "Keyboard" to arrayOf(
           "KeyboardHeight",
           "BottomSheetDialogFragment_Keyboard",
         ),
+
+        // 18. Proxy
+        "Proxy" to arrayOf(
+            "DynamicProxy",
+        ),
+
     )
 
 
@@ -188,7 +195,7 @@ class MainActivity : AbsActivity() {
 
 
         // Scroll to last one.
-        //rv.scrollToPosition(rv.adapter?.itemCount?.minus(1) ?: 0)
+        rv.scrollToPosition(rv.adapter?.itemCount?.minus(1) ?: 0)
     }
 
     override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {

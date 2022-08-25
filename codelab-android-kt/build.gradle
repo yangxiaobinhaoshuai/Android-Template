@@ -58,6 +58,7 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 
     implementation deps.appcompatX
+    // log table
     implementation deps.picnic
     implementation deps.retrofit
 
