@@ -4,7 +4,9 @@ import android.util.Log
 import me.yangxiaobin.logger.RawLogger
 import me.yangxiaobin.logger.core.LogFacade
 import me.yangxiaobin.logger.core.LogLevel
+import me.yangxiaobin.logger.domain.DomainContext
 import me.yangxiaobin.logger.domain.DomainElement
+import me.yangxiaobin.logger.domain.EmptyDomainContext
 import me.yangxiaobin.logger.elements.InterceptorLogElement
 import me.yangxiaobin.logger.elements.LogPrinterDelegate
 import me.yangxiaobin.logger.elements.LogPrinterLogElement
@@ -31,8 +33,16 @@ class LogInterceptor : DomainElementInterceptor {
 }
 
 val AndroidLogger = L.clone(
-    newLogContext = LogPrinterLogElement(AndroidPrinter()) + InterceptorLogElement(LogInterceptor())
+    newLogContext = LogPrinterLogElement(AndroidPrinter()) + InterceptorLogElement(LogInterceptor()) + LogElementProvider.elements.fold(EmptyDomainContext, DomainContext::plus)
 )
+
+/**
+ * IOC example
+ */
+object LogElementProvider {
+
+    val elements: MutableList<DomainContext> = mutableListOf()
+}
 
 class AndroidPrinter : LogPrinter {
     override fun print(level: LogLevel, tag: String, message: String) {
