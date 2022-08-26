@@ -86,7 +86,7 @@ class ComposeVerticalListFragment : AbsComposableFragment() {
     private fun ListItem(index: Int, originalName: String) = Column(
         modifier = Modifier
             .height(50.dp)
-            .clickable { fragmentNavigator(originalName) }
+            .clickable { naviToDestFragment(originalName) }
     ) {
 
         Box(Modifier.padding(horizontal = 10.dp, vertical = 5.dp)) {
@@ -96,7 +96,7 @@ class ComposeVerticalListFragment : AbsComposableFragment() {
         Divider(color = androidx.compose.ui.graphics.Color.Black)
     }
 
-    private fun fragmentNavigator(dest: String) {
+    fun naviToDestFragment(dest: String) {
 
         val ctx = requireActivity()
 

@@ -14,6 +14,7 @@ import me.yangxiaobin.android.codelab.common.ComposeVerticalListFragment
 import me.yangxiaobin.android.kotlin.codelab.base.AbsActivity
 import me.yangxiaobin.android.kotlin.codelab.base.LogAbility
 import me.yangxiaobin.android.kotlin.codelab.ext.getActionString
+import me.yangxiaobin.android.kotlin.codelab.ext.mainHandler
 import me.yangxiaobin.android.kotlin.codelab.ext.setSimpleDivider
 import me.yangxiaobin.android.kotlin.codelab.log.AndroidLogger
 import me.yangxiaobin.android.kotlin.codelab.recyclerview.AbsVH
@@ -183,10 +184,7 @@ class MainActivity : AbsActivity() {
 
                 setOnClickListener {
                     val subMenus: Array<String> = catalog.values.toList()[pos]
-                    this@MainActivity.navigateToFragment(
-                        ComposeVerticalListFragment(),
-                        "subMenus" to subMenus
-                    )
+                    this@MainActivity.navigateToFragment(ComposeVerticalListFragment(), "subMenus" to subMenus)
                 }
             }
 
@@ -196,6 +194,20 @@ class MainActivity : AbsActivity() {
 
         // Scroll to last one.
         rv.scrollToPosition(rv.adapter?.itemCount?.minus(1) ?: 0)
+
+        // TODO config this pls.
+        navigateToSubFragment("DynamicProxy")
+    }
+
+    @Suppress("SameParameterValue")
+    private fun navigateToSubFragment(identify: String) {
+        catalog.toList()
+            .find { (_,subMenus): Pair<String, Array<String>> -> subMenus.any { it == identify } }
+            ?.let { (id, subMenus) ->
+                val target = ComposeVerticalListFragment()
+                this@MainActivity.navigateToFragment(target, "subMenus" to subMenus)
+                mainHandler.post { target.naviToDestFragment(identify) }
+            }
     }
 
     override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
