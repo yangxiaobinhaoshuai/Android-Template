@@ -68,4 +68,5 @@ dependencies {
     api project(":codelab-kt")
 
     compileOnly deps.viewbinding
+    implementation project(':module-inverse-deps-solution')
 }
