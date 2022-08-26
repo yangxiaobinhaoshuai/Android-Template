@@ -135,4 +135,5 @@ dependencies {
     implementation project(':android-ui-kit')
     implementation project(':log2Disk')
     implementation project(':proxy-lib')
+    implementation project(':module-inverse-deps-solution')
 }
