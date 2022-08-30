@@ -8,11 +8,22 @@ import android.view.View
 import androidx.lifecycle.LifecycleOwner
 import me.yangxiaobin.android.kotlin.codelab.lifecycle.SimpleLifecycleObserver
 import java.lang.IllegalArgumentException
+import java.util.concurrent.Executor
+import java.util.concurrent.RejectedExecutionException
 
 
 val mainLooper: Looper by lazy { Looper.getMainLooper() }
 
 val mainHandler: Handler by lazy { Handler(mainLooper) }
+
+val mainExecutor: Executor by lazy { createMainExecutor(mainHandler) }
+
+fun createMainExecutor(mainH: Handler) = Executor { command: Runnable? ->
+    if (command != null) {
+        if (mainH.post(command)) throw RejectedExecutionException("$mainH is shutting down")
+    }
+}
+
 
 fun createMainHandler(handleMessage: (Message) -> Unit): Handler = object : Handler(mainLooper) {
     override fun handleMessage(msg: Message) {
