@@ -4,7 +4,6 @@ import android.util.SparseArray
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.IdRes
-import androidx.core.util.set
 import androidx.recyclerview.widget.RecyclerView
 import me.yangxiaobin.android.kotlin.codelab.ext.inflater
 import me.yangxiaobin.android.kotlin.codelab.log.L
