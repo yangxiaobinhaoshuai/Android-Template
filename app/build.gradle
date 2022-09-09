@@ -136,4 +136,5 @@ dependencies {
     implementation project(':log2Disk')
     implementation project(':proxy-lib')
     implementation project(':module-inverse-deps-solution')
+    implementation project(':di-lib')
 }

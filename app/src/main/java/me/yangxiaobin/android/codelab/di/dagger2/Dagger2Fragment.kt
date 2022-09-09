@@ -13,6 +13,7 @@ import me.yangxiaobin.android.kotlin.codelab.ext.showFragmentToast
 import me.yangxiaobin.kotlin.compose.lib.AbsComposableFragment
 import javax.inject.Inject
 
+@Deprecated("Migrate to di-lib module")
 class Dagger2Fragment : AbsComposableFragment() {
 
     @Inject
