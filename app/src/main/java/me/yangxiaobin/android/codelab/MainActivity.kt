@@ -16,6 +16,7 @@ import me.yangxiaobin.android.kotlin.codelab.base.LogAbility
 import me.yangxiaobin.android.kotlin.codelab.ext.getActionString
 import me.yangxiaobin.android.kotlin.codelab.ext.mainHandler
 import me.yangxiaobin.android.kotlin.codelab.ext.setSimpleDivider
+import me.yangxiaobin.android.kotlin.codelab.ext.showActivityToast
 import me.yangxiaobin.android.kotlin.codelab.log.AndroidLogger
 import me.yangxiaobin.android.kotlin.codelab.recyclerview.AbsVH
 import me.yangxiaobin.android.kotlin.codelab.recyclerview.SimpleRvAdapter
@@ -196,7 +197,7 @@ class MainActivity : AbsActivity() {
         rv.scrollToPosition(rv.adapter?.itemCount?.minus(1) ?: 0)
 
         // TODO config this pls.
-        navigateToSubFragment("DynamicProxy")
+        //navigateToSubFragment("DynamicProxy")
     }
 
     @Suppress("SameParameterValue")
@@ -206,7 +207,8 @@ class MainActivity : AbsActivity() {
             ?.let { (id, subMenus) ->
                 val target = ComposeVerticalListFragment()
                 this@MainActivity.navigateToFragment(target, "subMenus" to subMenus)
-                mainHandler.post { target.naviToDestFragment(identify) }
+                mainHandler.post { showActivityToast("Quick navi to $identify.");target.naviToDestFragment(identify)
+                }
             }
     }
 
