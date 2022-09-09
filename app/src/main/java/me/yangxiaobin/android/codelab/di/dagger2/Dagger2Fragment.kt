@@ -16,8 +16,11 @@ import javax.inject.Inject
 @Deprecated("Migrate to di-lib module")
 class Dagger2Fragment : AbsComposableFragment() {
 
-    @Inject
-    lateinit var stuffA: StuffA
+//    @Inject
+//    lateinit var stuffA1: StuffA
+//
+//    @Inject
+//    lateinit var stuffA2: StuffA
 
     @Inject
     lateinit var stuffB1: StuffB
@@ -53,9 +56,10 @@ class Dagger2Fragment : AbsComposableFragment() {
        // DaggerUnScopedComponent.create().injectDagger2Fragment(this)
         DaggerScopedComponent.create().injectDagger2Fragment(this)
 
-        stuffA.work()
+//        stuffA1.work()
+//        stuffA2.work()
+
         stuffB1.work()
         stuffB2.work()
-//        stuffC.work()
     }
 }

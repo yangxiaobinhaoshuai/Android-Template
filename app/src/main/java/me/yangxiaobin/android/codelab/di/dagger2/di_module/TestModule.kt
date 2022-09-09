@@ -3,16 +3,13 @@ package me.yangxiaobin.android.codelab.di.dagger2.di_module
 import dagger.Module
 import dagger.Provides
 import me.yangxiaobin.android.codelab.di.dagger2.pojo.StuffA
-import javax.inject.Singleton
 
 @Module
-class UnScopedModule {
+class TestModule {
 
-
-    @Module
     companion object {
 
-        @Singleton
+        @MyScope
         @Provides
         @JvmStatic
         fun provideStuffA(): StuffA {
@@ -20,10 +17,4 @@ class UnScopedModule {
         }
 
     }
-
-
-//    @Provides
-//    fun provideStuffB(): StuffB {
-//        return StuffB()
-//    }
 }
