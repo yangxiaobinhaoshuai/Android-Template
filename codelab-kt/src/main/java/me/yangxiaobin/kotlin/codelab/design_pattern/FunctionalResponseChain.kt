@@ -16,14 +16,14 @@ typealias TransformProcessor<I, O> = (Transform<I, O>) -> Transform<I, O>
 typealias TransformInterceptor<I, O> = (Transform<I, O>, I: I) -> O
 
 
-//fun <I, O> createFunctionalInterceptor(
-//    intercept: (Conversion<I, O>, I: I) -> O,
-//): (Conversion<I, O>) -> (I) -> O =
-//    { convert: Conversion<I, O> ->
-//        { I: I ->
-//            intercept(convert, I)
-//        }
-//    }
+/*fun <I, O> createFunctionalInterceptor(
+    intercept: (Conversion<I, O>, I: I) -> O,
+): (Conversion<I, O>) -> (I) -> O =
+    { convert: Conversion<I, O> ->
+        { I: I ->
+            intercept(convert, I)
+        }
+    }*/
 
 fun <I, O> interceptTransform(interceptor: TransformInterceptor<I, O>): TransformProcessor<I, O> =
 

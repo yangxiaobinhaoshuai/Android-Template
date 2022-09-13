@@ -14,7 +14,7 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-gradle-plugin-api:${build_versions.kt_version}"
     // for kcp ext
     compileOnly "org.jetbrains.kotlin:kotlin-compiler-embeddable:${build_versions.kt_version}"
-    compileOnly "me.yangxiaobin.jvm:logger:1.0-SNAPSHOT"
+    compileOnly deps.jvmLogger
 
     compileOnly deps.autoService
     kapt deps.autoService

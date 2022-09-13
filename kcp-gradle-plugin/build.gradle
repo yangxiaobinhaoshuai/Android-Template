@@ -69,7 +69,7 @@ dependencies {
     compileOnly gradleApi()
     compileOnly libDeps.agp7
     // For common logger.
-    implementation "me.yangxiaobin.jvm:logger:1.0-SNAPSHOT"
+    implementation libDeps.jvmLogger
     // For encapsulated gradle transform api.
     implementation "me.yangxiaobin.gradle.plugin:base-plugin:0.0.1"
 
