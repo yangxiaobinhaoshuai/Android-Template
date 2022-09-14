@@ -17,7 +17,7 @@ open class EmptyActivity : AbsViewBindingActivity<ActivityEmptyMainBinding>() {
 
     override val logger: LogFacade get() = AndroidLogger
 
-    override val LogAbility.TAG: String get() = "EmptyActivity"
+    override val LogAbility.TAG: String get() = "EmptyActivity@@"
 
 
     override fun afterOnCreate() {
