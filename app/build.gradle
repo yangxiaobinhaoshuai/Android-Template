@@ -121,7 +121,7 @@ dependencies {
     implementation alias.iconLib
     implementation alias.permissionLib
     implementation project(":android-qrcode")
-    implementation project(':android-qrcode-impl')
+    implementation project(':samples:android-qrcode-impl')
     implementation project(":common-ui")
     implementation project(':module-service-provider-annotation')
     implementation project(':module-service-provider')
@@ -130,11 +130,11 @@ dependencies {
     implementation project(':samples:permission-example')
     implementation project(':samples:jank-sample')
     implementation alias.webviewLib
-    implementation project(':embedding-compat')
+    implementation project(':samples:embedding-compat')
     implementation alias.keyboardLib
     implementation alias.uiKitLib
     implementation project(':log2Disk')
-    implementation project(':proxy-lib')
+    implementation project(':samples:proxy-lib')
     implementation project(':module-inverse-deps-solution')
     implementation alias.diLib
 }

@@ -1,9 +1,7 @@
 package me.yangxiaobin.android.embedding_compat
 
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentPagerAdapter
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import me.yangxiaobin.android.embedding_compat.databinding.ActivityOppoEmbeddingBinding
 import me.yangxiaobin.android.kotlin.codelab.base.AbsViewBindingActivity
