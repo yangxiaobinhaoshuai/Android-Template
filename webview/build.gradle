@@ -55,7 +55,7 @@ dependencies {
 
     compileOnly project(":common-ui")
     implementation project(":kt-compose-lib")
-    implementation project(":android-colors")
+    implementation alias.colorLib
     implementation project(":android-icons")
 
 }

@@ -53,7 +53,7 @@ dependencies {
     compileOnly project(":common-ui")
     implementation project(":android-permission")
     implementation project(":kt-compose-lib")
-    implementation project(":android-colors")
+    implementation alias.colorLib
     implementation project(':module-service-provider')
 
     implementation deps.bundles.cameraX

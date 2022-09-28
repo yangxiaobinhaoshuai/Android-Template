@@ -53,7 +53,7 @@ include ':kt-compose-lib'
 
 include ':network-lib'
 include ':multi-process'
-include ':android-colors'
+include ':fundamental:android-colors'
 include ':android-permission'
 include ':common-ui'
 include ':json-mediator'

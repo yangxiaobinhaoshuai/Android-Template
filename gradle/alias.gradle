@@ -1,0 +1,7 @@
+
+
+
+
+def alias = [:]
+alias.colorLib = project(":fundamental:android-colors")
+ext.alias = alias
