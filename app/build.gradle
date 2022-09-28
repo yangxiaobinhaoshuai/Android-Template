@@ -131,7 +131,7 @@ dependencies {
     implementation project(':jank-sample')
     implementation project(':webview')
     implementation project(':embedding-compat')
-    implementation project(':keyboard')
+    implementation alias.keyboardLib
     implementation project(':android-ui-kit')
     implementation project(':log2Disk')
     implementation project(':proxy-lib')
