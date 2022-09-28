@@ -29,7 +29,7 @@ class ReflectFragment : EmptyFragment() {
 
         val res = try {
             val forTestClazz: Class<*> =
-                Class.forName("me.yangxiaobin.android.proguard_lib.ForTest")
+                Class.forName("ForTest")
 
             val forTestInstance = forTestClazz.newInstance()
             val testMethod: Method = forTestClazz.getMethod("test")

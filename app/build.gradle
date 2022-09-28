@@ -125,16 +125,16 @@ dependencies {
     implementation project(":common-ui")
     implementation project(':module-service-provider-annotation')
     implementation project(':module-service-provider')
-    implementation project(':proguard-lib')
-    implementation project(':nav-lib')
-    implementation project(':permission-example')
-    implementation project(':jank-sample')
-    implementation project(':webview')
+    implementation project(':samples:proguard-lib')
+    implementation alias.navLib
+    implementation project(':samples:permission-example')
+    implementation project(':samples:jank-sample')
+    implementation alias.webviewLib
     implementation project(':embedding-compat')
     implementation alias.keyboardLib
     implementation alias.uiKitLib
     implementation project(':log2Disk')
     implementation project(':proxy-lib')
     implementation project(':module-inverse-deps-solution')
-    implementation project(':di-lib')
+    implementation alias.diLib
 }

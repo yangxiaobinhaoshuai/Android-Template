@@ -3,9 +3,17 @@
 
 
 def alias = [:]
+
 alias.colorLib = project(":fundamental:android-colors")
 alias.iconLib = project(":fundamental:android-icons")
+alias.diLib = project(":fundamental:di-lib")
+alias.jsonLib = project(":fundamental:json-mediator")
+
 alias.permissionLib = project(":common-biz:android-permission")
 alias.keyboardLib = project(":common-biz:keyboard")
 alias.uiKitLib = project(":common-biz:android-ui-kit")
+alias.netLib = project("common-biz:network-lib")
+alias.webviewLib = project("common-biz:webview")
+alias.navLib = project("common-biz:nav-lib")
+
 ext.alias = alias
