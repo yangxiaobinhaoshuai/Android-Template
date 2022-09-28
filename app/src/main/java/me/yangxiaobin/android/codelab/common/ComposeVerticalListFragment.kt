@@ -13,7 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.fragment.app.Fragment
 import me.yangxiaobin.android.codelab.alerts.PopupWindowBtsFragment
-import me.yangxiaobin.android.codelab.di.dagger2.Dagger2Fragment
+import me.yangxiaobin.android.di_lib.Dagger2Fragment
 import me.yangxiaobin.android.codelab.jepack_compose.CheckBoxFragment
 import me.yangxiaobin.android.codelab.jepack_compose.MyBottomSheetDialogFragment
 import me.yangxiaobin.android.codelab.jepack_compose.RoundCornerBottomSheetDialogFragment

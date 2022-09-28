@@ -1,7 +1,7 @@
-package me.yangxiaobin.android.codelab.di.dagger2.pojo
+package me.yangxiaobin.android.di_lib.pojo
 
-import me.yangxiaobin.android.codelab.di.dagger2.di_module.MyScope
-import me.yangxiaobin.android.codelab.di.dagger2.logDI
+import me.yangxiaobin.android.di_lib.di_module.MyScope
+import me.yangxiaobin.android.di_lib.logDI
 import javax.inject.Inject
 
 

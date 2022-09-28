@@ -1,6 +1,6 @@
-package me.yangxiaobin.android.codelab.di.dagger2.pojo
+package me.yangxiaobin.android.di_lib.pojo
 
-import me.yangxiaobin.android.codelab.di.dagger2.logDI
+import me.yangxiaobin.android.di_lib.logDI
 import javax.inject.Inject
 import javax.inject.Singleton
 

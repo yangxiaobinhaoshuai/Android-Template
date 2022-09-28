@@ -1,4 +1,4 @@
-package me.yangxiaobin.android.codelab.di.dagger2.di_module
+package me.yangxiaobin.android.di_lib.di_module
 
 import javax.inject.Scope
 
