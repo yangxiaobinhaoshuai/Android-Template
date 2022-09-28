@@ -118,7 +118,7 @@ dependencies {
     implementation project(":codelab-android-kt")
     implementation project(":kt-compose-lib")
     implementation alias.colorLib
-    implementation project(":android-icons")
+    implementation alias.iconLib
     implementation project(":android-permission")
     implementation project(":android-qrcode")
     implementation project(':android-qrcode-impl')
