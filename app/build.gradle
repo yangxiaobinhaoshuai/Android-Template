@@ -132,7 +132,7 @@ dependencies {
     implementation project(':webview')
     implementation project(':embedding-compat')
     implementation alias.keyboardLib
-    implementation project(':android-ui-kit')
+    implementation alias.uiKitLib
     implementation project(':log2Disk')
     implementation project(':proxy-lib')
     implementation project(':module-inverse-deps-solution')
