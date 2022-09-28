@@ -119,7 +119,7 @@ dependencies {
     implementation project(":kt-compose-lib")
     implementation alias.colorLib
     implementation alias.iconLib
-    implementation project(":android-permission")
+    implementation alias.permissionLib
     implementation project(":android-qrcode")
     implementation project(':android-qrcode-impl')
     implementation project(":common-ui")

@@ -48,10 +48,9 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
 
-    compileOnly project(":android-permission")
     compileOnly project(":codelab-android-kt")
     compileOnly project(":common-ui")
-    implementation project(":android-permission")
+    implementation alias.permissionLib
     implementation project(":kt-compose-lib")
     implementation alias.colorLib
     implementation project(':module-service-provider')

@@ -7,7 +7,6 @@ import me.yangxiaobin.android.kotlin.codelab.ext.*
 import me.yangxiaobin.android.kotlin.codelab.log.AndroidLogger
 import me.yangxiaobin.android.permission.PermissionManager
 import me.yangxiaobin.logger.core.LogFacade
-import me.yangxiaobin.module_service_provider.ServiceProvider
 import me.yangxiaobin.module_service_provider_annotation.DebugLog
 import kotlin.time.ExperimentalTime
 import kotlin.time.measureTimedValue

@@ -55,7 +55,7 @@ include ':network-lib'
 include ':multi-process'
 include ':fundamental:android-colors'
 include ':fundamental:android-icons'
-include ':android-permission'
+include ':common-biz:android-permission'
 include ':common-ui'
 include ':json-mediator'
 

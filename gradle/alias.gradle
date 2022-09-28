@@ -5,4 +5,5 @@
 def alias = [:]
 alias.colorLib = project(":fundamental:android-colors")
 alias.iconLib = project(":fundamental:android-icons")
+alias.permissionLib = project(":common-biz:android-permission")
 ext.alias = alias
