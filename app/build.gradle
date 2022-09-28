@@ -130,7 +130,7 @@ dependencies {
     implementation project(':permission-example')
     implementation project(':jank-sample')
     implementation project(':webview')
-    implementation project(':embedding-Compat')
+    implementation project(':embedding-compat')
     implementation project(':keyboard')
     implementation project(':android-ui-kit')
     implementation project(':log2Disk')
