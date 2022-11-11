@@ -145,6 +145,11 @@ class MainActivity : AbsActivity() {
             "DynamicProxy",
         ),
 
+        // 19. Image
+        "Image" to arrayOf(
+            "ImageEdit",
+        ),
+
     )
 
 
