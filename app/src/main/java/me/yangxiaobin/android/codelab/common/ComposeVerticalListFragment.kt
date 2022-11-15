@@ -46,7 +46,7 @@ import me.yangxiaobin.android.proxylib.DynamicProxyFragment
 import me.yangxiaobin.android.ui.kit.samples.SelectorsFragment
 import me.yangxiaobin.android.webview.JsFunctionFragment
 import me.yangxiaobin.android.webview.AbsWebViewFragment
-import me.yangxiaobin.image_edit.ImageEditActivity
+import me.yangxiaobin.image_edit.ImageEditEntranceActivity
 import me.yangxiaobin.kotlin.compose.lib.AbsComposableFragment
 import me.yangxiaobin.qrcode.QrCodeScanActivity
 import org.jetbrains.anko.intentFor
@@ -192,7 +192,7 @@ class ComposeVerticalListFragment : AbsComposableFragment() {
             "DynamicProxy" -> naviToFragment(DynamicProxyFragment())
 
             // 19. Image
-            "ImageEdit" -> ctx.startActivity(ctx.intentFor<ImageEditActivity>())
+            "ImageEdit" -> ctx.startActivity(ctx.intentFor<ImageEditEntranceActivity>())
 
             else -> showFragmentToast("UnSupport key :$dest.")
         }

@@ -1,10 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <!--    need by https://github.com/OneZeroYang/EditImage  -->
+    <uses-permission android:name="android.permission.READ_CALENDAR" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
     <application>
-        <activity android:name="me.yangxiaobin.image_edit.ImageEditActivity">
+
+        <activity android:name="me.yangxiaobin.image_edit.ImageEditEntranceActivity">
 
         </activity>
+
+
+        <activity android:name=".ImageEditActivity">
+
+        </activity>
+
     </application>
 
 </manifest>

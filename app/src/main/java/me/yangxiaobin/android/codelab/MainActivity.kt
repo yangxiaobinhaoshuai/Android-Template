@@ -203,7 +203,7 @@ class MainActivity : AbsActivity() {
         rv.scrollToPosition(rv.adapter?.itemCount?.minus(1) ?: 0)
 
         // TODO config this pls.
-        //navigateToSubFragment("DynamicProxy")
+        navigateToSubFragment("ImageEdit")
     }
 
     @Suppress("SameParameterValue")

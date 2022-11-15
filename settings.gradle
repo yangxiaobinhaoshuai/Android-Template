@@ -38,6 +38,8 @@ dependencyResolutionManagement {
 
         // For hms scan kit
         maven { url 'https://developer.huawei.com/repo/' }
+        // For image edit
+        maven { url 'https://jitpack.io' }
     }
 }
 rootProject.name = "AndroidCodelab"

@@ -167,6 +167,9 @@ autoService = { module = "com.google.auto.service:auto-service", version = "1.0.
 
 jvmLogger = { module = "me.yangxiaobin.gradle.plugin:logger", version = "1.0-SNAPSHOT" }
 
+# glide https://github.com/bumptech/glide
+glide = { module = "com.github.bumptech.glide:glide", version = "4.14.2" }
+
 [bundles]
 widgets = [
     "recyclerView",

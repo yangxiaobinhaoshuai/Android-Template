@@ -84,6 +84,11 @@ android {
         compose true
     }
 
+    // Need by image edit
+    buildFeatures {
+        dataBinding = true
+    }
+
     composeOptions {
         kotlinCompilerExtensionVersion compose_versions.ktCompilerExtVersion
     }
