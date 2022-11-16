@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<me.yangxiaobin.image_edit.lib.view.EditColorGroup xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cg_colors"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_centerHorizontal="true"
+    android:layout_gravity="center_horizontal"
+    android:checkedButton="@+id/cr_white"
+    android:gravity="center"
+    android:layout_weight="1"
+    android:visibility="gone"
+    android:orientation="horizontal"
+    android:padding="4dp"
+   >
+
+    <me.yangxiaobin.image_edit.lib.view.EditColorRadio
+        android:id="@+id/cr_white"
+        android:layout_width="@dimen/image_color"
+        android:layout_height="@dimen/image_color"
+        android:layout_margin="@dimen/image_color_margin"
+        app:image_color="@color/image_color_red" />
+
+    <me.yangxiaobin.image_edit.lib.view.EditColorRadio
+        android:layout_width="@dimen/image_color"
+        android:layout_height="@dimen/image_color"
+        android:layout_margin="@dimen/image_color_margin"
+        app:image_color="@color/image_color_yellow" />
+
+    <me.yangxiaobin.image_edit.lib.view.EditColorRadio
+        android:layout_width="@dimen/image_color"
+        android:layout_height="@dimen/image_color"
+        android:layout_margin="@dimen/image_color_margin"
+        app:image_color="@color/image_color_green" />
+
+    <me.yangxiaobin.image_edit.lib.view.EditColorRadio
+        android:layout_width="@dimen/image_color"
+        android:layout_height="@dimen/image_color"
+        android:layout_margin="@dimen/image_color_margin"
+        app:image_color="@color/image_color_cyan" />
+
+    <me.yangxiaobin.image_edit.lib.view.EditColorRadio
+        android:layout_width="@dimen/image_color"
+        android:layout_height="@dimen/image_color"
+        android:layout_margin="@dimen/image_color_margin"
+        app:image_color="@color/image_color_purple" />
+
+    <me.yangxiaobin.image_edit.lib.view.EditColorRadio
+        android:layout_width="@dimen/image_color"
+        android:layout_height="@dimen/image_color"
+        android:layout_margin="@dimen/image_color_margin"
+        app:image_color="@color/image_color_white" />
+
+    <me.yangxiaobin.image_edit.lib.view.EditColorRadio
+        android:layout_width="@dimen/image_color"
+        android:layout_height="@dimen/image_color"
+        android:layout_margin="@dimen/image_color_margin"
+        app:image_color="@color/image_color_black" />
+
+</me.yangxiaobin.image_edit.lib.view.EditColorGroup>

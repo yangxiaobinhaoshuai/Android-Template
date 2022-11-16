@@ -60,7 +60,7 @@ dependencies {
     compileOnly project(":codelab-android-kt")
 
     // https://github.com/OneZeroYang/EditImage
-    implementation 'com.github.OneZeroYang:EditImage:1.1.0'
+    //implementation 'com.github.OneZeroYang:EditImage:1.1.0'
 
     // https://github.com/HuanTanSheng/EasyPhotos
     implementation 'com.github.HuanTanSheng:EasyPhotos:3.1.3'

@@ -8,7 +8,7 @@ import android.widget.ImageView
 import com.bumptech.glide.Glide
 import com.huantansheng.easyphotos.EasyPhotos
 import com.huantansheng.easyphotos.models.album.entity.Photo
-import com.zero_code.libEdImage.startEditImage
+import me.yangxiaobin.image_edit.lib.startEditImage
 import me.yangxiaobin.android.kotlin.codelab.base.AbsActivity
 
 /**
