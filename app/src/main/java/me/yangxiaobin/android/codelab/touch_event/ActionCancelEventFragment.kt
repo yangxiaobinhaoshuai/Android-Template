@@ -13,7 +13,7 @@ import androidx.core.view.doOnPreDraw
 import androidx.core.view.setPadding
 import me.yangxiaobin.android.kotlin.codelab.base.LogAbility
 import me.yangxiaobin.android.kotlin.codelab.ext.getActionString
-import me.yangxiaobin.android.kotlin.codelab.ext.showFragmentToast
+import me.yangxiaobin.android.kotlin.codelab.ext.uicontroller.showFragmentToast
 import me.yangxiaobin.android.kotlin.codelab.log.AndroidLogger
 import me.yangxiaobin.logger.core.LogFacade
 

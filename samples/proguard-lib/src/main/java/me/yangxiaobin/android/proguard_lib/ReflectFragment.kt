@@ -2,7 +2,7 @@ package me.yangxiaobin.android.proguard_lib
 
 import android.view.View
 import me.yangxiaobin.android.kotlin.codelab.base.LogAbility
-import me.yangxiaobin.android.kotlin.codelab.ext.showFragmentToast
+import me.yangxiaobin.android.kotlin.codelab.ext.uicontroller.showFragmentToast
 import me.yangxiaobin.android.kotlin.codelab.log.AndroidLogger
 import me.yangxiaobin.common_ui.EmptyFragment
 import me.yangxiaobin.logger.core.LogFacade

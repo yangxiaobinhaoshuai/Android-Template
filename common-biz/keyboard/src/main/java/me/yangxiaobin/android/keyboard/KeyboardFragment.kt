@@ -10,8 +10,8 @@ import kotlinx.coroutines.flow.onEach
 import me.yangxiaobin.android.keyboard.databinding.FragmentKeyboardHeightBinding
 import me.yangxiaobin.android.kotlin.codelab.base.AbsViewBindingFragment
 import me.yangxiaobin.android.kotlin.codelab.base.LogAbility
-import me.yangxiaobin.android.kotlin.codelab.ext.getKeyboardHeightFlow
-import me.yangxiaobin.android.kotlin.codelab.ext.showKeyboardWithDelay
+import me.yangxiaobin.android.kotlin.codelab.ext.uiwidget.getKeyboardHeightFlow
+import me.yangxiaobin.android.kotlin.codelab.ext.uiwidget.showKeyboardWithDelay
 import me.yangxiaobin.android.kotlin.codelab.log.AndroidLogger
 import me.yangxiaobin.logger.core.LogFacade
 

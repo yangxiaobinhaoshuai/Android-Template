@@ -6,7 +6,7 @@ import com.google.android.material.tabs.TabLayoutMediator
 import me.yangxiaobin.android.embedding_compat.databinding.ActivityOppoEmbeddingBinding
 import me.yangxiaobin.android.kotlin.codelab.base.AbsViewBindingActivity
 import me.yangxiaobin.android.kotlin.codelab.base.LogAbility
-import me.yangxiaobin.android.kotlin.codelab.ext.inflater
+import me.yangxiaobin.android.kotlin.codelab.ext.context.inflater
 import me.yangxiaobin.android.kotlin.codelab.log.AndroidLogger
 import me.yangxiaobin.logger.core.LogFacade
 

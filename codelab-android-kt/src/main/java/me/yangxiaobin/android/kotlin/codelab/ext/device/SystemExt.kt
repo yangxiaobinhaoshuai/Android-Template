@@ -1,4 +1,4 @@
-package me.yangxiaobin.android.kotlin.codelab.ext
+package me.yangxiaobin.android.kotlin.codelab.ext.device
 
 import android.annotation.SuppressLint
 import android.app.ActivityManager

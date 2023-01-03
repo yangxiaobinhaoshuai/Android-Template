@@ -38,7 +38,7 @@ import me.yangxiaobin.android.jank_sample.PerfettoSampleFragment
 import me.yangxiaobin.android.keyboard.BottomSheetKeyboardFragment
 import me.yangxiaobin.android.keyboard.KeyboardActivity
 import me.yangxiaobin.android.keyboard.KeyboardFragment
-import me.yangxiaobin.android.kotlin.codelab.ext.showFragmentToast
+import me.yangxiaobin.android.kotlin.codelab.ext.uicontroller.showFragmentToast
 import me.yangxiaobin.android.nav_lib.NavHostComposeFragment
 import me.yangxiaobin.android.permission_example.PrivacyProtectionFragment
 import me.yangxiaobin.android.proguard_lib.ReflectFragment

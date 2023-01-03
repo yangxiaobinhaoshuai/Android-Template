@@ -5,7 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.IdRes
 import androidx.recyclerview.widget.RecyclerView
-import me.yangxiaobin.android.kotlin.codelab.ext.inflater
+import me.yangxiaobin.android.kotlin.codelab.ext.context.inflater
 import me.yangxiaobin.android.kotlin.codelab.log.L
 import me.yangxiaobin.logger.core.LogLevel
 import me.yangxiaobin.logger.log

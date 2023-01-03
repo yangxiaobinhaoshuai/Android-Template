@@ -1,4 +1,4 @@
-package me.yangxiaobin.android.kotlin.codelab.ext
+package me.yangxiaobin.android.kotlin.codelab.ext.appinfo
 
 import android.Manifest
 import android.annotation.SuppressLint
@@ -7,6 +7,9 @@ import android.content.pm.ApplicationInfo
 import android.net.wifi.WifiManager
 import android.os.Build
 import android.provider.Settings
+import me.yangxiaobin.android.kotlin.codelab.ext.context.hasPermission
+import me.yangxiaobin.android.kotlin.codelab.ext.convertIf
+import me.yangxiaobin.android.kotlin.codelab.ext.isNonPositive
 import java.io.InputStreamReader
 import java.io.LineNumberReader
 import java.lang.StringBuilder

@@ -19,6 +19,10 @@ import me.yangxiaobin.android.codelab.databinding.FragmentLienarRvStickyTailBind
 import me.yangxiaobin.android.kotlin.codelab.base.AbsViewBindingFragment
 import me.yangxiaobin.android.kotlin.codelab.base.LogAbility
 import me.yangxiaobin.android.kotlin.codelab.ext.*
+import me.yangxiaobin.android.kotlin.codelab.ext.context.screenSize
+import me.yangxiaobin.android.kotlin.codelab.ext.context.statusBarSize
+import me.yangxiaobin.android.kotlin.codelab.ext.uiwidget.setOnItemClickListener
+import me.yangxiaobin.android.kotlin.codelab.ext.uiwidget.toRecyclerViewScrollStateString
 import me.yangxiaobin.android.kotlin.codelab.log.AndroidLogger
 import me.yangxiaobin.android.kotlin.codelab.recyclerview.AbsVH
 import me.yangxiaobin.logger.core.LogFacade
@@ -148,8 +152,8 @@ class StickyTailAdapter(private val dataList: List<Int>) : RecyclerView.Adapter<
                 parent h :${rv.height}
                 parent w :${rv.width}
                 
-                window size :${screenSize}
-                statusBar size :${statusBarSize}
+                window size :$screenSize
+                statusBar size :$statusBarSize
                 
                 rv globalVisible: ${rv.getGlobalVisibleRect}
                 rv localVisible: ${rv.getLocalVisibleRect}

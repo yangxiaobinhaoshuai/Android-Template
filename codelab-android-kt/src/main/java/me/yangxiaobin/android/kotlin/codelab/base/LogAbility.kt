@@ -2,8 +2,8 @@ package me.yangxiaobin.android.kotlin.codelab.base
 
 import com.jakewharton.picnic.TextAlignment
 import com.jakewharton.picnic.table
-//import me.yangxiaobin.android.kotlin.codelab.ext.currentProcessName
-//import me.yangxiaobin.android.kotlin.codelab.ext.getCurrentPid
+//import me.yangxiaobin.android.kotlin.codelab.ext.appinfo.getCurrentProcessName
+//import me.yangxiaobin.android.kotlin.codelab.ext.appinfo.getGetCurrentPid
 import me.yangxiaobin.android.kotlin.codelab.log.L
 import me.yangxiaobin.kotlin.codelab.ext.neatName
 import me.yangxiaobin.logger.core.LogFacade

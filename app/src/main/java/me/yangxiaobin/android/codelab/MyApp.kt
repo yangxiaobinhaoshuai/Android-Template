@@ -4,6 +4,8 @@ import me.yangxiaobin.android.kotlin.codelab.BuildConfig
 import me.yangxiaobin.android.kotlin.codelab.base.AbsApplication
 import me.yangxiaobin.android.kotlin.codelab.base.LogAbility
 import me.yangxiaobin.android.kotlin.codelab.ext.*
+import me.yangxiaobin.android.kotlin.codelab.ext.appinfo.*
+import me.yangxiaobin.android.kotlin.codelab.ext.device.*
 import me.yangxiaobin.android.kotlin.codelab.log.AndroidLogger
 import me.yangxiaobin.android.permission.PermissionManager
 import me.yangxiaobin.logger.core.LogFacade

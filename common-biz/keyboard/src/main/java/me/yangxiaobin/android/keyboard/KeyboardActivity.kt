@@ -1,18 +1,15 @@
 package me.yangxiaobin.android.keyboard
 
 import android.view.KeyEvent
-import android.view.View
 import android.view.WindowManager
 import me.yangxiaobin.android.keyboard.databinding.ActivityKeyboardBinding
 import me.yangxiaobin.android.kotlin.codelab.base.AbsViewBindingActivity
 import me.yangxiaobin.android.kotlin.codelab.base.LogAbility
-import me.yangxiaobin.android.kotlin.codelab.ext.showKeyboardImmediately
 import me.yangxiaobin.android.kotlin.codelab.log.AndroidLogger
 import me.yangxiaobin.common_ui.EmptyActivity
 import me.yangxiaobin.kotlin.codelab.ext.neatName
 import me.yangxiaobin.logger.core.LogFacade
 import org.jetbrains.anko.intentFor
-import org.jetbrains.anko.toast
 
 class KeyboardActivity : AbsViewBindingActivity<ActivityKeyboardBinding>() {
 

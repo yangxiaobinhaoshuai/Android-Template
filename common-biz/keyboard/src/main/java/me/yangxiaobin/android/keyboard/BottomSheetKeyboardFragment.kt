@@ -22,6 +22,12 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import me.yangxiaobin.android.kotlin.codelab.base.LogAbility
 import me.yangxiaobin.android.kotlin.codelab.ext.*
+import me.yangxiaobin.android.kotlin.codelab.ext.context.navigationBarSize
+import me.yangxiaobin.android.kotlin.codelab.ext.context.screenSize
+import me.yangxiaobin.android.kotlin.codelab.ext.context.statusBarSize
+import me.yangxiaobin.android.kotlin.codelab.ext.uiwidget.getKeyboardHeightFlow
+import me.yangxiaobin.android.kotlin.codelab.ext.uiwidget.isKeyboardShown
+import me.yangxiaobin.android.kotlin.codelab.ext.uiwidget.showKeyboardImmediately
 import me.yangxiaobin.android.kotlin.codelab.log.AndroidLogger
 import me.yangxiaobin.colors.HexColors
 import me.yangxiaobin.colors.colorInt

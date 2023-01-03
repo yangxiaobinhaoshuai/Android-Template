@@ -1,4 +1,4 @@
-package me.yangxiaobin.android.kotlin.codelab.ext
+package me.yangxiaobin.android.kotlin.codelab.ext.uiwidget
 
 import android.content.Context
 import android.graphics.Rect

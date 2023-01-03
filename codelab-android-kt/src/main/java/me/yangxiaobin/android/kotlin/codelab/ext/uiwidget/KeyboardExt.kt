@@ -1,4 +1,4 @@
- package me.yangxiaobin.android.kotlin.codelab.ext
+ package me.yangxiaobin.android.kotlin.codelab.ext.uiwidget
 
 import android.app.Activity
 import android.graphics.Point

@@ -1,4 +1,4 @@
-package me.yangxiaobin.android.kotlin.codelab.ext
+package me.yangxiaobin.android.kotlin.codelab.ext.device
 
 import android.Manifest
 import android.annotation.SuppressLint
@@ -6,6 +6,8 @@ import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
+import me.yangxiaobin.android.kotlin.codelab.ext.context.hasPermission
+import me.yangxiaobin.android.kotlin.codelab.ext.nullAsFalse
 
 
 enum class NetworkType(value: String) {

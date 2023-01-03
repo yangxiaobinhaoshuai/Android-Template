@@ -1,4 +1,4 @@
-package me.yangxiaobin.android.kotlin.codelab.ext
+package me.yangxiaobin.android.kotlin.codelab.ext.uiwidget
 
 import android.content.Context
 import android.view.MotionEvent
@@ -11,6 +11,9 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.OnLifecycleEvent
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
+import me.yangxiaobin.android.kotlin.codelab.ext.Action
+import me.yangxiaobin.android.kotlin.codelab.ext.emptyAction
+import me.yangxiaobin.android.kotlin.codelab.ext.isOnView
 import me.yangxiaobin.android.kotlin.codelab.log.L
 import me.yangxiaobin.logger.core.LogLevel
 import me.yangxiaobin.logger.log

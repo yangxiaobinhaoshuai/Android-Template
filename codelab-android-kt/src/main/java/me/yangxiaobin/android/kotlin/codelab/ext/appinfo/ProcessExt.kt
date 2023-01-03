@@ -1,4 +1,4 @@
-package me.yangxiaobin.android.kotlin.codelab.ext
+package me.yangxiaobin.android.kotlin.codelab.ext.appinfo
 
 import android.app.Application
 import android.content.Context
@@ -20,7 +20,7 @@ val Context?.getCurrentProcessName: String
         else requireCurrentProcessNameInternal
 
 
-val getCurrentPid = android.os.Process.myPid()
+val getCurrentPid: Int = android.os.Process.myPid()
 
 private var cacheProcessName: String? = null
 
