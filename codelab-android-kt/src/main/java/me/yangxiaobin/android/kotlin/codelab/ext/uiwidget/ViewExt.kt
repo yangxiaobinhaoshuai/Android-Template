@@ -1,9 +1,13 @@
 package me.yangxiaobin.android.kotlin.codelab.ext.uiwidget
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Rect
+import android.view.GestureDetector
+import android.view.MotionEvent
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import androidx.constraintlayout.widget.ConstraintSet.Motion
 import androidx.core.view.doOnDetach
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
@@ -132,4 +136,29 @@ fun View.requestFocusAndShowKeyboard() {
 fun View.postCancellable(r: Runnable) {
     this.post(r)
     this.doOnDetach { it.removeCallbacks(r) }
+}
+
+
+/**
+ * 当 onClick 不方便设置时候可以用 onTapUp
+ */
+@SuppressLint("ClickableViewAccessibility")
+fun View.onTapUp(onTapUp: (MotionEvent) -> Unit) {
+
+    val tabListener: GestureDetector.SimpleOnGestureListener by lazy {
+        object : GestureDetector.SimpleOnGestureListener() {
+
+            override fun onSingleTapUp(e: MotionEvent): Boolean {
+                onTapUp.invoke(e)
+                return super.onSingleTapUp(e)
+            }
+        }
+    }
+
+    val gestureDetector: GestureDetector by lazy { GestureDetector(this.context, tabListener) }
+
+    this.setOnTouchListener { _, event: MotionEvent ->
+        gestureDetector.onTouchEvent(event)
+        return@setOnTouchListener false
+    }
 }
