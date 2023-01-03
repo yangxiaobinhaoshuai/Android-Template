@@ -35,64 +35,50 @@ import me.yangxiaobin.image_edit.lib.view.EditMosaicGroup.*
  * 编辑图片activity
  * @author ZeroCode
  * @date 2021/5/8 : 11:09
+ *
+ *1. Activity 需要处理标题栏和状态栏
  */
 
 //TODO 1.剪裁模块，小概率还原得时候图片定位不在中心点得问题，会导致旋转中心也不会在中心点得位置，目前触发机制还不明确
 
+
+private const val checkPermissionCode: Int = 0xf11
+
 class EditImageActivity : AppCompatActivity() {
-
-
-    companion object {
-        private const val checkPermissionCode: Int = 0xf11
-    }
-
     /**
      * 资源
      */
-    private val src by lazy {
-        intent.getStringExtra("data")
-    }
+    private val src: String? by lazy { intent.getStringExtra("data") }
 
     /**
      * 选中的工具下标
      */
-    private var selectedToolsIndex = -1
-
+    private var selectedToolsIndex: Int = -1
 
     /**
      * 工具数据
      */
     private val toolsList = arrayListOf(
-        EditImageToolsBean(                     // 画笔
-            intArrayOf(
-                R.drawable.btn_ed_freed,
-                R.drawable.btn_ed_free
-            )
-        ),
-        EditImageToolsBean(                  // 马赛克
-            intArrayOf(
-                R.drawable.btn_ed_mosaiced,
-                R.drawable.btn_ed_mosaic
-            )
-        ),
-        EditImageToolsBean(                  // 剪裁
-            intArrayOf(
-                R.drawable.btn_ed_cuted,
-                R.drawable.btn_ed_cut
-            )
-        ),
-        EditImageToolsBean(                  // 文字
-            intArrayOf(
-                R.drawable.btn_ed_texted,
-                R.drawable.btn_ed_text
-            )
-        ),
-        EditImageToolsBean(                     // 箭头
-            intArrayOf(
-                R.drawable.btn_ed_arrowed,
-                R.drawable.btn_ed_arrow
-            )
-        )
+        /**
+         *  画笔
+         */
+        EditImageToolsBean(intArrayOf(R.drawable.btn_ed_freed, R.drawable.btn_ed_free)),
+        /**
+         * 马赛克
+         */
+        EditImageToolsBean(intArrayOf(R.drawable.btn_ed_mosaiced, R.drawable.btn_ed_mosaic)),
+        /**
+         * 剪裁
+         */
+        EditImageToolsBean(intArrayOf(R.drawable.btn_ed_cuted, R.drawable.btn_ed_cut)),
+        /**
+         * 文字
+         */
+        EditImageToolsBean(intArrayOf(R.drawable.btn_ed_texted, R.drawable.btn_ed_text)),
+        /**
+         * 箭头
+         */
+        EditImageToolsBean(intArrayOf(R.drawable.btn_ed_arrowed, R.drawable.btn_ed_arrow))
     )
 
 
@@ -107,61 +93,62 @@ class EditImageActivity : AppCompatActivity() {
     private val toolsAdapter: BaseAdapter<EditImageToolsBean> by lazy {
         BaseAdapter<EditImageToolsBean>(R.layout.item_edit_image_tools_layout, toolsList)
             .apply {
-            onBind { itemBingding: View, position: Int, data: EditImageToolsBean ->
+                onBind { itemBinding: View, position: Int, data: EditImageToolsBean ->
 
-                itemBingding.findViewById<ImageView>(R.id.item_tools_image)?.setImageResource(data.getImage())
+                    itemBinding.findViewById<ImageView>(R.id.item_tools_image)
+                        ?.setImageResource(data.getImage())
 
 
-                itemBingding.setOnClickListener {
-                    if (cg_colors.visibility == View.VISIBLE) cg_colors.visibility = View.GONE
-                    if (cg_mosaic.visibility == View.VISIBLE) cg_mosaic.visibility = View.GONE
-                    if (cg_arrows.visibility == View.VISIBLE) cg_arrows.visibility = View.GONE
-                    findViewById<View>(R.id.ed_tools)?.visibility = View.VISIBLE
-                    when (position) {
-                        0 -> {                           // 涂鸦
-                            mIMGView.mode = EditImageMode.DOODLE
-                            cg_colors.visibility = View.VISIBLE
-                            if (cg_colors.checkedRadioButtonId == null) cg_colors.checkColor =
-                                resources.getColor(R.color.image_color_red)
-                        }
-                        1 -> {                           // 马赛克
-                            mIMGView.mode = EditImageMode.MOSAIC
-                            cg_mosaic.visibility = View.VISIBLE
-                            if (cg_mosaic.checkSize == IMG_MOSAIC_SIZE_NO) cg_mosaic.checkSize =
-                                IMG_MOSAIC_SIZE_1
-                        }
-                        2 -> {                           // 剪裁
-                            mIMGView.mode = EditImageMode.CLIP
-                            findViewById<View>(R.id.ed_tools)?.visibility = View.GONE
-                            findViewById<View>(R.id.clip_view)?.visibility = View.VISIBLE
+                    itemBinding.setOnClickListener {
+                        if (cg_colors.visibility == View.VISIBLE) cg_colors.visibility = View.GONE
+                        if (cg_mosaic.visibility == View.VISIBLE) cg_mosaic.visibility = View.GONE
+                        if (cg_arrows.visibility == View.VISIBLE) cg_arrows.visibility = View.GONE
+                        findViewById<View>(R.id.ed_tools)?.visibility = View.VISIBLE
+
+                        when (position) {
+                            // 涂鸦
+                            0 -> {
+                                mIMGView.mode = EditImageMode.DOODLE
+                                cg_colors.visibility = View.VISIBLE
+                                if (cg_colors.checkedRadioButtonId == null) cg_colors.checkColor =
+                                    resources.getColor(R.color.image_color_red)
+                            }
+                            // 马赛克
+                            1 -> {
+                                mIMGView.mode = EditImageMode.MOSAIC
+                                cg_mosaic.visibility = View.VISIBLE
+                                if (cg_mosaic.checkSize == IMG_MOSAIC_SIZE_NO) cg_mosaic.checkSize =
+                                    IMG_MOSAIC_SIZE_1
+                            }
+                            // 剪裁
+                            2 -> {
+                                mIMGView.mode = EditImageMode.CLIP
+                                findViewById<View>(R.id.ed_tools)?.visibility = View.GONE
+                                findViewById<View>(R.id.clip_view)?.visibility = View.VISIBLE
 //                            mIMGView?.resetClip()
+                            }
+                            // 文字
+                            3 -> {
+                                mIMGView.mode = EditImageMode.NONE
+                                mIMGView.addStickerText(EditImageText("文字", Color.RED))
+                            }
+                            // 箭头
+                            4 -> {
+                                mIMGView.mode = EditImageMode.ARROWS
+                                cg_arrows.visibility = View.VISIBLE
+                                if (cg_arrows.checkSize == IMG_MOSAIC_SIZE_NO) cg_arrows.checkSize =
+                                    IMG_MOSAIC_SIZE_1
+                            }
                         }
-                        3 -> {                           // 文字
-                            mIMGView.mode = EditImageMode.NONE
-                            mIMGView.addStickerText(
-                                EditImageText(
-                                    "文字",
-                                    Color.RED
-                                )
-                            )
-                        }
-                        4 -> {                           // 箭头
-                            mIMGView.mode = EditImageMode.ARROWS
-                            cg_arrows.visibility = View.VISIBLE
-                            if (cg_arrows.checkSize == IMG_MOSAIC_SIZE_NO) cg_arrows.checkSize =
-                                IMG_MOSAIC_SIZE_1
-                        }
+                        if (selectedToolsIndex != -1) toolsList[selectedToolsIndex].isSelected =
+                            false
+                        data.isSelected = true
+                        selectedToolsIndex = position
+                        notifyDataSetChanged()
                     }
-                    if (selectedToolsIndex != -1) toolsList[selectedToolsIndex].isSelected =
-                        false
-                    data.isSelected = true
-                    selectedToolsIndex = position
-                    notifyDataSetChanged()
                 }
             }
-        }
     }
-
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -179,9 +166,8 @@ class EditImageActivity : AppCompatActivity() {
             name = System.currentTimeMillis().toString(),
             description = "batchat_app_image"
         )
-        if (path.isNullOrBlank()) {
-            throw java.lang.RuntimeException("保存文件错误！")
-        }
+        if (path.isBlank()) throw java.lang.RuntimeException("保存文件错误！")
+
         saveBitmap.recycle()
         intent.putExtra("data", path)
         setResult(Activity.RESULT_OK, intent)
@@ -193,9 +179,7 @@ class EditImageActivity : AppCompatActivity() {
     fun cancel(view: View) {
         setResult(Activity.RESULT_CANCELED, intent)
         finish()
-
     }
-
 
 
     /**
@@ -247,7 +231,8 @@ class EditImageActivity : AppCompatActivity() {
         changeStatusBarColor(resources.getColor(R.color.ed_image_title_bar_bg_color), false)
         //初始化工具栏
         findViewById<RecyclerView>(R.id.edit_image_tools_list)?.apply {
-            layoutManager = LinearLayoutManager(this@EditImageActivity, LinearLayoutManager.HORIZONTAL, false)
+            layoutManager =
+                LinearLayoutManager(this@EditImageActivity, LinearLayoutManager.HORIZONTAL, false)
             adapter = toolsAdapter
         }
         //适配状态兰入侵

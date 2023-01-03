@@ -17,7 +17,7 @@
 
         </activity>
 
-        <activity android:name=".lib.ui.EditImageActivity">
+        <activity android:name=".lib.ui.EditImageActivity" android:theme="@style/ImageEditTheme">
 
         </activity>
 
