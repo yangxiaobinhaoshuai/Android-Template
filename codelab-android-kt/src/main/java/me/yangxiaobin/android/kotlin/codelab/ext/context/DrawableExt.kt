@@ -12,4 +12,4 @@ fun Drawable.wrapped(wrapper: (Drawable) -> Unit): Drawable {
 
 }
 
-fun Drawable.tint(colorInt: Int): Drawable = this.wrapped { this.setTint(colorInt) }
+fun Drawable.tint(colorInt: Int): Drawable = this.wrapped { it.setTint(colorInt) }
