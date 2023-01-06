@@ -19,9 +19,9 @@ import me.yangxiaobin.android.codelab.R
 import me.yangxiaobin.android.kotlin.codelab.base.AbsFragment
 import me.yangxiaobin.android.kotlin.codelab.base.LogAbility
 import me.yangxiaobin.android.kotlin.codelab.ext.getActionString
-import me.yangxiaobin.android.kotlin.codelab.ext.getScreenLocation
 import me.yangxiaobin.android.kotlin.codelab.ext.uiwidget.setOnItemClickListener
 import me.yangxiaobin.android.kotlin.codelab.ext.uicontroller.showFragmentToast
+import me.yangxiaobin.android.kotlin.codelab.ext.uiwidget.getScreenLocation
 import me.yangxiaobin.android.kotlin.codelab.log.AndroidLogger
 import me.yangxiaobin.android.kotlin.codelab.recyclerview.AbsVH
 import me.yangxiaobin.android.kotlin.codelab.recyclerview.SimpleRvAdapter

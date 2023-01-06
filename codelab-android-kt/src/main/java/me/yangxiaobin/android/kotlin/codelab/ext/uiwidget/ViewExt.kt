@@ -39,7 +39,7 @@ val View.getWindowLocation: Pair<Int, Int>
 /**
  * 参照系是屏幕
  */
-val View.getGlobalVisibleRect: Rect
+val View.globalVisibleRect: Rect
     get() {
         val r = Rect()
         this.getGlobalVisibleRect(r)
@@ -49,7 +49,7 @@ val View.getGlobalVisibleRect: Rect
 /**
  * 参照系是 view 自身的左上角
  */
-val View.getLocalVisibleRect: Rect
+val View.localVisibleRect: Rect
     get() {
         val r = Rect()
         this.getLocalVisibleRect(r)

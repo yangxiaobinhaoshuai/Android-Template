@@ -2,6 +2,7 @@ package me.yangxiaobin.android.kotlin.codelab.ext
 
 import android.view.MotionEvent
 import android.view.View
+import me.yangxiaobin.android.kotlin.codelab.ext.uiwidget.getScreenLocation
 
 fun MotionEvent.isOnView(v: View): Boolean {
 
