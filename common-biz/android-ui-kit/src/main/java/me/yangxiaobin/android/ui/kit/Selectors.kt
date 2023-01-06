@@ -22,7 +22,7 @@ fun createShapeDrawable(
     bottomLeftRadiusDp: Int = 0,
     bottomRightRadiusDp: Int = 0,
     radiusDp: Int = 0,
-    strokeWidth: Int = 0,
+    strokeWidthInDp: Int = 0,
     @ColorRes borderColorRes: Int = 0
 ): Drawable = createShapeDrawable(
     solidColor = solidColorRes.asColorInt(context),
@@ -31,7 +31,7 @@ fun createShapeDrawable(
     bottomLeftRadiusDp = bottomLeftRadiusDp,
     bottomRightRadiusDp = bottomRightRadiusDp,
     radiusDp = radiusDp,
-    strokeWidth = strokeWidth,
+    strokeWidthInDp = strokeWidthInDp,
     borderColor = if (borderColorRes != 0) borderColorRes.asColorInt(context) else 0
 )
 
@@ -45,7 +45,7 @@ fun createShapeDrawable(
     bottomLeftRadiusDp: Int = 0,
     bottomRightRadiusDp: Int = 0,
     radiusDp: Int = 0,
-    strokeWidth: Int = 0,
+    strokeWidthInDp: Int = 0,
     @ColorInt borderColor: Int = 0
 ): Drawable {
 
@@ -68,7 +68,7 @@ fun createShapeDrawable(
 
     if (solidColor != 0) shape.setColor(solidColor)
 
-    if (strokeWidth > 0) shape.setStroke(strokeWidth, borderColor)
+    if (strokeWidthInDp > 0) shape.setStroke(strokeWidthInDp.dp2px.toInt(), borderColor)
 
     return shape
 }
@@ -102,7 +102,7 @@ fun View?.setSelectorColor(
     @ColorInt onNormalColor: Int = androidColor.TRANSPARENT,
     ignoreOriginalBackground: Boolean = false,
     drawableProvider: (Drawable) -> Unit = {},
-) = setSelectorBackground(
+): Unit = setSelectorBackground(
     onPressDrawable = ColorDrawable(onPressColor),
     onNormalDrawable = ColorDrawable(onNormalColor),
     ignoreOriginalBackground = ignoreOriginalBackground,
@@ -115,7 +115,7 @@ fun View?.setSelectorColorRes(
     @ColorRes onNormalColorRes: Int,
     ignoreOriginalBackground: Boolean = false,
     drawableProvider: (Drawable) -> Unit = {},
-) = setSelectorColor(
+): Unit = setSelectorColor(
     onPressColor = onPressColorRes.asColorInt(requireNotNull(this).context),
     onNormalColor = onNormalColorRes.asColorInt(requireNotNull(this).context),
     ignoreOriginalBackground = ignoreOriginalBackground,

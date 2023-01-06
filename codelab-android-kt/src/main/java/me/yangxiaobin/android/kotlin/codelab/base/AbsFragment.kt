@@ -17,16 +17,15 @@ import me.yangxiaobin.kotlin.codelab.ext.neatName
 @Suppress("LeakingThis")
 abstract class AbsFragment : Fragment(), LogAbility {
 
-    override val LogAbility.TAG: String
-        get() = "AbsFragment:${this.javaClass.simpleName.take(11)}"
+    override val LogAbility.TAG: String get() = "AbsFragment:${this.javaClass.simpleName.take(11)}"
 
     protected open val logWithPrefix: Boolean get() = false
 
     private val logPrefix get() = this.neatName
 
-    override val logI: (message: String) -> Unit =
-        fun(message: String) =
-            super.logI(if (logWithPrefix) "$logPrefix -> $message" else message)
+    override val logI: (message: String) -> Unit
+            = fun(message: String)
+            = super.logI(if (logWithPrefix) "$logPrefix -> $message" else message)
 
     protected open val layoutResId: Int = 0
 
@@ -65,6 +64,7 @@ abstract class AbsFragment : Fragment(), LogAbility {
             else inflater.inflate(layoutResId, container, false)
 
         beforeViewCreated(inflater, container, savedInstanceState)
+
         return rootView
             .let(this::beforeViewReturned)
             .apply { this.isClickable = true }

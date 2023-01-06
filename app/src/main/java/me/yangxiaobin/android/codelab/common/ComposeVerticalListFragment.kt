@@ -47,6 +47,7 @@ import me.yangxiaobin.android.ui.kit.samples.SelectorsFragment
 import me.yangxiaobin.android.webview.JsFunctionFragment
 import me.yangxiaobin.android.webview.AbsWebViewFragment
 import me.yangxiaobin.image_edit.ImageEditEntranceActivity
+import me.yangxiaobin.image_edit.matrix_learning.MatrixFragment
 import me.yangxiaobin.kotlin.compose.lib.AbsComposableFragment
 import me.yangxiaobin.qrcode.QrCodeScanActivity
 import org.jetbrains.anko.intentFor
@@ -193,6 +194,7 @@ class ComposeVerticalListFragment : AbsComposableFragment() {
 
             // 19. Image
             "ImageEdit" -> ctx.startActivity(ctx.intentFor<ImageEditEntranceActivity>())
+            "Matrix" -> naviToFragment(MatrixFragment())
 
             else -> showFragmentToast("UnSupport key :$dest.")
         }

@@ -3,6 +3,9 @@ package me.yangxiaobin.android.kotlin.codelab.ext.context
 import android.graphics.drawable.Drawable
 import androidx.core.graphics.drawable.DrawableCompat
 
+/**
+ * Also see me.yangxiaobin.android.ui.kit.Selectors.kt
+ */
 
 fun Drawable.wrapped(wrapper: (Drawable) -> Unit): Drawable {
     val unwrappedDrawable: Drawable = this

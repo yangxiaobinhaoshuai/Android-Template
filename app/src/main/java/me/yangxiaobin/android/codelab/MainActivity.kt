@@ -25,7 +25,6 @@ import me.yangxiaobin.logger.core.LogFacade
 
 class MainActivity : AbsActivity() {
 
-
     private val catalog: Map<String, Array<String>> = mapOf(
 
         // 1.
@@ -148,6 +147,7 @@ class MainActivity : AbsActivity() {
         // 19. Image
         "Image" to arrayOf(
             "ImageEdit",
+            "Matrix"
         ),
 
     )
@@ -203,7 +203,7 @@ class MainActivity : AbsActivity() {
         rv.scrollToPosition(rv.adapter?.itemCount?.minus(1) ?: 0)
 
         // TODO config this pls.
-        navigateToSubFragment("ImageEdit")
+        navigateToSubFragment("Matrix")
     }
 
     @Suppress("SameParameterValue")
