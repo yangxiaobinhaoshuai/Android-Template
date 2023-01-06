@@ -2,6 +2,7 @@ package me.yangxiaobin.image_edit.matrix_learning
 
 import android.content.Context
 import android.graphics.*
+import android.telephony.ims.feature.MmTelFeature.MmTelCapabilities
 import android.util.AttributeSet
 import android.view.View
 import android.widget.ImageView
@@ -18,6 +19,10 @@ import me.yangxiaobin.image_edit.R
  * Android 图像变换原理 Matrix ：https://blog.csdn.net/pathuang68/article/details/6991867
  *
  * 掘金 Matrix ：https://juejin.cn/post/6844903507577815053
+ *
+ * Android 图片旋转基于 Matrix ： https://cloud.tencent.com/developer/article/1726676
+ *
+ * 简书 Android 旋转剪切： https://www.jianshu.com/p/d9d469b42eb2
  */
 class MatrixFragment : AbsFragment() {
 
@@ -48,6 +53,24 @@ class MyImageView @JvmOverloads constructor(
 ) : AppCompatImageView(context, attrs, defStyleAttr) {
 
     private val mMatrix: Matrix = Matrix()
+
+    init {
+        // 设置为 单位阵
+        //mMatrix.reset()
+
+        //mMatrix.setRotate(100F)
+
+        // 向下平移
+        //mMatrix.setTranslate(200F,200F)
+
+
+        // mMatrix.setRotate(40F)
+
+        mMatrix.setScale(2F,2F)
+
+        //mMatrix.mapRect()
+
+    }
 
     private val bitmap: Bitmap by lazy {
         BitmapFactory.decodeResource(this.context.resources, R.drawable.ic_android_logo)
