@@ -134,7 +134,7 @@ fun View.requestFocusAndShowKeyboard() {
 }
 
 /**
- * 如果 View 还没有 attach，就不会被执行
+ * NB. 如果 View 还没有 attach，就会直接执行
  */
 fun View.postCancellable(r: Runnable) {
     this.post(r)

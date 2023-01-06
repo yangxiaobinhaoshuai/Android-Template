@@ -1,13 +1,13 @@
 package me.yangxiaobin.android.kotlin.codelab.ext.animator
 
-import android.animation.Animator
-import android.animation.AnimatorListenerAdapter
-import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
-import android.annotation.SuppressLint
 import android.view.View
-import android.view.animation.Animation
+import androidx.core.view.doOnDetach
 
+
+/**
+ * @see androidx.core.animation
+ */
 
 enum class Anim(val propertyName: String) {
     Alpha("alpha"),
@@ -24,47 +24,42 @@ enum class Anim(val propertyName: String) {
     Z("z"),
 }
 
-@SuppressLint("Recycle")
-inline fun View.createObjAnimator(
+fun View.createObjAnimator(
     propName: String,
-    vararg t: Int,
+    vararg intValues: Int,
     objAnimConfig: (ObjectAnimator.() -> Unit) = {},
-) {
-    val animator = ObjectAnimator.ofInt(this, propName, *t)
-
-
+): ObjectAnimator? {
+    val animator: ObjectAnimator? = try {
+        ObjectAnimator.ofInt(this, propName, *intValues).also(objAnimConfig)
+    } catch (e: Exception) {
+        null
+    }
+    this.doOnDetach { animator?.cancel() }
+    return animator
 }
 
 fun View.createObjAnimator(
-    anim: Anim,
+    propName: String,
+    vararg floatValues: Float,
+    objAnimConfig: (ObjectAnimator.() -> Unit) = {},
+): ObjectAnimator? {
+    val animator: ObjectAnimator? = try {
+        ObjectAnimator.ofFloat(this, propName, *floatValues).also(objAnimConfig)
+    } catch (e: Exception) {
+        null
+    }
+    this.doOnDetach { animator?.cancel() }
+    return animator
+}
+
+fun View.createObjAnimator(
+    animEnum: Anim,
     vararg values: Int,
-    init: (ObjectAnimator.() -> Unit)? = null,
-): ObjectAnimator =
-    ObjectAnimator.ofInt(this, anim.propertyName, *values).also { init?.invoke(it) }
+    init: (ObjectAnimator.() -> Unit) = {},
+): ObjectAnimator? = this.createObjAnimator(animEnum.propertyName, intValues = values, init)
 
 fun View.createObjAnimator(
-    anim: Anim,
+    animEnum: Anim,
     vararg values: Float,
-    init: (ObjectAnimator.() -> Unit)? = null,
-): ObjectAnimator =
-    ObjectAnimator.ofFloat(this, anim.propertyName, *values).also { init?.invoke(it) }
-
-fun AnimatorSet.onAnimationEnd(onAnimationEnd: () -> Unit) {
-    addListener(object : AnimatorListenerAdapter() {
-        override fun onAnimationEnd(animation: Animator?) {
-            super.onAnimationEnd(animation)
-            onAnimationEnd()
-        }
-    })
-}
-
-fun Animation.onAnimationEnd(onAnimationEnd: () -> Unit) {
-    setAnimationListener(object : Animation.AnimationListener {
-        override fun onAnimationRepeat(p0: Animation?) {}
-        override fun onAnimationEnd(p0: Animation?) {
-            onAnimationEnd()
-        }
-
-        override fun onAnimationStart(p0: Animation?) {}
-    })
-}
+    init: (ObjectAnimator.() -> Unit) = {},
+): ObjectAnimator? = this.createObjAnimator(animEnum.propertyName, floatValues = values, init)
