@@ -183,7 +183,6 @@ class MainActivity : AbsActivity() {
             android.R.layout.simple_list_item_1
         ) { (vh: AbsVH, entity: String?, pos: Int, _: MutableList<Any>) ->
 
-
             vh.requireView<TextView>(android.R.id.text1).run {
 
                 @SuppressLint("SetTextI18n")
@@ -195,12 +194,12 @@ class MainActivity : AbsActivity() {
                 }
             }
 
-
         }
 
 
         // Scroll to last one.
         rv.scrollToPosition(rv.adapter?.itemCount?.minus(1) ?: 0)
+
 
         // TODO config this pls.
         navigateToSubFragment("Matrix")
