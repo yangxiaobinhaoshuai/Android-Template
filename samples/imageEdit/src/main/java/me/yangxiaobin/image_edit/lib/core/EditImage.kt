@@ -8,6 +8,7 @@ import me.yangxiaobin.image_edit.lib.clip.EditClipWindow
 import me.yangxiaobin.image_edit.lib.homing.EditHoming
 import me.yangxiaobin.image_edit.lib.sticker.EditSticker
 import me.yangxiaobin.image_edit.lib.util.IMGUtils
+import kotlin.math.roundToInt
 
 /**
  * EditImage
@@ -81,8 +82,7 @@ class EditImage {
     /**
      * 为被选中贴片
      */
-    private val mBackStickers: MutableList<EditSticker> =
-        ArrayList()
+    private val mBackStickers: MutableList<EditSticker> = ArrayList()
 
     /**
      * 涂鸦路径
@@ -105,11 +105,10 @@ class EditImage {
         private const val DEBUG = false
         private var DEFAULT_IMAGE: Bitmap? = null
         private const val COLOR_SHADE = -0x34000000
-//        private const val COLOR_SHADE = Color.RED
+        //        private const val COLOR_SHADE = Color.RED
 
         init {
-            DEFAULT_IMAGE =
-                Bitmap.createBitmap(100, 100, Bitmap.Config.ARGB_8888)
+            DEFAULT_IMAGE = Bitmap.createBitmap(100, 100, Bitmap.Config.ARGB_8888)
         }
     }
 
@@ -119,11 +118,11 @@ class EditImage {
         }
         mImage = bitmap
 
-//        // 清空马赛克图层
-//        if (mMosaicImage != null) {
-//            mMosaicImage!!.recycle()
-//        }
-//        mMosaicImage = null
+       //        // 清空马赛克图层
+       //        if (mMosaicImage != null) {
+       //            mMosaicImage!!.recycle()
+       //        }
+       //        mMosaicImage = null
         makeMosaicBitmap()
         onImageChanged()
     }
@@ -148,7 +147,7 @@ class EditImage {
                 initShadePaint()
 
                 // 备份裁剪前Clip 区域
-//                mBackupClipRotate = rotate
+                //                mBackupClipRotate = rotate
                 mBackupClipFrame.set(clipFrame)
                 val scale = 1 / scale
                 M.setTranslate(-frame.left, -frame.top)
@@ -185,26 +184,24 @@ class EditImage {
         }
     }
 
-    val isMosaicEmpty: Boolean
-        get() = mMosaics.isEmpty()
+    val isMosaicEmpty: Boolean get() = mMosaics.isEmpty()
 
-    val isDoodleEmpty: Boolean
-        get() = mDoodles.isEmpty()
+    val isDoodleEmpty: Boolean get() = mDoodles.isEmpty()
 
     fun undoDoodle() {
-        if (!mDoodles.isEmpty()) {
+        if (mDoodles.isNotEmpty()) {
             mDoodles.removeAt(mDoodles.size - 1)
         }
     }
 
     fun undoMosaic() {
-        if (!mMosaics.isEmpty()) {
+        if (mMosaics.isNotEmpty()) {
             mMosaics.removeAt(mMosaics.size - 1)
         }
     }
 
 
-    fun recycle(){
+    fun recycle() {
         mImage?.recycle()
         mMosaicImage?.recycle()
         DEFAULT_IMAGE?.recycle()
@@ -293,7 +290,8 @@ class EditImage {
     fun adjustPhotoRotation(bitmap: Bitmap, orientationDegree: Int): Bitmap? {
         val matrix = Matrix()
         matrix.setRotate(
-            orientationDegree.toFloat(), bitmap.width.toFloat() / 2,
+            orientationDegree.toFloat(),
+            bitmap.width.toFloat() / 2,
             bitmap.height.toFloat() / 2
         )
         val targetX: Float
@@ -358,10 +356,10 @@ class EditImage {
         }
         if (mMode == EditImageMode.MOSAIC) {
             //控制马赛克模糊程度的
-            var w = Math.round(mImage!!.width / 32F)
-            var h = Math.round(mImage!!.height / 32F)
-            w = Math.max(w, 16)
-            h = Math.max(h, 16)
+            var w = (mImage!!.width / 32F).roundToInt()
+            var h = (mImage!!.height / 32F).roundToInt()
+            w = w.coerceAtLeast(16)
+            h = h.coerceAtLeast(16)
 
             // 马赛克画刷
             if (mMosaicPaint == null) {
@@ -414,10 +412,10 @@ class EditImage {
 
                 // cFrame要是一个暂时clipFrame
                 if (mClipWin.isHoming) {
-//
-//                    M.mapRect(cFrame, mClipFrame);
+                    //
+                    //                    M.mapRect(cFrame, mClipFrame);
 
-//                    mClipWin
+                    //                    mClipWin
                     // TODO 偏移中心
                     M.setRotate(
                         0f,
@@ -483,7 +481,7 @@ class EditImage {
         if (sticker == null) return
         moveToBackground(mForeSticker)
         if (sticker.isShowing) {
-//            mForeSticker = sticker
+            //            mForeSticker = sticker
             foreSticker = sticker
             // 从BackStickers中移除
             mBackStickers.remove(sticker)
@@ -550,7 +548,7 @@ class EditImage {
     }
 
     private fun onInitialHoming(width: Float, height: Float) {
-        frame[0f, 0f, mImage!!.width.toFloat()] = mImage!!.height.toFloat()
+        frame.set(0f, 0f, mImage!!.width.toFloat(), mImage!!.height.toFloat())
         clipFrame.set(frame)
         mClipWin.setClipWinSize(width, height)
         if (clipFrame.isEmpty) {
@@ -566,10 +564,7 @@ class EditImage {
             // Bitmap invalidate.
             return
         }
-        val scale = Math.min(
-            mWindow.width() / clipFrame.width(),
-            mWindow.height() / clipFrame.height()
-        )
+        val scale = (mWindow.width() / clipFrame.width()).coerceAtMost(mWindow.height() / clipFrame.height())
 
         // Scale to fit window.
         M.setScale(scale, scale, clipFrame.centerX(), clipFrame.centerY())
@@ -762,14 +757,8 @@ class EditImage {
     fun onScale(factor: Float, focusX: Float, focusY: Float) {
         var factor = factor
         if (factor == 1f) return
-        if (Math.max(
-                clipFrame.width(),
-                clipFrame.height()
-            ) >= MAX_SIZE
-            || Math.min(
-                clipFrame.width(),
-                clipFrame.height()
-            ) <= MIN_SIZE
+        if (clipFrame.width().coerceAtLeast(clipFrame.height()) >= MAX_SIZE
+            || clipFrame.width().coerceAtMost(clipFrame.height()) <= MIN_SIZE
         ) {
             factor += (1 - factor) / 2
         }

@@ -24,6 +24,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.net.toFile
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
+import androidx.fragment.app.Fragment
 import me.yangxiaobin.image_edit.lib.core.EditImageArrows
 import me.yangxiaobin.image_edit.lib.ui.EditImageActivity
 import me.yangxiaobin.image_edit.lib.view.EditColorGroup
@@ -52,10 +53,10 @@ fun Activity.startEditImage(
     onError: ((Exception) -> Unit)? = null
 ) {
     val intent = Intent(this, EditImageActivity::class.java)
-    if (src.toString().isNullOrBlank()) {
+    if (src.toString().isBlank()) {
         onError?.invoke(RuntimeException("资源错误"))
     }
-    if (src.toString()!!.startsWith("http") || src.startsWith("https")) {
+    if (src.toString().startsWith("http") || src.startsWith("https")) {
         onError?.invoke(RuntimeException("资源错误，目前不支持网络图片"))
         return
     }
@@ -102,19 +103,15 @@ fun Activity.startEditImage(
     onError: ((Exception) -> Unit)? = null
 ) {
     val intent = Intent(this, EditImageActivity::class.java)
-    if (src.toString().isNullOrBlank()) {
+    if (src.toString().isBlank()) {
         onError?.invoke(RuntimeException("资源错误"))
     }
-    if (src.toString()!!.startsWith("http")) {
+    if (src.toString().startsWith("http")) {
         onError?.invoke(RuntimeException("资源错误，目前不支持网络图片"))
         return
     }
     when (src.toString()) {  //考虑后期会增加多种类型
-        is String -> intent.putExtra("data", src.toString())
-        else -> {
-            onError?.invoke(RuntimeException("资源错误，目前只支持 String"))
-            return
-        }
+        else -> intent.putExtra("data", src.toString())
     }
     this.startActivityForResult(intent, requestCode)
 }
@@ -243,13 +240,13 @@ fun Activity.saveBitMap(
  * @param description 文件名
  * @return 文件得路径 如果为null  或者  字符串 则保存失败
  */
-fun androidx.fragment.app.Fragment.saveImg(
-    rec: ContentResolver = this.activity!!.contentResolver,
+fun Fragment.saveImg(
+    rec: ContentResolver = requireActivity().contentResolver,
     bitmap: Bitmap,
     name: String,
     description: String = "Edit_image"
 ): String {
-    return this.activity!!.saveBitMap(
+    return requireActivity().saveBitMap(
         rec = rec,
         bitmap = bitmap,
         name = name,
@@ -294,29 +291,21 @@ fun Context.loadBitmap(src: String): Bitmap {
         src.startsWith("content://") -> {   //是一个uri
             val parse = Uri.parse(src)
             val uriToFile = uriToFile(this, parse)
-            if (uriToFile != null) return BitmapFactory.decodeFile(uriToFile.absolutePath) else throw RuntimeException(
-                "传递资源文件错误"
-            )
+            if (uriToFile != null) return BitmapFactory.decodeFile(uriToFile.absolutePath) else throw RuntimeException("传递资源文件错误")
         }
         src.endsWith(".png") -> {           //是一个 .png 文件
-            return BitmapFactory.decodeFile(src) ?: throw  RuntimeException(
-                "传递资源文件错误"
-            )
+            return BitmapFactory.decodeFile(src) ?: throw  RuntimeException("传递资源文件错误")
         }
         src.endsWith(".JPEG") -> {           //是一个 .JPEG 文件
-            return BitmapFactory.decodeFile(src) ?: throw  RuntimeException(
-                "传递资源文件错误"
-            )
+            return BitmapFactory.decodeFile(src) ?: throw  RuntimeException("传递资源文件错误")
         }
-//        src.endsWith(".webp") -> {           //是一个 .webp 文件
-//            return BitmapFactory.decodeFile(src) ?: throw  RuntimeException(
-//                "传递资源文件错误"
-//            )
-//        }
+        //        src.endsWith(".webp") -> {           //是一个 .webp 文件
+        //            return BitmapFactory.decodeFile(src) ?: throw  RuntimeException(
+        //                "传递资源文件错误"
+        //            )
+        //        }
         src.endsWith(".jpg") -> {           //是一个 .jpg 文件
-            return BitmapFactory.decodeFile(src) ?: throw  RuntimeException(
-                "传递资源文件错误"
-            )
+            return BitmapFactory.decodeFile(src) ?: throw  RuntimeException("传递资源文件错误")
         }
         else -> throw java.lang.RuntimeException("不支持的图片格式")
 
@@ -331,6 +320,7 @@ fun uriToFile(context: Context, uri: Uri) =
     } else uriToFileN(context, uri)
 
 
+@SuppressLint("Range")
 @RequiresApi(Build.VERSION_CODES.Q)
 private fun uriToFileQ(context: Context, uri: Uri): File? =
     if (uri.scheme == ContentResolver.SCHEME_FILE)
@@ -342,8 +332,7 @@ private fun uriToFileQ(context: Context, uri: Uri): File? =
         cursor?.let {
             if (it.moveToFirst()) {
                 val ois = context.contentResolver.openInputStream(uri)
-                val displayName =
-                    it.getString(it.getColumnIndex(OpenableColumns.DISPLAY_NAME))
+                val displayName: String = it.getString(it.getColumnIndex(OpenableColumns.DISPLAY_NAME))
                 ois?.let {
                     File(
                         context.externalCacheDir!!.absolutePath,
@@ -366,10 +355,10 @@ private fun uriToFileN(context: Context, uri: Uri): File? {
     val authority = uri.authority
     val scheme = uri.scheme
     val path = uri.path
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N && path != null) {
+    if (path != null) {
         val externals = arrayOf("/external", "/external_path")
         externals.forEach {
-            if (path.startsWith(it + "/")) {
+            if (path.startsWith("$it/")) {
                 val file = File(
                     Environment.getExternalStorageDirectory().absolutePath + path.replace(it, "")
                 )
@@ -381,20 +370,13 @@ private fun uriToFileN(context: Context, uri: Uri): File? {
     }
     if (scheme == ContentResolver.SCHEME_FILE)
         return uri.toFile()
-    else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT && DocumentsContract.isDocumentUri(
-            context,
-            uri
-        )
-    ) {
+    else if (DocumentsContract.isDocumentUri(context, uri)) {
         return if ("com.android.externalstorage.documents" == authority) {
             val docId = DocumentsContract.getDocumentId(uri)
             val split = docId.split(":").toTypedArray()
             val type = split[0]
             if ("primary".equals(type, ignoreCase = true)) {
-                return File(
-                    Environment.getExternalStorageDirectory()
-                        .toString() + "/" + split[1]
-                )
+                return File(Environment.getExternalStorageDirectory().toString() + "/" + split[1])
             } else {
                 val mStorageManager =
                     context.getSystemService(Context.STORAGE_SERVICE) as StorageManager
@@ -421,9 +403,7 @@ private fun uriToFileN(context: Context, uri: Uri): File? {
 
                     val uuid = getUuid.invoke(storageVolumeElement) as String
                     if (uuid == type) {
-                        return File(
-                            getPath.invoke(storageVolumeElement).toString() + "/" + split[1]
-                        )
+                        return File(getPath.invoke(storageVolumeElement)?.toString() + "/" + split[1])
                     }
                 }
 
@@ -442,15 +422,18 @@ private fun uriToFileN(context: Context, uri: Uri): File? {
         } else if ("com.android.providers.media.documents" == authority) {
             val docId = DocumentsContract.getDocumentId(uri)
             val split = docId.split(":").toTypedArray()
-            val type = split[0]
-            val contentUri: Uri
-            contentUri = if ("image" == type) {
-                MediaStore.Images.Media.EXTERNAL_CONTENT_URI
-            } else if ("video" == type) {
-                MediaStore.Video.Media.EXTERNAL_CONTENT_URI
-            } else if ("audio" == type) {
-                MediaStore.Audio.Media.EXTERNAL_CONTENT_URI
-            } else return null
+            val contentUri: Uri = when (split[0]) {
+                "image" -> {
+                    MediaStore.Images.Media.EXTERNAL_CONTENT_URI
+                }
+                "video" -> {
+                    MediaStore.Video.Media.EXTERNAL_CONTENT_URI
+                }
+                "audio" -> {
+                    MediaStore.Audio.Media.EXTERNAL_CONTENT_URI
+                }
+                else -> return null
+            }
             val selection = "_id=?"
             val selectionArgs = arrayOf(split[1])
             getFileFromUri(context, contentUri, selection, selectionArgs)

@@ -60,7 +60,7 @@ class ImageEditActivity : AbsActivity() {
                 data?.getParcelableArrayListExtra<Photo>(EasyPhotos.RESULT_PHOTOS) as ArrayList<Photo>
 
 
-            if (resultPhotos.isNullOrEmpty()) {
+            if (resultPhotos.isEmpty()) {
                 return
             }
             startEditImage(resultPhotos[0].path, 22)

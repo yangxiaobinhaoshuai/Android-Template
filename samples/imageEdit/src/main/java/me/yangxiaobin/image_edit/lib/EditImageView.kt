@@ -21,6 +21,7 @@ import me.yangxiaobin.image_edit.lib.sticker.EditSticker
 import me.yangxiaobin.image_edit.lib.sticker.EditStickerPortrait
 import me.yangxiaobin.image_edit.lib.ui.text.EditImageText
 import me.yangxiaobin.image_edit.lib.widget.EditStickerTextView
+import kotlin.math.roundToInt
 
 /**
  * 图片编辑的 核心  自定义View
@@ -31,44 +32,47 @@ class EditImageView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0
-) : FrameLayout(context, attrs, defStyleAttr), Runnable, OnScaleGestureListener,
-    AnimatorUpdateListener, EditStickerPortrait.Callback,
+) : FrameLayout(context, attrs, defStyleAttr),
+    Runnable,
+    OnScaleGestureListener,
+    AnimatorUpdateListener,
+    EditStickerPortrait.Callback,
     Animator.AnimatorListener {
+
     private var mPreMode = EditImageMode.NONE
-    private val mImage: EditImage? =
-        EditImage()
-    private var arrowsColor: Int = Color.RED   //箭头颜色
-    private var arrowsSize: Int = 2            //箭头大小
+    private val mImage: EditImage = EditImage()
+    //箭头颜色
+    private var arrowsColor: Int = Color.RED
+    //箭头大小
+    private var arrowsSize: Int = 2
     private var mGDetector: GestureDetector? = null
     private var mSGDetector: ScaleGestureDetector? = null
     private var mHomingAnimator: EditHomingAnimator? = null
     private val mPen = Pen()
     private var mPointerCount = 0
-    private val mDoodlePaint =
-        Paint(Paint.ANTI_ALIAS_FLAG)
-    private val mMosaicPaint =
-        Paint(Paint.ANTI_ALIAS_FLAG)
+    private val mDoodlePaint = Paint(Paint.ANTI_ALIAS_FLAG)
+    private val mMosaicPaint = Paint(Paint.ANTI_ALIAS_FLAG)
 
     /**
      * 初始化
      */
     private fun initialize(context: Context) {
-        mPen.mode = mImage!!.mode
+        mPen.mode = mImage.mode
 
         mGDetector = GestureDetector(context, MoveAdapter())
         mSGDetector = ScaleGestureDetector(context, this)
     }
 
-//TODO//============================================= 对外api
+   //============================================= 对外api
 
 
     /**
      * ************************************  编辑模式选择
-    NONE,       //默认
-    DOODLE,     //涂鸦
-    MOSAIC,     //马赛克
-    CLIP,       //剪裁
-    ARROWS      //箭头
+     * NONE,       //默认
+     * DOODLE,     //涂鸦
+     * MOSAIC,     //马赛克
+     * CLIP,       //剪裁
+     * ARROWS      //箭头
 
      * this.mode=EditMode.NONE               //默认模式 该模式下只有放大缩小移动 相当于预览
      * this.mode=EditMode.DOODLE             //涂鸦模式
@@ -76,9 +80,6 @@ class EditImageView @JvmOverloads constructor(
      * this.mode=EditMode.CLIP               //裁剪模式 包含旋转 镜像反转等
      * this.mode=IMGMode.ARROWS             //箭头
      *
-
-
-
      * ************************************  编辑模式选择
      */
 
@@ -88,16 +89,14 @@ class EditImageView @JvmOverloads constructor(
      * @param image 资源
      */
     fun setImageBitmap(image: Bitmap?) {
-        mImage!!.setBitmap(image)
+        mImage.setBitmap(image)
         postInvalidate()
     }
 
     /**
      * 是否真正修正归位
      */
-    val isHoming: Boolean
-        get() = (mHomingAnimator != null
-                && mHomingAnimator!!.isRunning)
+    val isHoming: Boolean get() = (mHomingAnimator != null && mHomingAnimator!!.isRunning)
 
 
     /**
@@ -105,13 +104,13 @@ class EditImageView @JvmOverloads constructor(
      * @param rotate 旋转度数 0-360f
      */
     fun doRotate(rotate: Float) {
-//        ////方案1
-//        mImage!!.rotate(rotate)
-//        //可以考虑不重置 剪裁框
-//        mImage!!.resetClip()
-//        onHoming()
+     //        ////方案1
+     //        mImage!!.rotate(rotate)
+     //        //可以考虑不重置 剪裁框
+     //        mImage!!.resetClip()
+     //        onHoming()
         ///////// 方案2
-        val rotateBitmap = mImage!!.getRotateBitmap(rotate)
+        val rotateBitmap = mImage.getRotateBitmap(rotate)
         setImageBitmap(rotateBitmap)
         resetClip()
     }
@@ -149,7 +148,7 @@ class EditImageView @JvmOverloads constructor(
      * 水平镜像翻转
      */
     fun doHorizontalMirror() {
-        mImage!!.toHorizontalMirror()
+        mImage.toHorizontalMirror()
         onHoming()
     }
 
@@ -158,7 +157,7 @@ class EditImageView @JvmOverloads constructor(
      * 垂直镜像翻转
      */
     fun doVerticalMirror() {
-        mImage!!.toVerticalMirror()
+        mImage.toVerticalMirror()
         onHoming()
     }
 
@@ -167,7 +166,7 @@ class EditImageView @JvmOverloads constructor(
      */
     fun clearMirror() {
         if (!isHoming) {
-            mImage!!.clearMirror()
+            mImage.clearMirror()
             onHoming()
         }
     }
@@ -175,10 +174,10 @@ class EditImageView @JvmOverloads constructor(
     /**
      * 设置马赛克宽度
      *  public static final  Float IMG_MOSAIC_SIZE_1=0.2F;
-    public static final  Float IMG_MOSAIC_SIZE_2=0.3F;
-    public static final  Float IMG_MOSAIC_SIZE_3=0.4F;
-    public static final  Float IMG_MOSAIC_SIZE_4=0.5F;
-    public static final  Float IMG_MOSAIC_SIZE_5=0.6F;
+     *  public static final  Float IMG_MOSAIC_SIZE_2=0.3F;
+     *  public static final  Float IMG_MOSAIC_SIZE_3=0.4F;
+     *  public static final  Float IMG_MOSAIC_SIZE_4=0.5F;
+     *  public static final  Float IMG_MOSAIC_SIZE_5=0.6F;
      */
     fun setMosaicWidth(float: Float) {
         EditImagePath.BASE_MOSAIC_WIDTH = float * 100
@@ -188,15 +187,15 @@ class EditImageView @JvmOverloads constructor(
     /**
      * 返回图像
      */
-    fun getImage(): EditImage? = mImage
+    fun getImage(): EditImage = mImage
 
 
     /**
      * 重新设定裁剪
      */
     fun resetClip() {
-        mImage!!.resetClip()
-        mImage!!.clearMirror()
+        mImage.resetClip()
+        mImage.clearMirror()
         onHoming()
     }
 
@@ -205,7 +204,7 @@ class EditImageView @JvmOverloads constructor(
      * 开始剪裁
      */
     fun doClip() {
-        mImage!!.clip(scrollX.toFloat(), scrollY.toFloat())
+        mImage.clip(scrollX.toFloat(), scrollY.toFloat())
         mode = EditImageMode.NONE
         onHoming()
     }
@@ -214,7 +213,7 @@ class EditImageView @JvmOverloads constructor(
      * 取消剪裁
      */
     fun cancelClip() {
-        mImage!!.toBackupClip()
+        mImage.toBackupClip()
         mode = EditImageMode.NONE
     }
 
@@ -229,30 +228,28 @@ class EditImageView @JvmOverloads constructor(
     /**
      * 涂鸦是否为空
      */
-    val isDoodleEmpty: Boolean
-        get() = mImage!!.isDoodleEmpty
+    val isDoodleEmpty: Boolean get() = mImage.isDoodleEmpty
 
 
     /**
      * 撤销上一步 涂鸦
      */
     fun undoDoodle() {
-        mImage!!.undoDoodle()
+        mImage.undoDoodle()
         invalidate()
     }
 
     /**
      * 马赛克是否为空
      */
-    val isMosaicEmpty: Boolean
-        get() = mImage!!.isMosaicEmpty
+    val isMosaicEmpty: Boolean get() = mImage.isMosaicEmpty
 
 
     /**
      * 撤销上一步 马赛克
      */
     fun undoMosaic() {
-        mImage!!.undoMosaic()
+        mImage.undoMosaic()
         invalidate()
     }
 
@@ -269,7 +266,7 @@ class EditImageView @JvmOverloads constructor(
         if (stickerView != null) {
             addView(stickerView, params)
             stickerView.registerCallback(this)
-            mImage!!.addSticker(stickerView)
+            mImage.addSticker(stickerView)
         }
     }
 
@@ -297,7 +294,7 @@ class EditImageView @JvmOverloads constructor(
      * 保存 编辑好得图片
      */
     fun saveBitmap(): Bitmap {
-        mImage!!.stickAll()
+        mImage.stickAll()
         val scale = 1f / mImage.scale
         val frame = RectF(mImage.clipFrame)
 
@@ -310,8 +307,8 @@ class EditImageView @JvmOverloads constructor(
         m.setScale(scale, scale, frame.left, frame.top)
         m.mapRect(frame)
         val bitmap = Bitmap.createBitmap(
-            Math.round(frame.width()),
-            Math.round(frame.height()), Bitmap.Config.ARGB_8888
+            frame.width().roundToInt(),
+            frame.height().roundToInt(), Bitmap.Config.ARGB_8888
         )
         val canvas = Canvas(bitmap)
 
@@ -331,7 +328,7 @@ class EditImageView @JvmOverloads constructor(
         invalidate()
         stopHoming()
         startHoming(
-            mImage!!.getStartHoming(scrollX.toFloat(), scrollY.toFloat()),
+            mImage.getStartHoming(scrollX.toFloat(), scrollY.toFloat()),
             mImage.getEndHoming(scrollX.toFloat(), scrollY.toFloat())
         )
     }
@@ -363,7 +360,7 @@ class EditImageView @JvmOverloads constructor(
     }
 
 
-    //TODO//============================================= 对外api
+    //============================================= 对外api
 
     // 保存现在的编辑模式
 
@@ -371,10 +368,10 @@ class EditImageView @JvmOverloads constructor(
 
     // 矫正区域
     var mode: EditImageMode?
-        get() = mImage!!.mode
+        get() = mImage.mode
         set(mode) {
             // 保存现在的编辑模式
-            mPreMode = mImage!!.mode
+            mPreMode = mImage.mode
 
             // 设置新的编辑模式
             mImage.mode = mode!!
@@ -384,21 +381,19 @@ class EditImageView @JvmOverloads constructor(
             onHoming()
         }
 
-    override fun onDraw(canvas: Canvas?) {
-        if (canvas != null)
-            onDrawImages(canvas)
+    override fun onDraw(canvas: Canvas) {
+        onDrawImages(canvas)
     }
 
-    private fun onDrawImages(canvas: Canvas?) {
-        canvas?.save()
+    private fun onDrawImages(canvas: Canvas) {
+        canvas.save()
 
         // clip 中心旋转
-        val clipFrame = mImage!!.clipFrame
-        canvas?.rotate(mImage.rotate, clipFrame.centerX(), clipFrame.centerY())
+        val clipFrame = mImage.clipFrame
+        canvas.rotate(mImage.rotate, clipFrame.centerX(), clipFrame.centerY())
 
         // 图片
-        mImage.onDrawImage(canvas!!)
-
+        mImage.onDrawImage(canvas)
 
         // 马赛克
         if (!mImage.isMosaicEmpty || mImage.mode == EditImageMode.MOSAIC && !mPen.isEmpty) {
@@ -429,9 +424,6 @@ class EditImageView @JvmOverloads constructor(
         }
 
 
-
-
-
         if (mImage.isFreezing) {
             // 文字贴片
             mImage.onDrawStickers(canvas)
@@ -452,10 +444,9 @@ class EditImageView @JvmOverloads constructor(
             canvas.rotate(-mImage.rotate, frame.centerX(), frame.centerY())
             canvas.translate(scrollX.toFloat(), scrollY.toFloat())
             //开始绘画箭头
-            canvas?.triangle(it)
+            canvas.triangle(it)
             canvas.restore()
         }
-
 
         mImage.onDrawShade(canvas)
         // 裁剪
@@ -477,7 +468,7 @@ class EditImageView @JvmOverloads constructor(
     ) {
         super.onLayout(changed, left, top, right, bottom)
         if (changed) {
-            mImage!!.onWindowChanged(right - left.toFloat(), bottom - top.toFloat())
+            mImage.onWindowChanged(right - left.toFloat(), bottom - top.toFloat())
         }
     }
 
@@ -492,39 +483,36 @@ class EditImageView @JvmOverloads constructor(
         if (isHoming) {
             stopHoming()
             return true
-        } else if (mImage!!.mode == EditImageMode.CLIP) {
+        } else if (mImage.mode == EditImageMode.CLIP) {
             return true
         }
         return false
     }
 
-    override fun onTouchEvent(event: MotionEvent?): Boolean {
-        when (event?.actionMasked) {
+    override fun onTouchEvent(event: MotionEvent): Boolean {
+        when (event.actionMasked) {
             MotionEvent.ACTION_DOWN -> {
                 removeCallbacks(this)
                 if (mode == EditImageMode.ARROWS) {
-                    if (IS_DEBUG)
-                        Log.e(TAG, "箭头开始x==${event.x}y==${event.y}")
+                    if (IS_DEBUG) Log.e(TAG, "箭头开始x==${event.x}y==${event.y}")
                     EditImageArrows.addArrows(event.x, event.y, arrowsColor, arrowsSize)
                 }
             }
             MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> {
                 postDelayed(this, 1200)
                 if (mode == EditImageMode.ARROWS) {
-                    if (IS_DEBUG)
-                        Log.e(TAG, "箭头结束x==${event.x}y==${event.y}")
+                    if (IS_DEBUG) Log.e(TAG, "箭头结束x==${event.x}y==${event.y}")
                     EditImageArrows.upDateArrows(event.x, event.y)
                 }
             }
             MotionEvent.ACTION_MOVE -> {
                 if (mode == EditImageMode.ARROWS) {
-                    if (IS_DEBUG)
-                        Log.e(TAG, "箭头正在绘画x==${event.x}y==${event.y}")
+                    if (IS_DEBUG) Log.e(TAG, "箭头正在绘画x==${event.x}y==${event.y}")
                     EditImageArrows.upDateArrows(event.x, event.y)
                 }
             }
         }
-        return onTouch(event!!)
+        return onTouch(event)
     }
 
     private fun onTouch(event: MotionEvent): Boolean {
@@ -535,7 +523,7 @@ class EditImageView @JvmOverloads constructor(
         }
         mPointerCount = event.pointerCount
         var handled = mSGDetector!!.onTouchEvent(event)
-        val mode = mImage!!.mode
+        val mode = mImage.mode
         handled = if (mode == EditImageMode.NONE || mode == EditImageMode.CLIP) {
             handled or onTouchNONE(event)
         } else if (mPointerCount > 1) {
@@ -562,11 +550,7 @@ class EditImageView @JvmOverloads constructor(
         when (event.actionMasked) {
             MotionEvent.ACTION_DOWN -> return onPathBegin(event)
             MotionEvent.ACTION_MOVE -> return onPathMove(event)
-            MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> return mPen.isIdentity(
-                event.getPointerId(
-                    0
-                )
-            ) && onPathDone()
+            MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> return mPen.isIdentity(event.getPointerId(0)) && onPathDone()
         }
         return false
     }
@@ -590,7 +574,7 @@ class EditImageView @JvmOverloads constructor(
         if (mPen.isEmpty) {
             return false
         }
-        mImage!!.addPath(mPen.toPath(), scrollX.toFloat(), scrollY.toFloat())
+        mImage.addPath(mPen.toPath(), scrollX.toFloat(), scrollY.toFloat())
         mPen.reset()
         invalidate()
         return true
@@ -608,7 +592,7 @@ class EditImageView @JvmOverloads constructor(
             Log.d(TAG, "onSteady: isHoming=$isHoming")
         }
         if (!isHoming) {
-            mImage!!.onSteady(scrollX.toFloat(), scrollY.toFloat())
+            mImage.onSteady(scrollX.toFloat(), scrollY.toFloat())
             onHoming()
             return true
         }
@@ -618,12 +602,12 @@ class EditImageView @JvmOverloads constructor(
     override fun onDetachedFromWindow() {
         super.onDetachedFromWindow()
         removeCallbacks(this)
-        mImage!!.release()
+        mImage.release()
     }
 
     override fun onScale(detector: ScaleGestureDetector): Boolean {
         if (mPointerCount > 1) {
-            mImage!!.onScale(
+            mImage.onScale(
                 detector.scaleFactor,
                 scrollX + detector.focusX,
                 scrollY + detector.focusY
@@ -636,25 +620,25 @@ class EditImageView @JvmOverloads constructor(
 
     override fun onScaleBegin(detector: ScaleGestureDetector): Boolean {
         if (mPointerCount > 1) {
-            mImage!!.onScaleBegin()
+            mImage.onScaleBegin()
             return true
         }
         return false
     }
 
     override fun onScaleEnd(detector: ScaleGestureDetector) {
-        mImage!!.onScaleEnd()
+        mImage.onScaleEnd()
     }
 
     override fun onAnimationUpdate(animation: ValueAnimator) {
-        mImage!!.onHoming(animation.animatedFraction)
+        mImage.onHoming(animation.animatedFraction)
         toApplyHoming(animation.animatedValue as EditHoming)
     }
 
     private fun toApplyHoming(homing: EditHoming) {
-        mImage!!.scale = homing.scale
-//        mImage.rotate = homing.rotate
-        if (!onScrollTo(Math.round(homing.x), Math.round(homing.y))) {
+        mImage.scale = homing.scale
+        //        mImage.rotate = homing.rotate
+        if (!onScrollTo(homing.x.roundToInt(), homing.y.roundToInt())) {
             invalidate()
         }
     }
@@ -668,18 +652,18 @@ class EditImageView @JvmOverloads constructor(
     }
 
     override fun <V> onDismiss(stickerView: V) where V : View?, V : EditSticker? {
-        mImage!!.onDismiss(stickerView)
+        mImage.onDismiss(stickerView)
         invalidate()
     }
 
     override fun <V> onShowing(stickerView: V) where V : View?, V : EditSticker? {
-        mImage!!.onShowing(stickerView as EditSticker)
+        mImage.onShowing(stickerView as EditSticker)
         invalidate()
     }
 
     override fun <V> onRemove(stickerView: V): Boolean where V : View?, V : EditSticker? {
-        mImage?.onRemoveSticker(stickerView as EditSticker)
-        stickerView!!.unregisterCallback(this)
+        mImage.onRemoveSticker(stickerView as EditSticker)
+        stickerView.unregisterCallback(this)
         val parent = stickerView.parent
         if (parent != null) {
             (parent as ViewGroup).removeView(stickerView)
@@ -691,14 +675,14 @@ class EditImageView @JvmOverloads constructor(
         if (DEBUG) {
             Log.d(TAG, "onAnimationStart")
         }
-        mImage!!.onHomingStart(mHomingAnimator!!.isRotate)
+        mImage.onHomingStart(mHomingAnimator!!.isRotate)
     }
 
     override fun onAnimationEnd(animation: Animator) {
         if (DEBUG) {
             Log.d(TAG, "onAnimationEnd")
         }
-        if (mImage!!.onHomingEnd(
+        if (mImage.onHomingEnd(
                 scrollX.toFloat(),
                 scrollY.toFloat(),
                 mHomingAnimator!!.isRotate
@@ -712,7 +696,7 @@ class EditImageView @JvmOverloads constructor(
         if (DEBUG) {
             Log.d(TAG, "onAnimationCancel")
         }
-        mImage!!.onHomingCancel(mHomingAnimator!!.isRotate)
+        mImage.onHomingCancel(mHomingAnimator!!.isRotate)
     }
 
     override fun onAnimationRepeat(animation: Animator) {
@@ -720,15 +704,14 @@ class EditImageView @JvmOverloads constructor(
     }
 
     private fun onScroll(dx: Float, dy: Float): Boolean {
-        val homing =
-            mImage!!.onScroll(scrollX.toFloat(), scrollY.toFloat(), -dx, -dy)
+        val homing = mImage.onScroll(scrollX.toFloat(), scrollY.toFloat(), -dx, -dy)
         if (homing != null) {
             toApplyHoming(homing)
             return true
         }
         return onScrollTo(
-            scrollX + Math.round(dx),
-            scrollY + Math.round(dy)
+            scrollX + dx.roundToInt(),
+            scrollY + dy.roundToInt()
         )
     }
 
