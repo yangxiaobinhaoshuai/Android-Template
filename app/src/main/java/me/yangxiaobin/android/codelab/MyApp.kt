@@ -49,7 +49,7 @@ class MyApp : AbsApplication() {
             )
 
             val ctx = ActivityRecorder.topActivity
-            ctx.selector("Debug Settings", items) { d: DialogInterface, index: Int ->
+            ctx.selector("Debug Settings", items) { _: DialogInterface, index: Int ->
                 when (index) {
                     0 -> ctx.startActivity(intentFor<MainActivity>())
                     1 -> ctx.startActivity(intentFor<MainActivity>())

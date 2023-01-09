@@ -66,7 +66,7 @@ class FutureFragment : me.yangxiaobin.common_ui.ButtonsFragment() {
 
         val c3 = CompletableFuture<Int>()
 
-        c3.handleAsync { t: Int, u: Throwable ->
+        c3.handleAsync { _: Int, _: Throwable ->
             logD("handleAsync, ${curThread.name}.")
             Thread.sleep(1500)
         }

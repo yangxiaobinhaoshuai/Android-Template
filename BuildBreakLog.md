@@ -13,8 +13,8 @@
   parent loader org.gradle.internal.classloader.VisitableURLClassLoader @1ad4b958)
 
 > Solution :
-1.Try clean; + compiler args : --rerun-tasks
-2.restart pc
+1.+ compiler args : --rerun-tasks Try clean;
+2.If 1 not work, then restart pc
 3.检查一下 compile 的 module 名称是否错误
 
 

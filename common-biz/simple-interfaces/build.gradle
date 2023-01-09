@@ -1,16 +1,15 @@
 plugins {
     id 'com.android.library'
     id 'org.jetbrains.kotlin.android'
-    id 'kotlin-kapt'
 }
 
 android {
-    namespace 'com.example.gesture_example'
-    compileSdk build_versions.compile_sdk
+    namespace 'com.yxb.simple.adapters'
+    compileSdkVersion build_versions.compile_sdk
 
     defaultConfig {
-        minSdk build_versions.min_sdk
-        targetSdk build_versions.target_sdk
+        minSdkVersion build_versions.min_sdk
+        targetSdkVersion build_versions.target_sdk
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
@@ -43,16 +42,11 @@ dependencies {
     //implementation 'androidx.core:core-ktx:1.7.0'
     //implementation 'androidx.appcompat:appcompat:1.5.1'
     implementation deps.appcompatX
-    //implementation 'com.google.android.material:material:1.7.0'
-    implementation deps.androidMaterial
 
-    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    implementation 'com.google.android.material:material:1.7.0'
 
     compileOnly project(":common-ui")
+    implementation project(":kt-compose-lib")
     compileOnly project(":codelab-android-kt")
-    implementation alias.uiKitLib
-    implementation alias.colorLib
-    implementation alias.iconLib
-    implementation alias.adaptersLib
 
 }
