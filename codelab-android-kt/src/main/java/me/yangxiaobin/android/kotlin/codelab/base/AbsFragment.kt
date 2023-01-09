@@ -19,7 +19,6 @@ import me.yangxiaobin.android.kotlin.codelab.ext.context.buildResDrawable
 import me.yangxiaobin.android.kotlin.codelab.ext.context.buildResString
 import me.yangxiaobin.kotlin.codelab.ext.neatName
 
-@Suppress("LeakingThis")
 abstract class AbsFragment : Fragment(), LogAbility, ResAbility {
 
     override val LogAbility.TAG: String get() = "AbsFragment:${this.javaClass.simpleName.take(11)}"
@@ -44,6 +43,7 @@ abstract class AbsFragment : Fragment(), LogAbility, ResAbility {
     override val asDrawable by lazy { buildResDrawable(requireContext()) }
 
     init {
+        @Suppress("LeakingThis")
         logI("onConstruct")
     }
 

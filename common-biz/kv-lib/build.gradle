@@ -1,0 +1,56 @@
+plugins {
+    id 'com.android.library'
+    id 'org.jetbrains.kotlin.android'
+}
+
+android {
+    namespace 'com.example.kv_lib'
+    compileSdkVersion build_versions.compile_sdk
+
+    defaultConfig {
+        minSdkVersion build_versions.min_sdk
+        targetSdkVersion build_versions.target_sdk
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility build_versions.source_compatibility
+        targetCompatibility build_versions.target_compatibility
+    }
+    kotlinOptions {
+        jvmTarget = build_versions.kt_jvm_target
+    }
+    viewBinding {
+        enabled = true
+    }
+}
+
+dependencies {
+
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+
+    //implementation 'androidx.core:core-ktx:1.7.0'
+    implementation 'androidx.appcompat:appcompat:1.5.1'
+    implementation 'com.google.android.material:material:1.7.0'
+
+    // Jetpack dataStore release note : https://developer.android.com/jetpack/androidx/releases/datastore
+    // Preferences DataStore (SharedPreferences like APIs)
+    implementation 'androidx.datastore:datastore-preferences:1.0.0'
+
+    // Typed DataStore (Typed API surface, such as Proto)
+    implementation "androidx.datastore:datastore:1.0.0"
+
+    // Tencent MMKV : https://github.com/Tencent/MMKV
+    implementation 'com.tencent:mmkv:1.2.14'
+
+}

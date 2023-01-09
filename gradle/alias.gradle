@@ -15,5 +15,6 @@ alias.uiKitLib = project(":common-biz:android-ui-kit")
 alias.netLib = project("common-biz:network-lib")
 alias.webviewLib = project("common-biz:webview")
 alias.navLib = project("common-biz:nav-lib")
+alias.kvLib = project("common-biz:kv-lib")
 
 ext.alias = alias

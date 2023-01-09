@@ -145,4 +145,5 @@ dependencies {
     implementation project(':samples:animator-sample')
     implementation project(':samples:gesture-example')
     implementation alias.diLib
+    implementation alias.kvLib
 }
