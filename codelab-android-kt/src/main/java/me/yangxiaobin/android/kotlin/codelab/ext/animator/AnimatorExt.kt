@@ -1,6 +1,9 @@
 package me.yangxiaobin.android.kotlin.codelab.ext.animator
 
+import android.animation.Animator
+import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
+import android.annotation.SuppressLint
 import android.view.View
 import androidx.core.view.doOnDetach
 
@@ -23,6 +26,30 @@ enum class Anim(val propertyName: String) {
     Y("y"),
     Z("z"),
 }
+
+@SuppressLint("Recycle")
+operator fun Animator?.plus(animator: Animator?): Animator =
+    when {
+        this is AnimatorSet && animator is AnimatorSet -> {
+            animator.childAnimations.forEach { this.playTogether(it) }
+            this
+        }
+        this is AnimatorSet -> {
+            this.playTogether(animator)
+            this
+        }
+        animator is AnimatorSet -> {
+            animator.playTogether(this)
+            animator
+        }
+        else -> {
+            val set = AnimatorSet()
+            set.playTogether(this)
+            set.playTogether(animator)
+            set
+
+        }
+    }
 
 fun View.createObjAnimator(
     propName: String,
@@ -51,6 +78,8 @@ fun View.createObjAnimator(
     this.doOnDetach { animator?.cancel() }
     return animator
 }
+
+
 
 fun View.createObjAnimator(
     animEnum: Anim,
