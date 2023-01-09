@@ -1,21 +1,30 @@
 package me.yangxiaobin.android.codelab
 
+import android.app.AlertDialog
+import android.content.Context
+import android.content.DialogInterface
+import android.hardware.SensorManager
+import me.yangxiaobin.android.codelab.debug.ShakeDetector
 import me.yangxiaobin.android.kotlin.codelab.BuildConfig
 import me.yangxiaobin.android.kotlin.codelab.base.AbsApplication
 import me.yangxiaobin.android.kotlin.codelab.base.ability.LogAbility
-import me.yangxiaobin.android.kotlin.codelab.ext.*
+import me.yangxiaobin.android.kotlin.codelab.base.manager.ActivityRecorder
 import me.yangxiaobin.android.kotlin.codelab.ext.appinfo.*
 import me.yangxiaobin.android.kotlin.codelab.ext.device.*
+import me.yangxiaobin.android.kotlin.codelab.ext.format2KMG
 import me.yangxiaobin.android.kotlin.codelab.log.AndroidLogger
 import me.yangxiaobin.android.permission.PermissionManager
 import me.yangxiaobin.logger.core.LogFacade
 import me.yangxiaobin.module_service_provider_annotation.DebugLog
+import org.jetbrains.anko.alert
+import org.jetbrains.anko.ctx
+import org.jetbrains.anko.intentFor
+import org.jetbrains.anko.selector
 import kotlin.time.ExperimentalTime
 import kotlin.time.measureTimedValue
 
-@OptIn(ExperimentalTime::class)
-class MyApp : AbsApplication() {
 
+class MyApp : AbsApplication() {
 
     override val logger: LogFacade get() = AndroidLogger
 
@@ -24,6 +33,7 @@ class MyApp : AbsApplication() {
     override fun onCreate() {
         super.onCreate()
         init()
+        initShakeDetector()
         testForDebugLog(2)
         PermissionManager.registerPermissionAccessListener {
             logD("permission accessed :$it.")
@@ -31,10 +41,34 @@ class MyApp : AbsApplication() {
         testForBuildFields()
     }
 
+    private fun initShakeDetector() {
+        val sensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
+        val sd = ShakeDetector {
+            logD("Detect shake")
+
+            val items = listOf(
+                "Jump to MainActivity",
+                "Disable Quick Nav",
+            )
+
+            val ctx = ActivityRecorder.topActivity
+            ctx.selector("Debug Settings", items) { d: DialogInterface, index: Int ->
+                when (index) {
+                    0 -> ctx.startActivity(intentFor<MainActivity>())
+                    1 -> ctx.startActivity(intentFor<MainActivity>())
+                    else -> Unit
+                }
+            }
+
+        }
+        sd.start(sensorManager)
+    }
+
     @DebugLog
     private fun init() {
 
-        logD("""
+        logD(
+            """
             rom : ${getRomName()}
             curApi : $currentApiLevel
             totalMem : ${getTotalMemory().format2KMG()}
@@ -52,11 +86,13 @@ class MyApp : AbsApplication() {
             processName  : $currentProcessName
             mac addr : ${this.getMacAddress()}
             DNS : ${this.getDNS()}
-        """.trimIndent())
+        """.trimIndent()
+        )
 
     }
 
 
+    @OptIn(ExperimentalTime::class)
     @DebugLog
     private fun testForDebugLog(value: Int): Boolean {
         measureTimedValue {
@@ -72,12 +108,14 @@ class MyApp : AbsApplication() {
      * -PhasConfig=false
      * 未赋值为 null
      */
-    private fun testForBuildFields(){
-        logD("""
+    private fun testForBuildFields() {
+        logD(
+            """
             string field :${BuildConfig.STRING_BUILD_CONFIG_FIELD}
             boolean field :${BuildConfig.BOOLEAN_BUILD_CONFIG_FIELD}
             boolean field from build param :${BuildConfig.HAS_CONFIG}
-        """.trimIndent())
+        """.trimIndent()
+        )
     }
 
 
