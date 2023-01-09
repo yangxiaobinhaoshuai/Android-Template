@@ -1,7 +1,7 @@
 package me.yangxiaobin.android.nav_lib
 
 import me.yangxiaobin.android.kotlin.codelab.base.AbsFragment
-import me.yangxiaobin.android.kotlin.codelab.base.LogAbility
+import me.yangxiaobin.android.kotlin.codelab.base.ability.LogAbility
 import me.yangxiaobin.android.kotlin.codelab.log.AndroidLogger
 import me.yangxiaobin.logger.core.LogFacade
 

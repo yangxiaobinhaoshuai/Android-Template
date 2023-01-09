@@ -3,7 +3,7 @@ package me.yangxiaobin.common_ui
 import android.view.View
 import androidx.core.os.postDelayed
 import me.yangxiaobin.android.kotlin.codelab.base.AbsViewBindingActivity
-import me.yangxiaobin.android.kotlin.codelab.base.LogAbility
+import me.yangxiaobin.android.kotlin.codelab.base.ability.LogAbility
 import me.yangxiaobin.android.kotlin.codelab.ext.mainHandler
 import me.yangxiaobin.android.kotlin.codelab.ext.postDelayCancellable
 import me.yangxiaobin.android.kotlin.codelab.log.AndroidLogger

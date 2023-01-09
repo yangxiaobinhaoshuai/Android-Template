@@ -3,7 +3,7 @@ package me.yangxiaobin.android.codelab.multi_thread
 import android.os.Build
 import android.view.View
 import androidx.annotation.RequiresApi
-import me.yangxiaobin.android.kotlin.codelab.base.LogAbility
+import me.yangxiaobin.android.kotlin.codelab.base.ability.LogAbility
 import me.yangxiaobin.android.kotlin.codelab.log.AndroidLogger
 import me.yangxiaobin.kotlin.codelab.ext.curThread
 import me.yangxiaobin.logger.core.LogFacade

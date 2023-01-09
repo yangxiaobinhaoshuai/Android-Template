@@ -4,7 +4,7 @@ import android.view.KeyEvent
 import android.view.WindowManager
 import me.yangxiaobin.android.keyboard.databinding.ActivityKeyboardBinding
 import me.yangxiaobin.android.kotlin.codelab.base.AbsViewBindingActivity
-import me.yangxiaobin.android.kotlin.codelab.base.LogAbility
+import me.yangxiaobin.android.kotlin.codelab.base.ability.LogAbility
 import me.yangxiaobin.android.kotlin.codelab.log.AndroidLogger
 import me.yangxiaobin.common_ui.EmptyActivity
 import me.yangxiaobin.kotlin.codelab.ext.neatName

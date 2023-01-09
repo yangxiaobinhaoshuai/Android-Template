@@ -6,11 +6,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import me.yangxiaobin.android.kotlin.codelab.base.LogAbility
-import me.yangxiaobin.android.kotlin.codelab.ext.mainHandler
-import me.yangxiaobin.android.kotlin.codelab.ext.makeCancellable
-import me.yangxiaobin.android.kotlin.codelab.ext.postInterval
-import me.yangxiaobin.android.kotlin.codelab.ext.workerHandler
+import me.yangxiaobin.android.kotlin.codelab.base.ability.LogAbility
 import me.yangxiaobin.android.kotlin.codelab.log.AndroidLogger
 import me.yangxiaobin.common_ui.EmptyFragment
 import me.yangxiaobin.logger.core.LogFacade

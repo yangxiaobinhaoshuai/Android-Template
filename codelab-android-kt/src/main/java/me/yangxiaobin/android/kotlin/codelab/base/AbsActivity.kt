@@ -6,16 +6,24 @@ import android.os.Bundle
 import android.view.View
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
-import me.yangxiaobin.android.kotlin.codelab.R
+import me.yangxiaobin.android.kotlin.codelab.base.ability.LogAbility
+import me.yangxiaobin.android.kotlin.codelab.base.ability.ResAbility
+import me.yangxiaobin.android.kotlin.codelab.ext.context.buildResColor
+import me.yangxiaobin.android.kotlin.codelab.ext.context.buildResDrawable
+import me.yangxiaobin.android.kotlin.codelab.ext.context.buildResString
 import me.yangxiaobin.kotlin.codelab.ext.neatName
 
-abstract class AbsActivity : AppCompatActivity(), LogAbility {
+abstract class AbsActivity : AppCompatActivity(), LogAbility, ResAbility {
 
     override val LogAbility.TAG: String get() = "AbsActivity:${this.neatName.take(11)}"
 
     protected open val contentResId: Int = -1
 
     open val handleBackPress = false
+
+    override val asColor by lazy { buildResColor(this) }
+    override val asString by lazy { buildResString(this) }
+    override val asDrawable by lazy { buildResDrawable(this) }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,7 +49,7 @@ abstract class AbsActivity : AppCompatActivity(), LogAbility {
         else setContentView(getRootView())
     }
 
-    protected open fun getRootView(): View = View(this).apply { this.setBackgroundColor(android.R.color.holo_blue_light) }
+    protected open fun getRootView(): View = View(this).apply { this.setBackgroundColor(android.R.color.holo_blue_light.asColor()) }
 
     protected open fun beforeOnCreate() {}
 

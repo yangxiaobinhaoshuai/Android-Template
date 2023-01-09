@@ -4,6 +4,7 @@ import android.content.ContentProvider
 import android.content.ContentValues
 import android.database.Cursor
 import android.net.Uri
+import me.yangxiaobin.android.kotlin.codelab.base.ability.LogAbility
 import me.yangxiaobin.android.kotlin.codelab.ext.appinfo.currentProcessName
 import me.yangxiaobin.android.kotlin.codelab.ext.appinfo.getCurrentPid
 import me.yangxiaobin.kotlin.codelab.ext.neatName

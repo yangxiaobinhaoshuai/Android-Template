@@ -2,7 +2,7 @@ package me.yangxiaobin.android.codelab
 
 import me.yangxiaobin.android.kotlin.codelab.BuildConfig
 import me.yangxiaobin.android.kotlin.codelab.base.AbsApplication
-import me.yangxiaobin.android.kotlin.codelab.base.LogAbility
+import me.yangxiaobin.android.kotlin.codelab.base.ability.LogAbility
 import me.yangxiaobin.android.kotlin.codelab.ext.*
 import me.yangxiaobin.android.kotlin.codelab.ext.appinfo.*
 import me.yangxiaobin.android.kotlin.codelab.ext.device.*

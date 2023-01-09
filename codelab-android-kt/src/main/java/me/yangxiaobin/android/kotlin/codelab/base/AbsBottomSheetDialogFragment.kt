@@ -11,6 +11,7 @@ import android.view.animation.Animation
 import androidx.activity.addCallback
 import androidx.fragment.app.commit
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import me.yangxiaobin.android.kotlin.codelab.base.ability.LogAbility
 import me.yangxiaobin.kotlin.codelab.ext.neatName
 
 /**

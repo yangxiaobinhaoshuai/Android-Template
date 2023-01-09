@@ -4,6 +4,7 @@ import android.app.Service
 import android.content.Context
 import android.content.Intent
 import android.os.IBinder
+import me.yangxiaobin.android.kotlin.codelab.base.ability.LogAbility
 
 open class AbsService : Service(), LogAbility {
 

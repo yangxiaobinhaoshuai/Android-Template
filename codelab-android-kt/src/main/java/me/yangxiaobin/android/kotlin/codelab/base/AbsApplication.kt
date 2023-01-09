@@ -2,6 +2,7 @@ package me.yangxiaobin.android.kotlin.codelab.base
 
 import android.app.Application
 import android.content.Context
+import me.yangxiaobin.android.kotlin.codelab.base.ability.LogAbility
 
 open class AbsApplication : Application(), LogAbility {
 

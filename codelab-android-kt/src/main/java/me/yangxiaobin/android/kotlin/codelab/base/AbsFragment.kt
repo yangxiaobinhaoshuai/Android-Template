@@ -12,10 +12,15 @@ import androidx.activity.addCallback
 import androidx.annotation.CallSuper
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
+import me.yangxiaobin.android.kotlin.codelab.base.ability.LogAbility
+import me.yangxiaobin.android.kotlin.codelab.base.ability.ResAbility
+import me.yangxiaobin.android.kotlin.codelab.ext.context.buildResColor
+import me.yangxiaobin.android.kotlin.codelab.ext.context.buildResDrawable
+import me.yangxiaobin.android.kotlin.codelab.ext.context.buildResString
 import me.yangxiaobin.kotlin.codelab.ext.neatName
 
 @Suppress("LeakingThis")
-abstract class AbsFragment : Fragment(), LogAbility {
+abstract class AbsFragment : Fragment(), LogAbility, ResAbility {
 
     override val LogAbility.TAG: String get() = "AbsFragment:${this.javaClass.simpleName.take(11)}"
 
@@ -33,6 +38,10 @@ abstract class AbsFragment : Fragment(), LogAbility {
      * Whether to handle back event.
      */
     protected open val handleBackPress = true
+
+    override val asColor by lazy { buildResColor(requireContext()) }
+    override val asString by lazy { buildResString(requireContext()) }
+    override val asDrawable by lazy { buildResDrawable(requireContext()) }
 
     init {
         logI("onConstruct")

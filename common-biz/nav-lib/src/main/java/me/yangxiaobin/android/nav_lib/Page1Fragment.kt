@@ -1,7 +1,7 @@
 package me.yangxiaobin.android.nav_lib
 
 import androidx.navigation.fragment.findNavController
-import me.yangxiaobin.android.kotlin.codelab.base.LogAbility
+import me.yangxiaobin.android.kotlin.codelab.base.ability.LogAbility
 import me.yangxiaobin.android.kotlin.codelab.log.AndroidLogger
 import me.yangxiaobin.common_ui.ButtonsFragment
 import me.yangxiaobin.logger.core.LogFacade

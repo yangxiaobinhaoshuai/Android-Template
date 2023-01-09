@@ -3,7 +3,7 @@ package me.yangxiaobin.android.ui.kit.samples
 import android.graphics.drawable.ColorDrawable
 import android.view.View
 import me.yangxiaobin.android.kotlin.codelab.ext.androidColor
-import me.yangxiaobin.android.kotlin.codelab.base.LogAbility
+import me.yangxiaobin.android.kotlin.codelab.base.ability.LogAbility
 import me.yangxiaobin.android.kotlin.codelab.log.AndroidLogger
 import me.yangxiaobin.android.ui.kit.R
 import me.yangxiaobin.android.ui.kit.createShapeDrawable

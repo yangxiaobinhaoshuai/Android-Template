@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.animator_sample.databinding.FragmentAnimatorExampleBinding
 import me.yangxiaobin.android.kotlin.codelab.base.AbsViewBindingFragment
-import me.yangxiaobin.android.kotlin.codelab.base.LogAbility
+import me.yangxiaobin.android.kotlin.codelab.base.ability.LogAbility
 import me.yangxiaobin.android.kotlin.codelab.ext.animator.Anim
 import me.yangxiaobin.android.kotlin.codelab.ext.animator.createObjAnimator
 import me.yangxiaobin.android.kotlin.codelab.ext.animator.plus

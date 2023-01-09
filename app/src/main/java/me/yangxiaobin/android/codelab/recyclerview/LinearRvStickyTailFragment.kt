@@ -17,7 +17,7 @@ import androidx.recyclerview.widget.RecyclerView
 import me.yangxiaobin.android.codelab.R
 import me.yangxiaobin.android.codelab.databinding.FragmentLienarRvStickyTailBinding
 import me.yangxiaobin.android.kotlin.codelab.base.AbsViewBindingFragment
-import me.yangxiaobin.android.kotlin.codelab.base.LogAbility
+import me.yangxiaobin.android.kotlin.codelab.base.ability.LogAbility
 import me.yangxiaobin.android.kotlin.codelab.ext.context.screenSize
 import me.yangxiaobin.android.kotlin.codelab.ext.context.statusBarSize
 import me.yangxiaobin.android.kotlin.codelab.ext.uiwidget.*

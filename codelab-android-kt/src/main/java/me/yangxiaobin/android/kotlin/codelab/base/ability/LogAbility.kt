@@ -1,4 +1,4 @@
-package me.yangxiaobin.android.kotlin.codelab.base
+package me.yangxiaobin.android.kotlin.codelab.base.ability
 
 import com.jakewharton.picnic.TextAlignment
 import com.jakewharton.picnic.table

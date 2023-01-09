@@ -4,7 +4,7 @@ import android.animation.AnimatorSet
 import androidx.core.os.postDelayed
 import com.example.animator_sample.databinding.ActivityAnimatorExampleBinding
 import me.yangxiaobin.android.kotlin.codelab.base.AbsViewBindingActivity
-import me.yangxiaobin.android.kotlin.codelab.base.LogAbility
+import me.yangxiaobin.android.kotlin.codelab.base.ability.LogAbility
 import me.yangxiaobin.android.kotlin.codelab.ext.animator.Anim
 import me.yangxiaobin.android.kotlin.codelab.ext.animator.createObjAnimator
 import me.yangxiaobin.android.kotlin.codelab.ext.mainHandler
