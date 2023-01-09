@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
+import me.yangxiaobin.android.kotlin.codelab.R
 import me.yangxiaobin.kotlin.codelab.ext.neatName
 
 abstract class AbsActivity : AppCompatActivity(), LogAbility {
@@ -40,7 +41,7 @@ abstract class AbsActivity : AppCompatActivity(), LogAbility {
         else setContentView(getRootView())
     }
 
-    protected open fun getRootView(): View = View(this)
+    protected open fun getRootView(): View = View(this).apply { this.setBackgroundColor(android.R.color.holo_blue_light) }
 
     protected open fun beforeOnCreate() {}
 

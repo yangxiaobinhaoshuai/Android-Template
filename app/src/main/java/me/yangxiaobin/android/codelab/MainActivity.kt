@@ -152,7 +152,8 @@ class MainActivity : AbsActivity() {
 
         // 20.Animator
         "Animator" to arrayOf(
-            "AnimatorExampleActivity"
+            "AnimatorExampleFragment",
+            "AnimatorExampleActivity",
         )
 
     )

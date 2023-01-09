@@ -6,7 +6,10 @@ import kotlin.properties.Delegates
 @Suppress("MemberVisibilityCanBePrivate")
 abstract class AbsViewBindingActivity<T : ViewBinding> : AbsActivity() {
 
-    override val contentResId = 0
+    /**
+     * MUST be great than 0
+     */
+    override val contentResId = 1
 
     protected var binding: T by Delegates.notNull()
 

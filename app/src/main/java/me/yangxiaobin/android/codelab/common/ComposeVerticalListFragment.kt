@@ -12,6 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.fragment.app.Fragment
+import com.example.animator_sample.AnimatorExampleActivity
 import com.example.animator_sample.AnimatorExampleFragment
 import me.yangxiaobin.android.codelab.alerts.PopupWindowBtsFragment
 import me.yangxiaobin.android.codelab.jepack_compose.CheckBoxFragment
@@ -198,7 +199,8 @@ class ComposeVerticalListFragment : AbsComposableFragment() {
             "Matrix" -> naviToFragment(MatrixFragment())
 
             // 20. Animator
-            "AnimatorExampleActivity" -> naviToFragment(AnimatorExampleFragment())
+            "AnimatorExampleFragment" -> naviToFragment(AnimatorExampleFragment())
+            "AnimatorExampleActivity" -> ctx.startActivity(ctx.intentFor<AnimatorExampleActivity>())
 
             else -> showFragmentToast("UnSupport key :$dest.")
         }
