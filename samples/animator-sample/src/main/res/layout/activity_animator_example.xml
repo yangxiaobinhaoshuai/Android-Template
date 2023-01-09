@@ -9,11 +9,23 @@
 
     <TextView
         android:id="@+id/tv_animator_activity"
-        android:textColor="@color/purple_200"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Hello Animator Activity!"
+        android:textColor="@color/purple_200"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <Button
+        android:id="@+id/bt_anim_activity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
+        android:layout_marginEnd="@android:dimen/app_icon_size"
+        android:text="bt1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

@@ -208,7 +208,7 @@ class MainActivity : AbsActivity() {
 
 
         // TODO config this pls.
-        //navigateToSubFragment("AnimatorExampleActivity")
+        navigateToSubFragment("AnimatorExampleActivity")
     }
 
     @Suppress("SameParameterValue")
