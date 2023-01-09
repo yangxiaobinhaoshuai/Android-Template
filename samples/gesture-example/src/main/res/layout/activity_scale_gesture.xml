@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/purple_200">
 
-    <ImageView
+    <com.yxb.gesture.example.MyImageView
         android:id="@+id/imgv_gesture_activity"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

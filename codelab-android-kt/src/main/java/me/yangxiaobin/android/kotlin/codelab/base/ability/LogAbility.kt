@@ -10,10 +10,11 @@ import me.yangxiaobin.logger.core.LogFacade
 import me.yangxiaobin.logger.core.LogLevel
 import me.yangxiaobin.logger.log
 
+typealias  LogFun = (message: String) -> Unit
 
 interface LogAbility {
 
-    val LogAbility.TAG: String get() = "LogAbility:${this@LogAbility.neatName.take(11)}"
+    val LogAbility.TAG: String get() = "LogAbility:${this.neatName.take(11)}"
 
     /**
      * Must be getter, or u will get 'java.lang.NullPointerException: Parameter specified as non-null is null: method kotlin.jvm.internal.Intrinsics.checkNotNullParameter, parameter <this>'
@@ -22,9 +23,9 @@ interface LogAbility {
      */
     val logger: LogFacade get() = L.clone()
 
-    val logI: (message: String) -> Unit get() = logger.log(LogLevel.INFO, TAG)
-    val logD: (message: String) -> Unit get() = logger.log(LogLevel.DEBUG, TAG)
-    val logE: (message: String) -> Unit get() = logger.log(LogLevel.ERROR, TAG)
+    val logI: LogFun get() = logger.log(LogLevel.INFO, TAG)
+    val logD: LogFun get() = logger.log(LogLevel.DEBUG, TAG)
+    val logE: LogFun get() = logger.log(LogLevel.ERROR, TAG)
 
     fun getTable(tag: String, message: String): String = table {
         cellStyle {

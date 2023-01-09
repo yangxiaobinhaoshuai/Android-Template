@@ -1,11 +1,13 @@
  package me.yangxiaobin.android.kotlin.codelab.ext.uiwidget
 
 import android.app.Activity
+import android.content.Context
 import android.graphics.Point
 import android.graphics.Rect
 import android.view.Gravity
 import android.view.View
 import android.view.WindowManager
+import android.view.inputmethod.InputMethodManager
 import android.widget.PopupWindow
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -120,4 +122,18 @@ fun View?.getKeyboardVisibilityFLow(xMs: Long = 100L): Flow<Boolean> =
          // 去掉第一次的 0
         .drop(1)
 
+ }
+
+
+
+ /**
+  * Copy from
+  * @see com.google.android.material.internal.ViewUtils.requestFocusAndShowKeyboard
+  */
+ fun View.requestFocusAndShowKeyboard() {
+     this.requestFocus()
+     this.post {
+         val inputMethodManager = this.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+         inputMethodManager.showSoftInput(this, InputMethodManager.SHOW_IMPLICIT)
+     }
  }
