@@ -142,5 +142,6 @@ dependencies {
     implementation project(':samples:proxy-lib')
     implementation project(':module-inverse-deps-solution')
     implementation project(':samples:imageEdit')
+    implementation project(':samples:animator-sample')
     implementation alias.diLib
 }

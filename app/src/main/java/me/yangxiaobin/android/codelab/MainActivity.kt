@@ -150,6 +150,11 @@ class MainActivity : AbsActivity() {
             "Matrix"
         ),
 
+        // 20.Animator
+        "Animator" to arrayOf(
+            "AnimatorExampleActivity"
+        )
+
     )
 
 
@@ -202,7 +207,7 @@ class MainActivity : AbsActivity() {
 
 
         // TODO config this pls.
-        navigateToSubFragment("Matrix")
+        //navigateToSubFragment("AnimatorExampleActivity")
     }
 
     @Suppress("SameParameterValue")

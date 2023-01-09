@@ -12,8 +12,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.fragment.app.Fragment
+import com.example.animator_sample.AnimatorExampleFragment
 import me.yangxiaobin.android.codelab.alerts.PopupWindowBtsFragment
-import me.yangxiaobin.android.di_lib.Dagger2Fragment
 import me.yangxiaobin.android.codelab.jepack_compose.CheckBoxFragment
 import me.yangxiaobin.android.codelab.jepack_compose.MyBottomSheetDialogFragment
 import me.yangxiaobin.android.codelab.jepack_compose.RoundCornerBottomSheetDialogFragment
@@ -32,6 +32,7 @@ import me.yangxiaobin.android.codelab.recyclerview.*
 import me.yangxiaobin.android.codelab.retrofit.RetrofitFragment
 import me.yangxiaobin.android.codelab.touch_event.ActionCancelEventFragment
 import me.yangxiaobin.android.codelab.touch_event.ContinuousClickFragment
+import me.yangxiaobin.android.di_lib.Dagger2Fragment
 import me.yangxiaobin.android.embedding_compat.OppoEmbeddingActivity
 import me.yangxiaobin.android.jank_sample.NPEFragment
 import me.yangxiaobin.android.jank_sample.PerfettoSampleFragment
@@ -44,8 +45,8 @@ import me.yangxiaobin.android.permission_example.PrivacyProtectionFragment
 import me.yangxiaobin.android.proguard_lib.ReflectFragment
 import me.yangxiaobin.android.proxylib.DynamicProxyFragment
 import me.yangxiaobin.android.ui.kit.samples.SelectorsFragment
-import me.yangxiaobin.android.webview.JsFunctionFragment
 import me.yangxiaobin.android.webview.AbsWebViewFragment
+import me.yangxiaobin.android.webview.JsFunctionFragment
 import me.yangxiaobin.image_edit.ImageEditEntranceActivity
 import me.yangxiaobin.image_edit.matrix_learning.MatrixFragment
 import me.yangxiaobin.kotlin.compose.lib.AbsComposableFragment
@@ -195,6 +196,9 @@ class ComposeVerticalListFragment : AbsComposableFragment() {
             // 19. Image
             "ImageEdit" -> ctx.startActivity(ctx.intentFor<ImageEditEntranceActivity>())
             "Matrix" -> naviToFragment(MatrixFragment())
+
+            // 20. Animator
+            "AnimatorExampleActivity" -> naviToFragment(AnimatorExampleFragment())
 
             else -> showFragmentToast("UnSupport key :$dest.")
         }
