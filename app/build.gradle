@@ -143,5 +143,6 @@ dependencies {
     implementation project(':module-inverse-deps-solution')
     implementation project(':samples:imageEdit')
     implementation project(':samples:animator-sample')
+    implementation project(':samples:gesture-example')
     implementation alias.diLib
 }

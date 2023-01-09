@@ -19,11 +19,12 @@
         android:theme="@style/Theme.AndroidCodelab"
         android:usesCleartextTraffic="true"
         tools:replace="android:icon,android:allowBackup"
-        tools:targetApi="m">
+        >
 
 
         <activity
             android:name=".MainActivity"
+            android:theme="@style/MainActivityTheme"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -34,30 +35,36 @@
 
         <activity
             android:name=".multi_process.RemoteActivity"
-            android:process=":remote_activity"></activity>
+            android:process=":remote_activity">
+        </activity>
 
-        <service android:name=".multi_process.LocalService"></service>
+        <service android:name=".multi_process.LocalService">
+        </service>
 
         <service
             android:name=".multi_process.RemoteService"
-            android:process=":remote_service"></service>
+            android:process=":remote_service">
+        </service>
 
         <provider
             android:name=".multi_process.RemoteContentProvider"
             android:authorities="me.yangxiaobin.remote.authorities"
             android:exported="false"
-            android:process=":remote_provider"></provider>
+            android:process=":remote_provider">
+        </provider>
 
         <provider
             android:name=".multi_process.LocalContentProvider"
             android:authorities="me.yangxiaobin.local.authorities"
-            android:exported="false"></provider>
+            android:exported="false">
+        </provider>
 
         <provider
             android:name=".multi_process.RemoteServiceProvider"
             android:authorities="me.yangxiaobin.remote.service.authorities"
             android:exported="false"
-            android:process=":remote_service"></provider>
+            android:process=":remote_service">
+        </provider>
 
     </application>
 

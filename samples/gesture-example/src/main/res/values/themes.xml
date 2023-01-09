@@ -1,0 +1,9 @@
+<resources>
+
+    <style name="ScaleGestureActivityTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="android:windowIsTranslucent">true</item>
+        <!--  启动图背景  -->
+        <item name="android:windowBackground">@drawable/xiaoxin_1242_x_1914</item>
+    </style>
+
+</resources>

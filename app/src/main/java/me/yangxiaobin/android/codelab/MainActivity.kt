@@ -91,6 +91,7 @@ class MainActivity : AbsActivity() {
         "Touch Events" to arrayOf(
             "ACTION_CANCEL",
             "ContinuousClick",
+            "ScaleGesture",
         ),
 
         // 10. qrcode scan
@@ -208,7 +209,7 @@ class MainActivity : AbsActivity() {
 
 
         // TODO config this pls.
-        navigateToSubFragment("AnimatorExampleFragment")
+        //navigateToSubFragment("ScaleGesture")
     }
 
     @Suppress("SameParameterValue")
