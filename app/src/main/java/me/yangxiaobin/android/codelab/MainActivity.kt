@@ -209,7 +209,7 @@ class MainActivity : AbsActivity() {
 
 
         // TODO config this pls.
-        //navigateToSubFragment("ScaleGesture")
+        navigateToSubFragment("ScaleGesture")
     }
 
     @Suppress("SameParameterValue")

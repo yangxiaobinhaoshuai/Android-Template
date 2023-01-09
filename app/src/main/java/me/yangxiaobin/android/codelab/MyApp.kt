@@ -1,6 +1,5 @@
 package me.yangxiaobin.android.codelab
 
-import android.app.AlertDialog
 import android.content.Context
 import android.content.DialogInterface
 import android.hardware.SensorManager
@@ -16,8 +15,6 @@ import me.yangxiaobin.android.kotlin.codelab.log.AndroidLogger
 import me.yangxiaobin.android.permission.PermissionManager
 import me.yangxiaobin.logger.core.LogFacade
 import me.yangxiaobin.module_service_provider_annotation.DebugLog
-import org.jetbrains.anko.alert
-import org.jetbrains.anko.ctx
 import org.jetbrains.anko.intentFor
 import org.jetbrains.anko.selector
 import kotlin.time.ExperimentalTime

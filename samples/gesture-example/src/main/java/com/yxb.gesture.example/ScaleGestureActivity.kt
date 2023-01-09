@@ -12,6 +12,9 @@ class ScaleGestureActivity : AbsViewBindingActivity<ActivityScaleGestureBinding>
 
     override val LogAbility.TAG: String get() = "ScaleGesture@@"
 
+    private val imageView by lazy { binding.imgvGestureActivity }
+
+
     override fun getActualBinding(): ActivityScaleGestureBinding =
         ActivityScaleGestureBinding.inflate(this.layoutInflater)
 
