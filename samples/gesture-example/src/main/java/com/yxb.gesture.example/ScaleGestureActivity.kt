@@ -8,12 +8,13 @@ import android.view.ScaleGestureDetector
 import android.widget.ImageView
 import androidx.appcompat.widget.AppCompatImageView
 import com.example.gesture_example.databinding.ActivityScaleGestureBinding
-import com.yxb.simple.adapters.ScaleGestureListener
+import com.yxb.simple.adapters.ScaleGestureListenerAdapter
 import me.yangxiaobin.android.kotlin.codelab.base.AbsViewBindingActivity
 import me.yangxiaobin.android.kotlin.codelab.base.ability.LogAbility
-import me.yangxiaobin.android.kotlin.codelab.base.ability.LogFun
+import me.yangxiaobin.android.kotlin.codelab.ext.animator.Anim
+import me.yangxiaobin.android.kotlin.codelab.ext.animator.getObjAnim
+import me.yangxiaobin.android.kotlin.codelab.ext.animator.plus
 import me.yangxiaobin.android.kotlin.codelab.ext.doOnInterceptTouch
-import me.yangxiaobin.android.kotlin.codelab.ext.doOnTouch
 import me.yangxiaobin.android.kotlin.codelab.log.AndroidLogger
 import me.yangxiaobin.logger.core.LogFacade
 
@@ -32,27 +33,60 @@ class ScaleGestureActivity : AbsViewBindingActivity<ActivityScaleGestureBinding>
     override fun afterOnCreate() {
         super.afterOnCreate()
 
-        val scaleGestureDetector = ScaleGestureDetector(this, object : ScaleGestureListener() {
+        val scaleGestureDetector =
+            ScaleGestureDetector(this, object : ScaleGestureListenerAdapter() {
 
-            override fun onScale(detector: ScaleGestureDetector?): Boolean {
-                logD("onScale")
-                return super.onScale(detector)
-            }
+                override fun onScale(detector: ScaleGestureDetector): Boolean {
+                    logD(
+                        """
+                    ScaleGestureActivity 
+                    onScale factor: ${detector.scaleFactor}, 
+                    focusX: ${detector.focusX}, 
+                    focusY: ${detector.focusY}, 
+                """.trimIndent()
+                    )
 
-            override fun onScaleBegin(detector: ScaleGestureDetector?): Boolean {
-                logD("onScaleBegin")
-                return super.onScaleBegin(detector)
-            }
+//                    val xScale = imageView.getObjAnim(animEnum = Anim.ScaleX, 1F, detector.scaleFactor)
+//                    val yScale = imageView.getObjAnim(animEnum = Anim.ScaleY, 1F, detector.scaleFactor)
+//                    (xScale + yScale).apply { this.duration = 0 }.start()
 
-            override fun onScaleEnd(detector: ScaleGestureDetector?) {
-                logD("onScaleEnd")
-                super.onScaleEnd(detector)
-            }
+                    imageView.scaleX = detector.scaleFactor
+                    imageView.scaleY = detector.scaleFactor
 
-        })
+                    return super.onScale(detector)
+                }
+
+                override fun onScaleBegin(detector: ScaleGestureDetector): Boolean {
+                    logD(
+                        """
+                    ScaleGestureActivity 
+                    onScaleBegin factor: ${detector.scaleFactor}, 
+                    focusX: ${detector.focusX}, 
+                    focusY: ${detector.focusY}, 
+                """.trimIndent()
+                    )
+                    return super.onScaleBegin(detector)
+                }
+
+                override fun onScaleEnd(detector: ScaleGestureDetector) {
+                    logD(
+                        """
+                    ScaleGestureActivity 
+                    onScaleEnd factor: ${detector.scaleFactor}, 
+                    focusX: ${detector.focusX}, 
+                    focusY: ${detector.focusY}, 
+                """.trimIndent()
+                    )
+                    super.onScaleEnd(detector)
+                }
+
+            })
 
         //imageView.doOnTouch { scaleGestureDetector.onTouchEvent(it) }
-        imageView.doOnInterceptTouch { scaleGestureDetector.onTouchEvent(it) }
+        imageView.doOnInterceptTouch {
+            //logD("onTouch, eventX: ${it.x}, eventY: ${it.y}, pointers: ${it.pointerCount}")
+            scaleGestureDetector.onTouchEvent(it)
+        }
 //        imageView.setOnTouchListener { v, event ->
 //            //logD("Touched view :${event.action}")
 //            return@setOnTouchListener scaleGestureDetector.onTouchEvent(event)
@@ -72,20 +106,20 @@ class MyImageView @JvmOverloads constructor(
     val logD = fun(m: String) = Log.d("ScaleGesture@@", m)
 
     private val scaleGestureDetector =
-        ScaleGestureDetector(this.context, object : ScaleGestureListener() {
+        ScaleGestureDetector(this.context, object : ScaleGestureListenerAdapter() {
 
             override fun onScale(detector: ScaleGestureDetector?): Boolean {
-                logD("onScale")
+                logD("custom image onScale")
                 return super.onScale(detector)
             }
 
             override fun onScaleBegin(detector: ScaleGestureDetector?): Boolean {
-                logD("onScaleBegin")
+                logD("custom image onScaleBegin")
                 return super.onScaleBegin(detector)
             }
 
             override fun onScaleEnd(detector: ScaleGestureDetector?) {
-                logD("onScaleEnd")
+                logD("custom image onScaleEnd")
                 super.onScaleEnd(detector)
             }
 

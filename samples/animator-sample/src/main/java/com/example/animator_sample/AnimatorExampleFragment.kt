@@ -8,7 +8,7 @@ import com.example.animator_sample.databinding.FragmentAnimatorExampleBinding
 import me.yangxiaobin.android.kotlin.codelab.base.AbsViewBindingFragment
 import me.yangxiaobin.android.kotlin.codelab.base.ability.LogAbility
 import me.yangxiaobin.android.kotlin.codelab.ext.animator.Anim
-import me.yangxiaobin.android.kotlin.codelab.ext.animator.createObjAnimator
+import me.yangxiaobin.android.kotlin.codelab.ext.animator.getObjAnim
 import me.yangxiaobin.android.kotlin.codelab.ext.animator.plus
 import me.yangxiaobin.android.kotlin.codelab.log.AndroidLogger
 import me.yangxiaobin.logger.core.LogFacade
@@ -35,10 +35,10 @@ class AnimatorExampleFragment : AbsViewBindingFragment<FragmentAnimatorExampleBi
 
         bt1.setOnClickListener {
 
-            val xScale = tv.createObjAnimator(Anim.ScaleX, 1F, 1.5F)
-            val yScale = tv.createObjAnimator(Anim.ScaleY, 1F, 1.5F)
+            val xScale = tv.getObjAnim(Anim.ScaleX, 1F, 1.5F)
+            val yScale = tv.getObjAnim(Anim.ScaleY, 1F, 1.5F)
 
-            val yTrans = tv.createObjAnimator(Anim.TranslationY, -200F)
+            val yTrans = tv.getObjAnim(Anim.TranslationY, -200F)
 
             (xScale + yScale + yTrans).start()
 
@@ -46,10 +46,10 @@ class AnimatorExampleFragment : AbsViewBindingFragment<FragmentAnimatorExampleBi
 
         bt2.setOnClickListener {
 
-            val x = tv.createObjAnimator(Anim.ScaleX, 1.5F, 1F)
-            val y = tv.createObjAnimator(Anim.ScaleY, 1.5F, 1F)
+            val x = tv.getObjAnim(Anim.ScaleX, 1.5F, 1F)
+            val y = tv.getObjAnim(Anim.ScaleY, 1.5F, 1F)
 
-            val t = tv.createObjAnimator(Anim.TranslationY, 0F)
+            val t = tv.getObjAnim(Anim.TranslationY, 0F)
 
             (x + y + t).start()
 

@@ -6,7 +6,7 @@ import com.example.animator_sample.databinding.ActivityAnimatorExampleBinding
 import me.yangxiaobin.android.kotlin.codelab.base.AbsViewBindingActivity
 import me.yangxiaobin.android.kotlin.codelab.base.ability.LogAbility
 import me.yangxiaobin.android.kotlin.codelab.ext.animator.Anim
-import me.yangxiaobin.android.kotlin.codelab.ext.animator.createObjAnimator
+import me.yangxiaobin.android.kotlin.codelab.ext.animator.getObjAnim
 import me.yangxiaobin.android.kotlin.codelab.ext.mainHandler
 import me.yangxiaobin.android.kotlin.codelab.log.AndroidLogger
 import me.yangxiaobin.logger.core.LogFacade
@@ -23,8 +23,8 @@ class AnimatorExampleActivity : AbsViewBindingActivity<ActivityAnimatorExampleBi
     override fun afterOnCreate() {
         super.afterOnCreate()
 
-        val xAnim = binding.tvAnimatorActivity.createObjAnimator(animEnum = Anim.ScaleX, 1F, 1.5F)
-        val yAnim = binding.tvAnimatorActivity.createObjAnimator(animEnum = Anim.ScaleY, 1F, 1.5F)
+        val xAnim = binding.tvAnimatorActivity.getObjAnim(animEnum = Anim.ScaleX, 1F, 1.5F)
+        val yAnim = binding.tvAnimatorActivity.getObjAnim(animEnum = Anim.ScaleY, 1F, 1.5F)
 
         val set = AnimatorSet()
         set.playTogether(xAnim, yAnim)
@@ -36,8 +36,8 @@ class AnimatorExampleActivity : AbsViewBindingActivity<ActivityAnimatorExampleBi
         binding.btAnimActivity.setOnClickListener {
             set.cancel()
 
-            val x = binding.tvAnimatorActivity.createObjAnimator(animEnum = Anim.ScaleX, 1.5F, 1F)
-            val y = binding.tvAnimatorActivity.createObjAnimator(animEnum = Anim.ScaleY, 1.5F, 1F)
+            val x = binding.tvAnimatorActivity.getObjAnim(animEnum = Anim.ScaleX, 1.5F, 1F)
+            val y = binding.tvAnimatorActivity.getObjAnim(animEnum = Anim.ScaleY, 1.5F, 1F)
 
 
             val s = AnimatorSet()

@@ -51,7 +51,7 @@ operator fun Animator?.plus(animator: Animator?): Animator =
         }
     }
 
-fun View.createObjAnimator(
+fun View.getObjAnim(
     propName: String,
     vararg intValues: Int,
     objAnimConfig: (ObjectAnimator.() -> Unit) = {},
@@ -65,7 +65,7 @@ fun View.createObjAnimator(
     return animator
 }
 
-fun View.createObjAnimator(
+fun View.getObjAnim(
     propName: String,
     vararg floatValues: Float,
     objAnimConfig: (ObjectAnimator.() -> Unit) = {},
@@ -81,14 +81,14 @@ fun View.createObjAnimator(
 
 
 
-fun View.createObjAnimator(
+fun View.getObjAnim(
     animEnum: Anim,
     vararg values: Int,
     init: (ObjectAnimator.() -> Unit) = {},
-): ObjectAnimator? = this.createObjAnimator(animEnum.propertyName, intValues = values, init)
+): ObjectAnimator? = this.getObjAnim(animEnum.propertyName, intValues = values, init)
 
-fun View.createObjAnimator(
+fun View.getObjAnim(
     animEnum: Anim,
     vararg values: Float,
     init: (ObjectAnimator.() -> Unit) = {},
-): ObjectAnimator? = this.createObjAnimator(animEnum.propertyName, floatValues = values, init)
+): ObjectAnimator? = this.getObjAnim(animEnum.propertyName, floatValues = values, init)
