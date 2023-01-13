@@ -8,12 +8,11 @@
 
     <com.yxb.gesture.example.MyImageView
         android:id="@+id/imgv_gesture_activity"
-        android:background="@android:color/holo_blue_bright"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginHorizontal="100dp"
-        android:layout_marginVertical="200dp"
-        android:src="@drawable/xiaoxin_1800_x_1800"
+        android:layout_marginHorizontal="50dp"
+        android:layout_marginVertical="100dp"
+        android:background="@android:color/holo_blue_bright"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

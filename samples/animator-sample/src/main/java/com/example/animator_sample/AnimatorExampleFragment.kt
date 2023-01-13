@@ -35,10 +35,10 @@ class AnimatorExampleFragment : AbsViewBindingFragment<FragmentAnimatorExampleBi
 
         bt1.setOnClickListener {
 
-            val xScale = tv.getObjAnim(Anim.ScaleX, 1F, 1.5F)
-            val yScale = tv.getObjAnim(Anim.ScaleY, 1F, 1.5F)
+            val xScale = tv.getObjAnim(Anim.SCALE_X, 1F, 1.5F)
+            val yScale = tv.getObjAnim(Anim.SCALE_Y, 1F, 1.5F)
 
-            val yTrans = tv.getObjAnim(Anim.TranslationY, -200F)
+            val yTrans = tv.getObjAnim(Anim.TRANSLATION_Y, -200F)
 
             (xScale + yScale + yTrans).start()
 
@@ -46,10 +46,10 @@ class AnimatorExampleFragment : AbsViewBindingFragment<FragmentAnimatorExampleBi
 
         bt2.setOnClickListener {
 
-            val x = tv.getObjAnim(Anim.ScaleX, 1.5F, 1F)
-            val y = tv.getObjAnim(Anim.ScaleY, 1.5F, 1F)
+            val x = tv.getObjAnim(Anim.SCALE_X, 1.5F, 1F)
+            val y = tv.getObjAnim(Anim.SCALE_Y, 1.5F, 1F)
 
-            val t = tv.getObjAnim(Anim.TranslationY, 0F)
+            val t = tv.getObjAnim(Anim.TRANSLATION_Y, 0F)
 
             (x + y + t).start()
 

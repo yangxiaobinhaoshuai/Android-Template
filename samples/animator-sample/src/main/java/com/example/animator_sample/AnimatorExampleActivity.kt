@@ -23,8 +23,8 @@ class AnimatorExampleActivity : AbsViewBindingActivity<ActivityAnimatorExampleBi
     override fun afterOnCreate() {
         super.afterOnCreate()
 
-        val xAnim = binding.tvAnimatorActivity.getObjAnim(animEnum = Anim.ScaleX, 1F, 1.5F)
-        val yAnim = binding.tvAnimatorActivity.getObjAnim(animEnum = Anim.ScaleY, 1F, 1.5F)
+        val xAnim = binding.tvAnimatorActivity.getObjAnim(animEnum = Anim.SCALE_X, 1F, 1.5F)
+        val yAnim = binding.tvAnimatorActivity.getObjAnim(animEnum = Anim.SCALE_Y, 1F, 1.5F)
 
         val set = AnimatorSet()
         set.playTogether(xAnim, yAnim)
@@ -36,8 +36,8 @@ class AnimatorExampleActivity : AbsViewBindingActivity<ActivityAnimatorExampleBi
         binding.btAnimActivity.setOnClickListener {
             set.cancel()
 
-            val x = binding.tvAnimatorActivity.getObjAnim(animEnum = Anim.ScaleX, 1.5F, 1F)
-            val y = binding.tvAnimatorActivity.getObjAnim(animEnum = Anim.ScaleY, 1.5F, 1F)
+            val x = binding.tvAnimatorActivity.getObjAnim(animEnum = Anim.SCALE_X, 1.5F, 1F)
+            val y = binding.tvAnimatorActivity.getObjAnim(animEnum = Anim.SCALE_Y, 1.5F, 1F)
 
 
             val s = AnimatorSet()
