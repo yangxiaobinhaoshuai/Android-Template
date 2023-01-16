@@ -41,7 +41,7 @@ class SelectorsFragment : EmptyFragment() {
             )
 
             2 -> v.setSelectorBackground(
-                onPressDrawable = createShapeDrawable(requireContext(), solidColorRes = R.color.purple_500, radiusDp = 20),
+                onPressDrawable = createShapeDrawable(requireContext(), solidColorRes = R.color.md_purple_300, radiusDp = 20),
                 onNormalDrawable = ColorDrawable(androidColor.YELLOW),
                 ignoreOriginalBackground = true
             )

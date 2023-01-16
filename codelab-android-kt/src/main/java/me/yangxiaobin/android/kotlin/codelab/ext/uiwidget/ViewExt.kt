@@ -127,6 +127,8 @@ fun View.postCancellable(r: Runnable) {
 /**
  * 使子 View 能够跟随手指拖拽
  *
+ * NB. onTouch 会 return true
+ *
  * @see https://stackoverflow.com/a/31094315/10247834
  */
 fun View.makeDraggable(){

@@ -12,8 +12,6 @@ import androidx.appcompat.widget.AppCompatTextView
 import com.example.gesture_example.databinding.FragmentViewDragBinding
 import me.yangxiaobin.android.kotlin.codelab.base.AbsViewBindingFragment
 import me.yangxiaobin.android.kotlin.codelab.base.ability.LogAbility
-import me.yangxiaobin.android.kotlin.codelab.ext.doOnInterceptTouch
-import me.yangxiaobin.android.kotlin.codelab.ext.doOnTouch
 import me.yangxiaobin.android.kotlin.codelab.ext.uiwidget.makeDraggable
 import me.yangxiaobin.android.kotlin.codelab.log.AndroidLogger
 import me.yangxiaobin.logger.core.LogFacade
@@ -26,6 +24,8 @@ class ViewDragFragment : AbsViewBindingFragment<FragmentViewDragBinding>() {
 
     private val tv: TextView by lazy { binding.tvViewDrag }
 
+    private val container: View by lazy { binding.containerViewDrag }
+
     override fun getActualBinding(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -35,7 +35,7 @@ class ViewDragFragment : AbsViewBindingFragment<FragmentViewDragBinding>() {
     override fun afterViewCreated(view: View) {
         super.afterViewCreated(view)
 
-        var dx: Float = 0F
+        /*var dx: Float = 0F
         var dy: Float = 0F
         tv.doOnInterceptTouch { event: MotionEvent ->
 
@@ -58,9 +58,11 @@ class ViewDragFragment : AbsViewBindingFragment<FragmentViewDragBinding>() {
             }
 
             return@doOnInterceptTouch false
-        }
+        }*/
 
-//        tv.makeDraggable()
+        //tv.makeDraggable()
+
+        container.makeDraggable()
 
     }
 }

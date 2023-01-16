@@ -4,18 +4,29 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <EditText
-        android:id="@+id/tv_view_drag"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@color/design_default_color_error"
-        android:hint="ViewDrag Tv"
-        android:padding="10dp"
-        android:textColor="@android:color/holo_blue_bright"
-        android:textColorHint="@color/white"
+    <FrameLayout
+        android:id="@+id/container_view_drag"
+        android:layout_width="200dp"
+        android:layout_height="140dp"
+        android:background="@color/md_yellow_400"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
+
+
+        <EditText
+            android:id="@+id/tv_view_drag"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@color/design_default_color_error"
+            android:hint="ViewDrag Tv"
+            android:padding="10dp"
+            android:textColor="@android:color/holo_blue_bright"
+            android:textColorHint="@color/white"
+
+            />
+    </FrameLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
