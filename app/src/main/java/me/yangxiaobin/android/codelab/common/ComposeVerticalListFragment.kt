@@ -15,6 +15,7 @@ import androidx.fragment.app.Fragment
 import com.example.animator_sample.AnimatorExampleActivity
 import com.example.animator_sample.AnimatorExampleFragment
 import com.yxb.gesture.example.ScaleGestureActivity
+import com.yxb.gesture.example.ViewDragFragment
 import com.yxb.gesture.example.ViewDragHelperFragment
 import me.yangxiaobin.android.codelab.alerts.PopupWindowBtsFragment
 import me.yangxiaobin.android.codelab.jepack_compose.CheckBoxFragment
@@ -163,7 +164,8 @@ class ComposeVerticalListFragment : AbsComposableFragment() {
             "ACTION_CANCEL" -> naviToFragment(ActionCancelEventFragment())
             "ContinuousClick" -> naviToFragment(ContinuousClickFragment())
             "ScaleGesture" ->  ctx.startActivity(ctx.intentFor<ScaleGestureActivity>())
-            "ViewDragHelper" ->  naviToFragment(ViewDragHelperFragment())
+            "ViewDragHelperFragment" ->  naviToFragment(ViewDragHelperFragment())
+            "ViewDragFragment" ->  naviToFragment(ViewDragFragment())
 
             // 10. QrScan
             "PermissionRequest" -> naviToFragment(PermissionRequestFragment())

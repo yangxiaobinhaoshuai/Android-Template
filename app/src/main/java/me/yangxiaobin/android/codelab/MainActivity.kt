@@ -92,7 +92,8 @@ class MainActivity : AbsActivity() {
             "ACTION_CANCEL",
             "ContinuousClick",
             "ScaleGesture",
-            "ViewDragHelper",
+            "ViewDragHelperFragment",
+            "ViewDragFragment",
         ),
 
         // 10. qrcode scan
@@ -210,7 +211,7 @@ class MainActivity : AbsActivity() {
 
 
         // TODO config this pls.
-        navigateToSubFragment("ViewDragHelper")
+        navigateToSubFragment("ViewDragFragment")
     }
 
     @Suppress("SameParameterValue")
