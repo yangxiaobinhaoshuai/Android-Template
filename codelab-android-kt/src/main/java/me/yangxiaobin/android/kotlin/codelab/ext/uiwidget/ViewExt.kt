@@ -1,6 +1,7 @@
 package me.yangxiaobin.android.kotlin.codelab.ext.uiwidget
 
 import android.graphics.Rect
+import android.view.MotionEvent
 import android.view.View
 import androidx.core.view.doOnDetach
 import kotlinx.coroutines.channels.awaitClose
@@ -8,6 +9,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.flow
+import me.yangxiaobin.android.kotlin.codelab.ext.doOnInterceptTouch
 
 
 /**
@@ -122,3 +124,35 @@ fun View.postCancellable(r: Runnable) {
     this.doOnDetach { it.removeCallbacks(r) }
 }
 
+/**
+ * 使子 View 能够跟随手指拖拽
+ *
+ * @see https://stackoverflow.com/a/31094315/10247834
+ */
+fun View.makeDraggable(){
+
+    var dx: Float = 0F
+    var dy: Float = 0F
+    this.doOnInterceptTouch { event: MotionEvent ->
+
+        when (event.action) {
+            MotionEvent.ACTION_DOWN -> {
+                dx = this.x - event.rawX
+                dy = this.y - event.rawY
+            }
+            MotionEvent.ACTION_MOVE -> {
+                this.animate()
+                    .x(event.rawX + dx)
+                    .y(event.rawY + dy)
+                    .setDuration(0)
+                    .start()
+            }
+            else -> {
+                dx = 0F
+                dy = 0F
+            }
+        }
+
+        return@doOnInterceptTouch true
+    }
+}

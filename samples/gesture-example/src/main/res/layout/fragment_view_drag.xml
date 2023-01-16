@@ -4,14 +4,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.yxb.gesture.example.MyTv
+    <EditText
         android:id="@+id/tv_view_drag"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@color/design_default_color_error"
+        android:hint="ViewDrag Tv"
         android:padding="10dp"
-        android:text="ViewDrag Tv"
-        android:textColor="@color/white"
+        android:textColor="@android:color/holo_blue_bright"
+        android:textColorHint="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
