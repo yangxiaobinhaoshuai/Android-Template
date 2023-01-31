@@ -27,7 +27,7 @@ class MainActivity : AbsActivity() {
 
     private val catalog: Map<String, Array<String>> = mapOf(
 
-        // 1.
+        // 1. RecyclerView
         "RecyclerView" to arrayOf(
             "LinearRv",
             "LinearRvStickyTailFragment",
@@ -35,7 +35,7 @@ class MainActivity : AbsActivity() {
             "NormalGridRv",
         ),
 
-        // 2.
+        // 2. Multi process
         "Multi Process" to arrayOf(
             "Remote Activity",
             "Local Service",
@@ -44,14 +44,14 @@ class MainActivity : AbsActivity() {
             "Remote ContentProvider",
         ),
 
-        // 3.
+        // 3. DI
         "DI" to arrayOf(
             "Dagger2",
             "Dagger2.android",
             "Hilt",
         ),
 
-        // 4.
+        // 4. Kt Jetpack Components
         "Kotlin Jetpack Components" to arrayOf(
             "LifeCycle",
             "LiveData",
@@ -63,14 +63,14 @@ class MainActivity : AbsActivity() {
             "Flow",
         ),
 
-        // 5.
+        // 5. Kt Jetpack Compose
         "Kotlin Jetpack Compose" to arrayOf(
             "MyBottomSheetDialogFragment",
             "RoundCornerBSDF",
             "Compose CheckBox",
         ),
 
-        // 6.
+        // 6. Retrofit
         "Retrofit" to arrayOf(
             "CustomConverter",
         ),
@@ -150,7 +150,8 @@ class MainActivity : AbsActivity() {
         // 19. Image
         "Image" to arrayOf(
             "ImageEdit",
-            "Matrix"
+            "Matrix",
+            "DrawableFragment",
         ),
 
         // 20.Animator
@@ -211,7 +212,7 @@ class MainActivity : AbsActivity() {
 
 
         // TODO config this pls.
-        navigateToSubFragment("ViewDragFragment")
+        navigateToSubFragment("DrawableFragment")
     }
 
     @Suppress("SameParameterValue")

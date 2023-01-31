@@ -52,6 +52,7 @@ import me.yangxiaobin.android.ui.kit.samples.SelectorsFragment
 import me.yangxiaobin.android.webview.AbsWebViewFragment
 import me.yangxiaobin.android.webview.JsFunctionFragment
 import me.yangxiaobin.image_edit.ImageEditEntranceActivity
+import me.yangxiaobin.image_edit.drawable.DrawableFragment
 import me.yangxiaobin.image_edit.matrix_learning.MatrixFragment
 import me.yangxiaobin.kotlin.compose.lib.AbsComposableFragment
 import me.yangxiaobin.qrcode.QrCodeScanActivity
@@ -203,6 +204,7 @@ class ComposeVerticalListFragment : AbsComposableFragment() {
             // 19. Image
             "ImageEdit" -> ctx.startActivity(ctx.intentFor<ImageEditEntranceActivity>())
             "Matrix" -> naviToFragment(MatrixFragment())
+            "DrawableFragment" -> naviToFragment(DrawableFragment())
 
             // 20. Animator
             "AnimatorExampleFragment" -> naviToFragment(AnimatorExampleFragment())
