@@ -141,7 +141,7 @@ dependencies {
     implementation project(':log2Disk')
     implementation project(':samples:proxy-lib')
     implementation project(':module-inverse-deps-solution')
-    implementation project(':samples:imageEdit')
+    implementation project(':samples:imageEdit-sample')
     implementation project(':samples:animator-sample')
     implementation project(':samples:gesture-example')
     implementation alias.diLib
