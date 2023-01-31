@@ -12,6 +12,8 @@ import me.yangxiaobin.android.kotlin.codelab.base.ability.LogAbility
 import me.yangxiaobin.android.kotlin.codelab.ext.MarginLayoutParams
 import me.yangxiaobin.android.kotlin.codelab.ext.MatchParentParams
 import me.yangxiaobin.android.kotlin.codelab.ext.NormalLayoutParams
+import me.yangxiaobin.android.kotlin.codelab.ext.context.rotated
+import me.yangxiaobin.android.kotlin.codelab.ext.context.toResDrawable
 import me.yangxiaobin.android.kotlin.codelab.log.AndroidLogger
 import me.yangxiaobin.colors.HexColors
 import me.yangxiaobin.colors.colorInt
@@ -36,7 +38,11 @@ class DrawableFragment : AbsFragment() {
         val imageView = ImageView(requireContext())
         val imageLp = FrameLayout.LayoutParams(200, 300)
         imageLp.gravity = Gravity.CENTER
-        imageView.setImageResource(R.drawable.ic_android_logo)
+
+        //imageView.setImageResource(R.drawable.ic_android_logo)
+        val d = R.drawable.ic_android_logo.toResDrawable(requireContext())
+        imageView.setImageDrawable(d.rotated(90F))
+
         this.addView(imageView, imageLp)
     }
 
