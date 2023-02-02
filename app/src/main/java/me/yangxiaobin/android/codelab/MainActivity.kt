@@ -118,7 +118,7 @@ class MainActivity : AbsActivity() {
             "NPE",
         ),
 
-        // 14. webview
+        // 14. webView
         "WebView" to arrayOf(
             "System WebView",
             "Js Function",
@@ -159,6 +159,11 @@ class MainActivity : AbsActivity() {
         "Animator" to arrayOf(
             "AnimatorExampleFragment",
             "AnimatorExampleActivity",
+        ),
+
+        // 21. Reflection
+        "Reflection" to arrayOf(
+            "ReflectionFragment",
         )
 
     )
@@ -213,7 +218,7 @@ class MainActivity : AbsActivity() {
 
 
         // TODO config this pls.
-        navigateToSubFragment("EditTextFragment")
+        navigateToSubFragment("ReflectionFragment")
     }
 
     @Suppress("SameParameterValue")

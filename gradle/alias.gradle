@@ -8,6 +8,7 @@ alias.colorLib = project(":fundamental:android-colors")
 alias.iconLib = project(":fundamental:android-icons")
 alias.diLib = project(":fundamental:di-lib")
 alias.jsonLib = project(":fundamental:json-mediator")
+alias.reflection = project(":fundamental:android-reflect")
 
 alias.permissionLib = project(":common-biz:android-permission")
 alias.keyboardLib = project(":common-biz:keyboard")

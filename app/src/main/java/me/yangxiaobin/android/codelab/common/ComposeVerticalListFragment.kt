@@ -12,6 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.fragment.app.Fragment
+import com.example.android_reflect.ReflectionEncapsulateFragment
 import com.example.animator_sample.AnimatorExampleActivity
 import com.example.animator_sample.AnimatorExampleFragment
 import com.yxb.gesture.example.ScaleGestureActivity
@@ -46,7 +47,7 @@ import me.yangxiaobin.android.keyboard.KeyboardFragment
 import me.yangxiaobin.android.kotlin.codelab.ext.uicontroller.showFragmentToast
 import me.yangxiaobin.android.nav_lib.NavHostComposeFragment
 import me.yangxiaobin.android.permission_example.PrivacyProtectionFragment
-import me.yangxiaobin.android.proguard_lib.ReflectFragment
+import me.yangxiaobin.android.proguard_lib.ReflectProguardFragment
 import me.yangxiaobin.android.proxylib.DynamicProxyFragment
 import me.yangxiaobin.android.ui.kit.samples.EditTextFragment
 import me.yangxiaobin.android.ui.kit.samples.SelectorsFragment
@@ -174,7 +175,7 @@ class ComposeVerticalListFragment : AbsComposableFragment() {
             "QRCodeScanActivity" -> ctx.startActivity(ctx.intentFor<QrCodeScanActivity>())
 
             // 11. Proguard
-            "Reflection" -> naviToFragment(ReflectFragment())
+            "Reflection" -> naviToFragment(ReflectProguardFragment())
 
             // 12. permission
             "MIUI Privacy Protection" -> naviToFragment(PrivacyProtectionFragment())
@@ -211,6 +212,9 @@ class ComposeVerticalListFragment : AbsComposableFragment() {
             // 20. Animator
             "AnimatorExampleFragment" -> naviToFragment(AnimatorExampleFragment())
             "AnimatorExampleActivity" -> ctx.startActivity(ctx.intentFor<AnimatorExampleActivity>())
+
+            // 21. Reflection
+            "ReflectionFragment" -> naviToFragment(ReflectionEncapsulateFragment())
 
             else -> showFragmentToast("UnSupport key :$dest.")
         }

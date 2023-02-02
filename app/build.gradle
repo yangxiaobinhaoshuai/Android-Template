@@ -147,4 +147,5 @@ dependencies {
     implementation alias.diLib
     implementation alias.kvLib
     implementation alias.adaptersLib
+    implementation alias.reflection
 }

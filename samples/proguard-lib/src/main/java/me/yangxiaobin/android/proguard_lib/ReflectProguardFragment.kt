@@ -8,7 +8,7 @@ import me.yangxiaobin.common_ui.EmptyFragment
 import me.yangxiaobin.logger.core.LogFacade
 import java.lang.reflect.Method
 
-class ReflectFragment : EmptyFragment() {
+class ReflectProguardFragment : EmptyFragment() {
 
     override val logger: LogFacade get() = AndroidLogger
 
