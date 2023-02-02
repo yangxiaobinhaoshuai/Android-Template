@@ -5,7 +5,9 @@ import android.content.res.Resources
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.GradientDrawable
+import android.graphics.drawable.InsetDrawable
 import android.graphics.drawable.StateListDrawable
+import android.os.Build
 import android.view.View
 import androidx.annotation.ColorInt
 import androidx.annotation.ColorRes
@@ -14,25 +16,51 @@ import me.yangxiaobin.android.kotlin.codelab.ext.androidColor
 import me.yangxiaobin.android.kotlin.codelab.ext.dp2px
 
 
+/**
+ * xml 中 shape 标签对应的是 GradientDrawable
+ *
+ * https://juejin.cn/post/6844903942275629069
+ */
 fun createShapeDrawable(
     context: Context,
     @ColorRes solidColorRes: Int,
+
     topLeftRadiusDp: Int = 0,
     topRightRadiusDp: Int = 0,
     bottomLeftRadiusDp: Int = 0,
     bottomRightRadiusDp: Int = 0,
     radiusDp: Int = 0,
+
     strokeWidthInDp: Int = 0,
-    @ColorRes borderColorRes: Int = 0
+
+    leftPaddingInPx:Int = 0,
+    topPaddingInPx:Int = 0,
+    rightPaddingInPx:Int = 0,
+    bottomPaddingInPx:Int = 0,
+
+    @ColorRes borderColorRes: Int = 0,
+    /**
+     * the width matters, height has no effect
+     */
+    sizeInPx: Pair<Int, Int> = 0 to 0,
 ): Drawable = createShapeDrawable(
     solidColor = solidColorRes.asColorInt(context),
+
     topLeftRadiusDp = topLeftRadiusDp,
     topRightRadiusDp = topRightRadiusDp,
     bottomLeftRadiusDp = bottomLeftRadiusDp,
     bottomRightRadiusDp = bottomRightRadiusDp,
     radiusDp = radiusDp,
+
     strokeWidthInDp = strokeWidthInDp,
-    borderColor = if (borderColorRes != 0) borderColorRes.asColorInt(context) else 0
+
+    leftPaddingInPx = leftPaddingInPx,
+    topPaddingInPx = topPaddingInPx,
+    rightPaddingInPx = rightPaddingInPx,
+    bottomPaddingInPx = bottomPaddingInPx,
+
+    borderColor = if (borderColorRes != 0) borderColorRes.asColorInt(context) else 0,
+    sizeInPx = sizeInPx,
 )
 
 /**
@@ -40,13 +68,22 @@ fun createShapeDrawable(
  */
 fun createShapeDrawable(
     @ColorInt solidColor: Int = android.graphics.Color.WHITE,
+
     topLeftRadiusDp: Int = 0,
     topRightRadiusDp: Int = 0,
     bottomLeftRadiusDp: Int = 0,
     bottomRightRadiusDp: Int = 0,
     radiusDp: Int = 0,
+
     strokeWidthInDp: Int = 0,
-    @ColorInt borderColor: Int = 0
+
+    leftPaddingInPx:Int = 0,
+    topPaddingInPx:Int = 0,
+    rightPaddingInPx:Int = 0,
+    bottomPaddingInPx:Int = 0,
+
+    @ColorInt borderColor: Int = 0,
+    sizeInPx: Pair<Int, Int> = 0 to 0,
 ): Drawable {
 
     val shape = GradientDrawable()
@@ -70,7 +107,18 @@ fun createShapeDrawable(
 
     if (strokeWidthInDp > 0) shape.setStroke(strokeWidthInDp.dp2px.toInt(), borderColor)
 
-    return shape
+    if (sizeInPx.first > 0 || sizeInPx.second > 0) shape.setSize(sizeInPx.first, sizeInPx.second)
+
+    val actualShape = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+        shape.setPadding(leftPaddingInPx, topPaddingInPx, rightPaddingInPx, bottomPaddingInPx)
+        shape
+    } else {
+        // FIXME
+        //InsetDrawable(shape, leftPaddingInPx, topPaddingInPx, rightPaddingInPx, bottomPaddingInPx)
+        shape
+    }
+
+    return actualShape
 }
 
 
