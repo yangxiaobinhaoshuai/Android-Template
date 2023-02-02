@@ -48,6 +48,7 @@ import me.yangxiaobin.android.nav_lib.NavHostComposeFragment
 import me.yangxiaobin.android.permission_example.PrivacyProtectionFragment
 import me.yangxiaobin.android.proguard_lib.ReflectFragment
 import me.yangxiaobin.android.proxylib.DynamicProxyFragment
+import me.yangxiaobin.android.ui.kit.samples.EditTextFragment
 import me.yangxiaobin.android.ui.kit.samples.SelectorsFragment
 import me.yangxiaobin.android.webview.AbsWebViewFragment
 import me.yangxiaobin.android.webview.JsFunctionFragment
@@ -192,6 +193,7 @@ class ComposeVerticalListFragment : AbsComposableFragment() {
             // 16. Widgets
             "TabLayout_OppoEmbed" -> ctx.startActivity(ctx.intentFor<OppoEmbeddingActivity>())
             "SelectorsFragment" -> naviToFragment(SelectorsFragment())
+            "EditTextFragment" -> naviToFragment(EditTextFragment())
 
             // 17. Keyboard
             "KeyboardHeight" -> naviToFragment(KeyboardFragment())

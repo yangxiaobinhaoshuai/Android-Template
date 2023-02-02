@@ -133,6 +133,7 @@ class MainActivity : AbsActivity() {
         "Widgets" to arrayOf(
             "TabLayout_OppoEmbed",
             "SelectorsFragment",
+            "EditTextFragment",
         ),
 
         // 17. Keyboard
@@ -212,7 +213,7 @@ class MainActivity : AbsActivity() {
 
 
         // TODO config this pls.
-        navigateToSubFragment("DrawableFragment")
+        navigateToSubFragment("EditTextFragment")
     }
 
     @Suppress("SameParameterValue")

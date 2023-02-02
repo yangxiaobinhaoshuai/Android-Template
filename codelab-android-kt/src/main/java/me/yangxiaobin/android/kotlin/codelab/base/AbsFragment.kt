@@ -8,12 +8,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.Animation
+import android.widget.FrameLayout
 import androidx.activity.addCallback
 import androidx.annotation.CallSuper
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
 import me.yangxiaobin.android.kotlin.codelab.base.ability.LogAbility
 import me.yangxiaobin.android.kotlin.codelab.base.ability.ResAbility
+import me.yangxiaobin.android.kotlin.codelab.ext.MatchParentParams
 import me.yangxiaobin.android.kotlin.codelab.ext.context.buildResColor
 import me.yangxiaobin.android.kotlin.codelab.ext.context.buildResDrawable
 import me.yangxiaobin.android.kotlin.codelab.ext.context.buildResString
@@ -85,6 +87,11 @@ abstract class AbsFragment : Fragment(), LogAbility, ResAbility {
         container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View? = null
+
+    /**
+     * Example for createRootView
+     */
+    protected fun createEmptyFrameLayout(): ViewGroup = FrameLayout(requireContext()).apply { this.layoutParams = MatchParentParams }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
