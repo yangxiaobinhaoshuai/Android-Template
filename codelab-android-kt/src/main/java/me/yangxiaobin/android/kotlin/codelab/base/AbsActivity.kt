@@ -8,7 +8,6 @@ import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import me.yangxiaobin.android.kotlin.codelab.base.ability.LogAbility
 import me.yangxiaobin.android.kotlin.codelab.base.ability.ResAbility
-import me.yangxiaobin.android.kotlin.codelab.base.manager.ActivityRecorder
 import me.yangxiaobin.android.kotlin.codelab.ext.context.buildResColor
 import me.yangxiaobin.android.kotlin.codelab.ext.context.buildResDrawable
 import me.yangxiaobin.android.kotlin.codelab.ext.context.buildResString

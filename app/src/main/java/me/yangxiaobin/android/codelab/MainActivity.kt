@@ -164,7 +164,12 @@ class MainActivity : AbsActivity() {
         // 21. Reflection
         "Reflection" to arrayOf(
             "ReflectionFragment",
-        )
+        ),
+
+        // 22. Router
+        "Router" to arrayOf(
+            "startActivityForResult",
+        ),
 
     )
 
@@ -218,7 +223,7 @@ class MainActivity : AbsActivity() {
 
 
         // TODO config this pls.
-        navigateToSubFragment("ReflectionFragment")
+        navigateToSubFragment("startActivityForResult")
     }
 
     @Suppress("SameParameterValue")

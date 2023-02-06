@@ -15,6 +15,8 @@ import androidx.fragment.app.Fragment
 import com.example.android_reflect.ReflectionEncapsulateFragment
 import com.example.animator_sample.AnimatorExampleActivity
 import com.example.animator_sample.AnimatorExampleFragment
+import com.yangxiaobin.route_sample.RouterActivity
+import com.yangxiaobin.route_sample.RouterFragment
 import com.yxb.gesture.example.ScaleGestureActivity
 import com.yxb.gesture.example.ViewDragFragment
 import com.yxb.gesture.example.ViewDragHelperFragment
@@ -215,6 +217,9 @@ class ComposeVerticalListFragment : AbsComposableFragment() {
 
             // 21. Reflection
             "ReflectionFragment" -> naviToFragment(ReflectionEncapsulateFragment())
+
+            // 22. Router
+            "startActivityForResult" ->  naviToFragment(RouterFragment())
 
             else -> showFragmentToast("UnSupport key :$dest.")
         }
