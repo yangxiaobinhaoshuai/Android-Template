@@ -1,5 +1,7 @@
 package me.yangxiaobin.android.ui.kit.samples
 
+import android.content.SharedPreferences
+import android.content.SharedPreferences.Editor
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.Gravity
@@ -46,7 +48,7 @@ class EditTextFragment : AbsFragment() {
         // edt.setCursorDrawable(R.drawable.bg_cursor_blue.asDrawable())
         edt.setCursorDrawable(
             createShapeDrawable(
-                solidColor = HexColors.RED_600.colorInt,
+                solidColor = HexColors.PURPLE_A400.colorInt,
                 sizeInPx = 4.dp2px.toInt() to 0.dp2px.toInt(),
                 topPaddingInPx = -10,
                 bottomPaddingInPx = -10,
@@ -69,19 +71,14 @@ class EditTextFragment : AbsFragment() {
 
             edt1.requestFocus()
 
-            edt.isCursorVisible = false
-
-            edt.post {
-                edt.setCursorDrawable(
-                    createShapeDrawable(
-                        solidColor = HexColors.BLACK.colorInt,
-                        sizeInPx = 4.dp2px.toInt() to 0.dp2px.toInt(),
-                        topPaddingInPx = -10,
-                        bottomPaddingInPx = -10,
-                    )
+            edt.setCursorDrawable2(
+                createShapeDrawable(
+                    solidColor = HexColors.BLACK.colorInt,
+                    sizeInPx = 4.dp2px.toInt() to 0.dp2px.toInt(),
+                    topPaddingInPx = -10,
+                    bottomPaddingInPx = -10,
                 )
-                edt.isCursorVisible = true
-            }
+            )
 
         }
 
@@ -99,6 +96,8 @@ class EditTextFragment : AbsFragment() {
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.Q) {
             // FIXME  这个方法只能修改 cursor 一次
             this.textCursorDrawable = d
+
+            //val editor = EditText::class.java.getDeclaredField("mEditor")
         } else {
             try {
                 // FIXME

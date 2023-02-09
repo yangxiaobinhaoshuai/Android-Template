@@ -223,14 +223,14 @@ class MainActivity : AbsActivity() {
 
 
         // TODO config this pls.
-        navigateToSubFragment("startActivityForResult")
+        navigateToSubFragment("EditTextFragment")
     }
 
     @Suppress("SameParameterValue")
     private fun navigateToSubFragment(identify: String) {
         catalog.toList()
             .find { (_,subMenus): Pair<String, Array<String>> -> subMenus.any { it == identify } }
-            ?.let { (id, subMenus) ->
+            ?.let { (_, subMenus) ->
                 val target = ComposeVerticalListFragment()
                 this@MainActivity.navigateToFragment(target, "subMenus" to subMenus)
                 mainHandler.post { showActivityToast("Quick navi to $identify.");target.naviToDestFragment(identify)
