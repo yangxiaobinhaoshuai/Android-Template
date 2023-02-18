@@ -22,4 +22,6 @@
 
 > Solution: --rerun-tasks
 
-3. 
+3. Can't find libs.versions.toml 
+
+> Solution： 关闭远程编译

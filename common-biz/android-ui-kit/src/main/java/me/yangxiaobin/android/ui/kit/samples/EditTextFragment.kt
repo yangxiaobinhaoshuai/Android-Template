@@ -71,15 +71,6 @@ class EditTextFragment : AbsFragment() {
 
             edt1.requestFocus()
 
-            edt.setCursorDrawable2(
-                createShapeDrawable(
-                    solidColor = HexColors.BLACK.colorInt,
-                    sizeInPx = 4.dp2px.toInt() to 0.dp2px.toInt(),
-                    topPaddingInPx = -10,
-                    bottomPaddingInPx = -10,
-                )
-            )
-
         }
 
         this.addView(bt,btLp)
