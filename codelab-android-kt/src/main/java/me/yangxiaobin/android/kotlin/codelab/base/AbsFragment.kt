@@ -14,6 +14,7 @@ import androidx.annotation.CallSuper
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
 import me.yangxiaobin.android.kotlin.codelab.base.ability.LogAbility
+import me.yangxiaobin.android.kotlin.codelab.base.ability.LogFun
 import me.yangxiaobin.android.kotlin.codelab.base.ability.ResAbility
 import me.yangxiaobin.android.kotlin.codelab.ext.MatchParentParams
 import me.yangxiaobin.android.kotlin.codelab.ext.context.buildResColor
@@ -29,7 +30,7 @@ abstract class AbsFragment : Fragment(), LogAbility, ResAbility {
 
     private val logPrefix get() = this.neatName
 
-    override val logI: (message: String) -> Unit
+    override val logI: LogFun
             = fun(message: String)
             = super.logI(if (logWithPrefix) "$logPrefix -> $message" else message)
 

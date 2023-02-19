@@ -68,4 +68,5 @@ dependencies {
     implementation deps.glide
     implementation alias.uiKitLib
     implementation alias.colorLib
+    implementation alias.iconLib
 }

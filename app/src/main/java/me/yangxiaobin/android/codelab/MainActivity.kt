@@ -223,7 +223,7 @@ class MainActivity : AbsActivity() {
 
 
         // TODO config this pls.
-        navigateToSubFragment("EditTextFragment")
+        navigateToSubFragment("Matrix")
     }
 
     @Suppress("SameParameterValue")
