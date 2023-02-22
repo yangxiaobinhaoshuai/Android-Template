@@ -1,6 +1,6 @@
 package me.yangxiaobin.android.kotlin.codelab.ext
 
 
-fun Boolean?.nullAsFalse(): Boolean = this ?: false
+public fun Boolean?.nullAsFalse(): Boolean = this ?: false
 
-fun Boolean?.nullAsTrue(): Boolean = this ?: true
+public fun Boolean?.nullAsTrue(): Boolean = this ?: true

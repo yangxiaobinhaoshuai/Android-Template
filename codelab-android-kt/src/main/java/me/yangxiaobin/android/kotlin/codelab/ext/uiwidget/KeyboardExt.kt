@@ -72,7 +72,7 @@ fun View?.getKeyboardVisibilityFLow(xMs: Long = 100L): Flow<Boolean> =
  /**
   * Keyboard 高度通常都是 709
   */
- fun Activity.getKeyboardHeightFlow(logFunc: (message: String) -> Unit = { message: String -> android.util.Log.e("KeyboardHeightFlow", message) }): Flow<Int> {
+ public fun Activity.getKeyboardHeightFlow(logFunc: (message: String) -> Unit = { message: String -> android.util.Log.e("KeyboardHeightFlow", message) }): Flow<Int> {
 
      val transparentPopupWindow = PopupWindow()
      val popupContentView = View(this@getKeyboardHeightFlow)

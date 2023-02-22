@@ -14,7 +14,7 @@ import java.util.concurrent.RejectedExecutionException
 
 val mainLooper: Looper by lazy { Looper.getMainLooper() }
 
-val mainHandler: Handler by lazy { Handler(mainLooper) }
+public val mainHandler: Handler by lazy { Handler(mainLooper) }
 
 val mainExecutor: Executor by lazy { createMainExecutor(mainHandler) }
 

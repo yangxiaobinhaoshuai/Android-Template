@@ -12,7 +12,7 @@ import me.yangxiaobin.logger.uitlity.LogPrinter
 
 object L : LogFacade by RawLogger
 
-val AndroidLogger = L.clone(
+public val AndroidLogger = L.clone(
     newLogContext = LogPrinterLogElement(AndroidPrinter()) + LogElementProvider.elements.fold(EmptyDomainContext, DomainContext::plus)
 )
 

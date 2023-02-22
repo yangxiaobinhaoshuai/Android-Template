@@ -23,10 +23,10 @@ val screenSize: Pair<Int, Int> get() = systemResource.screenSize
 val statusBarSize: Int get() = systemResource.statusBarSize
 val navigationBarSize: Int get() = systemResource.navigationBarSize
 
-val Resources.screenSize: Pair<Int, Int> get() = this.displayMetrics.let { it.widthPixels to it.heightPixels }
+public val Resources.screenSize: Pair<Int, Int> get() = this.displayMetrics.let { it.widthPixels to it.heightPixels }
 
 @Deprecated("Using internal inset dimension resource status_bar_height is not supported")
-val Resources.statusBarSize: Int
+public val Resources.statusBarSize: Int
     get() {
         var result = 0
         val resourceId = this.getIdentifier("status_bar_height", "dimen", "android")
@@ -37,7 +37,7 @@ val Resources.statusBarSize: Int
     }
 
 @Deprecated("Using internal inset dimension resource status_bar_height is not supported")
-val Resources.navigationBarSize: Int
+public val Resources.navigationBarSize: Int
     get() {
         val resourceId = this.getIdentifier("navigation_bar_height", "dimen", "android")
         var height = this.getDimensionPixelSize(resourceId)

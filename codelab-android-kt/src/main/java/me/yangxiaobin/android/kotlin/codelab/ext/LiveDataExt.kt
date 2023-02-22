@@ -11,7 +11,7 @@ import androidx.lifecycle.MutableLiveData
 
 @UiThread
 @CheckResult
-fun <T> LiveData<T>.toMutable(): MutableLiveData<T> {
+public fun <T> LiveData<T>.toMutable(): MutableLiveData<T> {
 
     if (this is MediatorLiveData) return this
 
@@ -22,7 +22,7 @@ fun <T> LiveData<T>.toMutable(): MutableLiveData<T> {
 
 @UiThread
 @CheckResult
-fun <T> LiveData<T>.onChanged(onChanged: (T) -> Unit): LiveData<T> {
+public fun <T> LiveData<T>.onChanged(onChanged: (T) -> Unit): LiveData<T> {
 
     val mediator = MediatorLiveData<T>()
 
@@ -33,7 +33,7 @@ fun <T> LiveData<T>.onChanged(onChanged: (T) -> Unit): LiveData<T> {
 
 // region buffer
 @Suppress("UNCHECKED_CAST")
-fun <T> LiveData<T>.buffer(count: Int, skip: Int): LiveData<List<T>> {
+public fun <T> LiveData<T>.buffer(count: Int, skip: Int): LiveData<List<T>> {
     val buffer: Array<Any?> = arrayOfNulls(if (count > skip) skip else count)
     val result = MediatorLiveData<List<T>>()
     var counter = 0
@@ -50,19 +50,19 @@ fun <T> LiveData<T>.buffer(count: Int, skip: Int): LiveData<List<T>> {
     return result
 }
 
-fun <T> LiveData<T>.buffer(count: Int): LiveData<List<T>> =
+public fun <T> LiveData<T>.buffer(count: Int): LiveData<List<T>> =
     buffer(count, count)
 // endregion
 
 //region CombineLatest
-fun <T1, T2, R> LiveData<T1>.combineLatestWith(
+public fun <T1, T2, R> LiveData<T1>.combineLatestWith(
     other: LiveData<T2>,
     combiner: (T1, T2) -> R
 ): LiveData<R> = combineLatestArray(this, other, combiner)
 
 @MainThread
 @Suppress("UNCHECKED_CAST")
-fun <T1, T2, R> combineLatestArray(
+public fun <T1, T2, R> combineLatestArray(
     source1: LiveData<T1>,
     source2: LiveData<T2>,
     combiner: (T1, T2) -> R
@@ -71,7 +71,7 @@ fun <T1, T2, R> combineLatestArray(
     return combineMultiLatest(source1 as LiveData<Any>, source2 as LiveData<Any>, combiner = func)
 }
 
-fun <T, R> combineMultiLatest(
+public fun <T, R> combineMultiLatest(
     vararg sources: LiveData<T>,
     combiner: (Array<T>) -> R,
 ): LiveData<R> = combineLatestArray(sources, combiner)
@@ -120,16 +120,16 @@ private fun <T, R> combineLatestArray(
  */
 @UiThread
 @CheckResult
-operator fun <T> LiveData<T>.plus(source: LiveData<T>): LiveData<T> = this.mergeWith(source)
+public operator fun <T> LiveData<T>.plus(source: LiveData<T>): LiveData<T> = this.mergeWith(source)
 
-fun <T> LiveData<T>.mergeWith(vararg sources: LiveData<T>): LiveData<T> {
+public fun <T> LiveData<T>.mergeWith(vararg sources: LiveData<T>): LiveData<T> {
     val mediator = MediatorLiveData<T>()
     mediator.addSource(this, mediator::setValue)
     for (source in sources) mediator.addSource(source, mediator::setValue)
     return mediator
 }
 
-fun <T> merge(vararg sources: LiveData<T>): LiveData<T> {
+public fun <T> merge(vararg sources: LiveData<T>): LiveData<T> {
     val mediator = MediatorLiveData<T>()
     for (source in sources) mediator.addSource(source, mediator::setValue)
     return mediator
@@ -137,14 +137,14 @@ fun <T> merge(vararg sources: LiveData<T>): LiveData<T> {
 
 
 // region distinct
-fun <T> LiveData<T>.distinct(): LiveData<T> = distinct { value -> value }
+public fun <T> LiveData<T>.distinct(): LiveData<T> = distinct { value -> value }
 
-inline fun <T, K> LiveData<T>.distinct(crossinline func: (T) -> K): LiveData<T> {
+public inline fun <T, K> LiveData<T>.distinct(crossinline func: (T) -> K): LiveData<T> {
     val keys = hashSetOf<K>()
     return filter { keys.add(func(it)) }
 }
 
-inline fun <T, K> LiveData<T>.distinctUntilChanged(crossinline func: (T) -> K): LiveData<T> {
+public inline fun <T, K> LiveData<T>.distinctUntilChanged(crossinline func: (T) -> K): LiveData<T> {
     var prev: Any? = null
     return filter {
         val key = func(it)
@@ -164,14 +164,14 @@ inline fun <T, K> LiveData<T>.distinctUntilChanged(crossinline func: (T) -> K): 
  * 只监听获取LiveData的第一个值
  */
 @CheckResult
-fun <T> LiveData<T>.first(): LiveData<T> = take(1)
+public fun <T> LiveData<T>.first(): LiveData<T> = take(1)
 
 
 /**
  * 只监听获取LiveData的 [count] 个值
  */
 @CheckResult
-fun <T> LiveData<T>.take(@IntRange(from = 1, to = Long.MAX_VALUE) count: Int): LiveData<T> {
+public fun <T> LiveData<T>.take(@IntRange(from = 1, to = Long.MAX_VALUE) count: Int): LiveData<T> {
     require(count > 0) { "count must be greater than 1" }
     var counter = 0
     return takeWhile { counter++ < count }
@@ -181,7 +181,7 @@ fun <T> LiveData<T>.take(@IntRange(from = 1, to = Long.MAX_VALUE) count: Int): L
  * 只监听获取LiveData的 [count] 个值
  */
 @CheckResult
-fun <T> LiveData<T>.drop(@IntRange(from = 1, to = Long.MAX_VALUE) count: Int): LiveData<T> {
+public fun <T> LiveData<T>.drop(@IntRange(from = 1, to = Long.MAX_VALUE) count: Int): LiveData<T> {
     require(count > 0) { "count must be greater than 1" }
     var counter = 0
     return takeWhile { counter++ < count }
@@ -192,7 +192,7 @@ fun <T> LiveData<T>.drop(@IntRange(from = 1, to = Long.MAX_VALUE) count: Int): L
  * 监听LiveData的值更新，直到 [predicate] 返回false
  */
 @CheckResult
-inline fun <T> LiveData<T>.takeWhile(crossinline predicate: (T) -> Boolean): LiveData<T> {
+public inline fun <T> LiveData<T>.takeWhile(crossinline predicate: (T) -> Boolean): LiveData<T> {
     val result = MediatorLiveData<T>()
     result.addSource(this) { value ->
         if (predicate(value as T)) result.value = value
@@ -202,13 +202,13 @@ inline fun <T> LiveData<T>.takeWhile(crossinline predicate: (T) -> Boolean): Liv
 }
 
 @CheckResult
-fun <T> LiveData<T>.skip(count: Int): LiveData<T> {
+public fun <T> LiveData<T>.skip(count: Int): LiveData<T> {
     var counter = 0
     return skipWhile { ++counter > count }
 }
 
 @CheckResult
-inline fun <T> LiveData<T>.skipWhile(crossinline predicate: (T) -> Boolean): LiveData<T> {
+public inline fun <T> LiveData<T>.skipWhile(crossinline predicate: (T) -> Boolean): LiveData<T> {
     val result = MediatorLiveData<T>()
     var drop = true
     result.addSource(this) { value ->
@@ -225,7 +225,7 @@ inline fun <T> LiveData<T>.skipWhile(crossinline predicate: (T) -> Boolean): Liv
 
 // region filter 过滤相关
 @CheckResult
-inline fun <T> LiveData<T>.filter(crossinline func: (T) -> Boolean): LiveData<T> {
+public inline fun <T> LiveData<T>.filter(crossinline func: (T) -> Boolean): LiveData<T> {
     val result = MediatorLiveData<T>()
     result.addSource(this) { value ->
         if (func(value)) {
@@ -235,13 +235,13 @@ inline fun <T> LiveData<T>.filter(crossinline func: (T) -> Boolean): LiveData<T>
     return result
 }
 
-inline fun <T> LiveData<T>.filterNot(crossinline func: (T) -> Boolean): LiveData<T> = filter { value -> !func(value) }
+public inline fun <T> LiveData<T>.filterNot(crossinline func: (T) -> Boolean): LiveData<T> = filter { value -> !func(value) }
 
 @Suppress("UNCHECKED_CAST")
-fun <T> LiveData<T?>.filterNotNull(): LiveData<T> = filter { it != null } as LiveData<T>
+public fun <T> LiveData<T?>.filterNotNull(): LiveData<T> = filter { it != null } as LiveData<T>
 
 @Suppress("UNCHECKED_CAST")
-inline fun <reified T> LiveData<Any>.filterIsInstance(): LiveData<T> = filter { it is T } as LiveData<T>
+public inline fun <reified T> LiveData<Any>.filterIsInstance(): LiveData<T> = filter { it is T } as LiveData<T>
 // endregion
 
 
@@ -251,7 +251,7 @@ inline fun <reified T> LiveData<Any>.filterIsInstance(): LiveData<T> = filter { 
  * LiveData 触发 [LiveData.onActive] 回调
  */
 @CheckResult
-inline fun <T> LiveData<T>.doOnActive(crossinline func: () -> Unit): LiveData<T> {
+public inline fun <T> LiveData<T>.doOnActive(crossinline func: () -> Unit): LiveData<T> {
     val hook = object : LiveData<T>() {
         override fun onActive() = func()
     }
@@ -266,7 +266,7 @@ inline fun <T> LiveData<T>.doOnActive(crossinline func: () -> Unit): LiveData<T>
  * LiveData 触发 [LiveData.onInactive] 回调
  */
 @CheckResult
-inline fun <T> LiveData<T>.doOnInactive(crossinline func: () -> Unit): LiveData<T> {
+public inline fun <T> LiveData<T>.doOnInactive(crossinline func: () -> Unit): LiveData<T> {
     val hook = object : LiveData<T>() {
         override fun onInactive() = func()
     }

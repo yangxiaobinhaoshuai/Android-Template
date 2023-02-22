@@ -9,23 +9,23 @@ import android.os.StatFs
 import java.io.File
 
 
-val currentApiLevel get() = Build.VERSION.SDK_INT
+public val currentApiLevel get() = Build.VERSION.SDK_INT
 
-fun aboveApi(sdkInt: Int) = currentApiLevel >= sdkInt
+public fun aboveApi(sdkInt: Int) = currentApiLevel >= sdkInt
 
 
-fun getRomTotalSpace() = getDirTotalSpace(Environment.getDataDirectory())
-fun getRomAvailableSpace() = getDirAvailableSpace(Environment.getDataDirectory())
+public fun getRomTotalSpace() = getDirTotalSpace(Environment.getDataDirectory())
+public fun getRomAvailableSpace() = getDirAvailableSpace(Environment.getDataDirectory())
 
-fun getSdCardTotalSpace() = getDirTotalSpace(Environment.getExternalStorageDirectory())
-fun getSdCardAvailableSpace() = getDirAvailableSpace(Environment.getExternalStorageDirectory())
+public fun getSdCardTotalSpace() = getDirTotalSpace(Environment.getExternalStorageDirectory())
+public fun getSdCardAvailableSpace() = getDirAvailableSpace(Environment.getExternalStorageDirectory())
 
 
 /**
  * 获取某个目录全部空间大小
  */
 @SuppressLint("ObsoleteSdkInt")
-fun getDirTotalSpace(dir: File): Long = try {
+public fun getDirTotalSpace(dir: File): Long = try {
     val statFs = StatFs(dir.path)
     if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR2) {
         (statFs.blockSize * statFs.blockCount).toLong()
@@ -40,7 +40,7 @@ fun getDirTotalSpace(dir: File): Long = try {
  * 获取某个目录可用空间大小
  */
 @SuppressLint("ObsoleteSdkInt")
-fun getDirAvailableSpace(dir: File): Long = try {
+public fun getDirAvailableSpace(dir: File): Long = try {
     val statFs = StatFs(dir.path)
     if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR2) {
         (statFs.blockSize * statFs.availableBlocks).toLong()
@@ -55,7 +55,7 @@ fun getDirAvailableSpace(dir: File): Long = try {
 /**
  * 获取当前全部内存大小
  */
-fun Context?.getTotalMemory(): Long = if (this != null) {
+public fun Context?.getTotalMemory(): Long = if (this != null) {
     val am = this.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
     val memoryInfo = ActivityManager.MemoryInfo()
     am.getMemoryInfo(memoryInfo)
@@ -65,7 +65,7 @@ fun Context?.getTotalMemory(): Long = if (this != null) {
 /**
  * 获取当前可用内存大小
  */
-fun Context?.getAvailableMemory(): Long = if (this != null) {
+public fun Context?.getAvailableMemory(): Long = if (this != null) {
     val am = this.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
     val memoryInfo = ActivityManager.MemoryInfo()
     am.getMemoryInfo(memoryInfo)

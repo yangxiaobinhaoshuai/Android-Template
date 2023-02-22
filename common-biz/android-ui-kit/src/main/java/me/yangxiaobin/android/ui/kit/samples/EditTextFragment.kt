@@ -1,7 +1,5 @@
 package me.yangxiaobin.android.ui.kit.samples
 
-import android.content.SharedPreferences
-import android.content.SharedPreferences.Editor
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.Gravity
@@ -12,16 +10,13 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.FrameLayout
 import android.widget.TextView
-import androidx.compose.material.Button
 import me.yangxiaobin.android.kotlin.codelab.base.AbsFragment
 import me.yangxiaobin.android.kotlin.codelab.base.ability.LogAbility
 import me.yangxiaobin.android.kotlin.codelab.ext.WrapContent
 import me.yangxiaobin.android.kotlin.codelab.ext.WrapContentParams
-import me.yangxiaobin.android.kotlin.codelab.ext.context.inflater
 import me.yangxiaobin.android.kotlin.codelab.ext.dp2px
 import me.yangxiaobin.android.kotlin.codelab.ext.uicontroller.showFragmentToast
 import me.yangxiaobin.android.kotlin.codelab.log.AndroidLogger
-import me.yangxiaobin.android.ui.kit.R
 import me.yangxiaobin.android.ui.kit.createShapeDrawable
 import me.yangxiaobin.colors.HexColors
 import me.yangxiaobin.colors.colorInt

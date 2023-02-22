@@ -57,7 +57,7 @@ fun View.doOnTouch(onTouch: OnTouchAction) {
 }
 
 @SuppressLint("ClickableViewAccessibility")
-fun View.doOnInterceptTouch(intercept: OnTouchInterception) {
+public fun View.doOnInterceptTouch(intercept: OnTouchInterception) {
     this.setOnTouchListener { _, event ->
         return@setOnTouchListener intercept.invoke(event)
     }

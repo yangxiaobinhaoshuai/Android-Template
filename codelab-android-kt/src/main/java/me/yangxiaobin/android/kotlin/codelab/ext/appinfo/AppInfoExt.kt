@@ -32,7 +32,7 @@ private var sTargetSdkVersion = 0
 
 private var sMacAddress = ""
 
-val Context?.getAppName: String
+public val Context?.getAppName: String
     get() = if (this == null) ""
     else sAppName.ifEmpty {
         sAppName = try {
@@ -46,7 +46,7 @@ val Context?.getAppName: String
         sAppName
     }
 
-val Context?.getAppVersionName: String
+public val Context?.getAppVersionName: String
     get() = if (this == null) ""
     else sAppVersionName.convertIf(CharSequence::isEmpty) {
 
@@ -60,7 +60,7 @@ val Context?.getAppVersionName: String
     }
 
 
-val Context?.getAppVersionCode: String
+public val Context?.getAppVersionCode: String
     get() = if (this == null) ""
     else sAppVersionCode.convertIf(CharSequence::isEmpty) {
 
@@ -84,7 +84,7 @@ val Context?.getAppVersionCode: String
         sAppVersionCode
     }
 
-val Context?.getTargetApi: Int
+public val Context?.getTargetApi: Int
     get() = if (this == null) 0
     else sTargetSdkVersion.convertIf(Int::isNonPositive) {
 
@@ -99,14 +99,14 @@ val Context?.getTargetApi: Int
     }
 
 
-val Context.isDebugBuildType
+public val Context.isDebugBuildType
     get() = try {
         (this.applicationInfo.flags and ApplicationInfo.FLAG_DEBUGGABLE) != 0
     } catch (e: Exception) {
         false
     }
 
-val Context?.getDisplayDensity: String
+public val Context?.getDisplayDensity: String
     get() = if (this == null) ""
     else {
         val density = this.resources.displayMetrics.density
@@ -119,7 +119,7 @@ val Context?.getDisplayDensity: String
         }
     }
 
-val Context?.getAndroidId: String
+public val Context?.getAndroidId: String
     @SuppressLint("HardwareIds")
     get() = if (this == null) "" else
         sAndroidId.convertIf(CharSequence::isEmpty) {
@@ -137,7 +137,7 @@ val Context?.getAndroidId: String
  *     <uses-permission android:name=" android.permission.LOCAL_MAC_ADDRESS"/>
  */
 @SuppressLint("HardwareIds", "MissingPermission")
-fun Context?.getMacAddress(): String {
+public fun Context?.getMacAddress(): String {
 
     if (sMacAddress.isNotEmpty() || this == null || !this.hasPermission(Manifest.permission.ACCESS_WIFI_STATE)) return sMacAddress
 
@@ -193,7 +193,7 @@ fun Context?.getMacAddress(): String {
 
 
 @SuppressLint("PrivateApi")
-fun Context?.getDNS(): List<String> {
+public fun Context?.getDNS(): List<String> {
 
     val servers = mutableSetOf<String>()
 

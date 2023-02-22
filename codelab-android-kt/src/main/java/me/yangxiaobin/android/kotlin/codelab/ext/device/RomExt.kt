@@ -22,7 +22,7 @@ enum class Rom(val propKey: String) {
 
 private var sRomName = ""
 
-fun getRomName(): String = sRomName.ifEmpty {
+public fun getRomName(): String = sRomName.ifEmpty {
     Rom.values()
         .find { checkRom(it.name) }
         ?.name
@@ -30,23 +30,23 @@ fun getRomName(): String = sRomName.ifEmpty {
         ?: Rom.UNKNOW.name
 }
 
-fun isMiui(): Boolean = checkRom(Rom.MIUI.name).also { if (it) sRomName = Rom.MIUI.name }
+public fun isMiui(): Boolean = checkRom(Rom.MIUI.name).also { if (it) sRomName = Rom.MIUI.name }
 
-fun isEmui(): Boolean = checkRom(Rom.EMUI.name).also { if (it) sRomName = Rom.EMUI.name }
+public fun isEmui(): Boolean = checkRom(Rom.EMUI.name).also { if (it) sRomName = Rom.EMUI.name }
 
-fun isSamsung(): Boolean = checkRom(Rom.SAMSUNG.name).also { if (it) sRomName = Rom.SAMSUNG.name }
+public fun isSamsung(): Boolean = checkRom(Rom.SAMSUNG.name).also { if (it) sRomName = Rom.SAMSUNG.name }
 
-fun isOppo(): Boolean = checkRom(Rom.OPPO.name).also { if (it) sRomName = Rom.OPPO.name }
+public fun isOppo(): Boolean = checkRom(Rom.OPPO.name).also { if (it) sRomName = Rom.OPPO.name }
 
-fun isVivo(): Boolean = checkRom(Rom.VIVO.name).also { if (it) sRomName = Rom.VIVO.name }
+public fun isVivo(): Boolean = checkRom(Rom.VIVO.name).also { if (it) sRomName = Rom.VIVO.name }
 
-fun isFlyme(): Boolean = checkRom(Rom.FLYME.name).also { if (it) sRomName = Rom.FLYME.name }
+public fun isFlyme(): Boolean = checkRom(Rom.FLYME.name).also { if (it) sRomName = Rom.FLYME.name }
 
-fun isOnePlus(): Boolean = checkRom(Rom.ONE_PLUS.name).also { if (it) sRomName = Rom.ONE_PLUS.name }
+public fun isOnePlus(): Boolean = checkRom(Rom.ONE_PLUS.name).also { if (it) sRomName = Rom.ONE_PLUS.name }
 
-fun isMeiTu(): Boolean = checkRom(Rom.MEI_TU.name).also { if (it) sRomName = Rom.MEI_TU.name }
+public fun isMeiTu(): Boolean = checkRom(Rom.MEI_TU.name).also { if (it) sRomName = Rom.MEI_TU.name }
 
-fun isSmartisan(): Boolean = checkRom(Rom.SMARTISAN.name).also { if (it) sRomName = Rom.SMARTISAN.name }
+public fun isSmartisan(): Boolean = checkRom(Rom.SMARTISAN.name).also { if (it) sRomName = Rom.SMARTISAN.name }
 
 
 /**

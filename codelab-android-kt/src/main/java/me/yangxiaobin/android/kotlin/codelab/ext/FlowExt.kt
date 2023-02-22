@@ -18,4 +18,4 @@ public fun <T> Flow<T>.launchIn(
 }
 
 
-operator fun <T> Flow<T>.plus(other: Flow<T>): Flow<T> = merge(this, other)
+public operator fun <T> Flow<T>.plus(other: Flow<T>): Flow<T> = merge(this, other)

@@ -23,7 +23,7 @@ enum class NetworkType(value: String) {
  *     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
  */
 @SuppressLint("MissingPermission")
-fun Context?.getNetworkType(): NetworkType {
+public fun Context?.getNetworkType(): NetworkType {
 
     if (!this?.hasPermission(Manifest.permission.ACCESS_NETWORK_STATE).nullAsFalse()) return NetworkType.NETWORK_TYPE_UNKNOWN
 
@@ -60,7 +60,7 @@ fun Context?.getNetworkType(): NetworkType {
 }
 
 @SuppressLint("MissingPermission")
-fun Context?.isNetworkConnected(): Boolean {
+public fun Context?.isNetworkConnected(): Boolean {
 
     val conn: ConnectivityManager? = this?.getSystemService(Context.CONNECTIVITY_SERVICE) as? ConnectivityManager
 
@@ -72,7 +72,7 @@ fun Context?.isNetworkConnected(): Boolean {
     }
 }
 
-fun Context?.isOnWifi(): Boolean = this?.getNetworkType() == NetworkType.NETWORK_TYPE_WIFI
+public fun Context?.isOnWifi(): Boolean = this?.getNetworkType() == NetworkType.NETWORK_TYPE_WIFI
 
-fun Context?.isOnMobile(): Boolean = this?.getNetworkType() == NetworkType.NETWORK_TYPE_MOBILE
+public fun Context?.isOnMobile(): Boolean = this?.getNetworkType() == NetworkType.NETWORK_TYPE_MOBILE
 

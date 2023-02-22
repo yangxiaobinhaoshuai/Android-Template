@@ -1,7 +1,7 @@
 package me.yangxiaobin.android.kotlin.codelab.ext
 
 
-typealias Action = () -> Unit
+public typealias Action = () -> Unit
 
 val emptyAction: Action = {}
 

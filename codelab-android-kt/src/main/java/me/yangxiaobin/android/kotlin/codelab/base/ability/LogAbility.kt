@@ -10,7 +10,7 @@ import me.yangxiaobin.logger.core.LogFacade
 import me.yangxiaobin.logger.core.LogLevel
 import me.yangxiaobin.logger.log
 
-typealias  LogFun = (message: String) -> Unit
+public typealias LogFun = (message: String) -> Unit
 
 interface LogAbility {
 

@@ -5,7 +5,7 @@ import androidx.annotation.StringRes
 import me.yangxiaobin.android.kotlin.codelab.ext.uiwidget.showContextToast
 
 
-fun Activity.showActivityToast(text: String) = this.showContextToast(text)
+public fun Activity.showActivityToast(text: String) = this.showContextToast(text)
 
-fun Activity.showActivityToast(@StringRes stringResId: Int) = this.showContextToast(stringResId)
+public fun Activity.showActivityToast(@StringRes stringResId: Int) = this.showContextToast(stringResId)
 

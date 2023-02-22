@@ -33,7 +33,7 @@ val Int.toRecyclerViewScrollStateString
 typealias OnRvLongItemClickListener = (Pair<View, Int>) -> Boolean
 typealias OnRvItemClickListener = (Pair<View, Int>) -> Unit
 
-fun RecyclerView.setSimpleDivider(orientation: Int = RecyclerView.VERTICAL) = apply {
+public fun RecyclerView.setSimpleDivider(orientation: Int = RecyclerView.VERTICAL) = apply {
     this.addItemDecoration(DividerItemDecoration(this.context, orientation))
 }
 

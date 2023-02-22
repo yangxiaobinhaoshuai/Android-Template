@@ -11,7 +11,7 @@ val Int.isNegative get() = this < 0
 val Int.isNonNegative get() = this >= 0
 
 
-val Number.dp2px: Float
+public val Number.dp2px: Float
     get() {
         return TypedValue.applyDimension(
             TypedValue.COMPLEX_UNIT_DIP,

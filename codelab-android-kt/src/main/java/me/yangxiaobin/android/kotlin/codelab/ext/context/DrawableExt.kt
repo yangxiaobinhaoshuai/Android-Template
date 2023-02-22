@@ -25,7 +25,7 @@ fun Drawable.tint(colorInt: Int): Drawable = this.wrapped { this.setTint(colorIn
 /**
  * @param angle Clockwise degree
  */
-fun Drawable.rotated(angle: Float): Drawable = this.transformTo {
+public fun Drawable.rotated(angle: Float): Drawable = this.transformTo {
     val arD = arrayOf(this)
     object : LayerDrawable(arD) {
         override fun draw(canvas: Canvas) {

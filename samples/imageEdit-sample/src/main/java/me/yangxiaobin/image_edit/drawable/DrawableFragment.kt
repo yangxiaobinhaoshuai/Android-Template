@@ -9,9 +9,7 @@ import android.widget.FrameLayout
 import android.widget.ImageView
 import me.yangxiaobin.android.kotlin.codelab.base.AbsFragment
 import me.yangxiaobin.android.kotlin.codelab.base.ability.LogAbility
-import me.yangxiaobin.android.kotlin.codelab.ext.MarginLayoutParams
 import me.yangxiaobin.android.kotlin.codelab.ext.MatchParentParams
-import me.yangxiaobin.android.kotlin.codelab.ext.NormalLayoutParams
 import me.yangxiaobin.android.kotlin.codelab.ext.context.rotated
 import me.yangxiaobin.android.kotlin.codelab.ext.context.toResDrawable
 import me.yangxiaobin.android.kotlin.codelab.log.AndroidLogger

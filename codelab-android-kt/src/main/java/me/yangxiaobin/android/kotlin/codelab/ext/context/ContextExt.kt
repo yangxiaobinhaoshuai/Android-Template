@@ -48,7 +48,7 @@ fun buildResString(context: Context): Int.() -> String
         = fun @receiver:StringRes Int.(): String
         = context.getString(this)
 
-fun buildResColor(context: Context): Int.() -> Int
+public fun buildResColor(context: Context): Int.() -> Int
         = fun @receiver:ColorRes Int.(): Int
         = ContextCompat.getColor(context, this)
 
