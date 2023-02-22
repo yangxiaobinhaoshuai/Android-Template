@@ -1,19 +1,21 @@
 package me.yangxiaobin.android.kotlin.codelab.ext
 
 import android.annotation.SuppressLint
+import android.graphics.Rect
 import android.view.GestureDetector
 import android.view.MotionEvent
 import android.view.View
-import me.yangxiaobin.android.kotlin.codelab.ext.uiwidget.getScreenLocation
 
 fun MotionEvent.isOnView(v: View): Boolean {
 
     val motionRawX = this.rawX
     val motionRawY = this.rawY
 
-    val (viewRawX, viewRawY) = v.getScreenLocation
+    val rect = Rect()
+    // 要考虑 View 发生旋转，缩放的情况
+    v.getHitRect(rect)
 
-    return (motionRawX >= viewRawX && motionRawX <= viewRawX + v.width) && (motionRawY >= viewRawY && motionRawY <= viewRawY + v.height)
+    return rect.contains(motionRawX.toInt(),motionRawY.toInt())
 }
 
 val MotionEvent?.getActionString: String get() = if (this != null) MotionEvent.actionToString(this.action) else ""
