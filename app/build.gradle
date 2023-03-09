@@ -145,6 +145,7 @@ dependencies {
     implementation project(':samples:animator-sample')
     implementation project(':samples:gesture-example')
     implementation project(':samples:route-sample')
+    implementation project(':samples:canvas')
     implementation alias.diLib
     implementation alias.kvLib
     implementation alias.adaptersLib

@@ -55,6 +55,7 @@ import me.yangxiaobin.android.ui.kit.samples.EditTextFragment
 import me.yangxiaobin.android.ui.kit.samples.SelectorsFragment
 import me.yangxiaobin.android.webview.AbsWebViewFragment
 import me.yangxiaobin.android.webview.JsFunctionFragment
+import me.yangxiaobin.canvas.RectFragment
 import me.yangxiaobin.image_edit.ImageEditEntranceActivity
 import me.yangxiaobin.image_edit.drawable.DrawableFragment
 import me.yangxiaobin.image_edit.matrix_learning.MatrixFragment
@@ -220,6 +221,9 @@ class ComposeVerticalListFragment : AbsComposableFragment() {
 
             // 22. Router
             "startActivityForResult" ->  naviToFragment(RouterFragment())
+
+            // 23. Canvas
+            "RectFragment" -> naviToFragment(RectFragment())
 
             else -> showFragmentToast("UnSupport key :$dest.")
         }

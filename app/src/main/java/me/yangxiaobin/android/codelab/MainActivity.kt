@@ -171,6 +171,11 @@ class MainActivity : AbsActivity() {
             "startActivityForResult",
         ),
 
+        // 23. Canvas
+        "Canvas" to arrayOf(
+            "RectFragment",
+        ),
+
     )
 
 
@@ -223,7 +228,7 @@ class MainActivity : AbsActivity() {
 
 
         // TODO config this pls.
-        navigateToSubFragment("Matrix")
+        navigateToSubFragment("RectFragment")
     }
 
     @Suppress("SameParameterValue")
