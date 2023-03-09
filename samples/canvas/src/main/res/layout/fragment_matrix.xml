@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <me.yangxiaobin.image_edit.matrix_learning.MyImageView
+    <me.yangxiaobin.canvas.matrix_learning.MyImageView
         android:id="@+id/imgv_matrix"
         android:layout_width="300dp"
         android:layout_height="400dp"

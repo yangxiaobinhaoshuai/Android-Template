@@ -1,4 +1,4 @@
-package me.yangxiaobin.image_edit.matrix_learning
+package me.yangxiaobin.canvas.matrix_learning
 
 import android.content.Context
 import android.graphics.*
@@ -11,9 +11,9 @@ import me.yangxiaobin.android.kotlin.codelab.base.ability.LogAbility
 import me.yangxiaobin.android.kotlin.codelab.base.ability.LogFun
 import me.yangxiaobin.android.kotlin.codelab.log.AndroidLogger
 import me.yangxiaobin.android.ui.kit.createShapeDrawable
+import me.yangxiaobin.canvas.R
 import me.yangxiaobin.colors.HexColors
 import me.yangxiaobin.colors.colorInt
-import me.yangxiaobin.image_edit.R
 import me.yangxiaobin.logger.core.LogFacade
 
 /**

@@ -58,7 +58,7 @@ import me.yangxiaobin.android.webview.JsFunctionFragment
 import me.yangxiaobin.canvas.RectFragment
 import me.yangxiaobin.image_edit.ImageEditEntranceActivity
 import me.yangxiaobin.image_edit.drawable.DrawableFragment
-import me.yangxiaobin.image_edit.matrix_learning.MatrixFragment
+import me.yangxiaobin.canvas.matrix_learning.MatrixFragment
 import me.yangxiaobin.kotlin.compose.lib.AbsComposableFragment
 import me.yangxiaobin.qrcode.QrCodeScanActivity
 import org.jetbrains.anko.intentFor
