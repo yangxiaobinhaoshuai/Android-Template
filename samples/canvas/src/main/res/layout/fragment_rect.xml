@@ -6,11 +6,11 @@
     android:background="@color/md_blue_A_700">
 
 
-    <ImageView
+    <me.yangxiaobin.canvas.RectImageView
         android:id="@+id/imgv_rect_fragment"
         android:layout_width="200dp"
         android:layout_height="200dp"
-        android:src="@drawable/android_robot_webp_720_720"
+        android:background="@color/md_yellow_400"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
