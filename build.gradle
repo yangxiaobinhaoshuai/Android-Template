@@ -21,3 +21,23 @@ buildscript {
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
+
+
+// 不能和 settings dependencyResolutionManagement repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)  冲突
+allprojects {
+    repositories {
+        // Query local first.
+        //println( " ----> cur dir : ${project.rootDir}, ${System.getProperty("user.dir")}, ${gradle.getGradleHomeDir()}")
+        maven { url "${System.getProperty("user.dir")}/local-repo" }
+        mavenLocal()
+
+        google()
+        mavenCentral()
+        jcenter() // Warning: this repository is going to shut down soon
+
+        // For hms scan kit
+        maven { url 'https://developer.huawei.com/repo/' }
+        // For image edit
+        maven { url 'https://jitpack.io' }
+    }
+}

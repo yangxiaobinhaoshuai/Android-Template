@@ -24,8 +24,8 @@ gradle.beforeProject { Project p->
 
 dependencyResolutionManagement {
     // module 声明 repo 会报错
-    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
-    //repositoriesMode.set(RepositoriesMode.PREFER_PROJECT)
+    //repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositoriesMode.set(RepositoriesMode.PREFER_PROJECT)
     defaultLibrariesExtensionName.set('deps')
     repositories {
         // Query local first.
@@ -90,3 +90,11 @@ include ':fundamental:android-reflect'
 include ':samples:route-sample'
 include ':provide-only'
 include ':samples:canvas'
+
+
+// flutter
+// Not necessary.
+include ':flutter_lib'
+include ':flutter'
+setBinding(new Binding([gradle:this]))
+evaluate(new File(settingsDir,"flutter_lib/.android/include_flutter.groovy"))

@@ -150,4 +150,7 @@ dependencies {
     implementation alias.kvLib
     implementation alias.adaptersLib
     implementation alias.reflection
+
+    // flutter
+    implementation project(":flutter")
 }
