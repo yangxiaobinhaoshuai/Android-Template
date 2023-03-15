@@ -1,4 +1,7 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_lib/list_page.dart';
 
 void main() => runApp(const MyApp());
 
@@ -8,6 +11,7 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
@@ -22,6 +26,11 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       home: const MyHomePage(title: 'Flutter Demo Home Page'),
+
+      routes: <String, WidgetBuilder>{
+        '/FlutterMain': (context) => const MyHomePage(title: "Flutter Demo Home"),
+        '/FlutterList': (context) => const ListPage(title: "Flutter Vertical List"),
+      }
     );
   }
 }

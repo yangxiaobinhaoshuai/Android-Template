@@ -234,7 +234,7 @@ class MainActivity : AbsActivity() {
 
 
         // TODO config this pls.
-        navigateToSubFragment("FlutterMain")
+        navigateToSubFragment("FlutterList")
     }
 
     @Suppress("SameParameterValue")
@@ -246,7 +246,7 @@ class MainActivity : AbsActivity() {
                 this@MainActivity.navigateToFragment(target, "subMenus" to subMenus)
                 mainHandler.post { showActivityToast("Quick navi to $identify.");target.naviToDestFragment(identify)
                 }
-            }
+            } ?: showActivityToast("Can't match submenu: $identify")
     }
 
     override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {

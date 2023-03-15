@@ -1,5 +1,6 @@
 package me.yangxiaobin.android.codelab.common
 
+import android.content.Context
 import android.database.Cursor
 import android.net.Uri
 import android.os.Bundle
@@ -46,7 +47,9 @@ import me.yangxiaobin.android.jank_sample.PerfettoSampleFragment
 import me.yangxiaobin.android.keyboard.BottomSheetKeyboardFragment
 import me.yangxiaobin.android.keyboard.KeyboardActivity
 import me.yangxiaobin.android.keyboard.KeyboardFragment
+import me.yangxiaobin.android.kotlin.codelab.base.ability.LogAbility
 import me.yangxiaobin.android.kotlin.codelab.ext.uicontroller.showFragmentToast
+import me.yangxiaobin.android.kotlin.codelab.log.AndroidLogger
 import me.yangxiaobin.android.nav_lib.NavHostComposeFragment
 import me.yangxiaobin.android.permission_example.PrivacyProtectionFragment
 import me.yangxiaobin.android.proguard_lib.ReflectProguardFragment
@@ -60,6 +63,7 @@ import me.yangxiaobin.canvas.matrix_learning.MatrixFragment
 import me.yangxiaobin.image_edit.ImageEditEntranceActivity
 import me.yangxiaobin.image_edit.drawable.DrawableFragment
 import me.yangxiaobin.kotlin.compose.lib.AbsComposableFragment
+import me.yangxiaobin.logger.core.LogFacade
 import me.yangxiaobin.qrcode.QrCodeScanActivity
 import org.jetbrains.anko.intentFor
 
@@ -67,6 +71,10 @@ import org.jetbrains.anko.intentFor
  * 二级子菜单 Compose 列表
  */
 class ComposeVerticalListFragment : AbsComposableFragment() {
+
+    override val logger: LogFacade get() = AndroidLogger
+
+    override val LogAbility.TAG: String get() = "ComposeVerticalListFragment"
 
     private val subMenus: Array<String> by lazy {
         @Suppress("UNCHECKED_CAST")
@@ -226,11 +234,26 @@ class ComposeVerticalListFragment : AbsComposableFragment() {
             "RectFragment" -> naviToFragment(RectFragment())
 
             // 24. Flutter
-            "FlutterMain" -> ctx.startActivity(FlutterActivity.createDefaultIntent(requireContext()))
-            //"FlutterList" ->  FlutterActivity.createDefaultIntent(requireContext())
+            "FlutterMain", "FlutterList" -> ctx.nav2FlutterPage("/$dest")
 
             else -> showFragmentToast("UnSupport key :$dest.")
         }
+    }
+
+    /**
+     * see https://flutter.cn/docs/development/add-to-app/android/add-flutter-screen?tab=prewarm-engine-kotlin-tab
+     */
+    private fun Context.nav2FlutterPage(route: String) {
+
+        logD("nav2FlutterPage dest: $route")
+
+        val intent = FlutterActivity
+            .withNewEngine()
+            .initialRoute(route)
+            .build(requireContext())
+
+        this.startActivity(intent)
+
     }
 
 

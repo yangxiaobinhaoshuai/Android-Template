@@ -3,6 +3,9 @@ package me.yangxiaobin.android.codelab
 import android.content.Context
 import android.content.DialogInterface
 import android.hardware.SensorManager
+import io.flutter.embedding.engine.FlutterEngine
+import io.flutter.embedding.engine.FlutterEngineCache
+import io.flutter.embedding.engine.dart.DartExecutor
 import me.yangxiaobin.android.codelab.debug.ShakeDetector
 import me.yangxiaobin.android.kotlin.codelab.BuildConfig
 import me.yangxiaobin.android.kotlin.codelab.base.AbsApplication
@@ -30,6 +33,7 @@ class MyApp : AbsApplication() {
     override fun onCreate() {
         super.onCreate()
         init()
+        //initFlutterEngine()
         initShakeDetector()
         testForDebugLog(2)
         PermissionManager.registerPermissionAccessListener {
@@ -86,6 +90,17 @@ class MyApp : AbsApplication() {
         """.trimIndent()
         )
 
+    }
+
+    /**
+     * 为了能够动态修改 initial route，这里不用提前初始化 flutter engine
+     * see https://flutter.cn/docs/development/ui/navigation
+     */
+    private fun initFlutterEngine(){
+        val flutterEngine = FlutterEngine(this)
+        flutterEngine.navigationChannel.setInitialRoute("/abasa")
+        flutterEngine.dartExecutor.executeDartEntrypoint(DartExecutor.DartEntrypoint.createDefault())
+        FlutterEngineCache.getInstance().put("global_flutter_engine",flutterEngine)
     }
 
 
