@@ -176,6 +176,12 @@ class MainActivity : AbsActivity() {
             "RectFragment",
         ),
 
+        // 24. Flutter
+       "Flutter" to arrayOf(
+           "FlutterMain",
+           "FlutterList",
+       ),
+
     )
 
 
@@ -228,7 +234,7 @@ class MainActivity : AbsActivity() {
 
 
         // TODO config this pls.
-        navigateToSubFragment("RectFragment")
+        navigateToSubFragment("FlutterMain")
     }
 
     @Suppress("SameParameterValue")

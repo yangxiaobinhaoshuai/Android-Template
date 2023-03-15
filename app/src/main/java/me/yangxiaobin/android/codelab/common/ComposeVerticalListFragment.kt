@@ -15,11 +15,11 @@ import androidx.fragment.app.Fragment
 import com.example.android_reflect.ReflectionEncapsulateFragment
 import com.example.animator_sample.AnimatorExampleActivity
 import com.example.animator_sample.AnimatorExampleFragment
-import com.yangxiaobin.route_sample.RouterActivity
 import com.yangxiaobin.route_sample.RouterFragment
 import com.yxb.gesture.example.ScaleGestureActivity
 import com.yxb.gesture.example.ViewDragFragment
 import com.yxb.gesture.example.ViewDragHelperFragment
+import io.flutter.embedding.android.FlutterActivity
 import me.yangxiaobin.android.codelab.alerts.PopupWindowBtsFragment
 import me.yangxiaobin.android.codelab.jepack_compose.CheckBoxFragment
 import me.yangxiaobin.android.codelab.jepack_compose.MyBottomSheetDialogFragment
@@ -56,9 +56,9 @@ import me.yangxiaobin.android.ui.kit.samples.SelectorsFragment
 import me.yangxiaobin.android.webview.AbsWebViewFragment
 import me.yangxiaobin.android.webview.JsFunctionFragment
 import me.yangxiaobin.canvas.RectFragment
+import me.yangxiaobin.canvas.matrix_learning.MatrixFragment
 import me.yangxiaobin.image_edit.ImageEditEntranceActivity
 import me.yangxiaobin.image_edit.drawable.DrawableFragment
-import me.yangxiaobin.canvas.matrix_learning.MatrixFragment
 import me.yangxiaobin.kotlin.compose.lib.AbsComposableFragment
 import me.yangxiaobin.qrcode.QrCodeScanActivity
 import org.jetbrains.anko.intentFor
@@ -224,6 +224,10 @@ class ComposeVerticalListFragment : AbsComposableFragment() {
 
             // 23. Canvas
             "RectFragment" -> naviToFragment(RectFragment())
+
+            // 24. Flutter
+            "FlutterMain" -> ctx.startActivity(FlutterActivity.createDefaultIntent(requireContext()))
+            //"FlutterList" ->  FlutterActivity.createDefaultIntent(requireContext())
 
             else -> showFragmentToast("UnSupport key :$dest.")
         }
