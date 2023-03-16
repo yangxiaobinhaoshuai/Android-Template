@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
 
-abstract class AppBarPage extends StatelessWidget {
-  final String title;
+mixin AppBarWare {
+  String get appbarTitle;
 
-  const AppBarPage({super.key, required this.title});
+  String get logTag;
 
-  @override
-  Widget build(BuildContext context) {
+  Widget buildWhole(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text(title),
+          title: Text(appbarTitle),
         ),
         body: buildBody());
   }
 
   Widget buildBody();
+
+  void ld(String message) => debugPrint("$logTag => $message.");
 }

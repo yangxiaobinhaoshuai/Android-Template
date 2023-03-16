@@ -235,7 +235,7 @@ class MainActivity : AbsActivity() {
 
 
         // TODO config this pls.
-        navigateToSubFragment("FlutterButton")
+        navigateToSubFragment("FlutterList")
     }
 
     @Suppress("SameParameterValue")

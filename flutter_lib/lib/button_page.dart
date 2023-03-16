@@ -1,19 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_lib/abs_page.dart';
 
-class ButtonPage extends AppBarPage {
-  const ButtonPage({super.key, required super.title});
+class ButtonPage extends StatelessWidget with AppBarWare {
+  final String title;
+
+  @override
+  String get appbarTitle => title;
+
+  @override
+  String get logTag => runtimeType.toString();
+
+  const ButtonPage({super.key, required this.title});
+
+  @override
+  Widget build(BuildContext context) => buildWhole(context);
 
   @override
   Widget buildBody() => Center(
         child: Container(
           margin: const EdgeInsets.only(top: 60),
           child: Column(children: [
-
-            DragTarget(builder: (BuildContext context,
-                List<dynamic> candidateData, List<dynamic> rejectedData) {
-              debugPrint(
-                  "DragTarget, candidateData:$candidateData, rejectedData:$rejectedData");
+            DragTarget(
+              builder: (BuildContext context, List<dynamic> candidateData,
+                  List<dynamic> rejectedData) {
+                debugPrint(
+                    "DragTarget, candidateData:$candidateData, rejectedData:$rejectedData");
 
                 return Container(
                     height: 80,
@@ -26,7 +37,6 @@ class ButtonPage extends AppBarPage {
                       style: TextStyle(color: Colors.white),
                     ));
               },
-
               onWillAccept: (dynamic data) {
                 debugPrint('onWillAccept:$data');
                 return true;
@@ -38,7 +48,6 @@ class ButtonPage extends AppBarPage {
                 debugPrint('onLeave:$data');
               },
             ),
-
             Container(
               margin: const EdgeInsets.only(top: 120),
               child: Draggable(
