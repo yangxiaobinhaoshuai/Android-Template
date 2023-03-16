@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_lib/button_page.dart';
 import 'package:flutter_lib/list_page.dart';
+import 'package:flutter_lib/reorder_list_page.dart';
 
 void main() => runApp(const MyApp());
 
@@ -32,6 +33,7 @@ class MyApp extends StatelessWidget {
         '/FlutterMain': (context) => const MyHomePage(title: "Flutter Demo Home"),
         '/FlutterList': (context) => const ListPage(title: "Flutter Vertical List"),
         '/FlutterButton': (context) => const ButtonPage(title: "Flutter Button"),
+        '/FlutterReorderList': (context) => const ReorderListPage(title: "Flutter ReorderList"),
       }
     );
   }

@@ -181,6 +181,7 @@ class MainActivity : AbsActivity() {
            "FlutterMain",
            "FlutterList",
            "FlutterButton",
+           "FlutterReorderList",
        ),
 
     )
@@ -235,7 +236,7 @@ class MainActivity : AbsActivity() {
 
 
         // TODO config this pls.
-        navigateToSubFragment("FlutterList")
+        navigateToSubFragment("FlutterReorderList")
     }
 
     @Suppress("SameParameterValue")
