@@ -180,6 +180,7 @@ class MainActivity : AbsActivity() {
        "Flutter" to arrayOf(
            "FlutterMain",
            "FlutterList",
+           "FlutterButton",
        ),
 
     )
@@ -234,7 +235,7 @@ class MainActivity : AbsActivity() {
 
 
         // TODO config this pls.
-        navigateToSubFragment("FlutterList")
+        navigateToSubFragment("FlutterButton")
     }
 
     @Suppress("SameParameterValue")

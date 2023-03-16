@@ -234,7 +234,7 @@ class ComposeVerticalListFragment : AbsComposableFragment() {
             "RectFragment" -> naviToFragment(RectFragment())
 
             // 24. Flutter
-            "FlutterMain", "FlutterList" -> ctx.nav2FlutterPage("/$dest")
+            "FlutterMain", "FlutterList", "FlutterButton" -> ctx.nav2FlutterPage("/$dest")
 
             else -> showFragmentToast("UnSupport key :$dest.")
         }
