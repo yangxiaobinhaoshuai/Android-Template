@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_lib/abs_page.dart';
 
@@ -17,6 +19,8 @@ class ReorderListState extends State<ReorderListPage> with AppBarWare {
   @override
   String get logTag => runtimeType.toString();
 
+  List<int> dataList = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+
   @override
   Widget build(BuildContext context) => buildWhole(context);
 
@@ -26,12 +30,12 @@ class ReorderListState extends State<ReorderListPage> with AppBarWare {
         return _item(index);
       },
       scrollDirection: Axis.vertical,
-      itemCount: 10,
+      itemCount: dataList.length,
       onReorder: (int oldIndex, int newIndex) {
         ld("onReorder, oldIndex: $oldIndex, newIndex: $newIndex");
-        // setState(() {
-        //
-        // });
+        int removed = dataList.removeAt(oldIndex);
+        dataList.insert(newIndex, removed);
+        setState(() => Void);
       });
 
   Widget _item(int index) => Container(
@@ -40,5 +44,5 @@ class ReorderListState extends State<ReorderListPage> with AppBarWare {
       alignment: Alignment.center,
       key: Key(index.toString()),
       height: 40,
-      child: Text(" index: $index"));
+      child: Text(" index: ${dataList[index]}"));
 }
