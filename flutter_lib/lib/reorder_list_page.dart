@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_lib/abs_page.dart';
 
@@ -33,9 +31,11 @@ class ReorderListState extends State<ReorderListPage> with AppBarWare {
       itemCount: dataList.length,
       onReorder: (int oldIndex, int newIndex) {
         ld("onReorder, oldIndex: $oldIndex, newIndex: $newIndex");
-        int removed = dataList.removeAt(oldIndex);
-        dataList.insert(newIndex, removed);
-        setState(() => Void);
+
+        // 真正交换逻辑
+        //int removed = dataList.removeAt(oldIndex);
+        //dataList.insert(newIndex, removed);
+        //setState(() => Void);
       });
 
   Widget _item(int index) => Container(
