@@ -94,7 +94,7 @@ include ':samples:canvas'
 
 // flutter
 // Not necessary.
-include ':flutter_lib'
-include ':flutter'
-setBinding(new Binding([gradle:this]))
-evaluate(new File(settingsDir,"flutter_lib/.android/include_flutter.groovy"))
+//include ':flutter_lib'
+//include ':flutter'
+//setBinding(new Binding([gradle:this]))
+//evaluate(new File(settingsDir,"flutter_lib/.android/include_flutter.groovy"))

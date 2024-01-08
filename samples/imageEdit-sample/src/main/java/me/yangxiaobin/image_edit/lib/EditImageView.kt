@@ -479,7 +479,7 @@ class EditImageView @JvmOverloads constructor(
         } else super.onInterceptTouchEvent(ev)
     }
 
-    private fun onInterceptTouch(event: MotionEvent?): Boolean {
+    private fun onInterceptTouch(event: MotionEvent): Boolean {
         if (isHoming) {
             stopHoming()
             return true
@@ -542,7 +542,7 @@ class EditImageView @JvmOverloads constructor(
         return handled
     }
 
-    private fun onTouchNONE(event: MotionEvent?): Boolean {
+    private fun onTouchNONE(event: MotionEvent): Boolean {
         return mGDetector!!.onTouchEvent(event)
     }
 
@@ -721,8 +721,8 @@ class EditImageView @JvmOverloads constructor(
         }
 
         override fun onScroll(
-            e1: MotionEvent?,
-            e2: MotionEvent?,
+            e1: MotionEvent,
+            e2: MotionEvent,
             distanceX: Float,
             distanceY: Float
         ): Boolean {

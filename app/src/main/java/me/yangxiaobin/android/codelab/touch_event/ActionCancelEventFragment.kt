@@ -114,12 +114,12 @@ class ActionCancelEventFragment : me.yangxiaobin.common_ui.EmptyFragment() {
             this.logTag = tag
         }
 
-        override fun dispatchTouchEvent(event: MotionEvent?): Boolean {
+        override fun dispatchTouchEvent(event: MotionEvent): Boolean {
             return super.dispatchTouchEvent(event).also { logI("$logTag, MyButton, dispatchTouchEvent: $it, e:${event.getActionString}") }
         }
 
         @SuppressLint("ClickableViewAccessibility")
-        override fun onTouchEvent(event: MotionEvent?): Boolean {
+        override fun onTouchEvent(event: MotionEvent): Boolean {
             return super.onTouchEvent(event).also { logI("$logTag, MyButton, onTouchEvent:$it, e:${event.getActionString}, ===> ${this.isFocused}") }
         }
 
@@ -138,16 +138,16 @@ class ActionCancelEventFragment : me.yangxiaobin.common_ui.EmptyFragment() {
             this.logTag = tag
         }
 
-        override fun dispatchTouchEvent(event: MotionEvent?): Boolean {
+        override fun dispatchTouchEvent(event: MotionEvent): Boolean {
             return super.dispatchTouchEvent(event).also { logI("$logTag, dispatchTouchEvent:$it, e:${event.getActionString}") }
         }
 
-        override fun onInterceptTouchEvent(event: MotionEvent?): Boolean {
+        override fun onInterceptTouchEvent(event: MotionEvent): Boolean {
             return super.onInterceptTouchEvent(event).also {  logI("$logTag, dispatchTouchEvent:$it, e:${event.getActionString}") }
         }
 
         @SuppressLint("ClickableViewAccessibility")
-        override fun onTouchEvent(event: MotionEvent?): Boolean {
+        override fun onTouchEvent(event: MotionEvent): Boolean {
             return super.onTouchEvent(event).also { logI("$logTag, onTouchEvent:$it, e:${event.getActionString}") }
         }
     }
@@ -158,18 +158,18 @@ class ActionCancelEventFragment : me.yangxiaobin.common_ui.EmptyFragment() {
             this.isClickable = true
         }
 
-        override fun dispatchTouchEvent(event: MotionEvent?): Boolean {
+        override fun dispatchTouchEvent(event: MotionEvent): Boolean {
             return super.dispatchTouchEvent(event).also { logI("$logTag, dispatchTouchEvent:$it, e:${event.getActionString}") }
         }
 
-        override fun onInterceptTouchEvent(event: MotionEvent?): Boolean {
+        override fun onInterceptTouchEvent(event: MotionEvent): Boolean {
             // 会触发 child action_cancel.
             //if (event?.action == MotionEvent.ACTION_MOVE) return true
             return super.onInterceptTouchEvent(event).also {  logI("$logTag, dispatchTouchEvent:$it, e:${event.getActionString}") }
         }
 
         @SuppressLint("ClickableViewAccessibility")
-        override fun onTouchEvent(event: MotionEvent?): Boolean {
+        override fun onTouchEvent(event: MotionEvent): Boolean {
             return super.onTouchEvent(event).also { logI("$logTag, onTouchEvent:$it, e:${event.getActionString}") }
         }
     }

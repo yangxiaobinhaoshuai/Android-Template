@@ -179,7 +179,7 @@ class MyImageView @JvmOverloads constructor(
 
     }
 
-    override fun onTouchEvent(event: MotionEvent?): Boolean {
+    override fun onTouchEvent(event: MotionEvent): Boolean {
 //        return super.onTouchEvent(event)
         return scaleGestureDetector.onTouchEvent(event)
     }

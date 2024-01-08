@@ -20,7 +20,6 @@ import com.yangxiaobin.route_sample.RouterFragment
 import com.yxb.gesture.example.ScaleGestureActivity
 import com.yxb.gesture.example.ViewDragFragment
 import com.yxb.gesture.example.ViewDragHelperFragment
-import io.flutter.embedding.android.FlutterActivity
 import me.yangxiaobin.android.codelab.alerts.PopupWindowBtsFragment
 import me.yangxiaobin.android.codelab.jepack_compose.CheckBoxFragment
 import me.yangxiaobin.android.codelab.jepack_compose.MyBottomSheetDialogFragment
@@ -247,12 +246,12 @@ class ComposeVerticalListFragment : AbsComposableFragment() {
 
         logD("nav2FlutterPage dest: $route")
 
-        val intent = FlutterActivity
-            .withNewEngine()
-            .initialRoute(route)
-            .build(requireContext())
-
-        this.startActivity(intent)
+//        val intent = FlutterActivity
+//            .withNewEngine()
+//            .initialRoute(route)
+//            .build(requireContext())
+//
+//        this.startActivity(intent)
 
     }
 

@@ -152,5 +152,5 @@ dependencies {
     implementation alias.reflection
 
     // flutter
-    implementation project(":flutter")
+    //implementation project(":flutter")
 }
