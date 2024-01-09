@@ -150,9 +150,7 @@ class MainActivity : AbsActivity() {
 
         // 19. Image
         "Image" to arrayOf(
-            "ImageEdit",
             "Matrix",
-            "DrawableFragment",
         ),
 
         // 20.Animator
