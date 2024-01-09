@@ -173,14 +173,6 @@ class MainActivity : AbsActivity() {
             "RectFragment",
         ),
 
-        // 24. Flutter
-       "Flutter" to arrayOf(
-           "FlutterMain",
-           "FlutterList",
-           "FlutterButton",
-           "FlutterReorderList",
-       ),
-
     )
 
 

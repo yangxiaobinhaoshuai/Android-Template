@@ -1,6 +1,5 @@
 package me.yangxiaobin.android.codelab.common
 
-import android.content.Context
 import android.database.Cursor
 import android.net.Uri
 import android.os.Bundle
@@ -226,27 +225,8 @@ class ComposeVerticalListFragment : AbsComposableFragment() {
             // 23. Canvas
             "RectFragment" -> naviToFragment(RectFragment())
 
-            // 24. Flutter
-            "FlutterMain", "FlutterList", "FlutterButton","FlutterReorderList" -> ctx.nav2FlutterPage("/$dest")
-
             else -> showFragmentToast("UnSupport key :$dest.")
         }
-    }
-
-    /**
-     * see https://flutter.cn/docs/development/add-to-app/android/add-flutter-screen?tab=prewarm-engine-kotlin-tab
-     */
-    private fun Context.nav2FlutterPage(route: String) {
-
-        logD("nav2FlutterPage dest: $route")
-
-//        val intent = FlutterActivity
-//            .withNewEngine()
-//            .initialRoute(route)
-//            .build(requireContext())
-//
-//        this.startActivity(intent)
-
     }
 
 
