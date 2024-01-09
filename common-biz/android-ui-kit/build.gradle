@@ -42,7 +42,6 @@ dependencies {
 //    implementation 'androidx.appcompat:appcompat:1.5.0'
 //    implementation 'com.google.android.material:material:1.6.1'
     compileOnly project(":common-ui")
-    compileOnly project(":provide-only")
     implementation alias.colorLib
     compileOnly project(":codelab-android-kt")
 
