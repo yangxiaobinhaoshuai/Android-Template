@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.commit
 import androidx.recyclerview.widget.LinearLayoutManager
-import kotlinx.android.synthetic.main.activity_main.*
+import androidx.recyclerview.widget.RecyclerView
 import me.yangxiaobin.android.codelab.common.ComposeVerticalListFragment
 import me.yangxiaobin.android.kotlin.codelab.base.AbsActivity
 import me.yangxiaobin.android.kotlin.codelab.base.ability.LogAbility
@@ -196,7 +196,7 @@ class MainActivity : AbsActivity() {
 
 
     private fun init() {
-        val rv = rv_main_activity
+        val rv = findViewById<RecyclerView>(R.id.rv_main_activity)
 
         rv.setSimpleDivider()
         rv.layoutManager = LinearLayoutManager(this)

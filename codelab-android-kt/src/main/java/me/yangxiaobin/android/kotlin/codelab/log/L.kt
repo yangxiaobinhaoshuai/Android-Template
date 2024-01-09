@@ -1,7 +1,6 @@
 package me.yangxiaobin.android.kotlin.codelab.log
 
 import android.util.Log
-import me.yangxiaobin.android.mids.StaticListSub
 import me.yangxiaobin.logger.RawLogger
 import me.yangxiaobin.logger.core.LogFacade
 import me.yangxiaobin.logger.core.LogLevel
@@ -21,7 +20,6 @@ public val AndroidLogger = L.clone(
  */
 object LogElementProvider {
 
-    @StaticListSub
     val elements: MutableList<DomainContext> = mutableListOf()
 }
 

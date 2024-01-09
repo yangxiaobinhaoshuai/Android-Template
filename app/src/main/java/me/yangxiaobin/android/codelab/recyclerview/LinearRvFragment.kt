@@ -4,7 +4,7 @@ import android.view.Gravity
 import android.view.View
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
-import kotlinx.android.synthetic.main.fragment_recyclerview.*
+import androidx.recyclerview.widget.RecyclerView
 import me.yangxiaobin.android.codelab.R
 import me.yangxiaobin.android.kotlin.codelab.base.AbsFragment
 import me.yangxiaobin.android.kotlin.codelab.base.ability.LogAbility
@@ -23,6 +23,7 @@ class LinearRvFragment : AbsFragment() {
 
     override val layoutResId: Int = R.layout.fragment_recyclerview
 
+    private val rvFragment by lazy { requireView().findViewById<RecyclerView>(R.id.rv_fragment) }
 
     override fun afterViewCreated(view: View) {
         super.afterViewCreated(view)
@@ -30,8 +31,8 @@ class LinearRvFragment : AbsFragment() {
         val mockList = mutableListOf<Int>()
         repeat(30) { mockList += it }
 
-        rv_fragment.layoutManager = LinearLayoutManager(requireContext())
-        rv_fragment.adapter = SimpleRvAdapter<Int>(
+        rvFragment.layoutManager = LinearLayoutManager(requireContext())
+        rvFragment.adapter = SimpleRvAdapter<Int>(
             mockList,
             android.R.layout.simple_list_item_1
         ) { (vh: AbsVH,_, pos, _) ->
@@ -41,9 +42,9 @@ class LinearRvFragment : AbsFragment() {
             }
         }
 
-        rv_fragment.setSimpleDivider()
+        rvFragment.setSimpleDivider()
 
-        rv_fragment.setOnItemClickListener(onLongClick = {
+        rvFragment.setOnItemClickListener(onLongClick = {
             logD("Linear onLongClick pos :${it.second}")
             false
         }, onClick = {

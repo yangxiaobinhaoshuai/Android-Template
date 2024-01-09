@@ -1,6 +1,5 @@
 package me.yangxiaobin.android.log2disk
 
-import me.yangxiaobin.android.mids.StaticAddFuntion
 import me.yangxiaobin.logger.core.LogLevel
 import me.yangxiaobin.logger.domain.DomainContext
 import me.yangxiaobin.logger.domain.DomainElement
@@ -30,7 +29,6 @@ class LogInterceptor : DomainElementInterceptor {
 
 object DomainContextProvider {
 
-    @StaticAddFuntion
     fun provide(): DomainContext = InterceptorLogElement(LogInterceptor())
 
 }

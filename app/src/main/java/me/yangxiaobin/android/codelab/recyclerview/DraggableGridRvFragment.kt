@@ -14,7 +14,6 @@ import androidx.core.view.updatePadding
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.android.synthetic.main.fragment_recyclerview.*
 import me.yangxiaobin.android.codelab.R
 import me.yangxiaobin.android.kotlin.codelab.base.AbsFragment
 import me.yangxiaobin.android.kotlin.codelab.base.ability.LogAbility
@@ -35,6 +34,8 @@ class DraggableGridRvFragment : AbsFragment() {
 
     override val layoutResId: Int = R.layout.fragment_recyclerview
 
+    private  val rvFragment by lazy { requireView().findViewById<RecyclerView>(R.id.rv_fragment) }
+
     @SuppressLint("ClickableViewAccessibility")
     override fun afterViewCreated(view: View) {
         super.afterViewCreated(view)
@@ -42,8 +43,9 @@ class DraggableGridRvFragment : AbsFragment() {
         val mockList = mutableListOf<Int>()
         repeat(30) { mockList += it }
 
-        rv_fragment.layoutManager = GridLayoutManager(requireContext(), 4)
-        rv_fragment.adapter = SimpleRvAdapter(
+
+        rvFragment.layoutManager = GridLayoutManager(requireContext(), 4)
+        rvFragment.adapter = SimpleRvAdapter(
             mockList,
             android.R.layout.simple_list_item_1
         ) { (vh: AbsVH, _, pos, _) ->
@@ -61,7 +63,7 @@ class DraggableGridRvFragment : AbsFragment() {
 
         }
 
-        rv_fragment.setOnItemClickListener(
+        rvFragment.setOnItemClickListener(
             onLongClick = {
                 logD("Grid onLongClick pos :${it.second}")
                 showFragmentToast("LongClick")
@@ -168,11 +170,11 @@ class DraggableGridRvFragment : AbsFragment() {
             }
         }
 
-        ItemTouchHelper(helperCallback).attachToRecyclerView(rv_fragment)
+        ItemTouchHelper(helperCallback).attachToRecyclerView(rvFragment)
 
     }
 
     private fun setupItemDecoration(){
-        rv_fragment.addItemDecoration(GridPaddingItemDecoration(4,20,false,logD))
+        rvFragment.addItemDecoration(GridPaddingItemDecoration(4,20,false,logD))
     }
 }

@@ -8,7 +8,7 @@ buildscript {
     }
     dependencies {
         classpath deps.agp7
-        classpath deps.kgp162
+        classpath deps.kgp182
 
         classpath deps.hiltAndroidPlugin
         classpath "androidx.navigation:navigation-safe-args-gradle-plugin:2.5.1"

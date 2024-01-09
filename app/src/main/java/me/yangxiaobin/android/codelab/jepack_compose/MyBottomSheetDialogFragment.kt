@@ -25,7 +25,6 @@ import androidx.lifecycle.asLiveData
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
-import kotlinx.android.synthetic.main.edit_text_panel.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.drop
 import kotlinx.coroutines.flow.flowOn
@@ -74,7 +73,7 @@ class MyBottomSheetDialogFragment : AbsBottomSheetDialogFragment() {
     override fun onResume() {
         super.onResume()
         mainHandler.postDelayed(500){resumeLifecycleOwner.handleLifecycleEvent(Lifecycle.Event.ON_START)}
-        edt_bottom_sheet_dialog?.showKeyboardWithDelay()
+        requireView().findViewById<View>(R.id.edt_bottom_sheet_dialog)?.showKeyboardWithDelay()
     }
 
     override fun onPause() {

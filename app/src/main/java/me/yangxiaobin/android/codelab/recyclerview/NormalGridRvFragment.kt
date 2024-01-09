@@ -8,7 +8,6 @@ import android.widget.TextView
 import androidx.core.view.children
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.android.synthetic.main.fragment_recyclerview.*
 import me.yangxiaobin.android.codelab.R
 import me.yangxiaobin.android.kotlin.codelab.base.AbsFragment
 import me.yangxiaobin.android.kotlin.codelab.base.ability.LogAbility
@@ -31,7 +30,7 @@ class NormalGridRvFragment : AbsFragment() {
 
     override val layoutResId: Int = R.layout.fragment_recyclerview
 
-    private val rv: RecyclerView by lazy { rv_fragment }
+    private val rv: RecyclerView by lazy { requireView().findViewById(R.id.rv_fragment) }
 
 
     @SuppressLint("ClickableViewAccessibility")

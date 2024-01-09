@@ -58,9 +58,7 @@ ext.build_versions = build_versions
  * 将 compose 添加应用 ： https://developer.android.com/jetpack/compose/interop/adding
  */
 def compose_versions = [:]
-// deprecated
-compose_versions.ktCompilerVersion = "1.6.21"
-compose_versions.ktCompilerExtVersion = "1.2.0-beta02"
+compose_versions.ktCompilerExtVersion = "1.4.3"
 ext.compose_versions = compose_versions
 
 
