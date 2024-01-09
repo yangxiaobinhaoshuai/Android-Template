@@ -11,17 +11,6 @@ pluginManagement {
 }
 
 
-gradle.beforeProject { Project p->
-    if (p != rootProject){
-        p.configurations.all {Configuration cfg->
-            cfg.resolutionStrategy.dependencySubstitution{ substitute->
-                substitute.substitute(module("me.yangxiaobin:kcp-kt-debuglog:0.0.1")).with (project(":kcp-kt-compiler-debuglog"))
-                substitute.substitute(module("me.yangxiaobin:kcp-kt-module-instrument:0.0.1")).with (project(":ksp-kt-compiler-module-instrument"))
-            }
-        }
-    }
-}
-
 dependencyResolutionManagement {
     // module 声明 repo 会报错
     //repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
@@ -61,10 +50,6 @@ include ':common-biz:android-permission'
 include ':common-ui'
 include ':fundamental:json-mediator'
 
-include ':module-service-provider-annotation'
-include ':module-service-provider'
-include ':kcp-kt-compiler-debuglog'
-include ':ksp-kt-compiler-module-instrument'
 include ':samples:proguard-lib'
 include 'common-biz:nav-lib'
 include 'samples:permission-example'
