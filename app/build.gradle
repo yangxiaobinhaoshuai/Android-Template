@@ -103,8 +103,6 @@ dependencies {
     implementation deps.dagger2AndroidSupport
     kapt deps.dagger2AndroidProcessor
 
-//    implementation deps.hiltAndroid
-//    kapt deps.hiltAndroidCompiler
 
     implementation project(":codelab-android-kt")
     implementation project(":kt-compose-lib")
@@ -122,7 +120,7 @@ dependencies {
     implementation alias.uiKitLib
     implementation project(':log2Disk')
     implementation project(':samples:proxy-lib')
-    implementation project(':module-inverse-deps-solution')
+
     implementation project(':samples:animator-sample')
     implementation project(':samples:gesture-example')
     implementation project(':samples:route-sample')

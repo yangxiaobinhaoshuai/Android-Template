@@ -69,5 +69,4 @@ dependencies {
     api deps.bundles.anko
 
     compileOnly deps.viewbinding
-    implementation project(':module-inverse-deps-solution')
 }

@@ -14,7 +14,6 @@ import me.yangxiaobin.android.kotlin.codelab.ext.format2KMG
 import me.yangxiaobin.android.kotlin.codelab.log.AndroidLogger
 import me.yangxiaobin.android.permission.PermissionManager
 import me.yangxiaobin.logger.core.LogFacade
-import me.yangxiaobin.module_service_provider_annotation.DebugLog
 import org.jetbrains.anko.intentFor
 import org.jetbrains.anko.selector
 import kotlin.time.ExperimentalTime
@@ -62,9 +61,7 @@ class MyApp : AbsApplication() {
         sd.start(sensorManager)
     }
 
-    @DebugLog
     private fun init() {
-
         logD(
             """
             rom : ${getRomName()}
@@ -102,7 +99,6 @@ class MyApp : AbsApplication() {
 
 
     @OptIn(ExperimentalTime::class)
-    @DebugLog
     private fun testForDebugLog(value: Int): Boolean {
         measureTimedValue {
             if (value == 1) return@measureTimedValue 100L
