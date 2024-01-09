@@ -27,7 +27,6 @@ task clean(type: Delete) {
 allprojects {
     repositories {
         // Query local first.
-        //println( " ----> cur dir : ${project.rootDir}, ${System.getProperty("user.dir")}, ${gradle.getGradleHomeDir()}")
         maven { url "${System.getProperty("user.dir")}/local-repo" }
         mavenLocal()
 
