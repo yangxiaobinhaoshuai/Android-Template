@@ -61,7 +61,6 @@ import me.yangxiaobin.canvas.RectFragment
 import me.yangxiaobin.canvas.matrix_learning.MatrixFragment
 import me.yangxiaobin.kotlin.compose.lib.AbsComposableFragment
 import me.yangxiaobin.logger.core.LogFacade
-import me.yangxiaobin.qrcode.QrCodeScanActivity
 import org.jetbrains.anko.intentFor
 
 /**
@@ -180,7 +179,6 @@ class ComposeVerticalListFragment : AbsComposableFragment() {
 
             // 10. QrScan
             "PermissionRequest" -> naviToFragment(PermissionRequestFragment())
-            "QRCodeScanActivity" -> ctx.startActivity(ctx.intentFor<QrCodeScanActivity>())
 
             // 11. Proguard
             "Reflection" -> naviToFragment(ReflectProguardFragment())

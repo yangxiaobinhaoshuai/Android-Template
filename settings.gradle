@@ -61,9 +61,6 @@ include ':common-biz:android-permission'
 include ':common-ui'
 include ':fundamental:json-mediator'
 
-include ':android-qrcode'
-include ':samples:android-qrcode-impl'
-
 include ':module-service-provider-annotation'
 include ':module-service-provider'
 include ':kcp-kt-compiler-debuglog'

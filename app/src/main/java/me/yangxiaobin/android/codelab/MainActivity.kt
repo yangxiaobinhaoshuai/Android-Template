@@ -99,7 +99,6 @@ class MainActivity : AbsActivity() {
         // 10. qrcode scan
         "QRCode" to arrayOf(
             "PermissionRequest",
-            "QRCodeScanActivity",
         ),
 
         // 11. Proguard

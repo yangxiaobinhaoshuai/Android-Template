@@ -126,8 +126,6 @@ dependencies {
     implementation alias.colorLib
     implementation alias.iconLib
     implementation alias.permissionLib
-    implementation project(":android-qrcode")
-    implementation project(':samples:android-qrcode-impl')
     implementation project(":common-ui")
     implementation project(':module-service-provider-annotation')
     implementation project(':module-service-provider')
