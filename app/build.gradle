@@ -105,27 +105,29 @@ dependencies {
 
     implementation project(":codelab-android-kt")
     implementation project(":kt-compose-lib")
+    implementation project(":common-ui")
+    implementation project(':log2Disk')
+
     implementation alias.colorLib
     implementation alias.iconLib
     implementation alias.permissionLib
-    implementation project(":common-ui")
-    implementation project(':samples:proguard-lib')
     implementation alias.navLib
-    implementation project(':samples:permission-example')
-    implementation project(':samples:jank-sample')
     implementation alias.webviewLib
-    implementation project(':samples:embedding-compat')
     implementation alias.keyboardLib
     implementation alias.uiKitLib
-    implementation project(':log2Disk')
-    implementation project(':samples:proxy-lib')
-
-    implementation project(':samples:animator-sample')
-    implementation project(':samples:gesture-example')
-    implementation project(':samples:route-sample')
-    implementation project(':samples:canvas')
     implementation alias.diLib
     implementation alias.kvLib
     implementation alias.adaptersLib
     implementation alias.reflection
+
+    implementation project(':samples:proguard-lib')
+    implementation project(':samples:permission-example')
+    implementation project(':samples:jank-sample')
+    implementation project(':samples:proxy-lib')
+    implementation project(':samples:UI-sample')
+    implementation project(':samples:animator-sample')
+    implementation project(':samples:gesture-example')
+    implementation project(':samples:route-sample')
+    implementation project(':samples:canvas')
+
 }

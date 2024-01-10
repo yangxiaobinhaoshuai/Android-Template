@@ -5,7 +5,7 @@ import me.yangxiaobin.colors.HexColors
 import me.yangxiaobin.colors.colorInt
 import me.yangxiaobin.common_ui.EmptyFragment
 
-class FragmentA : EmptyFragment() {
+class FragmentOpacity : EmptyFragment() {
 
     override fun afterViewCreated(view: View) {
         super.afterViewCreated(view)
