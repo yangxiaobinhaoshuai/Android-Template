@@ -26,7 +26,6 @@ open class EmptyFragment : AbsFragment() {
 
     private val topMargin =  100.dp2px.toInt()
 
-
     @SuppressLint("SetTextI18n")
     override fun createRootView(
         inflater: LayoutInflater,

@@ -178,6 +178,11 @@ class MainActivity : AbsActivity() {
             "DrawableOpacity",
         ),
 
+        // 25. MotionEvent
+        "MotionEvent" to arrayOf(
+            "GestureDetector.onSingleTap",
+        ),
+
     )
 
 

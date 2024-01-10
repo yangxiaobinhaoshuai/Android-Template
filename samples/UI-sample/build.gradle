@@ -46,5 +46,6 @@ dependencies {
 
     compileOnly project(":common-ui")
     implementation alias.colorLib
+    implementation alias.adaptersLib
     implementation project(":codelab-android-kt")
 }

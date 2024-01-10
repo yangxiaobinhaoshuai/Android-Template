@@ -46,7 +46,7 @@ class OppoEmbeddingActivity : AbsViewBindingActivity<ActivityOppoEmbeddingBindin
 
     private fun setupViewPager() {
 
-        val fragments = listOf(OpacityFragment(), FragmentB())
+        val fragments = listOf(OpacityFragment(), GestureDetectorFragment())
 
         binding.viewPager2.adapter = object : FragmentStateAdapter(this) {
 
