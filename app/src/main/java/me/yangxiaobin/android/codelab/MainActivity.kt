@@ -173,6 +173,11 @@ class MainActivity : AbsActivity() {
             "RectFragment",
         ),
 
+        // 24.drawable
+        "Drawable" to arrayOf(
+            "DrawableOpacity",
+        ),
+
     )
 
 
