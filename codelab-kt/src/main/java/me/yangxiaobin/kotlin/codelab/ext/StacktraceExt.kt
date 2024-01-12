@@ -16,8 +16,8 @@ fun getFullStacktrace() = getLimitStacktrace(Int.MAX_VALUE)
  *
  *     @see android.util.Log.getStackTraceString(Throwable()))
  */
-fun getLimitStacktrace(depth: Int = 5) = "current stacktrace:\n\t" +
-        Throwable().stackTrace
-            .drop(2)
-            .take(depth)
-            .joinToString(separator = "\n\t")
+fun getLimitStacktrace(depth: Int = 5) =
+    Throwable().stackTrace
+        .drop(2)
+        .take(depth)
+        .joinToString(separator = "\n\t")

@@ -183,6 +183,11 @@ class MainActivity : AbsActivity() {
             "GestureDetector.onSingleTap",
         ),
 
+        // 26. StackTrace
+        "StackTrace" to arrayOf(
+            "LastMethodFrame",
+        ),
+
     )
 
 

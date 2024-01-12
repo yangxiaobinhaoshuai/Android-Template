@@ -42,6 +42,7 @@ import me.yangxiaobin.android.di_lib.Dagger2Fragment
 import me.yangxiaobin.android.embedding_compat.GestureDetectorFragment
 import me.yangxiaobin.android.embedding_compat.OpacityFragment
 import me.yangxiaobin.android.embedding_compat.OppoEmbeddingActivity
+import me.yangxiaobin.android.embedding_compat.StackTraceFragment
 import me.yangxiaobin.android.jank_sample.NPEFragment
 import me.yangxiaobin.android.jank_sample.PerfettoSampleFragment
 import me.yangxiaobin.android.keyboard.BottomSheetKeyboardFragment
@@ -232,6 +233,9 @@ class ComposeVerticalListFragment : AbsComposableFragment() {
 
             // 25. MotionEvent
             "GestureDetector.onSingleTap" -> naviToFragment(GestureDetectorFragment())
+
+            // 26. StackTrace
+            "LastMethodFrame" ->naviToFragment(StackTraceFragment())
 
             else -> showFragmentToast("UnSupport key :$dest.")
         }
