@@ -32,7 +32,7 @@ open class EmptyFragment : AbsFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
-        return (customRootViewGroup(requireContext()) ?: FrameLayout(requireContext()))
+        return (customRootViewGroup(requireContext()) ?: getRootContainer(requireContext()))
             .apply {
                 this.layoutParams = MatchParentParams
                 this.setBackgroundColor(getBackgroundColor())
@@ -63,6 +63,8 @@ open class EmptyFragment : AbsFragment() {
 
             }
     }
+
+    protected open fun getRootContainer(context: Context) = FrameLayout(context)
 
     protected open fun onButtonClick(index: Int,v:View) = Unit
 
