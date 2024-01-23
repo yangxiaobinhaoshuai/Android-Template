@@ -56,13 +56,19 @@ open class EmptyFragment : AbsFragment() {
                         bt.setOnClickListener { this@EmptyFragment::onButtonClick.invoke(index,it) }
 
                         this.addView(bt, lp)
+                        onChildrenAttached(bt, index)
                     } else {
-                        this.addView(customChildren()[index - buttonsCount], lp)
+                        val v = customChildren()[index - buttonsCount]
+                        this.addView(v, lp)
+                        onChildrenAttached(v, index)
                     }
+
                 }
 
             }
     }
+
+    protected open fun onChildrenAttached(child: View, index: Int) = Unit
 
     protected open fun getRootContainer(context: Context) = FrameLayout(context)
 

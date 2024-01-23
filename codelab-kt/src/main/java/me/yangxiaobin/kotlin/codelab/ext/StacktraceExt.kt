@@ -21,3 +21,11 @@ fun getLimitStacktrace(depth: Int = 5) =
         .drop(2)
         .take(depth)
         .joinToString(separator = "\n\t")
+
+fun getCurMethodName(): String {
+    val stacktrace: String = Throwable().stackTrace.first().toString()
+
+    val dot = '.'
+    val count = stacktrace.toCharArray().count(dot::equals)
+    return stacktrace.split(dot, limit = count - 1).last()
+}

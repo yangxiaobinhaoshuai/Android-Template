@@ -1,4 +1,4 @@
 package me.yangxiaobin.kotlin.codelab.ext
 
 
-val curThread get() = Thread.currentThread()
+val curThread: Thread get() = Thread.currentThread()

@@ -3,7 +3,7 @@ package me.yangxiaobin.kotlin.codelab.ext;
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
-public class JavaUtility {
+public class JavaStacktrace {
 
    public static String getStackTrace (int stackDepth) {
 
