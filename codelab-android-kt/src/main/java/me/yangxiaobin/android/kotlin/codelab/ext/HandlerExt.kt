@@ -13,6 +13,7 @@ import java.util.concurrent.RejectedExecutionException
 
 
 val mainLooper: Looper by lazy { Looper.getMainLooper() }
+val isMainThread get() = Looper.myLooper() == Looper.getMainLooper()
 
 public val mainHandler: Handler by lazy { Handler(mainLooper) }
 

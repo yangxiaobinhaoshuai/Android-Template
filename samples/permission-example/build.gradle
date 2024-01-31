@@ -41,6 +41,9 @@ dependencies {
 
     implementation alias.permissionLib
     implementation project(":common-ui")
+    implementation alias.iconLib
+    implementation alias.colorLib
+    implementation alias.permissionLib
     implementation project(":codelab-android-kt")
 
 }

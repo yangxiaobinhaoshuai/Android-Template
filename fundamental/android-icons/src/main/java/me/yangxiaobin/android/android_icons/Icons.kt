@@ -1,4 +1,4 @@
 package me.yangxiaobin.android.android_icons
 
 
-typealias Icons = me.yangxiaobin.android.android_icons.R.drawable
+typealias IconLib = me.yangxiaobin.android.android_icons.R.drawable

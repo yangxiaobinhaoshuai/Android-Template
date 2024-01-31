@@ -18,7 +18,7 @@ import androidx.fragment.app.FragmentActivity
  *    .createReq(this)
  *    .request(android.Manifest.permission.CAMERA) {
  *
- *        onResult {
+ *        onGranted {
  *          logD("camera permission is granted : $it.")
  *        }
  *
@@ -68,8 +68,8 @@ object PermissionManager {
 
     private fun createReqFrom(context: Context): PermissionRequest = when (context) {
         is FragmentActivity -> PermissionRequest(context)
-        is ContextWrapper -> createReqFrom(context.baseContext)
         is Activity -> throw IllegalStateException("Can't support Activity, use FragmentActivity instead.")
+        is ContextWrapper -> createReqFrom(context.baseContext)
         else -> throw IllegalArgumentException("Can't convert ${context.javaClass.simpleName} to FragmentActivity.")
     }
     //endregion

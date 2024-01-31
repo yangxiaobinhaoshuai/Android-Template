@@ -1,13 +1,12 @@
 package me.yangxiaobin.android.kotlin.codelab.ext
 
-import android.os.Bundle
+import android.os.BaseBundle
 
 
-fun Bundle?.dumpContentToString(): String {
+fun BaseBundle?.dumpContentToString(): String {
 
-    val content = this?.keySet()
-        ?.joinToString(separator = ",") { key: String -> "$key : ${this.get(key).dumpToString()}" }
-        ?: ""
+    val content: String = this?.keySet()
+        ?.joinToString(separator = ",") { key: String -> "($key : ${this.get(key)})" } ?: ""
 
     return "Bundle[$content]"
 }
@@ -17,5 +16,6 @@ fun Any?.dumpToString(): String = when (this) {
     is Array<*> -> this.contentToString()
     is List<*> -> this.toString()
     is Map<*, *> -> this.toString()
-    else -> ""
+    is BaseBundle -> this.dumpContentToString()
+    else -> "Type for (${this?.javaClass?.simpleName}) to be considered."
 }

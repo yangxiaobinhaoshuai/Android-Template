@@ -14,7 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
-import me.yangxiaobin.android.android_icons.Icons
+import me.yangxiaobin.android.android_icons.IconLib
 import me.yangxiaobin.android.kotlin.codelab.base.ability.LogAbility
 import me.yangxiaobin.android.kotlin.codelab.ext.MatchParentParams
 import me.yangxiaobin.android.kotlin.codelab.log.AndroidLogger
@@ -61,14 +61,14 @@ open class AbsWebViewFragment : AbsComposableFragment() {
 
                 SimpleImage(
                     modifier = Modifier.size(30.dp),
-                    painter = painterResource(id = Icons.arrow_back_black)
+                    painter = painterResource(id = IconLib.arrow_back_black)
                 )
 
                 SimpleImage(
                     modifier = Modifier
                         .size(30.dp)
                         .clickable { if (webView.canGoForward()) webView.goForward() },
-                    painter = painterResource(id = Icons.arrow_forward_black)
+                    painter = painterResource(id = IconLib.arrow_forward_black)
                 )
 
             }

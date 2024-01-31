@@ -52,6 +52,7 @@ import me.yangxiaobin.android.kotlin.codelab.base.ability.LogAbility
 import me.yangxiaobin.android.kotlin.codelab.ext.uicontroller.showFragmentToast
 import me.yangxiaobin.android.kotlin.codelab.log.AndroidLogger
 import me.yangxiaobin.android.nav_lib.NavHostComposeFragment
+import me.yangxiaobin.android.permission_example.ClipBoardCopyFragment
 import me.yangxiaobin.android.permission_example.PrivacyProtectionFragment
 import me.yangxiaobin.android.proguard_lib.ReflectProguardFragment
 import me.yangxiaobin.android.proxylib.DynamicProxyFragment
@@ -187,6 +188,7 @@ class ComposeVerticalListFragment : AbsComposableFragment() {
 
             // 12. permission
             "MIUI Privacy Protection" -> naviToFragment(PrivacyProtectionFragment())
+            "ClipBoard Copy" -> naviToFragment(ClipBoardCopyFragment())
 
             // 13. Jank Samples
             "Perfetto Sample" -> naviToFragment(PerfettoSampleFragment())

@@ -1,7 +1,10 @@
 package me.yangxiaobin.android.permission
 
+import android.os.Looper
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
+import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.commit
 
 
@@ -24,7 +27,19 @@ class PermissionRequest(private val fragmentActivity: FragmentActivity) {
     ) = apply {
 
         val builder = PermissionResultBuilder()
-        resultBuilder.invoke(builder)
+
+        try {
+            resultBuilder.invoke(builder)
+        } catch (e: SecurityException) {
+            e.printStackTrace()
+
+            if (Looper.myLooper() == Looper.getMainLooper()) {
+                Toast.makeText(fragmentActivity, "Have u execute ur permission risk code in 'onGranted' block?", Toast.LENGTH_SHORT).show()
+            }
+
+            logInner("Have u execute ur permission risk code in 'onGranted' block?")
+            return@apply
+        }
 
         val allGranted = permissions.all { permission-> PermissionManager.checkGranted(fragmentActivity, permission) }
         if (allGranted) {
@@ -33,7 +48,7 @@ class PermissionRequest(private val fragmentActivity: FragmentActivity) {
             return@apply
         }
 
-        val manager = fragmentActivity.supportFragmentManager
+        val manager: FragmentManager = fragmentActivity.supportFragmentManager
 
         val shadowFragment: Fragment = manager.findFragmentByTag(PERMISSION_REQUEST_FRAGMENT_TAG)
             ?: PermissionFragment().also { frag->

@@ -107,8 +107,9 @@ class MainActivity : AbsActivity() {
         ),
 
         // 12. Permission example
-        "Permission examples" to arrayOf(
-            "MIUI Privacy Protection"
+        "System relevant" to arrayOf(
+            "MIUI Privacy Protection",
+            "ClipBoard Copy",
         ),
 
         // 13. Jank sample
@@ -240,7 +241,7 @@ class MainActivity : AbsActivity() {
 
 
         // TODO config this pls.
-        navigateToSubFragment("FlutterReorderList")
+        navigateToSubFragment("ClipBoard Copy")
     }
 
     @Suppress("SameParameterValue")

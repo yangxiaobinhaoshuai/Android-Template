@@ -1,6 +1,8 @@
 package me.yangxiaobin.android.permission
 
 
+typealias AndroidPermission = android.Manifest.permission
+
 /**
  * 有操作结果
  */
