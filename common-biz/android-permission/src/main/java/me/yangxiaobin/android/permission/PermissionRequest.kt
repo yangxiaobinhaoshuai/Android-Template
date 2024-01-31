@@ -10,13 +10,10 @@ import androidx.fragment.app.commit
 
 class PermissionRequest(private val fragmentActivity: FragmentActivity) {
 
-    private var enableLog = false
-    private var logTag = LOG_TAG
+    var reqConfig = PermissionManager.globalCfg
+        private set
 
-    fun enableLog(enable: Boolean, logTag: String = LOG_TAG) = apply {
-        enableLog = enable
-        this.logTag = logTag
-    }
+    fun configReq(config: PermissionReqOption) = apply { reqConfig = config }
 
     /**
      * @see android.Manifest.permission
@@ -26,39 +23,39 @@ class PermissionRequest(private val fragmentActivity: FragmentActivity) {
         resultBuilder: ResultBuilder,
     ) = apply {
 
+        val distinctPermissions = permissions.distinct()
+
         val builder = PermissionResultBuilder()
 
         try {
             resultBuilder.invoke(builder)
         } catch (e: SecurityException) {
             e.printStackTrace()
-
-            if (Looper.myLooper() == Looper.getMainLooper()) {
-                Toast.makeText(fragmentActivity, "Have u execute ur permission risk code in 'onGranted' block?", Toast.LENGTH_SHORT).show()
-            }
-
+            showUsageHint()
             logInner("Have u execute ur permission risk code in 'onGranted' block?")
             return@apply
         }
 
         val allGranted = permissions.all { permission-> PermissionManager.checkGranted(fragmentActivity, permission) }
         if (allGranted) {
-            logInner("permissionRequest: $permissions have been granted totally.")
-            builder.permissionResult.onGranted?.invoke(arrayOf(*permissions))
+            logInner("permissionRequest: $distinctPermissions have been granted totally.")
+            builder.permissionResult.onGranted?.invoke(distinctPermissions.toTypedArray())
             return@apply
         }
 
         val manager: FragmentManager = fragmentActivity.supportFragmentManager
 
         val shadowFragment: Fragment = manager.findFragmentByTag(PERMISSION_REQUEST_FRAGMENT_TAG)
-            ?: PermissionFragment().also { frag->
-                manager.commit(allowStateLoss = true) {
-                    add(frag, PERMISSION_REQUEST_FRAGMENT_TAG)
-                }
-            }
+            ?: PermissionFragment().also { frag-> manager.commit(allowStateLoss = true) { add(frag, PERMISSION_REQUEST_FRAGMENT_TAG) } }
 
         if (shadowFragment !is PermissionFragment) return@apply
         shadowFragment.requestPermission(permissions = permissions, builder.permissionResult)
+    }
+
+    private fun showUsageHint() {
+        if (reqConfig.isDebug && Looper.myLooper() == Looper.getMainLooper()) {
+            Toast.makeText(fragmentActivity, "Have u execute ur permission risk code in 'onGranted' block?", Toast.LENGTH_SHORT).show()
+        }
     }
 
 

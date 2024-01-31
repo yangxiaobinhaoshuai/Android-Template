@@ -14,6 +14,7 @@ import me.yangxiaobin.android.kotlin.codelab.ext.uicontroller.showFragmentToast
 import me.yangxiaobin.android.kotlin.codelab.log.AndroidLogger
 import me.yangxiaobin.android.permission.AndroidPermission
 import me.yangxiaobin.android.permission.PermissionManager
+import me.yangxiaobin.android.permission.PermissionReqOption
 import me.yangxiaobin.colors.HexColors
 import me.yangxiaobin.colors.colorInt
 import me.yangxiaobin.common_ui.EmptyFragment
@@ -79,15 +80,53 @@ class ClipBoardCopyFragment : EmptyFragment() {
 
             }
 
-
             2->{
+                if (clipData != null && clipData.itemCount > 0) {
+                    val item = clipData.getItemAt(0)
+                    if (item != null && item.uri != null) {
+                        val contentResolver = requireContext().contentResolver
+
+                        PermissionManager
+                            .createReq(requireContext())
+                            .configReq(PermissionReqOption(isDebug = true))
+                            //.request(android.Manifest.permission.READ_EXTERNAL_STORAGE){
+                            .request(AndroidPermission.READ_EXTERNAL_STORAGE){
+
+//                                this.onGranted {
+
+                                    logD("AndroidPermission.READ_EXTERNAL_STORAGE granted")
+
+                                    val inputStream = contentResolver.openInputStream(item.uri)
+                                    // 处理输入流中的图片数据
+                                    if (inputStream != null) {
+                                        // 使用输入流加载图片
+                                        val bitmap = BitmapFactory.decodeStream(inputStream)
+                                        // 在这里处理获取到的图片数据
+                                        // ...
+                                        inputStream.close()
+                                        val img: ImageView? = (requireView() as ViewGroup).children.toList()[4] as? ImageView
+                                        img?.setImageBitmap(bitmap)
+                                    }
+//                                }
+
+
+                            }
+
+                    }
+                }
+            }
+
+
+            3->{
 
                 if (clipData != null && clipData.itemCount > 0) {
                     val item = clipData.getItemAt(0)
                     if (item != null && item.uri != null) {
                         val contentResolver = requireContext().contentResolver
 
-                        PermissionManager.createReq(requireContext())
+                        PermissionManager
+                            .createReq(requireContext())
+                            .configReq(PermissionReqOption(isDebug = true))
                             //.request(android.Manifest.permission.READ_EXTERNAL_STORAGE){
                             .request(AndroidPermission.READ_EXTERNAL_STORAGE){
 

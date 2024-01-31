@@ -11,6 +11,8 @@ import android.provider.Settings
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
+import kotlin.reflect.KFunction3
+import kotlin.reflect.KFunction4
 
 /**
  * Usage 1:
@@ -52,10 +54,11 @@ typealias PermissionAccessListener = (permission: String) -> Unit
 
 object PermissionManager {
 
-    //region config option
-    fun enableLog(enable: Boolean): PermissionManagerOption = PermissionManagerOption.enableLog(enable)
+    var globalCfg = PermissionReqOption()
+        private set
 
-    fun setLogTag(tag: String): PermissionManagerOption = PermissionManagerOption.setLogTag(tag)
+    //region config option
+    fun configGlobally(cfg: PermissionReqOption): PermissionManager = apply { globalCfg = cfg }
     //endregion
 
 
