@@ -1,6 +1,5 @@
 package me.yangxiaobin.android.kotlin.codelab
 
-import me.yangxiaobin.android.kotlin.codelab.ext.dumpContentToString
 import me.yangxiaobin.android.kotlin.codelab.ext.dumpToString
 import org.junit.Test
 

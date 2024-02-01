@@ -4,13 +4,14 @@ import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
 import android.graphics.BitmapFactory
+import android.net.Uri
+import android.provider.Settings
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.core.view.children
 import me.yangxiaobin.android.android_icons.IconLib
 import me.yangxiaobin.android.kotlin.codelab.base.ability.LogAbility
-import me.yangxiaobin.android.kotlin.codelab.ext.uicontroller.showFragmentToast
 import me.yangxiaobin.android.kotlin.codelab.log.AndroidLogger
 import me.yangxiaobin.android.permission.AndroidPermission
 import me.yangxiaobin.android.permission.PermissionManager
@@ -29,7 +30,7 @@ class ClipBoardCopyFragment : EmptyFragment() {
 
     override fun afterViewCreated(view: View) {
         super.afterViewCreated(view)
-
+        PermissionManager.configGlobally(PermissionReqOption(enableLog = true))
     }
 
     override fun getBackgroundColor(): Int = HexColors.GRAY_500.colorInt
@@ -44,39 +45,80 @@ class ClipBoardCopyFragment : EmptyFragment() {
         when (index) {
             0 -> {
 
-                logD("clipData: $clipData, clipData.itemCount: ${clipData?.itemCount}")
+//                val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
+//                val uri: Uri = Uri.fromParts("package", requireContext().packageName, null)
+//                intent.data = uri
+//
+//                if (intent.resolveActivity(requireContext().packageManager) != null) {
+//                    requireContext().startActivity(intent)
+//                }
 
-                if (clipData != null && clipData.itemCount > 0) {
-                    val text: CharSequence? = clipData.getItemAt(0).text
-                    logD("text: $text")
-                    // 处理剪贴板上的文本内容
-                    if (text != null) {
-                        // 打印剪贴板上的文本内容
-                        logD("Clipboard: $text")
-                        showFragmentToast("Toast Clipboard: $text")
+
+//                val settingIntent = Intent(Settings.ACTION_SETTINGS)
+//                if (settingIntent.resolveActivity(requireContext().packageManager) != null) {
+//                    requireContext().startActivity(settingIntent)
+//                }
+
+                // <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
+                //在 6.0 以前的系统版本，悬浮窗权限是默认开启的，直接使用即可。
+//                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+//                    if (!Settings.canDrawOverlays(context)) {
+//                        val intent = Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION,Uri.parse("package:${requireContext().packageName}"))
+//                        startActivity(intent)
+//                        return;
+//                    }
+//                }
+
+                PermissionManager
+                    .registerPermissionInterceptor(AndroidPermission.SYSTEM_ALERT_WINDOW) { i ->
+                        i.action = Settings.ACTION_MANAGE_OVERLAY_PERMISSION
+                        i.data = Uri.parse("package:${requireContext().packageName}")
+                        true
                     }
+                    .createReq(this).request(AndroidPermission.SYSTEM_ALERT_WINDOW){
+                        this.onGranted {
+                            logD("onGranted : ${it.contentToString()}")
+                        }
+                        this.onNeverAskAgain {
+                            logD("onNeverAskAgain : ${it.contentToString()}")
+                        }
+
+                        this.shouldShowRationale {
+                            logD("shouldShowRationale : ${it.contentToString()}")
+                        }
+
                 }
+
+//                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+//                    if (!Settings.canDrawOverlays(context)) {
+//                        val intent = Intent(Settings.WRITE_SETTINGS);
+//                        startActivity(intent)
+//                        return;
+//                    }
+//                }
+
             }
 
             1 -> {
                 // <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-                if (clipData != null && clipData.itemCount > 0) {
-                    val item = clipData.getItemAt(0)
-                    if (item != null && item.uri != null) {
-                        val contentResolver = requireContext().contentResolver
-                        val inputStream = contentResolver.openInputStream(item.uri)
-                        // 处理输入流中的图片数据
-                        if (inputStream != null) {
-                            // 使用输入流加载图片
-                            val bitmap = BitmapFactory.decodeStream(inputStream)
-                            // 在这里处理获取到的图片数据
-                            // ...
-                            inputStream.close()
-                            val img: ImageView = (requireView() as ViewGroup).children.toList()[4] as? ImageView ?: return
-                            img.setImageBitmap(bitmap)
-                        }
-                    }
-                }
+//                if (clipData != null && clipData.itemCount > 0) {
+//                    val item = clipData.getItemAt(0)
+//                    if (item != null && item.uri != null) {
+//                        val contentResolver = requireContext().contentResolver
+//                        val inputStream = contentResolver.openInputStream(item.uri)
+//                        // 处理输入流中的图片数据
+//                        if (inputStream != null) {
+//                            // 使用输入流加载图片
+//                            val bitmap = BitmapFactory.decodeStream(inputStream)
+//                            // 在这里处理获取到的图片数据
+//                            // ...
+//                            inputStream.close()
+//                            val img: ImageView = (requireView() as ViewGroup).children.toList()[4] as? ImageView ?: return
+//                            img.setImageBitmap(bitmap)
+//                        }
+//                    }
+//                }
+                PermissionManager.nav2SettingAction(requireContext())
 
             }
 
@@ -128,23 +170,23 @@ class ClipBoardCopyFragment : EmptyFragment() {
                             .createReq(requireContext())
                             .configReq(PermissionReqOption(isDebug = true))
                             //.request(android.Manifest.permission.READ_EXTERNAL_STORAGE){
-                            .request(AndroidPermission.READ_EXTERNAL_STORAGE){
+                            .request(AndroidPermission.ACCESS_FINE_LOCATION){
 
                                 this.onGranted {
 
                                     logD("AndroidPermission.READ_EXTERNAL_STORAGE granted")
 
-                                    val inputStream = contentResolver.openInputStream(item.uri)
-                                    // 处理输入流中的图片数据
-                                    if (inputStream != null) {
-                                        // 使用输入流加载图片
-                                        val bitmap = BitmapFactory.decodeStream(inputStream)
-                                        // 在这里处理获取到的图片数据
-                                        // ...
-                                        inputStream.close()
-                                        val img: ImageView = (requireView() as ViewGroup).children.toList()[4] as? ImageView ?: return@onGranted
-                                        img.setImageBitmap(bitmap)
-                                    }
+//                                    val inputStream = contentResolver.openInputStream(item.uri)
+//                                    // 处理输入流中的图片数据
+//                                    if (inputStream != null) {
+//                                        // 使用输入流加载图片
+//                                        val bitmap = BitmapFactory.decodeStream(inputStream)
+//                                        // 在这里处理获取到的图片数据
+//                                        // ...
+//                                        inputStream.close()
+//                                        val img: ImageView = (requireView() as ViewGroup).children.toList()[4] as? ImageView ?: return@onGranted
+//                                        img.setImageBitmap(bitmap)
+//                                    }
                                 }
 
                                 this.onNeverAskAgain {

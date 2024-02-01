@@ -1,5 +1,6 @@
 package me.yangxiaobin.android.permission
 
+import android.content.Intent
 import android.os.Looper
 import android.widget.Toast
 import androidx.fragment.app.Fragment
@@ -20,10 +21,10 @@ class PermissionRequest(private val fragmentActivity: FragmentActivity) {
      */
     fun request(
         vararg permissions: String,
-        resultBuilder: ResultBuilder,
+        resultBuilder: ResultBuilder = {},
     ) = apply {
 
-        val distinctPermissions = permissions.distinct()
+        val distinctPermissions: List<String> = permissions.distinct()
 
         val builder = PermissionResultBuilder()
 
@@ -36,7 +37,7 @@ class PermissionRequest(private val fragmentActivity: FragmentActivity) {
             return@apply
         }
 
-        val allGranted = permissions.all { permission-> PermissionManager.checkGranted(fragmentActivity, permission) }
+        val allGranted = distinctPermissions.all { permission-> PermissionManager.checkGranted(fragmentActivity, permission) }
         if (allGranted) {
             logInner("permissionRequest: $distinctPermissions have been granted totally.")
             builder.permissionResult.onGranted?.invoke(distinctPermissions.toTypedArray())
@@ -49,7 +50,20 @@ class PermissionRequest(private val fragmentActivity: FragmentActivity) {
             ?: PermissionFragment().also { frag-> manager.commit(allowStateLoss = true) { add(frag, PERMISSION_REQUEST_FRAGMENT_TAG) } }
 
         if (shadowFragment !is PermissionFragment) return@apply
-        shadowFragment.requestPermission(permissions = permissions, builder.permissionResult)
+
+        val intercepted: List<String> = distinctPermissions.filter { PermissionManager.permissionInterceptors.keys.contains(it) }
+        val unIntercepted: List<String> = distinctPermissions - intercepted.toSet()
+
+
+        val remained: List<String> = intercepted.filterNot { p ->
+            val interceptor = PermissionManager.permissionInterceptors[p] ?: return@filterNot false
+            val intent = Intent()
+            val shouldIntercept = interceptor.intercept(intent)
+            if (shouldIntercept) shadowFragment.requestPermission(p, intent, builder.permissionResult)
+            shouldIntercept
+        }
+
+        shadowFragment.requestPermission(permissions = (unIntercepted + remained).toTypedArray(), builder.permissionResult)
     }
 
     private fun showUsageHint() {

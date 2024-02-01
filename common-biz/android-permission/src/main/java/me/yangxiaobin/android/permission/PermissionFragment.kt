@@ -1,6 +1,9 @@
 package me.yangxiaobin.android.permission
 
+import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
+import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
@@ -15,12 +18,33 @@ import androidx.fragment.app.Fragment
 internal class PermissionFragment : Fragment() {
 
 
-    private var permissions: Array<String> = emptyArray()
-    private var result: PermissionResult = PermissionResult.EMPTY_RESULT
+    private var permissions: MutableList<String> = mutableListOf()
+    private var interceptedPermission: String? = null
+    private var mIntent: Intent? = null
+    private var permissionResult: PermissionResult = PermissionResult.EMPTY_RESULT
 
     init {
-        logInner("PermissionFragment init ,hash : ${this.hashCode()}.")
+        logInner("PermissionFragment init, hash : ${this.hashCode()}.")
     }
+
+    // TODO
+    private val startActivityForResultLauncher: ActivityResultLauncher<Intent> =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
+            logInner("startActivityForResultLauncher, result: $result")
+
+            if (interceptedPermission != null){
+                val granted by lazy { PermissionManager.checkGranted(requireContext(), interceptedPermission!!) }
+                val neverAskAgain by lazy { PermissionManager.isPermissionNeverAskAgain(requireActivity(),interceptedPermission!!) }
+
+                val permissionArray = arrayOf(interceptedPermission!!)
+                when {
+                    granted -> permissionResult.onGranted?.invoke(permissionArray)
+                    neverAskAgain -> permissionResult.onNeverAskAgain?.invoke(permissionArray)
+                    else -> permissionResult.shouldShowRationale?.invoke(permissionArray)
+                }
+            }
+        }
+
 
 
     // Register the permissions callback, which handles the user's response to the
@@ -33,7 +57,7 @@ internal class PermissionFragment : Fragment() {
             logInner("permission request launcher callback, resMap:$resMap.")
 
             val grantedPermissions: Array<String> = resMap.entries.filter { it.value }.map { it.key }.toTypedArray()
-            if (grantedPermissions.isNotEmpty()) result.onGranted?.invoke(grantedPermissions)
+            if (grantedPermissions.isNotEmpty()) permissionResult.onGranted?.invoke(grantedPermissions)
 
 
             // Non granted exits.
@@ -43,17 +67,17 @@ internal class PermissionFragment : Fragment() {
 
                 val shouldShowRationalePermissions = nonGrantedPermissions
                     .filter { permission -> ActivityCompat.shouldShowRequestPermissionRationale(requireActivity(), permission) }
-                    .also { logInner("shouldShowRequestPermissionRationale: $it.") }
+                    .also { logInner("onDenial: $it.") }
                     .toTypedArray()
+
+                if (shouldShowRationalePermissions.isNotEmpty()) permissionResult.shouldShowRationale?.invoke(shouldShowRationalePermissions)
 
                 val neverAskAgainPermissions = nonGrantedPermissions
                     .filterNot { permission -> ActivityCompat.shouldShowRequestPermissionRationale(requireActivity(), permission) }
                     .also { logInner("never ask again: $it.") }
                     .toTypedArray()
 
-                if (shouldShowRationalePermissions.isNotEmpty()) result.shouldShowRationale?.invoke(shouldShowRationalePermissions)
-
-                if (neverAskAgainPermissions.isNotEmpty()) result.onNeverAskAgain?.invoke(neverAskAgainPermissions)
+                if (neverAskAgainPermissions.isNotEmpty()) permissionResult.onNeverAskAgain?.invoke(neverAskAgainPermissions)
             }
 
         //if (isGranted) {
@@ -69,9 +93,16 @@ internal class PermissionFragment : Fragment() {
         }
 
     fun requestPermission(vararg permissions: String, result: PermissionResult) {
-        this.permissions = arrayOf(*permissions)
-        this.result = result
-        if (this.isResumed) requestPermissionLauncher.launch(this.permissions)
+        this.permissions += arrayOf(*permissions)
+        this.permissionResult = result
+        if (this.isResumed) requestPermissionLauncher.launch(this.permissions.toTypedArray())
+    }
+
+    fun requestPermission(permission: String, intent: Intent, result: PermissionResult) {
+        this.permissionResult = result
+        this.mIntent = intent
+        this.interceptedPermission = permission
+        if (this.isResumed) startActivityForResultLauncher.launch(intent)
     }
 
 
@@ -84,7 +115,8 @@ internal class PermissionFragment : Fragment() {
         super.onCreate(savedInstanceState)
         logInner("onCreate.")
         // avoid "Operation cannot be started before fragment is in created state"
-        requestPermissionLauncher.launch(this.permissions)
+        requestPermissionLauncher.launch(this.permissions.toTypedArray())
+        if (mIntent != null) startActivityForResultLauncher.launch(mIntent)
     }
 
     override fun onStart() {

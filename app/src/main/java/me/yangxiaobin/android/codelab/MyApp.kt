@@ -32,9 +32,6 @@ class MyApp : AbsApplication() {
         //initFlutterEngine()
         initShakeDetector()
         testForDebugLog(2)
-        PermissionManager.registerPermissionAccessListener {
-            logD("permission accessed :$it.")
-        }
         testForBuildFields()
     }
 

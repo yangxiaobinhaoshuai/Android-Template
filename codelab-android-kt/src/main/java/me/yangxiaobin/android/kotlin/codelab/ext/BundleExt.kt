@@ -1,5 +1,6 @@
 package me.yangxiaobin.android.kotlin.codelab.ext
 
+import android.content.Intent
 import android.os.BaseBundle
 
 
@@ -17,5 +18,6 @@ fun Any?.dumpToString(): String = when (this) {
     is List<*> -> this.toString()
     is Map<*, *> -> this.toString()
     is BaseBundle -> this.dumpContentToString()
+    is Intent -> this.dumpIntentExtras()
     else -> "Type for (${this?.javaClass?.simpleName}) to be considered."
 }
