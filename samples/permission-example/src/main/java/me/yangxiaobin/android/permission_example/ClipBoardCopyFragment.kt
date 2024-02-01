@@ -163,6 +163,7 @@ class ClipBoardCopyFragment : EmptyFragment() {
 
                 if (clipData != null && clipData.itemCount > 0) {
                     val item = clipData.getItemAt(0)
+                    logD("item: ${item.text}")
                     if (item != null && item.uri != null) {
                         val contentResolver = requireContext().contentResolver
 
@@ -170,23 +171,23 @@ class ClipBoardCopyFragment : EmptyFragment() {
                             .createReq(requireContext())
                             .configReq(PermissionReqOption(isDebug = true))
                             //.request(android.Manifest.permission.READ_EXTERNAL_STORAGE){
-                            .request(AndroidPermission.ACCESS_FINE_LOCATION){
+                            .request(AndroidPermission.READ_EXTERNAL_STORAGE){
 
                                 this.onGranted {
 
                                     logD("AndroidPermission.READ_EXTERNAL_STORAGE granted")
 
-//                                    val inputStream = contentResolver.openInputStream(item.uri)
-//                                    // 处理输入流中的图片数据
-//                                    if (inputStream != null) {
-//                                        // 使用输入流加载图片
-//                                        val bitmap = BitmapFactory.decodeStream(inputStream)
-//                                        // 在这里处理获取到的图片数据
-//                                        // ...
-//                                        inputStream.close()
-//                                        val img: ImageView = (requireView() as ViewGroup).children.toList()[4] as? ImageView ?: return@onGranted
-//                                        img.setImageBitmap(bitmap)
-//                                    }
+                                    val inputStream = contentResolver.openInputStream(item.uri)
+                                    // 处理输入流中的图片数据
+                                    if (inputStream != null) {
+                                        // 使用输入流加载图片
+                                        val bitmap = BitmapFactory.decodeStream(inputStream)
+                                        // 在这里处理获取到的图片数据
+                                        // ...
+                                        inputStream.close()
+                                        val img: ImageView = (requireView() as ViewGroup).children.toList()[4] as? ImageView ?: return@onGranted
+                                        img.setImageBitmap(bitmap)
+                                    }
                                 }
 
                                 this.onNeverAskAgain {
