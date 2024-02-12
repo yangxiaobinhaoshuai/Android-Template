@@ -16,6 +16,7 @@ import me.yangxiaobin.android.kotlin.codelab.log.AndroidLogger
 import me.yangxiaobin.android.permission.AndroidPermission
 import me.yangxiaobin.android.permission.PermissionManager
 import me.yangxiaobin.android.permission.PermissionReqOption
+import me.yangxiaobin.android.permission.requestAsync
 import me.yangxiaobin.colors.HexColors
 import me.yangxiaobin.colors.colorInt
 import me.yangxiaobin.common_ui.EmptyFragment
@@ -40,6 +41,9 @@ class ClipBoardCopyFragment : EmptyFragment() {
         // <uses-permission android:name="android.permission.READ_CLIPBOARD"/>
         val clipboardManager: ClipboardManager =
             requireContext().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+//        clipboardManager.text = ""
+//        clipboardManager.clearPrimaryClip()
+//        clipboardManager.setPrimaryClip(ClipData())
         val clipData: ClipData? = clipboardManager.primaryClip
 
         when (index) {
