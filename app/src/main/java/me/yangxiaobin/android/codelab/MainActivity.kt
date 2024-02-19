@@ -187,6 +187,7 @@ class MainActivity : AbsActivity() {
         // 26. StackTrace
         "StackTrace" to arrayOf(
             "LastMethodFrame",
+            "CharacterSelection"
         ),
 
     )
@@ -241,7 +242,7 @@ class MainActivity : AbsActivity() {
 
 
         // TODO config this pls.
-        navigateToSubFragment("ClipBoard Copy")
+        navigateToSubFragment("CharacterSelection")
     }
 
     @Suppress("SameParameterValue")

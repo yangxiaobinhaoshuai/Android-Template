@@ -39,6 +39,7 @@ import me.yangxiaobin.android.codelab.retrofit.RetrofitFragment
 import me.yangxiaobin.android.codelab.touch_event.ActionCancelEventFragment
 import me.yangxiaobin.android.codelab.touch_event.ContinuousClickFragment
 import me.yangxiaobin.android.di_lib.Dagger2Fragment
+import me.yangxiaobin.android.embedding_compat.CharacterSelectionFragment
 import me.yangxiaobin.android.embedding_compat.GestureDetectorFragment
 import me.yangxiaobin.android.embedding_compat.OpacityFragment
 import me.yangxiaobin.android.embedding_compat.OppoEmbeddingActivity
@@ -238,6 +239,7 @@ class ComposeVerticalListFragment : AbsComposableFragment() {
 
             // 26. StackTrace
             "LastMethodFrame" ->naviToFragment(StackTraceFragment())
+            "CharacterSelection" ->naviToFragment(CharacterSelectionFragment())
 
             else -> showFragmentToast("UnSupport key :$dest.")
         }

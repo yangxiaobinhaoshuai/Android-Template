@@ -20,6 +20,7 @@ import me.yangxiaobin.android.kotlin.codelab.ext.MatchParentParams
 import me.yangxiaobin.android.kotlin.codelab.ext.context.buildResColor
 import me.yangxiaobin.android.kotlin.codelab.ext.context.buildResDrawable
 import me.yangxiaobin.android.kotlin.codelab.ext.context.buildResString
+import me.yangxiaobin.android.kotlin.codelab.ext.uicontroller.setActivityToolBarTitle
 import me.yangxiaobin.kotlin.codelab.ext.neatName
 
 abstract class AbsFragment : Fragment(), LogAbility, ResAbility {
@@ -102,6 +103,7 @@ abstract class AbsFragment : Fragment(), LogAbility, ResAbility {
 
     open fun afterViewCreated(view: View) {
         logI("afterViewCreated, view :${view.neatName}.")
+        setActivityToolBarTitle(TAG)
     }
 
     open fun beforeViewReturned(view: View): View {

@@ -72,7 +72,7 @@ open class EmptyFragment : AbsFragment() {
 
     protected open fun getRootContainer(context: Context) = FrameLayout(context)
 
-    protected open fun onButtonClick(index: Int,v:View) = Unit
+    protected open fun onButtonClick(index: Int, v: View) = Unit
 
     @ColorInt protected open fun getBackgroundColor() = HexColors.YELLOW_A200.colorInt
 
