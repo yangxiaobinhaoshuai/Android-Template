@@ -242,7 +242,7 @@ class MainActivity : AbsActivity() {
 
 
         // TODO config this pls.
-        navigateToSubFragment("CharacterSelection")
+        navigateToSubFragment("Flow")
     }
 
     @Suppress("SameParameterValue")

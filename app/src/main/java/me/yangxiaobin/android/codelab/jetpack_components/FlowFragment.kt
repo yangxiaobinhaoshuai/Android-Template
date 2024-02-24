@@ -5,6 +5,7 @@ import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.launch
 import me.yangxiaobin.android.kotlin.codelab.base.ability.LogAbility
 import me.yangxiaobin.android.kotlin.codelab.log.AndroidLogger
 import me.yangxiaobin.logger.core.LogFacade
@@ -62,7 +63,60 @@ class FlowFragment : me.yangxiaobin.common_ui.ButtonsFragment() {
                 .onEach { logD("transform after: $it.") }
                 .launchIn(lifecycleScope)
             3 -> mutableIntFlow.tryEmit(9)
-            4 -> {}
+            4 -> {
+
+                val flow1: Flow<Int> = flow {
+                    emit(1)
+                    delay(100)
+                    emit(2)
+                    delay(100)
+                    emit(3)
+                    delay(100)
+                }
+
+                val flow2: Flow<String> = flow {
+//                    emit("A")
+//                    delay(200)
+//                    emit("B")
+//                    delay(200)
+                }
+
+                val mutableFlow = MutableStateFlow("A")
+
+                val combinedFlow: Flow<Pair<Int, String>> = flow1.combine(mutableFlow) { number, string ->
+                    number to string
+                }
+
+                val zippedFlow: Flow<Pair<Int, String>> = flow1.zip(flow2) { number, string ->
+                    number to string
+                }
+
+               val flatMapConcatedFlow = flow1.flatMapConcat { i->
+                    flow2
+                }
+
+                lifecycleScope.launch {
+
+                    combinedFlow.collect { pair ->
+                        val number = pair.first
+                        val string = pair.second
+                        logD("====> Number: $number, String: $string")
+                    }
+
+//                    zippedFlow.collect { pair ->
+//                        val number = pair.first
+//                        val string = pair.second
+//                        logD("====> Number: $number, String: $string")
+//                    }
+
+//                    flatMapConcatedFlow.collect{
+//                        logD("====> flatMapConcatedFlow: $it")
+//                    }
+
+
+                }
+
+            }
             5 -> {}
             else -> {}
         }
