@@ -61,6 +61,7 @@ import me.yangxiaobin.android.ui.kit.samples.EditTextFragment
 import me.yangxiaobin.android.ui.kit.samples.SelectorsFragment
 import me.yangxiaobin.android.webview.AbsWebViewFragment
 import me.yangxiaobin.android.webview.JsFunctionFragment
+import me.yangxiaobin.canvas.CanvasFragment
 import me.yangxiaobin.canvas.CharSequenceFragment
 import me.yangxiaobin.canvas.RectFragment
 import me.yangxiaobin.canvas.matrix_learning.MatrixFragment
@@ -231,6 +232,7 @@ class ComposeVerticalListFragment : AbsComposableFragment() {
 
             // 23. Canvas
             "RectFragment" -> naviToFragment(RectFragment())
+            "CanvasFragment" -> naviToFragment(CanvasFragment())
             "CharSequence" -> naviToFragment(CharSequenceFragment())
 
             // 24. Drawable

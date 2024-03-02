@@ -173,6 +173,7 @@ class MainActivity : AbsActivity() {
         "Canvas" to arrayOf(
             "RectFragment",
             "CharSequence",
+            "CanvasFragment",
         ),
 
         // 24.drawable
@@ -243,7 +244,7 @@ class MainActivity : AbsActivity() {
 
 
         // TODO config this pls.
-        navigateToSubFragment("CharSequence")
+        navigateToSubFragment("CanvasFragment")
     }
 
     @Suppress("SameParameterValue")

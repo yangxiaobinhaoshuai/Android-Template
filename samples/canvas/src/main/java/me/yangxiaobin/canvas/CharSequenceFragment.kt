@@ -7,7 +7,6 @@ import android.graphics.Paint
 import android.graphics.PorterDuff
 import android.graphics.PorterDuffXfermode
 import android.graphics.Rect
-import android.provider.CalendarContract.Colors
 import android.text.StaticLayout
 import android.text.TextPaint
 import android.util.AttributeSet
