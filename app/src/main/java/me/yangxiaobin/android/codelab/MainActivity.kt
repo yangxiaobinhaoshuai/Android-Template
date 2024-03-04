@@ -191,6 +191,10 @@ class MainActivity : AbsActivity() {
             "LastMethodFrame",
             "CharacterSelection"
         ),
+        // 27. Sys function
+        "SysFunction" to arrayOf(
+            "KtLoop",
+        )
 
     )
 
@@ -244,7 +248,7 @@ class MainActivity : AbsActivity() {
 
 
         // TODO config this pls.
-        navigateToSubFragment("CanvasFragment")
+        navigateToSubFragment("KtLoop")
     }
 
     @Suppress("SameParameterValue")
