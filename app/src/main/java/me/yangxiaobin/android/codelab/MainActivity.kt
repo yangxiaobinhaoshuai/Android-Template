@@ -248,7 +248,7 @@ class MainActivity : AbsActivity() {
 
 
         // TODO config this pls.
-        navigateToSubFragment("KtLoop")
+        navigateToSubFragment("ScaleGesture")
     }
 
     @Suppress("SameParameterValue")

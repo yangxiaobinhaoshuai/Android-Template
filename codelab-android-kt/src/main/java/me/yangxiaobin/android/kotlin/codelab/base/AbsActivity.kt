@@ -11,6 +11,7 @@ import me.yangxiaobin.android.kotlin.codelab.base.ability.ResAbility
 import me.yangxiaobin.android.kotlin.codelab.ext.context.buildResColor
 import me.yangxiaobin.android.kotlin.codelab.ext.context.buildResDrawable
 import me.yangxiaobin.android.kotlin.codelab.ext.context.buildResString
+import me.yangxiaobin.android.kotlin.codelab.ext.uicontroller.setActionBarTitle
 import me.yangxiaobin.kotlin.codelab.ext.neatName
 
 abstract class AbsActivity : AppCompatActivity(), LogAbility, ResAbility {
@@ -53,7 +54,9 @@ abstract class AbsActivity : AppCompatActivity(), LogAbility, ResAbility {
 
     protected open fun beforeOnCreate() {}
 
-    protected open fun afterOnCreate() {}
+    protected open fun afterOnCreate() {
+        this.setActionBarTitle(TAG)
+    }
 
     protected open fun onHandleBackPress() {}
 
