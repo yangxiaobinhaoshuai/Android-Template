@@ -2,6 +2,7 @@ package me.yangxiaobin.android.kotlin.codelab.ext
 
 import android.annotation.SuppressLint
 import android.graphics.Rect
+import android.os.SystemClock
 import android.view.GestureDetector
 import android.view.MotionEvent
 import android.view.View
@@ -63,4 +64,42 @@ public fun View.doOnInterceptTouch(intercept: OnTouchInterception) {
     this.setOnTouchListener { _, event ->
         return@setOnTouchListener intercept.invoke(event)
     }
+}
+
+/**
+ * x :触摸事件的 X 坐标
+ * y :触摸事件的 Y 坐标
+ */
+fun View.mockTouchEvents(
+    downX: Float, downY: Float,
+    xOffset: Float = 100F,
+    yOffset: Float = 100F,
+    upX: Float = downX, upY: Float = downY,
+) {
+
+    // 模拟触摸按下事件
+    val downTime = SystemClock.uptimeMillis()
+    val eventTime = SystemClock.uptimeMillis()
+
+    val action = MotionEvent.ACTION_DOWN
+    val motionEvent = MotionEvent.obtain(
+        downTime, eventTime, action, downX, downY, 0
+    )
+    this.dispatchTouchEvent(motionEvent)
+
+    // 模拟触摸移动事件
+    val moveX = downX + xOffset // 移动到的 X 坐标
+    val moveY = downY + yOffset // 移动到的 Y 坐标
+    val moveAction = MotionEvent.ACTION_MOVE
+    val moveEvent = MotionEvent.obtain(
+        downTime, eventTime, moveAction, moveX, moveY, 0
+    )
+    this.dispatchTouchEvent(moveEvent)
+
+    // 模拟触摸抬起事件
+    val upAction = MotionEvent.ACTION_UP
+    val upEvent = MotionEvent.obtain(
+        downTime, eventTime, upAction, upX, upY, 0
+    )
+    this.dispatchTouchEvent(upEvent)
 }
