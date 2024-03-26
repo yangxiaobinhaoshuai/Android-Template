@@ -22,9 +22,9 @@ abstract class AbsActivity : AppCompatActivity(), LogAbility, ResAbility {
 
     open val handleBackPress = false
 
-    override val asColor by lazy { buildResColor(this) }
-    override val asString by lazy { buildResString(this) }
-    override val asDrawable by lazy { buildResDrawable(this) }
+    override val int2Color by lazy { buildResColor(this) }
+    override val int2String by lazy { buildResString(this) }
+    override val int2Drawable by lazy { buildResDrawable(this) }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {

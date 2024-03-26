@@ -10,16 +10,17 @@ import me.yangxiaobin.android.kotlin.codelab.log.L
 import me.yangxiaobin.logger.core.LogLevel
 import me.yangxiaobin.logger.log
 
-open class AbsVH(wholeItemView: View) : RecyclerView.ViewHolder(wholeItemView) {
+
+open class SimpleVH(wholeItemView: View) : RecyclerView.ViewHolder(wholeItemView) {
 
     private val viewCache = SparseArray<View>(16)
 
     private val tag = "AbsVH"
-    private val logI by lazy { L.log(LogLevel.INFO,tag) }
+    private val logI by lazy { L.log(LogLevel.INFO, tag) }
 
     @Suppress("UNCHECKED_CAST")
     open fun <T : View?> findView(@IdRes resId: Int): T? = (viewCache[resId] as? T)
-        ?: itemView.findViewById<T>(resId)?.also { viewCache.put(resId,it) }
+        ?: itemView.findViewById<T>(resId)?.also { viewCache.put(resId, it) }
         ?: run { logI("Can not find associated view with id: $resId");null }
 
     open fun <T : View> requireView(@IdRes resId: Int): T = this.findView<T>(resId)
@@ -29,18 +30,19 @@ open class AbsVH(wholeItemView: View) : RecyclerView.ViewHolder(wholeItemView) {
 /**
  * T for ViewHolder
  */
-typealias VhBinding <VH,T> = (VhTuple<VH,T>) -> Unit
+typealias VhBinding <VH, T> = (VhTuple<VH, T>) -> Unit
 
 data class VhTuple<VH, T>(val vh: VH, val entity: T?, val pos: Int, val payloads: MutableList<Any>)
 
 class SimpleRvAdapter<T>(
     private val dataList: List<T>,
     private val itemLayoutResId: Int,
-    private val binding: VhBinding<AbsVH,T>,
-) : RecyclerView.Adapter<AbsVH>() {
+    private val binding: VhBinding<SimpleVH, T>,
+) : RecyclerView.Adapter<SimpleVH>() {
 
-    private val tag = "SimpleRvAdapter"
-    private val logI by lazy { L.log(LogLevel.INFO,tag) }
+    @Suppress("PrivatePropertyName")
+    private val TAG get() = "SimpleRvAdapter"
+    private val logI by lazy { L.log(LogLevel.INFO, TAG) }
 
     override fun getItemCount(): Int = dataList.size
 
@@ -48,13 +50,13 @@ class SimpleRvAdapter<T>(
         return super.getItemViewType(position)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AbsVH {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SimpleVH {
         val vhItemView = parent.context.inflater.inflate(itemLayoutResId, parent, false)
         logI("onCreateViewHolder")
-        return AbsVH(vhItemView)
+        return SimpleVH(vhItemView)
     }
 
-    override fun onBindViewHolder(holder: AbsVH, position: Int, payloads: MutableList<Any>) {
+    override fun onBindViewHolder(holder: SimpleVH, position: Int, payloads: MutableList<Any>) {
         logI("onBindViewHolder with payloads")
 
         if (payloads.isNotEmpty())
@@ -65,10 +67,10 @@ class SimpleRvAdapter<T>(
 
     }
 
-    override fun onBindViewHolder(holder: AbsVH, position: Int) {
+    override fun onBindViewHolder(holder: SimpleVH, position: Int) {
         logI("onBindViewHolder")
         binding.invoke(
-            VhTuple(holder, dataList.getOrNull(position),position, mutableListOf())
+            VhTuple(holder, dataList.getOrNull(position), position, mutableListOf())
         )
     }
 

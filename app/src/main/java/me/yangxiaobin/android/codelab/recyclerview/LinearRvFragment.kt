@@ -11,7 +11,7 @@ import me.yangxiaobin.android.kotlin.codelab.base.ability.LogAbility
 import me.yangxiaobin.android.kotlin.codelab.ext.uiwidget.setOnItemClickListener
 import me.yangxiaobin.android.kotlin.codelab.ext.uiwidget.setSimpleDivider
 import me.yangxiaobin.android.kotlin.codelab.log.AndroidLogger
-import me.yangxiaobin.android.kotlin.codelab.recyclerview.AbsVH
+import me.yangxiaobin.android.kotlin.codelab.recyclerview.SimpleVH
 import me.yangxiaobin.android.kotlin.codelab.recyclerview.SimpleRvAdapter
 import me.yangxiaobin.logger.core.LogFacade
 
@@ -35,7 +35,7 @@ class LinearRvFragment : AbsFragment() {
         rvFragment.adapter = SimpleRvAdapter<Int>(
             mockList,
             android.R.layout.simple_list_item_1
-        ) { (vh: AbsVH,_, pos, _) ->
+        ) { (vh: SimpleVH,_, pos, _) ->
             vh.requireView<TextView>(android.R.id.text1).run {
                 gravity = Gravity.CENTER
                 text = mockList[pos].toString()

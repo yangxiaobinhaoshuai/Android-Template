@@ -3,6 +3,7 @@ package me.yangxiaobin.android.kotlin.codelab.base
 import android.animation.Animator
 import android.content.Context
 import android.content.res.Configuration
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -42,9 +43,9 @@ abstract class AbsFragment : Fragment(), LogAbility, ResAbility {
      */
     protected open val handleBackPress = true
 
-    override val asColor by lazy { buildResColor(requireContext()) }
-    override val asString by lazy { buildResString(requireContext()) }
-    override val asDrawable by lazy { buildResDrawable(requireContext()) }
+    override val int2Color: Int.() -> Int by lazy { buildResColor(requireContext()) }
+    override val int2String: Int.() -> String by lazy { buildResString(requireContext()) }
+    override val int2Drawable: Int.() -> Drawable by lazy { buildResDrawable(requireContext()) }
 
     init {
         @Suppress("LeakingThis")

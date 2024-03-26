@@ -14,7 +14,7 @@ import me.yangxiaobin.android.kotlin.codelab.base.ability.LogAbility
 import me.yangxiaobin.android.kotlin.codelab.ext.getActionString
 import me.yangxiaobin.android.kotlin.codelab.ext.isOnView
 import me.yangxiaobin.android.kotlin.codelab.log.AndroidLogger
-import me.yangxiaobin.android.kotlin.codelab.recyclerview.AbsVH
+import me.yangxiaobin.android.kotlin.codelab.recyclerview.SimpleVH
 import me.yangxiaobin.android.kotlin.codelab.recyclerview.SimpleRvAdapter
 import me.yangxiaobin.logger.core.LogFacade
 
@@ -44,7 +44,7 @@ class NormalGridRvFragment : AbsFragment() {
         rv.adapter = SimpleRvAdapter(
             mockList,
             android.R.layout.simple_list_item_1
-        ) { (vh: AbsVH, _, pos, _) ->
+        ) { (vh: SimpleVH, _, pos, _) ->
 
             vh.requireView<TextView>(android.R.id.text1).run {
                 gravity = Gravity.CENTER

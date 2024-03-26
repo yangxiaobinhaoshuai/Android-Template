@@ -22,7 +22,7 @@ import me.yangxiaobin.android.kotlin.codelab.ext.context.screenSize
 import me.yangxiaobin.android.kotlin.codelab.ext.context.statusBarSize
 import me.yangxiaobin.android.kotlin.codelab.ext.uiwidget.*
 import me.yangxiaobin.android.kotlin.codelab.log.AndroidLogger
-import me.yangxiaobin.android.kotlin.codelab.recyclerview.AbsVH
+import me.yangxiaobin.android.kotlin.codelab.recyclerview.SimpleVH
 import me.yangxiaobin.logger.core.LogFacade
 
 class LinearRvStickyTailFragment : AbsViewBindingFragment<FragmentLienarRvStickyTailBinding>() {
@@ -113,9 +113,9 @@ class LinearRvStickyTailFragment : AbsViewBindingFragment<FragmentLienarRvSticky
 
 }
 
-class StickyTailVh(v: View) : AbsVH(v)
+class StickyTailVh(v: View) : SimpleVH(v)
 
-class StickyTailAdapter(private val dataList: List<Int>) : RecyclerView.Adapter<AbsVH>() {
+class StickyTailAdapter(private val dataList: List<Int>) : RecyclerView.Adapter<SimpleVH>() {
 
     private lateinit var rv: RecyclerView
 
@@ -126,16 +126,16 @@ class StickyTailAdapter(private val dataList: List<Int>) : RecyclerView.Adapter<
         return super.getItemViewType(position)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AbsVH {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SimpleVH {
         rv = parent as RecyclerView
 
         val inflater = LayoutInflater.from(parent.context)
         return if (viewType == 100) return StickyTailVh(inflater.inflate(android.R.layout.simple_list_item_1, parent, false))
-        else AbsVH(inflater.inflate(android.R.layout.simple_list_item_1, parent, false))
+        else SimpleVH(inflater.inflate(android.R.layout.simple_list_item_1, parent, false))
     }
 
     @SuppressLint("SetTextI18n")
-    override fun onBindViewHolder(holder: AbsVH, position: Int) {
+    override fun onBindViewHolder(holder: SimpleVH, position: Int) {
         holder.findView<TextView>(android.R.id.text1)?.text =
             dataList.getOrElse(position) { "Tail" }.toString() + "  " + holder.javaClass.simpleName
 

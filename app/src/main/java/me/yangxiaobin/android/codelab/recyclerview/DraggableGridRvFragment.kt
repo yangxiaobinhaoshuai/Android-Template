@@ -22,7 +22,7 @@ import me.yangxiaobin.android.kotlin.codelab.ext.uiwidget.setOnItemClickListener
 import me.yangxiaobin.android.kotlin.codelab.ext.uicontroller.showFragmentToast
 import me.yangxiaobin.android.kotlin.codelab.ext.uiwidget.getScreenLocation
 import me.yangxiaobin.android.kotlin.codelab.log.AndroidLogger
-import me.yangxiaobin.android.kotlin.codelab.recyclerview.AbsVH
+import me.yangxiaobin.android.kotlin.codelab.recyclerview.SimpleVH
 import me.yangxiaobin.android.kotlin.codelab.recyclerview.SimpleRvAdapter
 import me.yangxiaobin.logger.core.LogFacade
 
@@ -48,7 +48,7 @@ class DraggableGridRvFragment : AbsFragment() {
         rvFragment.adapter = SimpleRvAdapter(
             mockList,
             android.R.layout.simple_list_item_1
-        ) { (vh: AbsVH, _, pos, _) ->
+        ) { (vh: SimpleVH, _, pos, _) ->
 
             vh.requireView<TextView>(android.R.id.text1).run {
                 gravity = Gravity.CENTER

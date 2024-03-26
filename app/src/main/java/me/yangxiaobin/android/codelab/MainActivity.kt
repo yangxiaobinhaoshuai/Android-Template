@@ -18,7 +18,7 @@ import me.yangxiaobin.android.kotlin.codelab.ext.mainHandler
 import me.yangxiaobin.android.kotlin.codelab.ext.uicontroller.showActivityToast
 import me.yangxiaobin.android.kotlin.codelab.ext.uiwidget.setSimpleDivider
 import me.yangxiaobin.android.kotlin.codelab.log.AndroidLogger
-import me.yangxiaobin.android.kotlin.codelab.recyclerview.AbsVH
+import me.yangxiaobin.android.kotlin.codelab.recyclerview.SimpleVH
 import me.yangxiaobin.android.kotlin.codelab.recyclerview.SimpleRvAdapter
 import me.yangxiaobin.logger.core.LogFacade
 
@@ -227,7 +227,7 @@ class MainActivity : AbsActivity() {
         rv.adapter = SimpleRvAdapter(
             catalog.keys.toList(),
             android.R.layout.simple_list_item_1
-        ) { (vh: AbsVH, entity: String?, pos: Int, _: MutableList<Any>) ->
+        ) { (vh: SimpleVH, entity: String?, pos: Int, _: MutableList<Any>) ->
 
             vh.requireView<TextView>(android.R.id.text1).run {
 

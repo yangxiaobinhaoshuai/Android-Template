@@ -4,10 +4,14 @@ import android.graphics.drawable.Drawable
 
 interface ResAbility {
 
-    val asColor: Int.() -> Int
+    val int2Color: Int.() -> Int
 
-    val asString: Int.() -> String
+    val int2String: Int.() -> String
 
-    val asDrawable: Int.() -> Drawable
+    val int2Drawable: Int.() -> Drawable
+
+    fun Int.asString() = int2String(this)
+    fun Int.asColor() = int2Color(this)
+    fun Int.asDrawable() = int2Drawable(this)
 
 }
