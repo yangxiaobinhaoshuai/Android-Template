@@ -17,7 +17,7 @@ import me.yangxiaobin.android.kotlin.codelab.ext.WrapContentParams
 import me.yangxiaobin.android.kotlin.codelab.ext.dp2px
 import me.yangxiaobin.android.kotlin.codelab.ext.uicontroller.showFragmentToast
 import me.yangxiaobin.android.kotlin.codelab.log.AndroidLogger
-import me.yangxiaobin.android.ui.kit.createShapeDrawable
+import me.yangxiaobin.android.ui.kit.createRectAngleShapeDrawable
 import me.yangxiaobin.colors.HexColors
 import me.yangxiaobin.colors.colorInt
 import me.yangxiaobin.logger.core.LogFacade
@@ -42,7 +42,7 @@ class EditTextFragment : AbsFragment() {
 
         // edt.setCursorDrawable(R.drawable.bg_cursor_blue.asDrawable())
         edt.setCursorDrawable(
-            createShapeDrawable(
+            createRectAngleShapeDrawable(
                 solidColor = HexColors.PURPLE_A400.colorInt,
                 sizeInPx = 4.dp2px.toInt() to 0.dp2px.toInt(),
                 topPaddingInPx = -10,

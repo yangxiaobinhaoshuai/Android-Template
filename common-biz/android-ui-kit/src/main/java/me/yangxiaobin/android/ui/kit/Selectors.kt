@@ -5,7 +5,6 @@ import android.content.res.Resources
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.GradientDrawable
-import android.graphics.drawable.InsetDrawable
 import android.graphics.drawable.StateListDrawable
 import android.os.Build
 import android.view.View
@@ -21,7 +20,7 @@ import me.yangxiaobin.android.kotlin.codelab.ext.dp2px
  *
  * https://juejin.cn/post/6844903942275629069
  */
-fun createShapeDrawable(
+fun createRectAngleShapeDrawable(
     context: Context,
     @ColorRes solidColorRes: Int,
 
@@ -43,7 +42,7 @@ fun createShapeDrawable(
      * the width matters, height has no effect
      */
     sizeInPx: Pair<Int, Int> = 0 to 0,
-): Drawable = createShapeDrawable(
+): Drawable = createRectAngleShapeDrawable(
     solidColor = solidColorRes.asColorInt(context),
 
     topLeftRadiusDp = topLeftRadiusDp,
@@ -66,7 +65,7 @@ fun createShapeDrawable(
 /**
  * Create shape : https://stackoverflow.com/questions/28578701/how-to-create-android-shape-background-programmatically
  */
-fun createShapeDrawable(
+fun createRectAngleShapeDrawable(
     @ColorInt solidColor: Int = android.graphics.Color.WHITE,
 
     topLeftRadiusDp: Int = 0,

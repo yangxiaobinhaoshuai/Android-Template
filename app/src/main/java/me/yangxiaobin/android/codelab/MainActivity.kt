@@ -157,6 +157,7 @@ class MainActivity : AbsActivity() {
         "Animator" to arrayOf(
             "AnimatorExampleFragment",
             "AnimatorExampleActivity",
+            "TranslateWaysFragment",
         ),
 
         // 21. Reflection
@@ -248,7 +249,7 @@ class MainActivity : AbsActivity() {
 
 
         // TODO config this pls.
-        navigateToSubFragment("ScaleGesture")
+        navigateToSubFragment("TranslateWaysFragment")
     }
 
     @Suppress("SameParameterValue")

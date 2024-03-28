@@ -18,7 +18,6 @@ val WrapContentMarginParams get() = MarginLayoutParams(WrapContent, WrapContent)
 
 
 typealias androidColor = android.graphics.Color
-
 typealias androidView = android.view.View
 
 // This will be warned by IDE

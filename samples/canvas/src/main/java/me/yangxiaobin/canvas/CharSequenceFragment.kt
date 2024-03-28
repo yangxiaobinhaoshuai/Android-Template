@@ -17,7 +17,7 @@ import androidx.appcompat.widget.AppCompatImageView
 import me.yangxiaobin.android.kotlin.codelab.base.AbsFragment
 import me.yangxiaobin.android.kotlin.codelab.base.ability.LogAbility
 import me.yangxiaobin.android.kotlin.codelab.log.AndroidLogger
-import me.yangxiaobin.android.ui.kit.createShapeDrawable
+import me.yangxiaobin.android.ui.kit.createRectAngleShapeDrawable
 import me.yangxiaobin.colors.HexColors
 import me.yangxiaobin.colors.colorInt
 import me.yangxiaobin.logger.core.LogFacade
@@ -37,7 +37,7 @@ class CharSequenceFragment : AbsFragment() {
         super.afterViewCreated(view)
 
 
-        tv.background = createShapeDrawable(borderColor = HexColors.RED_400.colorInt,)
+        tv.background = createRectAngleShapeDrawable(borderColor = HexColors.RED_400.colorInt,)
 
         val txt = "123123213123"
         val paint = TextPaint()

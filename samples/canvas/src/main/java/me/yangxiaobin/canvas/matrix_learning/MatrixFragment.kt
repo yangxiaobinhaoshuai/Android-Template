@@ -10,7 +10,7 @@ import me.yangxiaobin.android.kotlin.codelab.base.AbsFragment
 import me.yangxiaobin.android.kotlin.codelab.base.ability.LogAbility
 import me.yangxiaobin.android.kotlin.codelab.base.ability.LogFun
 import me.yangxiaobin.android.kotlin.codelab.log.AndroidLogger
-import me.yangxiaobin.android.ui.kit.createShapeDrawable
+import me.yangxiaobin.android.ui.kit.createRectAngleShapeDrawable
 import me.yangxiaobin.canvas.R
 import me.yangxiaobin.colors.HexColors
 import me.yangxiaobin.colors.colorInt
@@ -43,7 +43,7 @@ class MatrixFragment : AbsFragment() {
             .also { it.setBackgroundColor(HexColors.YELLOW_600.colorInt) }
             .also {
                 it.findViewById<ImageView>(R.id.imgv_matrix)?.background =
-                    createShapeDrawable(
+                    createRectAngleShapeDrawable(
                         strokeWidthInDp = 1,
                         borderColor = HexColors.BLUE_100.colorInt
                     )

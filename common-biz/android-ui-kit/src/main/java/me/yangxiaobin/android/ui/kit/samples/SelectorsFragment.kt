@@ -6,7 +6,7 @@ import me.yangxiaobin.android.kotlin.codelab.ext.androidColor
 import me.yangxiaobin.android.kotlin.codelab.base.ability.LogAbility
 import me.yangxiaobin.android.kotlin.codelab.log.AndroidLogger
 import me.yangxiaobin.android.ui.kit.R
-import me.yangxiaobin.android.ui.kit.createShapeDrawable
+import me.yangxiaobin.android.ui.kit.createRectAngleShapeDrawable
 import me.yangxiaobin.android.ui.kit.setSelectorBackground
 import me.yangxiaobin.android.ui.kit.setSelectorColor
 import me.yangxiaobin.common_ui.EmptyFragment
@@ -35,13 +35,13 @@ class SelectorsFragment : EmptyFragment() {
                 ignoreOriginalBackground = true
             )
             1 -> v.setSelectorBackground(
-                onPressDrawable = createShapeDrawable(solidColor = androidColor.RED, radiusDp = 20),
+                onPressDrawable = createRectAngleShapeDrawable(solidColor = androidColor.RED, radiusDp = 20),
                 onNormalDrawable = ColorDrawable(androidColor.YELLOW),
                 ignoreOriginalBackground = true
             )
 
             2 -> v.setSelectorBackground(
-                onPressDrawable = createShapeDrawable(requireContext(), solidColorRes = R.color.md_purple_300, radiusDp = 20),
+                onPressDrawable = createRectAngleShapeDrawable(requireContext(), solidColorRes = R.color.md_purple_300, radiusDp = 20),
                 onNormalDrawable = ColorDrawable(androidColor.YELLOW),
                 ignoreOriginalBackground = true
             )
