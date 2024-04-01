@@ -34,7 +34,7 @@ import kotlinx.coroutines.withContext
  /**
   * 隐藏软键盘
   */
-fun View.hideKeyboard() = ViewCompat.getWindowInsetsController(this)?.hide(WindowInsetsCompat.Type.ime())
+fun View.hideKeyboardImmediately() = ViewCompat.getWindowInsetsController(this)?.hide(WindowInsetsCompat.Type.ime())
 
 /**
  * 软键盘是否可见

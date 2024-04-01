@@ -1,15 +1,16 @@
 package me.yangxiaobin.android.keyboard
 
+import android.content.Context
 import android.view.KeyEvent
 import android.view.WindowManager
+import android.view.inputmethod.InputMethodManager
+import android.widget.EditText
 import me.yangxiaobin.android.keyboard.databinding.ActivityKeyboardBinding
 import me.yangxiaobin.android.kotlin.codelab.base.AbsViewBindingActivity
 import me.yangxiaobin.android.kotlin.codelab.base.ability.LogAbility
 import me.yangxiaobin.android.kotlin.codelab.log.AndroidLogger
-import me.yangxiaobin.common_ui.EmptyActivity
 import me.yangxiaobin.kotlin.codelab.ext.neatName
 import me.yangxiaobin.logger.core.LogFacade
-import org.jetbrains.anko.intentFor
 
 class KeyboardActivity : AbsViewBindingActivity<ActivityKeyboardBinding>() {
 
@@ -18,12 +19,22 @@ class KeyboardActivity : AbsViewBindingActivity<ActivityKeyboardBinding>() {
 
     override val LogAbility.TAG: String get() = "KeyboardActivity@@"
 
-    private val edt by lazy { binding.edtActivity }
-    private val bt by lazy { binding.btActivity }
+    private val edt: EditText by lazy { binding.edtActivity }
+    private val bt1 by lazy { binding.bt1Activity }
+    private val bt2 by lazy { binding.bt2Activity }
+    private val bt3 by lazy { binding.bt3Activity }
+
+    // 禁用动画效果
+    private val softInputAdjustNothing = WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING
+
+    // A 有键盘弹出，B 无键盘弹出， A -> B ，B 返回 A 后键盘弹出
+    private val inputAlwaysVisible = WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE
 
 
     override fun beforeOnCreate() {
         super.beforeOnCreate()
+
+        window.attributes.windowAnimations = 0
 
         /**
          * Soft mode
@@ -36,9 +47,8 @@ class KeyboardActivity : AbsViewBindingActivity<ActivityKeyboardBinding>() {
         // 无效
         //val softMode = WindowManager.LayoutParams.SOFT_INPUT_STATE_UNCHANGED
 
-        // A 有键盘弹出，B 无键盘弹出， A -> B ，B 返回 A 后键盘弹出
-        val softMode = WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE
-        window.setSoftInputMode(softMode)
+
+        window.setSoftInputMode(inputAlwaysVisible or softInputAdjustNothing)
     }
 
     override fun afterOnCreate() {
@@ -50,11 +60,21 @@ class KeyboardActivity : AbsViewBindingActivity<ActivityKeyboardBinding>() {
         //edt.showKeyboardImmediately()
 
 
-        bt.setOnClickListener { this.startActivity(this.intentFor<EmptyActivity>()) }
-//        bt.setOnClickListener {
-//            val c = this.findViewById<View>(android.R.id.closeButton)
-//            toast("c :$c")
-//        }
+        bt1.setOnClickListener {
+
+            val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            imm.hideSoftInputFromWindow(edt.windowToken, 0)
+
+            //this.startActivity(this.intentFor<EmptyActivity>())
+        }
+
+        bt2.setOnClickListener {
+            window.setSoftInputMode(inputAlwaysVisible)
+        }
+
+        bt3.setOnClickListener {
+            window.setSoftInputMode(softInputAdjustNothing)
+        }
     }
 
 

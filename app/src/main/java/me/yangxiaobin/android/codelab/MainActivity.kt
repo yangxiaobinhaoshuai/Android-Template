@@ -249,7 +249,7 @@ class MainActivity : AbsActivity() {
 
 
         // TODO config this pls.
-        navigateToSubFragment("TranslateWaysFragment")
+        navigateToSubFragment("KeyboardActivity")
     }
 
     @Suppress("SameParameterValue")
