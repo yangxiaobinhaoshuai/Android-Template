@@ -9,6 +9,7 @@ import android.graphics.PorterDuff
 import android.graphics.PorterDuffXfermode
 import android.graphics.Rect
 import android.graphics.RectF
+import android.graphics.Typeface
 import android.util.AttributeSet
 import android.view.View
 import me.yangxiaobin.android.kotlin.codelab.base.AbsFragment
@@ -73,11 +74,51 @@ class CanvasCustomView @JvmOverloads constructor(
         b
     }
 
+    private val bitmapCanvas by lazy {
+        Canvas(emptyBitmap)
+    }
+
+    private val watermarkPaint by lazy {
+        val p = Paint()
+        p.color = Color.BLACK
+        p.textSize = 30F
+        p
+    }
+
     // TODO
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
 
-        canvas.drawBitmap(textBitmap, 0F, 0F, emptyPaint)
+        //canvas.drawBitmap(textBitmap, 0F, 0F, emptyPaint)
+//        val waterText = "你好我是水印"
+//        bitmapCanvas.drawText(waterText, 50F, 50F, watermarkPaint)
 
+        canvas.drawBitmap(text2Bitmap("12312313"),200F,200F,watermarkPaint)
     }
+
+    private fun text2Bitmap(
+        text: String,
+        textSize: Float = 30F,
+        textColor: Int = Color.RED,
+        typeface: Typeface? = null,
+    ): Bitmap {
+        val paint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
+            setTextSize(textSize)
+            color = textColor
+            setTypeface(typeface)
+        }
+
+        val textBounds = Rect()
+        paint.getTextBounds(text, 0, text.length, textBounds)
+
+        val width = textBounds.width()
+        val height = textBounds.height()
+
+        val bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
+        val canvas = Canvas(bitmap)
+        canvas.drawText(text, -textBounds.left.toFloat(), -textBounds.top.toFloat(), paint)
+
+        return bitmap
+    }
+
 }

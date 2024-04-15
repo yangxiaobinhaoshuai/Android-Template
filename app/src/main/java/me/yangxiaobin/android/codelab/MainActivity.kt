@@ -249,7 +249,7 @@ class MainActivity : AbsActivity() {
 
 
         // TODO config this pls.
-        navigateToSubFragment("KeyboardActivity")
+        navigateToSubFragment("CanvasFragment")
     }
 
     @Suppress("SameParameterValue")
