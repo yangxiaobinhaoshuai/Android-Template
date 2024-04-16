@@ -44,7 +44,7 @@ navV = "2.4.2"
 
 # androidX
 # consider 1.5.1 to avoid build conflict
-appcompatX = { group = "androidx.appcompat", name = "appcompat", version = { strictly = "1.4.2", prefer = "1.4.2" } }
+appcompatX = { group = "androidx.appcompat", name = "appcompat", version = { strictly = "1.6.1", prefer = "1.6.1" } }
 # https://developer.android.com/jetpack/androidx/releases/annotation
 annotationX = { module = "androidx.annotation:annotation", version = "1.4.0-alpha02" }
 
