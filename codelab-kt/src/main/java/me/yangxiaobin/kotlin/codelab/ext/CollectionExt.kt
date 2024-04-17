@@ -21,6 +21,7 @@ inline fun <K,V> Enumeration<K>.mappedTo(mapping: (K) -> V): Enumeration<V> {
     }
 }
 
-fun <T> Collection<T>.replace(newElement: T, condition: (T) -> Boolean): Collection<T> = this.map { e -> if (condition.invoke(e)) newElement else e }
+fun <C : Iterable<T>, T> C.replace(newElement: T, condition: (T) -> Boolean): List<T> =
+    this.map { e -> if (condition.invoke(e)) newElement else e }
 
 
