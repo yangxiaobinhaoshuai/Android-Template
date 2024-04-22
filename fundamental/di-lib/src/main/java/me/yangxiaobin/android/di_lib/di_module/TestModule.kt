@@ -12,7 +12,6 @@ class TestModule {
 
     companion object {
 
-        @MyScope
         @Provides
         @JvmStatic
         fun provideStuffA(): StuffA {

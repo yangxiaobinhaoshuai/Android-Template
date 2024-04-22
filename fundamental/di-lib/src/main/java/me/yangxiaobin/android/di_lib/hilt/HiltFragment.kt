@@ -18,4 +18,14 @@ class HiltFragment : EmptyFragment() {
         super.afterViewCreated(view)
 
     }
+
+    override fun onButtonClick(index: Int, v: View) {
+        super.onButtonClick(index, v)
+        when (index) {
+            0 -> {
+               NonAndroidComponent().test(requireContext())
+            }
+            else -> {}
+        }
+    }
 }
