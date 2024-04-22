@@ -3,6 +3,7 @@ package me.yangxiaobin.android.codelab
 import android.content.Context
 import android.content.DialogInterface
 import android.hardware.SensorManager
+import dagger.hilt.android.HiltAndroidApp
 import me.yangxiaobin.android.codelab.debug.ShakeDetector
 import me.yangxiaobin.android.kotlin.codelab.BuildConfig
 import me.yangxiaobin.android.kotlin.codelab.base.AbsApplication
@@ -12,7 +13,6 @@ import me.yangxiaobin.android.kotlin.codelab.ext.appinfo.*
 import me.yangxiaobin.android.kotlin.codelab.ext.device.*
 import me.yangxiaobin.android.kotlin.codelab.ext.format2KMG
 import me.yangxiaobin.android.kotlin.codelab.log.AndroidLogger
-import me.yangxiaobin.android.permission.PermissionManager
 import me.yangxiaobin.logger.core.LogFacade
 import org.jetbrains.anko.intentFor
 import org.jetbrains.anko.selector
@@ -20,6 +20,7 @@ import kotlin.time.ExperimentalTime
 import kotlin.time.measureTimedValue
 
 
+@HiltAndroidApp
 class MyApp : AbsApplication() {
 
     override val logger: LogFacade get() = AndroidLogger

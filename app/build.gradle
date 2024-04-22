@@ -2,6 +2,7 @@ plugins {
     id 'com.android.application'
     id 'kotlin-android'
 
+    id 'dagger.hilt.android.plugin'
     id 'kotlin-kapt'
 }
 
@@ -129,5 +130,8 @@ dependencies {
     implementation project(':samples:gesture-example')
     implementation project(':samples:route-sample')
     implementation project(':samples:canvas')
+
+    implementation deps.hiltAndroid
+    kapt deps.hiltAndroidCompiler
 
 }

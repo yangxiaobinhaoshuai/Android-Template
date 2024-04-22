@@ -40,6 +40,7 @@ import me.yangxiaobin.android.codelab.retrofit.RetrofitFragment
 import me.yangxiaobin.android.codelab.touch_event.ActionCancelEventFragment
 import me.yangxiaobin.android.codelab.touch_event.ContinuousClickFragment
 import me.yangxiaobin.android.di_lib.Dagger2Fragment
+import me.yangxiaobin.android.di_lib.hilt.HiltFragment
 import me.yangxiaobin.android.embedding_compat.CharacterSelectionFragment
 import me.yangxiaobin.android.embedding_compat.GestureDetectorFragment
 import me.yangxiaobin.android.embedding_compat.KtLoopFragment
@@ -154,6 +155,7 @@ class ComposeVerticalListFragment : AbsComposableFragment() {
 
             // 3.DI / dagger2
             "Dagger2" -> naviToFragment(Dagger2Fragment())
+            "HiltFragment" -> naviToFragment(HiltFragment())
 
 
             // 4.Jetpack Components

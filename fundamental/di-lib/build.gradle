@@ -2,6 +2,7 @@ plugins {
     id 'com.android.library'
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
 }
 
 android {
@@ -42,6 +43,10 @@ dependencies {
 
     compileOnly project(":common-ui")
     implementation project(":kt-compose-lib")
+
     implementation deps.bundles.dagger2
     kapt deps.bundles.dagger2Processors
+
+    api deps.hiltAndroid
+    kapt deps.hiltAndroidCompiler
 }

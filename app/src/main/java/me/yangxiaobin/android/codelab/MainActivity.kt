@@ -10,6 +10,7 @@ import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.commit
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import dagger.hilt.android.AndroidEntryPoint
 import me.yangxiaobin.android.codelab.common.ComposeVerticalListFragment
 import me.yangxiaobin.android.kotlin.codelab.base.AbsActivity
 import me.yangxiaobin.android.kotlin.codelab.base.ability.LogAbility
@@ -22,7 +23,11 @@ import me.yangxiaobin.android.kotlin.codelab.recyclerview.SimpleVH
 import me.yangxiaobin.android.kotlin.codelab.recyclerview.SimpleRvAdapter
 import me.yangxiaobin.logger.core.LogFacade
 
-
+/**
+ *  java.lang.IllegalStateException: Hilt Fragments must be attached to an @AndroidEntryPoint Activity.
+ *  Found:class me.yangxiaobin.android.codelab.MainActivity
+ */
+@AndroidEntryPoint
 class MainActivity : AbsActivity() {
 
     private val catalog: Map<String, Array<String>> = mapOf(
@@ -48,7 +53,7 @@ class MainActivity : AbsActivity() {
         "DI" to arrayOf(
             "Dagger2",
             "Dagger2.android",
-            "Hilt",
+            "HiltFragment",
         ),
 
         // 4. Kt Jetpack Components
@@ -249,7 +254,7 @@ class MainActivity : AbsActivity() {
 
 
         // TODO config this pls.
-        navigateToSubFragment("CanvasFragment")
+        navigateToSubFragment("HiltFragment")
     }
 
     @Suppress("SameParameterValue")
