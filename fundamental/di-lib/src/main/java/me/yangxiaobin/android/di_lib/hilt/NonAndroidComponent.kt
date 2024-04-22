@@ -15,6 +15,8 @@ import javax.inject.Inject
 @InstallIn(SingletonComponent::class)
 interface NonAndroidInterface {
     fun inject(non: NonAndroidComponent)
+
+    fun getSuffA(): StuffA
 }
 
 class NonAndroidComponent {
@@ -30,5 +32,19 @@ class NonAndroidComponent {
         EntryPointAccessors.fromApplication(context.applicationContext,NonAndroidInterface::class.java).inject(this)
         stuffA.work()
         Log.d("NonAndroidComponent", "stuffA: $stuffA.")
+    }
+
+    companion object StaticObj {
+
+        fun staticTest(context: Context) {
+
+           val stuffb =  EntryPointAccessors.fromApplication(
+                context.applicationContext,
+                NonAndroidInterface::class.java
+            ).getSuffA()
+
+            stuffb.work()
+            Log.d("NonAndroidComponent", "stuffB: $stuffb.")
+        }
     }
 }

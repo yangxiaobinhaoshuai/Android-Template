@@ -25,6 +25,9 @@ class HiltFragment : EmptyFragment() {
             0 -> {
                NonAndroidComponent().test(requireContext())
             }
+            1 -> {
+                NonAndroidComponent.staticTest(requireContext())
+            }
             else -> {}
         }
     }
