@@ -2,4 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="me.yangxiaobin.android.kotlin.codelab">
 
+    <!--https://developer.android.com/training/package-visibility?hl=zh-cn-->
+    <uses-permission android:name="android.permission.QUERY_ALL_PACKAGES"/>
+
 </manifest>

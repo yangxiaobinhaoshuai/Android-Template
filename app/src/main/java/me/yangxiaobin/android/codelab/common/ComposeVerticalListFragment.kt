@@ -46,6 +46,7 @@ import me.yangxiaobin.android.embedding_compat.GestureDetectorFragment
 import me.yangxiaobin.android.embedding_compat.KtLoopFragment
 import me.yangxiaobin.android.embedding_compat.OpacityFragment
 import me.yangxiaobin.android.embedding_compat.OppoEmbeddingActivity
+import me.yangxiaobin.android.embedding_compat.SignatureFragment
 import me.yangxiaobin.android.embedding_compat.StackTraceFragment
 import me.yangxiaobin.android.jank_sample.NPEFragment
 import me.yangxiaobin.android.jank_sample.PerfettoSampleFragment
@@ -252,6 +253,9 @@ class ComposeVerticalListFragment : AbsComposableFragment() {
 
             // 27. Sys function
             "KtLoop" -> naviToFragment(KtLoopFragment())
+
+            // 28. AppSignature
+            "AppSignature" -> naviToFragment(SignatureFragment())
 
             else -> showFragmentToast("UnSupport key :$dest.")
         }

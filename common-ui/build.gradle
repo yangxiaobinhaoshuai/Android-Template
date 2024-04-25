@@ -59,5 +59,6 @@ dependencies {
     api project(":codelab-android-kt")
     api project(":kt-compose-lib")
     implementation alias.colorLib
+    implementation alias.iconLib
 
 }

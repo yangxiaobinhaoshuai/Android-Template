@@ -200,7 +200,11 @@ class MainActivity : AbsActivity() {
         // 27. Sys function
         "SysFunction" to arrayOf(
             "KtLoop",
-        )
+        ),
+        // 28. Device Info
+        "DeviceInfo" to arrayOf(
+            "AppSignature",
+        ),
 
     )
 
@@ -254,7 +258,7 @@ class MainActivity : AbsActivity() {
 
 
         // TODO config this pls.
-        navigateToSubFragment("HiltFragment")
+        navigateToSubFragment("AppSignature")
     }
 
     @Suppress("SameParameterValue")
