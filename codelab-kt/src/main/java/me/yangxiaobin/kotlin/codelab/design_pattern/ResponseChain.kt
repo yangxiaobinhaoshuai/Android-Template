@@ -1,7 +1,6 @@
 package me.yangxiaobin.kotlin.codelab.design_pattern
 
 
-
 interface Interceptor<ORIGIN, PROCESSED> {
 
     fun intercept(chain: Chain<ORIGIN, PROCESSED>): PROCESSED
@@ -29,26 +28,26 @@ class ChainImpl<O, P>(
     }
 }
 
-typealias  InterceptorFunc<ORIGIN, PROCESSED> = (chain: Interceptor.Chain<ORIGIN, PROCESSED>) -> PROCESSED
+typealias InterceptorFunc<ORIGIN, PROCESSED> = (chain: Interceptor.Chain<ORIGIN, PROCESSED>) -> PROCESSED
 
 
 /**
  * Usage :
  *
  *      fun <I,O> foo(args): O {
-  *        val handler = ResponseChainHandler<I, O>(input)
-  *
-  *        handler.add(this::process)
-  *        handler.add(this::convertType)
+ *        val handler = ResponseChainHandler<I, O>(input)
+ *
+ *        handler.add(this::process)
+ *        handler.add(this::convertType)
  *         // or
  *         handler.add { chain ->
  *           val origin = chain.origin()
  *           // process with origin
  *           return chain.proceed(origin)
  *         }
-  *
-  *        return handler.getProcessed()
-  *      }
+ *
+ *        return handler.getProcessed()
+ *      }
  *
  *       private fun <I,O> process(chain: Interceptor.Chain<I, O>): O {
  *          val originList = chain.original()
@@ -65,9 +64,10 @@ typealias  InterceptorFunc<ORIGIN, PROCESSED> = (chain: Interceptor.Chain<ORIGIN
  */
 class ResponseChainHandler<ORIGIN, PROCESSED>(private val origin: ORIGIN) {
 
-    private val interceptors = mutableListOf<Interceptor<ORIGIN, PROCESSED>>()
+    private val mInterceptors = mutableListOf<Interceptor<ORIGIN, PROCESSED>>()
 
-    operator fun plus(interceptor: Interceptor<ORIGIN, PROCESSED>) = apply { interceptors.add(interceptor) }
+    operator fun plus(parametricInterceptor: Interceptor<ORIGIN, PROCESSED>) =
+        apply { mInterceptors.add(parametricInterceptor) }
 
     fun add(interceptor: InterceptorFunc<ORIGIN, PROCESSED>) = apply {
         plus(object : Interceptor<ORIGIN, PROCESSED> {
@@ -76,7 +76,7 @@ class ResponseChainHandler<ORIGIN, PROCESSED>(private val origin: ORIGIN) {
         })
     }
 
-    fun getProcessed(): PROCESSED = ChainImpl(interceptors, 0, origin).proceed(origin)
+    fun getProcessed(): PROCESSED = ChainImpl(mInterceptors, 0, origin).proceed(origin)
 
 }
 
