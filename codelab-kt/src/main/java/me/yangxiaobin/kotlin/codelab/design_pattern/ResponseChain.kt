@@ -66,8 +66,8 @@ class ResponseChainHandler<ORIGIN, PROCESSED>(private val origin: ORIGIN) {
 
     private val mInterceptors = mutableListOf<Interceptor<ORIGIN, PROCESSED>>()
 
-    operator fun plus(parametricInterceptor: Interceptor<ORIGIN, PROCESSED>) =
-        apply { mInterceptors.add(parametricInterceptor) }
+    operator fun plus(interceptor: Interceptor<ORIGIN, PROCESSED>) =
+        apply { mInterceptors.add(interceptor) }
 
     fun add(interceptor: InterceptorFunc<ORIGIN, PROCESSED>) = apply {
         plus(object : Interceptor<ORIGIN, PROCESSED> {
