@@ -16,11 +16,14 @@ fun getFullStacktrace() = getLimitStacktrace(Int.MAX_VALUE)
  *
  *     @see android.util.Log.getStackTraceString(Throwable()))
  */
-fun getLimitStacktrace(depth: Int = 5) =
-    Throwable().stackTrace
-        .drop(2)
-        .take(depth)
-        .joinToString(separator = "\n\t")
+fun getLimitStacktrace(
+    depth: Int = 5,
+    drop: Int = 1,
+    separator: CharSequence = "\n\t",
+): String = Throwable().stackTrace
+    .drop(drop)
+    .take(depth)
+    .joinToString(separator = separator)
 
 fun getCurMethodName(): String {
     val stacktrace: String = Throwable().stackTrace.first().toString()
