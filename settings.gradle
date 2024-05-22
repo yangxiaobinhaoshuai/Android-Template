@@ -44,6 +44,7 @@ include ':fundamental:android-icons'
 include ':fundamental:json-mediator'
 include ':fundamental:android-reflect'
 include ':fundamental:di-lib'
+include ':fundamental:java-io'
 
 include ':common-biz:network-lib'
 include ':common-biz:android-permission'
@@ -67,4 +68,3 @@ include ':samples:route-sample'
 include ':samples:canvas'
 
 include ':log2Disk'
-

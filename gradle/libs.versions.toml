@@ -38,6 +38,8 @@ hiltV = "2.44"
 cameraXV = "1.1.0-beta01"
 
 navV = "2.4.2"
+junit = "1.1.5"
+espressoCore = "3.5.1"
 
 
 [libraries]
@@ -170,6 +172,8 @@ jvmLogger = { module = "me.yangxiaobin.gradle.plugin:logger", version = "1.0-SNA
 
 # glide https://github.com/bumptech/glide
 glide = { module = "com.github.bumptech.glide:glide", version = "4.14.2" }
+ext-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junit" }
+espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
 
 [bundles]
 widgets = [
