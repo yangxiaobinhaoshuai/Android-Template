@@ -28,6 +28,7 @@ abstract class AbsActivity : AppCompatActivity(), LogAbility, ResAbility {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        beforeSuperOnCreate(savedInstanceState)
         super.onCreate(savedInstanceState)
         beforeOnCreate()
         dispatchSetContent(contentResId)
@@ -51,6 +52,8 @@ abstract class AbsActivity : AppCompatActivity(), LogAbility, ResAbility {
     }
 
     protected open fun getRootView(): View = View(this).apply { this.setBackgroundColor(android.R.color.holo_blue_light.asColor()) }
+
+    protected open fun beforeSuperOnCreate(savedInstanceState: Bundle?){}
 
     protected open fun beforeOnCreate() {}
 
