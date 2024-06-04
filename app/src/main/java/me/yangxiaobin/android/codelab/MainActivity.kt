@@ -237,7 +237,9 @@ class MainActivity : AbsActivity() {
 
     override fun afterOnCreate() {
         super.afterOnCreate()
+
         notchDetect()
+
         init()
     }
 
@@ -261,14 +263,13 @@ class MainActivity : AbsActivity() {
      * 适配刘海屏
      */
     private fun notchDetect() {
-        hideSystemBars()
+        //hideSystemBars()
         window.decorView.setOnApplyWindowInsetsListener { v, insets: WindowInsets ->
             logD("setOnApplyWindowInsetsListener, insets: $insets.")
             insets
         }
-        window.decorView.doOnAttach {
 
-        }
+        window.decorView.doOnAttach {}
 
         window.decorView.addOnAttachStateChangeListener(object : View.OnAttachStateChangeListener {
             override fun onViewAttachedToWindow(v: View) {
@@ -313,25 +314,8 @@ class MainActivity : AbsActivity() {
         }
     }
 
-    override fun onAttachedToWindow() {
-        super.onAttachedToWindow()
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-            val cutout: DisplayCutout? = window.decorView.rootWindowInsets.displayCutout
-            logD("MainActivity onAttachedToWindow, cutout: $cutout.")
-            if (cutout != null){
-                val boundingRectTop: Rect = cutout.boundingRectTop
-                logD("MainActivity onAttachedToWindow, cutout.boundingRectTop: $boundingRectTop.")
-                logD("MainActivity onAttachedToWindow, statusBarHeight: ${this.statusBarSize}.")
-            }
-
-            val wd: Window = window
-            val attr: WindowManager.LayoutParams = wd.attributes
-            //attr.layoutInDisplayCutoutMode = WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES
-        }
-    }
-
     private fun init() {
-        val rv = findViewById<RecyclerView>(R.id.rv_main_activity)
+        val rv: RecyclerView = findViewById<RecyclerView>(R.id.rv_main_activity)
 
         rv.setSimpleDivider()
         rv.layoutManager = LinearLayoutManager(this)
@@ -358,7 +342,7 @@ class MainActivity : AbsActivity() {
         rv.scrollToPosition(rv.adapter?.itemCount?.minus(1) ?: 0)
 
         // TODO config this pls.
-        navigateToSubFragment("AppSignature")
+        navigateToSubFragment("Navigation")
     }
 
     @Suppress("SameParameterValue")
