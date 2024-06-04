@@ -160,3 +160,13 @@ public fun View.makeDraggable(){
         return@doOnInterceptTouch true
     }
 }
+
+fun Int.toReadableVisibleValue(): String = when (this) {
+    // 0
+    View.VISIBLE -> "VISIBLE"
+    // 4
+    View.INVISIBLE -> "INVISIBLE"
+    // 8
+    View.GONE -> "GONE"
+    else -> throw IllegalArgumentException("Must be one of VISIBLE, INVISIBLE or GONE")
+}
