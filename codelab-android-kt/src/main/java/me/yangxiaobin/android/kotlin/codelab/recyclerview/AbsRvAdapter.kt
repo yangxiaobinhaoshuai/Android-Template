@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.IdRes
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
@@ -13,9 +14,15 @@ import kotlinx.coroutines.launch
 typealias RvVh = androidx.recyclerview.widget.RecyclerView.ViewHolder
 typealias RvAdapter <VH> = androidx.recyclerview.widget.RecyclerView.Adapter<VH>
 
-open class AbsVh<T>(itemView: View, private val binding: suspend AbsVh<T>.(T) -> Unit = {}) :
-    RecyclerView.ViewHolder(itemView) {
+open class AbsVh<T>(
+    itemView: View,
+    private val bindingWithPayloads: suspend AbsVh<T>.(T, List<Any>) -> Unit = { _, _ -> },
+    private val binding: suspend AbsVh<T>.(T) -> Unit = {},
+) : RecyclerView.ViewHolder(itemView) {
     suspend fun bindTo(data: T) = binding.invoke(this, data)
+
+    suspend fun bindToWithPayloads(data: T, payloads: List<Any> = emptyList()) =
+        bindingWithPayloads.invoke(this, data, payloads)
 
     private val viewCache = SparseArray<View>(16)
     @Suppress("UNCHECKED_CAST")
@@ -33,8 +40,20 @@ fun <T> layoutResVhBuilder(layoutResId: Int, binding: suspend AbsVh<T>.(T) -> Un
         LayoutInflater
             .from(parent.context)
             .inflate(layoutResId, parent as ViewGroup, false)
-            .let { AbsVh(itemView = it, binding) }
+            .let { AbsVh(itemView = it, binding = binding) }
     }
+
+fun <T> layoutResVhBuilderWithPayloads(
+    layoutResId: Int,
+    bindingWithPayloads: suspend AbsVh<T>.(T, List<Any>) -> Unit = { _, _ -> },
+): VHBuilder<T> =
+    { parent: View, _: Int ->
+        LayoutInflater
+            .from(parent.context)
+            .inflate(layoutResId, parent as ViewGroup, false)
+            .let { AbsVh(itemView = it, bindingWithPayloads = bindingWithPayloads) }
+    }
+
 
 open class AbsRvAdapter<T, VH : AbsVh<T>>(
     private val dataList: List<T>,
@@ -61,9 +80,16 @@ open class AbsRvListAdapter<T, VH : AbsVh<T>>(
     private val vhBuilder: VHBuilder<T>,
 ) : androidx.recyclerview.widget.ListAdapter<T, VH>(diffCallback) {
 
-    override fun onBindViewHolder(holder: VH, position: Int) {
+    override fun onBindViewHolder(holder: VH, position: Int, payloads: MutableList<Any>) {
+        super.onBindViewHolder(holder, position, payloads)
         val dataList: MutableList<T> = currentList
-        scope.launch { holder.bindTo(dataList[position]) }
+        scope.launch { holder.bindToWithPayloads(dataList[position], payloads) }
+    }
+
+
+    override fun onBindViewHolder(holder: VH, position: Int) {
+        /*val dataList: MutableList<T> = currentList
+        scope.launch { holder.bindToWithPayloads(dataList[position]) }*/
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VH {
