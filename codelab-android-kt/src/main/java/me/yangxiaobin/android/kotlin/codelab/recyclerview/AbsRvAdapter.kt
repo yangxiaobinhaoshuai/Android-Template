@@ -53,3 +53,22 @@ open class AbsRvAdapter<T, VH : AbsVh<T>>(
 
     override fun getItemCount(): Int = dataList.size
 }
+
+
+open class AbsRvListAdapter<T, VH : AbsVh<T>>(
+    private val scope: CoroutineScope,
+    diffCallback: DiffUtil.ItemCallback<T>,
+    private val vhBuilder: VHBuilder<T>,
+) : androidx.recyclerview.widget.ListAdapter<T, VH>(diffCallback) {
+
+    override fun onBindViewHolder(holder: VH, position: Int) {
+        val dataList: MutableList<T> = currentList
+        scope.launch { holder.bindTo(dataList[position]) }
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VH {
+        @Suppress("UNCHECKED_CAST")
+        return vhBuilder.invoke(parent, viewType) as VH
+    }
+
+}
