@@ -1,22 +1,35 @@
 package me.yangxiaobin.android.kotlin.codelab.ext
 
 import android.annotation.SuppressLint
+import android.graphics.Matrix
 import android.graphics.Rect
 import android.os.SystemClock
 import android.view.GestureDetector
 import android.view.MotionEvent
 import android.view.View
 
+/**
+ * From chatgpt 3.5
+ */
 fun MotionEvent.isOnView(v: View): Boolean {
 
-    val motionRawX = this.rawX
-    val motionRawY = this.rawY
+    val viewLocation = IntArray(2)
+    v.getLocationOnScreen(viewLocation)
 
-    val rect = Rect()
-    // 要考虑 View 发生旋转，缩放的情况
-    v.getHitRect(rect)
+    val viewX = viewLocation[0]
+    val viewY = viewLocation[1]
 
-    return rect.contains(motionRawX.toInt(),motionRawY.toInt())
+    val invertedMatrix = Matrix()
+    v.matrix.invert(invertedMatrix)
+
+    val eventXY = floatArrayOf(this.rawX, this.rawY)
+    invertedMatrix.mapPoints(eventXY)
+
+    val eventX = eventXY[0].toInt()
+    val eventY = eventXY[1].toInt()
+
+    return eventX >= viewX && eventX < viewX + v.width &&
+            eventY >= viewY && eventY < viewY + v.height
 }
 
 val MotionEvent?.getActionString: String get() = if (this != null) MotionEvent.actionToString(this.action) else ""

@@ -69,7 +69,7 @@ class RvClickListener(
 
     override fun onInterceptTouchEvent(rv: RecyclerView, e: MotionEvent): Boolean {
 
-        val lm = rv.layoutManager ?: return false
+        val lm: RecyclerView.LayoutManager = rv.layoutManager ?: return false
 
 
         when (e.action) {
@@ -81,9 +81,10 @@ class RvClickListener(
                 downTimestamp = System.currentTimeMillis()
 
                 rv.children.find { e.isOnView(it) }
+                    .also { if (it == null) logI("Can't find target view in action down") }
                     ?.let { targetView ->
 
-                        val pos = lm.getPosition(targetView)
+                        val pos: Int = lm.getPosition(targetView)
 
                         if (enableItemLongClick) {
                             longClickAction = Runnable{ hasPerformedLongClick = onLongClick?.invoke(targetView to pos) }
@@ -106,6 +107,7 @@ class RvClickListener(
                     if (abs(x - e.rawX) < touchSlop && abs(y - e.rawY) < touchSlop) {
 
                         rv.children.find { e.isOnView(it) }
+                            .also { if (it == null) logI("Can't find target view in action up.") }
                             ?.let { targetView ->
 
                                 val pos = lm.getPosition(targetView)
@@ -120,7 +122,7 @@ class RvClickListener(
             }
             else -> {
 
-                val (x, y) = posRecord
+                val (x: Float, y: Float) = posRecord
 
                 if (x >= 0 && y >= 0) {
 
