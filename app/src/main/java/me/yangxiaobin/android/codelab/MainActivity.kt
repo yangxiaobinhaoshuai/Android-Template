@@ -342,7 +342,7 @@ class MainActivity : AbsActivity() {
         rv.scrollToPosition(rv.adapter?.itemCount?.minus(1) ?: 0)
 
         // TODO config this pls.
-        navigateToSubFragment("Navigation")
+        navigateToSubFragment("CanvasFragment")
     }
 
     @Suppress("SameParameterValue")
