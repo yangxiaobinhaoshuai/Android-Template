@@ -163,26 +163,57 @@ class TimingsExecutionGraphListener extends GradleBuildListenerAdapter implement
         long seconds = TimeUnit.MILLISECONDS.toSeconds(millis) % 60;
         long milliseconds = millis % 1000;
 
-        return String.format("%02dh:%02dm:%02ds.%03dms", hours, minutes, seconds, milliseconds);
+        return String.format("%02dh.%02dm.%02ds.%03dms", hours, minutes, seconds, milliseconds);
     }
 
 
     def onBuildFinished(){
         try {
-            def threshold = 50
-            println "Task timings above ${threshold}ms:"
+            def durationThreshold = 50
+            println "Task timings above ${durationThreshold}ms:"
+            String space = " "
+            def spaceCount = 10
+            def topCount = 5
             //println "timings : $timings"
-            def total = 0
+            def sortedTimings = timings.findAll { it[0] >= durationThreshold }.sort { -it[0] }.take(topCount)
+
+            def totalDuration = 0
+
+            for (t in timings) totalDuration += t[0]
+
+            if (totalDuration == 0) totalDuration = 1
+
+            def accumulation = 0
+
             for (timing in timings) {
-                if (timing[0] >= threshold) {
+
+                accumulation += timing[0]
+
+                if (timing[0] >= durationThreshold) {
                     //printf "\t%7s  %s\n", timing
                     //println("timing[0] : ${timing[0]}")
-                    println("\t" + formatMillisToReadableDuration(timing[0]) + "  " + timing[1])
+                    //println("\t" + formatMillisToReadableDuration(timing[0]) + "  " + timing[1])
+                    def index = sortedTimings.findIndexOf { it[1] == timing[1] }
+                    //println("sortedTimings : $sortedTimings.")
+                    //println("index : $index.")
+                    def modifiedCount = spaceCount
+                    if (index >= 0) modifiedCount = index
+
+                    def topIndex = ""
+                    if (index >= 0) topIndex = index + 1 + ". "
+
+                    def percent = accumulation / totalDuration as Double
+                    percent = String.format("%2.2f%%", percent * 100)
+                    //println "percent : $percent"
+
+                    def formatDuration = formatMillisToReadableDuration(timing[0])
+                    def headingSpaces = space.repeat(modifiedCount)
+
+                    println("\t" + headingSpaces + topIndex + formatDuration + " " + percent + "  " + timing[1])
                 }
-                total += timing[0]
             }
 
-            println "Gradle build completed in ${formatMillisToReadableDuration(total)}."
+            println "Gradle build completed in ${formatMillisToReadableDuration(totalDuration)}."
         } catch (e) {
             println "timings : $timings"
             e.printStackTrace()
