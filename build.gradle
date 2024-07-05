@@ -1,3 +1,4 @@
+import java.text.SimpleDateFormat
 import java.time.Duration
 import java.util.concurrent.TimeUnit
 
@@ -121,7 +122,10 @@ class TimingsListener implements TaskExecutionListener, BuildListener {
 /**
  * New timing listener recommend.
  */
-class GradleBuildListenerAdapter implements BuildListener{
+class GradleBuildListenerAdapter implements BuildListener {
+
+    void beforeSettings(Settings settings){}
+
     @Override
     void settingsEvaluated(Settings settings) {}
 
@@ -139,6 +143,7 @@ class TimingsExecutionGraphListener extends GradleBuildListenerAdapter implement
 
     private long startTime
     private timings = []
+    private sdf = new SimpleDateFormat("yyyy-MM-dd-HH:mm:ss")
 
     @Override
     void beforeExecute(Task task) {
@@ -153,7 +158,16 @@ class TimingsExecutionGraphListener extends GradleBuildListenerAdapter implement
     }
 
     @Override
+    void projectsEvaluated(Gradle gradle) {
+        super.projectsEvaluated(gradle)
+        def date = new Date()
+        println "Gradle build start at ${sdf.format(date)}."
+    }
+
+    @Override
     void buildFinished(BuildResult result) {
+        def date = new Date()
+        println "Gradle build ends at ${sdf.format(date)}."
         onBuildFinished()
     }
 
