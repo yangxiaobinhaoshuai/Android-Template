@@ -1,3 +1,6 @@
+import java.time.Duration
+import java.util.concurrent.TimeUnit
+
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 buildscript {
     apply from: "$rootDir/gradle/compileOpt.gradle"
@@ -40,3 +43,153 @@ allprojects {
         maven { url 'https://jitpack.io' }
     }
 }
+
+public class Clock {
+    long start;
+
+    public Clock() {
+        reset();
+    }
+
+    public String getTime() {
+        return getTimeInMs() / 1000.0 + " secs";
+    }
+
+    public long getTimeInMs() {
+        return System.currentTimeMillis() - start;
+    }
+
+    public void reset() {
+        start = System.currentTimeMillis();
+    }
+
+}
+
+/**
+ * Refer to https://stackoverflow.com/a/19438620/10247834
+ */
+// Log timings per task.
+@Deprecated
+class TimingsListener implements TaskExecutionListener, BuildListener {
+    private Clock clock
+    private timings = []
+
+    @Override
+    void beforeExecute(Task task) {
+        clock = new Clock()
+    }
+
+    @Override
+    void afterExecute(Task task, TaskState taskState) {
+        def ms = clock.timeInMs
+        timings.add([ms, task.path])
+        task.project.logger.warn "${task.path} took ${ms}ms"
+    }
+
+    static def formatMillisToReadableDuration(long millis) {
+        def duration = TimeUnit.MILLISECONDS.toSeconds(millis)
+        def hours = TimeUnit.SECONDS.toHours(duration)
+        def minutes = TimeUnit.SECONDS.toMinutes(duration) % 60
+        def seconds = duration % 60
+
+        return String.format("%02d:%02d:%02d", hours, minutes, seconds)
+    }
+
+    @Override
+    void buildFinished(BuildResult result) {
+        println "Task timings:"
+        for (timing in timings) {
+            if (timing[0] >= 10) {
+                //printf "%7sms  %s\n", timing
+                //printf "%7sms  %s\n", formatMillisToReadableDuration(timing)
+            }
+        }
+    }
+
+
+    @Override
+    void projectsEvaluated(Gradle gradle) {}
+
+    @Override
+    void projectsLoaded(Gradle gradle) {}
+
+    @Override
+    void settingsEvaluated(Settings settings) {}
+}
+//gradle.addListener new TimingsListener()
+
+/**
+ * New timing listener recommend.
+ */
+class GradleBuildListenerAdapter implements BuildListener{
+    @Override
+    void settingsEvaluated(Settings settings) {}
+
+    @Override
+    void projectsLoaded(Gradle gradle) {}
+
+    @Override
+    void projectsEvaluated(Gradle gradle) {}
+
+    @Override
+    void buildFinished(BuildResult result) {}
+}
+
+class TimingsExecutionGraphListener extends GradleBuildListenerAdapter implements TaskExecutionListener{
+
+    private long startTime
+    private timings = []
+
+    @Override
+    void beforeExecute(Task task) {
+        startTime = System.currentTimeMillis()
+    }
+
+    @Override
+    void afterExecute(Task task, TaskState state) {
+        def interval = System.currentTimeMillis() - startTime
+        timings.add([interval, task.path])
+        println "Time-consuming -> Task:${task.path} completed in $interval ms."
+    }
+
+    @Override
+    void buildFinished(BuildResult result) {
+        onBuildFinished()
+    }
+
+    public static String formatMillisToReadableDuration(long millis) {
+        long hours = TimeUnit.MILLISECONDS.toHours(millis);
+        long minutes = TimeUnit.MILLISECONDS.toMinutes(millis) % 60;
+        long seconds = TimeUnit.MILLISECONDS.toSeconds(millis) % 60;
+        long milliseconds = millis % 1000;
+
+        return String.format("%02dh:%02dm:%02ds.%03dms", hours, minutes, seconds, milliseconds);
+    }
+
+
+    def onBuildFinished(){
+        try {
+            def threshold = 50
+            println "Task timings above ${threshold}ms:"
+            //println "timings : $timings"
+            def total = 0
+            for (timing in timings) {
+                if (timing[0] >= threshold) {
+                    //printf "\t%7s  %s\n", timing
+                    //println("timing[0] : ${timing[0]}")
+                    println("\t" + formatMillisToReadableDuration(timing[0]) + "  " + timing[1])
+                }
+                total += timing[0]
+            }
+
+            println "Gradle build completed in ${formatMillisToReadableDuration(total)}."
+        } catch (e) {
+            println "timings : $timings"
+            e.printStackTrace()
+        }
+    }
+}
+
+def timing = new TimingsExecutionGraphListener()
+//gradle.taskGraph.whenReady { TaskExecutionGraph graph -> graph.addTaskExecutionListener(timing)}
+gradle.addBuildListener(timing)
