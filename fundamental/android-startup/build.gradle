@@ -44,4 +44,7 @@ dependencies {
     implementation alias.uiKitLib
     implementation alias.colorLib
     implementation alias.iconLib
+
+    // TODO
+    api "androidx.startup:startup-runtime:1.1.0"
 }
