@@ -1,0 +1,47 @@
+plugins {
+    id 'com.android.library'
+    id 'org.jetbrains.kotlin.android'
+}
+
+android {
+    namespace 'com.wkj.android_startup'
+    compileSdkVersion build_versions.compile_sdk
+
+    defaultConfig {
+        minSdkVersion build_versions.min_sdk
+        targetSdkVersion build_versions.target_sdk
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility build_versions.source_compatibility
+        targetCompatibility build_versions.target_compatibility
+    }
+    kotlinOptions {
+        jvmTarget = build_versions.kt_jvm_target
+    }
+}
+
+dependencies {
+
+//    implementation libs.ktxCore
+//    implementation libs.appcompatX
+//    implementation libs.androidMaterial
+//    testImplementation libs.junit
+//    androidTestImplementation libs.ext.junit
+//    androidTestImplementation libs.espresso.core
+
+    implementation project(":common-ui")
+    implementation project(":codelab-android-kt")
+    implementation alias.uiKitLib
+    implementation alias.colorLib
+    implementation alias.iconLib
+}

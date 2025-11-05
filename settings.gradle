@@ -68,3 +68,4 @@ include ':samples:route-sample'
 include ':samples:canvas'
 
 include ':log2Disk'
+include ':fundamental:android-startup'
