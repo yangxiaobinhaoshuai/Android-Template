@@ -2,7 +2,11 @@ package me.yangxiaobin.android.codelab.jepack_compose
 
 import android.app.Dialog
 import android.os.Bundle
-import android.view.*
+import android.view.KeyEvent
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.view.ViewParent
 import android.widget.EditText
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -24,10 +28,10 @@ import me.yangxiaobin.android.codelab.R
 import me.yangxiaobin.android.kotlin.codelab.base.AbsBottomSheetDialogFragment
 import me.yangxiaobin.android.kotlin.codelab.base.ability.LogAbility
 import me.yangxiaobin.android.kotlin.codelab.ext.androidColor
+import me.yangxiaobin.android.kotlin.codelab.ext.intentFor
 import me.yangxiaobin.android.kotlin.codelab.log.AndroidLogger
 import me.yangxiaobin.common_ui.EmptyActivity
 import me.yangxiaobin.logger.core.LogFacade
-import org.jetbrains.anko.intentFor
 
 class RoundCornerBottomSheetDialogFragment: AbsBottomSheetDialogFragment() {
 

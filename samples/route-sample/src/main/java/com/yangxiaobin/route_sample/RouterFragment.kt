@@ -3,12 +3,12 @@ package com.yangxiaobin.route_sample
 import android.content.Intent
 import android.view.View
 import me.yangxiaobin.android.kotlin.codelab.base.ability.LogAbility
+import me.yangxiaobin.android.kotlin.codelab.ext.intentFor
 import me.yangxiaobin.android.kotlin.codelab.log.AndroidLogger
 import me.yangxiaobin.colors.HexColors
 import me.yangxiaobin.colors.colorInt
 import me.yangxiaobin.common_ui.ButtonsFragment
 import me.yangxiaobin.logger.core.LogFacade
-import org.jetbrains.anko.intentFor
 
 class RouterFragment : ButtonsFragment() {
 
@@ -34,4 +34,5 @@ class RouterFragment : ButtonsFragment() {
             else -> Unit
         }
     }
+
 }

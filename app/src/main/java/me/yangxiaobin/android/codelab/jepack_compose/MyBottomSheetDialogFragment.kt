@@ -38,7 +38,6 @@ import me.yangxiaobin.android.kotlin.codelab.ext.uiwidget.showKeyboardWithDelay
 import me.yangxiaobin.android.kotlin.codelab.log.AndroidLogger
 import me.yangxiaobin.kotlin.codelab.ext.curThread
 import me.yangxiaobin.logger.core.LogFacade
-import org.jetbrains.anko.intentFor
 
 class MyBottomSheetDialogFragment : AbsBottomSheetDialogFragment() {
 
