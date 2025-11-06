@@ -9,8 +9,7 @@ abstract class AbsStartupTask : StartupAware {
         // No implementation
     }
 
-    override fun dependencies(): MutableList<Class<out Initializer<*>>> {
-        return mutableListOf()
+    override fun dependencies(): MutableList<Class<out StartupAware>> {
+        return super.dependencies()
     }
-
 }
