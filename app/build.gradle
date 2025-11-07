@@ -87,7 +87,7 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
 
     implementation deps.appcompatX
-    implementation deps.ktRedux
+    //implementation deps.ktRedux
     implementation deps.bundles.compose
     //implementation deps.bundles.anko
 
