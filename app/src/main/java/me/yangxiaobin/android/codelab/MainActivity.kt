@@ -210,15 +210,21 @@ class MainActivity : AbsActivity() {
             "LastMethodFrame",
             "CharacterSelection"
         ),
+
         // 27. Sys function
         "SysFunction" to arrayOf(
             "KtLoop",
         ),
+
         // 28. Device Info
         "DeviceInfo" to arrayOf(
             "AppSignature",
         ),
 
+        // 29. Json
+        "Json" to arrayOf(
+            "JsonMediator",
+        ),
     )
 
 
@@ -342,7 +348,7 @@ class MainActivity : AbsActivity() {
         rv.scrollToPosition(rv.adapter?.itemCount?.minus(1) ?: 0)
 
         // TODO config this pls.
-//        navigateToSubFragment("CanvasFragment")
+        navigateToSubFragment("jsonMediator")
     }
 
     @Suppress("SameParameterValue")

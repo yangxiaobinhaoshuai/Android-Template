@@ -121,6 +121,7 @@ dependencies {
     implementation alias.adaptersLib
     implementation alias.reflection
     implementation alias.startup
+    implementation alias.jsonLib
 
     implementation project(':samples:proguard-lib')
     implementation project(':samples:permission-example')

@@ -43,6 +43,7 @@ import me.yangxiaobin.android.di_lib.Dagger2Fragment
 import me.yangxiaobin.android.di_lib.hilt.HiltFragment
 import me.yangxiaobin.android.embedding_compat.CharacterSelectionFragment
 import me.yangxiaobin.android.embedding_compat.GestureDetectorFragment
+import me.yangxiaobin.android.embedding_compat.JsonMediatorFragment
 import me.yangxiaobin.android.embedding_compat.KtLoopFragment
 import me.yangxiaobin.android.embedding_compat.OpacityFragment
 import me.yangxiaobin.android.embedding_compat.OppoEmbeddingActivity
@@ -256,6 +257,9 @@ class ComposeVerticalListFragment : AbsComposableFragment() {
 
             // 28. AppSignature
             "AppSignature" -> naviToFragment(SignatureFragment())
+
+            // 29. Json Mediator
+            "JsonMediator" -> naviToFragment(JsonMediatorFragment())
 
             else -> showFragmentToast("UnSupport key :$dest.")
         }
