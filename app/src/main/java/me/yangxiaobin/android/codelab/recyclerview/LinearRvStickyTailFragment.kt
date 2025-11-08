@@ -84,7 +84,7 @@ class LinearRvStickyTailFragment : AbsViewBindingFragment<FragmentLienarRvSticky
 
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
-                logD("onScrollStateChanged, new :${newState.toRecyclerViewScrollStateString}.")
+                logD("onScrollStateChanged, new :${convertRecyclerViewScrollStateToString(newState)}.")
             }
 
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
