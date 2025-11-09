@@ -1,0 +1,30 @@
+plugins {
+    id 'groovy' // 如果你想用 Groovy 写 buildSrc 里的逻辑
+
+    id 'org.jetbrains.kotlin.jvm' version '1.9.23'
+
+    id 'java-gradle-plugin'
+
+    // 启用 kts
+//    id 'org.gradle.kotlin.kotlin-dsl' version "5.0.0"// 或者用这个来支持 Kotlin
+}
+
+gradlePlugin {
+    plugins {
+        simplePlugin {
+            id = 'com.wkj.logPlugin'
+            implementationClass = 'com.wkj.common.scripts.LogPlugin'
+        }
+    }
+}
+
+
+repositories {
+    google()
+    mavenCentral()
+}
+
+dependencies {
+    implementation(gradleApi())
+    compileOnly "com.android.tools.build:gradle:7.2.0"
+}
