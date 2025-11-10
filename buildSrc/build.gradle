@@ -13,7 +13,12 @@ gradlePlugin {
     plugins {
         simplePlugin {
             id = 'com.wkj.logPlugin'
-            implementationClass = 'com.wkj.common.scripts.LogPlugin'
+            implementationClass = 'com.wkj.common.scripts.logger.LogPlugin'
+        }
+
+        webpConverterPlugin {
+            id = 'com.wkj.webpConverter'
+            implementationClass = 'com.wkj.common.scripts.webp.WebPConverterPlugin'
         }
     }
 }
@@ -27,4 +32,5 @@ repositories {
 dependencies {
     implementation(gradleApi())
     compileOnly "com.android.tools.build:gradle:7.2.0"
+//     implementation "com.android.tools.build:gradle:7.2.0"
 }

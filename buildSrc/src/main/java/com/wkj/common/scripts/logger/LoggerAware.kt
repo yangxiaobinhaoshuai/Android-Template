@@ -1,6 +1,8 @@
 package com.wkj.common.scripts.logger
 
 
+typealias GradleLogger = org.gradle.api.logging.Logger
+
 interface LoggerAware {
     fun i(tag: String, message: String)
     fun d(tag: String, message: String)
@@ -12,6 +14,10 @@ interface TaggedLogger {
     fun d(message: String)
     fun e(message: String, throwable: Throwable? = null)
 }
+
+fun TaggedLogger.lifecycle(message: String) = this.i(message)
+fun TaggedLogger.warn(message: String) = this.i(message)
+fun TaggedLogger.error(message: String) = this.e(message)
 
 private class TaggedLoggerImpl(
     private val logger: LoggerAware,
@@ -29,11 +35,18 @@ private class TaggedLoggerImpl(
     override fun e(message: String, throwable: Throwable?) {
         logger.e(tag, message, throwable)
     }
+
 }
 
 
 fun LoggerAware.withTag(tag: String): TaggedLogger {
     return TaggedLoggerImpl(this, tag)
+}
+
+object NoOpLoggerAware : LoggerAware {
+    override fun d(tag: String, message: String) {}
+    override fun i(tag: String, message: String) {}
+    override fun e(tag: String, message: String, throwable: Throwable?) {}
 }
 
 
@@ -43,7 +56,7 @@ fun LoggerAware.withTag(tag: String): TaggedLogger {
  */
 object Log : LoggerAware {
     // 默认是一个不做任何事情的空实现，防止在初始化前调用时崩溃
-    private var loggerAware: LoggerAware = NoOpLoggerAware()
+    private var loggerAware: LoggerAware = NoOpLoggerAware
 
     /**
      * 初始化 Logger，必须在应用程序启动时调用。
@@ -65,13 +78,5 @@ object Log : LoggerAware {
         loggerAware.e(tag, message, throwable)
     }
 
-    /**
-     * 一个空操作的 Logger 实现，用作默认值。
-     */
-    private class NoOpLoggerAware : LoggerAware {
-        override fun d(tag: String, message: String) {}
-        override fun i(tag: String, message: String) {}
-        override fun e(tag: String, message: String, throwable: Throwable?) {}
-    }
 }
 

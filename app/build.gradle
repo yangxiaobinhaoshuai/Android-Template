@@ -5,7 +5,23 @@ plugins {
     id 'dagger.hilt.android.plugin'
     id 'kotlin-kapt'
     id 'com.wkj.logPlugin'
+    id 'com.wkj.webpConverter'
 }
+
+webpConverter {
+    enabled = false
+    quality = 85
+    pngQuality = 100
+    executionTiming = "beforeMerge"
+    formats = ["png", "jpg", "jpeg"]
+    deleteOriginal = false
+    skipExisting = true
+    minSizeKB = 10
+    excludeDirs = ["drawable-nodpi"]
+    excludeFiles = ["ic_launcher"]
+    verbose = true
+}
+
 
 // -PdisableReleaseMinify=true
 def enableReleaseMinify = gradle.startParameter.projectProperties["enableReleaseMinify"] != "true"
