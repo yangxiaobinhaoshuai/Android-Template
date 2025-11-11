@@ -4,8 +4,10 @@ plugins {
 
     id 'dagger.hilt.android.plugin'
     id 'kotlin-kapt'
+
     id 'com.wkj.logPlugin'
     id 'com.wkj.webpConverter'
+    id 'com.wkj.timeTrackPlugin'
 }
 
 webpConverter {
@@ -20,6 +22,30 @@ webpConverter {
     excludeDirs = ["drawable-nodpi"]
     excludeFiles = ["ic_launcher"]
     verbose = true
+}
+
+timeTrack {
+    enabled = true
+    tag = "TimeTrack"
+    threshold = 10L
+
+    // 只扫描指定的包
+    includes = [
+//            "com/wkj/myapp/**",
+//            "com/wkj/common/**"
+            // ⭐ 确保路径正确
+            "me/yangxiaobin/android/codelab/**"
+    ]
+
+    // 排除特定的包
+    excludes = [
+            "android/**",
+            "androidx/**",
+            "kotlin/**"
+    ]
+
+    // 是否扫描第三方库
+    scanThirdParty = false
 }
 
 

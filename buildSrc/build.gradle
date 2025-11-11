@@ -20,6 +20,11 @@ gradlePlugin {
             id = 'com.wkj.webpConverter'
             implementationClass = 'com.wkj.common.scripts.webp.WebPConverterPlugin'
         }
+
+        timeTrackPlugin {
+            id = 'com.wkj.timeTrackPlugin'
+            implementationClass = 'com.wkj.common.scripts.annotation.TimeTrackPlugin'
+        }
     }
 }
 
@@ -32,5 +37,12 @@ repositories {
 dependencies {
     implementation(gradleApi())
     compileOnly "com.android.tools.build:gradle:7.2.0"
-//     implementation "com.android.tools.build:gradle:7.2.0"
+    // Cause org.jetbrains.kotlin.backend.common.BackendException: Backend Internal error
+//    implementation "com.android.tools.build:gradle:7.2.0"
+
+    implementation("org.ow2.asm:asm:9.5")
+    implementation("org.ow2.asm:asm-commons:9.5")
+
+//    implementation("net.bytebuddy:byte-buddy:1.14.9")
+    implementation("org.javassist:javassist:3.29.2-GA")
 }

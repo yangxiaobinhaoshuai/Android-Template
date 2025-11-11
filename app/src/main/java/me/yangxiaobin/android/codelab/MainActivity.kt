@@ -1,7 +1,6 @@
 package me.yangxiaobin.android.codelab
 
 import android.annotation.SuppressLint
-import android.graphics.Rect
 import android.os.Build
 import android.view.DisplayCutout
 import android.view.KeyEvent
@@ -11,7 +10,6 @@ import android.view.Window
 import android.view.WindowInsets
 import android.view.WindowManager
 import android.widget.TextView
-import androidx.appcompat.app.WindowDecorActionBar
 import androidx.core.os.bundleOf
 import androidx.core.os.postDelayed
 import androidx.core.view.DisplayCutoutCompat
@@ -22,11 +20,11 @@ import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.commit
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.wkj.common.scripts.annotation.TimeTrack
 import dagger.hilt.android.AndroidEntryPoint
 import me.yangxiaobin.android.codelab.common.ComposeVerticalListFragment
 import me.yangxiaobin.android.kotlin.codelab.base.AbsActivity
 import me.yangxiaobin.android.kotlin.codelab.base.ability.LogAbility
-import me.yangxiaobin.android.kotlin.codelab.ext.context.statusBarSize
 import me.yangxiaobin.android.kotlin.codelab.ext.getActionString
 import me.yangxiaobin.android.kotlin.codelab.ext.mainHandler
 import me.yangxiaobin.android.kotlin.codelab.ext.uicontroller.showActivityToast
@@ -156,9 +154,9 @@ class MainActivity : AbsActivity() {
 
         // 17. Keyboard
         "Keyboard" to arrayOf(
-          "KeyboardHeight",
-          "KeyboardActivity",
-          "BottomSheetDialogFragment_Keyboard",
+            "KeyboardHeight",
+            "KeyboardActivity",
+            "BottomSheetDialogFragment_Keyboard",
         ),
 
         // 18. Proxy
@@ -247,6 +245,13 @@ class MainActivity : AbsActivity() {
         notchDetect()
 
         init()
+        mockHeavily()
+    }
+
+    @TimeTrack
+    private fun mockHeavily() {
+        logD("mockHeavily----->")
+        Thread.sleep(200)
     }
 
     private fun hideSystemBars() {
@@ -294,7 +299,8 @@ class MainActivity : AbsActivity() {
             val wd: Window = window
             logD("MainActivity window: $wd.")
             val attr: WindowManager.LayoutParams = wd.attributes
-            attr.layoutInDisplayCutoutMode = WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES
+            attr.layoutInDisplayCutoutMode =
+                WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES
             //attr.layoutInDisplayCutoutMode = WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_ALWAYS
             //attr.layoutInDisplayCutoutMode = WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_NEVER
             //attr.layoutInDisplayCutoutMode = WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_DEFAULT
@@ -338,7 +344,10 @@ class MainActivity : AbsActivity() {
 
                 setOnClickListener {
                     val subMenus: Array<String> = catalog.values.toList()[pos]
-                    this@MainActivity.navigateToFragment(ComposeVerticalListFragment(), "subMenus" to subMenus)
+                    this@MainActivity.navigateToFragment(
+                        ComposeVerticalListFragment(),
+                        "subMenus" to subMenus
+                    )
                 }
             }
 
@@ -354,21 +363,24 @@ class MainActivity : AbsActivity() {
     @Suppress("SameParameterValue")
     private fun navigateToSubFragment(identify: String) {
         catalog.toList()
-            .find { (_,subMenus): Pair<String, Array<String>> -> subMenus.any { it == identify } }
+            .find { (_, subMenus): Pair<String, Array<String>> -> subMenus.any { it == identify } }
             ?.let { (_, subMenus) ->
                 val target = ComposeVerticalListFragment()
                 this@MainActivity.navigateToFragment(target, "subMenus" to subMenus)
-                mainHandler.post { showActivityToast("Quick navi to $identify.");target.naviToDestFragment(identify)
+                mainHandler.post {
+                    showActivityToast("Quick navi to $identify.");target.naviToDestFragment(identify)
                 }
             } ?: showActivityToast("Can't match submenu: $identify")
     }
 
     override fun dispatchTouchEvent(ev: MotionEvent): Boolean {
-        return super.dispatchTouchEvent(ev).also { logI("ActionCancelFragment, MainActivity, dispatchTouchEvent:$it, ${ev.getActionString}.") }
+        return super.dispatchTouchEvent(ev)
+            .also { logI("ActionCancelFragment, MainActivity, dispatchTouchEvent:$it, ${ev.getActionString}.") }
     }
 
     override fun onTouchEvent(event: MotionEvent): Boolean {
-        return super.onTouchEvent(event).also { logI("ActionCancelFragment, MainActivity, onTouchEvent:$it, ${event.getActionString}.") }
+        return super.onTouchEvent(event)
+            .also { logI("ActionCancelFragment, MainActivity, onTouchEvent:$it, ${event.getActionString}.") }
     }
 
     override fun checkPermission(permission: String, pid: Int, uid: Int): Int {
@@ -389,7 +401,7 @@ class MainActivity : AbsActivity() {
  */
 fun FragmentActivity.navigateToFragment(
     target: Fragment,
-    vararg pairs: Pair<String, Any?>
+    vararg pairs: Pair<String, Any?>,
 ) = supportFragmentManager.commit(allowStateLoss = true) {
     target.arguments = bundleOf(*pairs)
     addToBackStack(null)
