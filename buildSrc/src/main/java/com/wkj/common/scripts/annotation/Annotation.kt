@@ -1,6 +1,9 @@
 package com.wkj.common.scripts.annotation
 
 
+/**
+ * Usage for library code, not for plugin.
+ */
 
 @Target(AnnotationTarget.FUNCTION)
 @Retention(AnnotationRetention.RUNTIME)
