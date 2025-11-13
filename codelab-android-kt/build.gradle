@@ -66,6 +66,7 @@ dependencies {
     api deps.bundles.ktx
     api deps.androidMaterial
     api project(":codelab-kt")
+    implementation alias.kvLib
 
     //api deps.bundles.anko
 
