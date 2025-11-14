@@ -1,9 +1,7 @@
 package me.yangxiaobin.android.kotlin.codelab.base.ability
 
 import android.content.Context
-import android.content.res.Resources
 import android.graphics.drawable.Drawable
-import android.util.TypedValue
 import androidx.annotation.ColorRes
 import androidx.annotation.StringRes
 import androidx.core.content.ContextCompat
@@ -20,7 +18,12 @@ public fun buildResColor(context: Context): Int.() -> Int =
     fun @receiver:ColorRes Int.(): Int = ContextCompat.getColor(context, this)
 
 fun buildResDrawable(context: Context): Int.() -> Drawable =
-    fun @receiver:ColorRes Int.(): Drawable = requireNotNull(ContextCompat.getDrawable(context, this)) { "Can NOT found drawable for ${this.getResName(context)}." }
+    fun @receiver:ColorRes Int.(): Drawable = requireNotNull(
+        ContextCompat.getDrawable(
+            context,
+            this
+        )
+    ) { "Can NOT found drawable for ${this.getResName(context)}." }
 
 
 interface ResAbility {
@@ -30,18 +33,6 @@ interface ResAbility {
     val int2String: Int.() -> String
 
     val int2Drawable: Int.() -> Drawable?
-
-    val Int.dpf: Float get() = this * Resources.getSystem().displayMetrics.density
-    val Int.dp: Int get() = this.dpf.toInt()
-
-    val Int.spf: Float
-        get() = TypedValue.applyDimension(
-            TypedValue.COMPLEX_UNIT_SP,
-            this.toFloat(), // this 指向 Int 值，需要转为 Float
-            Resources.getSystem().displayMetrics
-        )
-    val Int.sp: Int get() = (this * Resources.getSystem().displayMetrics.scaledDensity).toInt()
-
 
     fun Int.asString() = int2String(this)
     fun Int.asColor() = int2Color(this)
