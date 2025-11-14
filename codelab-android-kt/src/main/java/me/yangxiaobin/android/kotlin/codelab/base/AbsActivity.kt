@@ -1,20 +1,18 @@
 package me.yangxiaobin.android.kotlin.codelab.base
 
+import android.content.Context
 import android.content.Intent
 import android.content.res.Configuration
 import android.os.Bundle
 import android.view.View
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
+import me.yangxiaobin.android.kotlin.codelab.base.ability.DefaultResAbility
 import me.yangxiaobin.android.kotlin.codelab.base.ability.LogAbility
-import me.yangxiaobin.android.kotlin.codelab.base.ability.ResAbility
-import me.yangxiaobin.android.kotlin.codelab.ext.context.buildResColor
-import me.yangxiaobin.android.kotlin.codelab.ext.context.buildResDrawable
-import me.yangxiaobin.android.kotlin.codelab.ext.context.buildResString
 import me.yangxiaobin.android.kotlin.codelab.ext.uicontroller.setActionBarTitle
 import me.yangxiaobin.kotlin.codelab.ext.neatName
 
-abstract class AbsActivity : AppCompatActivity(), LogAbility, ResAbility {
+abstract class AbsActivity : AppCompatActivity(), LogAbility, DefaultResAbility {
 
     override val LogAbility.TAG: String get() = "AbsActivity:${this.neatName.take(11)}"
 
@@ -22,9 +20,7 @@ abstract class AbsActivity : AppCompatActivity(), LogAbility, ResAbility {
 
     open val handleBackPress = false
 
-    override val int2Color by lazy { buildResColor(this) }
-    override val int2String by lazy { buildResString(this) }
-    override val int2Drawable by lazy { buildResDrawable(this) }
+    override val resContext: Context get() = this
 
 
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -3,7 +3,6 @@ package me.yangxiaobin.android.kotlin.codelab.base
 import android.animation.Animator
 import android.content.Context
 import android.content.res.Configuration
-import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -14,17 +13,14 @@ import androidx.activity.addCallback
 import androidx.annotation.CallSuper
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
+import me.yangxiaobin.android.kotlin.codelab.base.ability.DefaultResAbility
 import me.yangxiaobin.android.kotlin.codelab.base.ability.LogAbility
 import me.yangxiaobin.android.kotlin.codelab.base.ability.LogFun
-import me.yangxiaobin.android.kotlin.codelab.base.ability.ResAbility
 import me.yangxiaobin.android.kotlin.codelab.ext.MatchParentParams
-import me.yangxiaobin.android.kotlin.codelab.ext.context.buildResColor
-import me.yangxiaobin.android.kotlin.codelab.ext.context.buildResDrawable
-import me.yangxiaobin.android.kotlin.codelab.ext.context.buildResString
 import me.yangxiaobin.android.kotlin.codelab.ext.uicontroller.setActivityToolBarTitle
 import me.yangxiaobin.kotlin.codelab.ext.neatName
 
-abstract class AbsFragment : Fragment(), LogAbility, ResAbility {
+abstract class AbsFragment : Fragment(), LogAbility, DefaultResAbility {
 
     override val LogAbility.TAG: String get() = "AbsFragment:${this.javaClass.simpleName.take(11)}"
 
@@ -43,9 +39,7 @@ abstract class AbsFragment : Fragment(), LogAbility, ResAbility {
      */
     protected open val handleBackPress = true
 
-    override val int2Color: Int.() -> Int by lazy { buildResColor(requireContext()) }
-    override val int2String: Int.() -> String by lazy { buildResString(requireContext()) }
-    override val int2Drawable: Int.() -> Drawable by lazy { buildResDrawable(requireContext()) }
+    override val resContext: Context get() = requireContext()
 
     init {
         @Suppress("LeakingThis")

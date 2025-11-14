@@ -103,6 +103,10 @@ class SpKvMediator(private val prefs: SharedPreferences) : KvMediator {
     override suspend fun contains(key: String): Boolean = withContext(Dispatchers.IO) {
         prefs.contains(key)
     }
+
+    override suspend fun getAllKeys(): Set<String> {
+        return prefs.all.keys
+    }
 }
 
 /**
@@ -117,6 +121,9 @@ private class SpKvEditor(private val editor: SharedPreferences.Editor) : KvEdito
     override fun putLong(key: String, value: Long): KvEditor = apply { editor.putLong(key, value) }
     override fun putFloat(key: String, value: Float): KvEditor =
         apply { editor.putFloat(key, value) }
+
+    override fun putDouble(key: String, value: Double): KvEditor =
+        apply { editor.putLong(key, value.toRawBits()) }
 
     override fun putBoolean(key: String, value: Boolean): KvEditor =
         apply { editor.putBoolean(key, value) }

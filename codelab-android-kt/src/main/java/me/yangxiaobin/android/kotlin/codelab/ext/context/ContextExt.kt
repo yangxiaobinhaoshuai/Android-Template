@@ -39,24 +39,6 @@ inline fun <reified T : Context> Context.findBaseContext(): T? {
     return null
 }
 
-
-/**
- * val intoString: Int.() -> String = buildResString(context)
- * val text = R.string.abc.intoString()
- */
-fun buildResString(context: Context): Int.() -> String
-        = fun @receiver:StringRes Int.(): String
-        = context.getString(this)
-
-public fun buildResColor(context: Context): Int.() -> Int
-        = fun @receiver:ColorRes Int.(): Int
-        = ContextCompat.getColor(context, this)
-
-fun buildResDrawable(context: Context): Int.() -> Drawable
-        = fun @receiver:ColorRes Int.(): Drawable
-        = requireNotNull(ContextCompat.getDrawable(context, this)) { "Can NOT found drawable for ${this.getResName(context)}." }
-
-
 fun @receiver:StringRes Int.toResString(context: Context): String = context.getString(this)
 
 @ColorInt
