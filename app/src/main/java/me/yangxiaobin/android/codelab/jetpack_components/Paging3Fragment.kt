@@ -226,8 +226,8 @@ class Paging3Fragment : EmptyFragment() {
         logD("-----> demoVh: $proxy")
 
 
-//        val proxy2: RvVhAlike = newDynamicProxy<RvVhAlike> { (method, args) -> }
-//        logD("-----> demoVh2: $proxy2")
+        val proxy2: RvVhAlike = newDynamicProxy<RvVhAlike> { (method, args) -> }
+        logD("-----> demoVh2: $proxy2")
     }
 
 }

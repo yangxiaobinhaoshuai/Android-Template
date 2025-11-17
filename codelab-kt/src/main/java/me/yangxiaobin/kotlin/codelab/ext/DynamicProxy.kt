@@ -42,7 +42,7 @@ fun defaultHook(delegate: Any): InvocationHook = { (method, args) ->
  */
 @Throws(AssertionError::class)
 inline fun <reified T : Any> T.newDynamicProxy(
-    noinline hook: InvocationHook = defaultHook(this)
+    noinline hook: InvocationHook = defaultHook(this),
 ): T {
     val iface = T::class.java
     require(iface.isInterface) {
@@ -53,8 +53,19 @@ inline fun <reified T : Any> T.newDynamicProxy(
     return Proxy.newProxyInstance(
         iface.classLoader,
         arrayOf(iface)
-    ) { _, method, args ->
-        hook(method to args)
+    ) { proxy, method, args ->
+        // 先拦 Object / Any 上的基础方法
+        if (method.declaringClass == Any::class.java) {
+            when (method.name) {
+                "toString" -> "Proxy@${System.identityHashCode(proxy)}(${iface.name})"
+                "hashCode" -> System.identityHashCode(proxy)
+                "equals" -> proxy === args?.getOrNull(0)
+                else -> throw AssertionError("Unexpected Any method: $method")
+            }
+        } else {
+            // 其余方法交给调用方 hook
+            hook(method to args)
+        }
     } as T
 }
 
@@ -63,13 +74,13 @@ inline fun <reified T : Any> T.newDynamicProxy(
  * Retrofit style
  */
 inline fun <reified T : Any> newDynamicProxy(
-    noinline hook: InvocationHook
+    noinline hook: InvocationHook,
 ): T = newDynamicProxy(T::class.java, hook)
 
 
 fun <T : Any> newDynamicProxy(
     iface: Class<T>,
-    hook: InvocationHook
+    hook: InvocationHook,
 ): T {
     require(iface.isInterface) {
         "Only interface can be used in java dynamic proxy. Actual: ${iface.name}"
@@ -79,7 +90,18 @@ fun <T : Any> newDynamicProxy(
     return Proxy.newProxyInstance(
         iface.classLoader,
         arrayOf(iface)
-    ) { _, method, args ->
-        hook(method to args)
+    ) { proxy, method, args ->
+        // 先拦 Object / Any 上的基础方法
+        if (method.declaringClass == Any::class.java) {
+            when (method.name) {
+                "toString" -> "Proxy@${System.identityHashCode(proxy)}(${iface.name})"
+                "hashCode" -> System.identityHashCode(proxy)
+                "equals" -> proxy === args?.getOrNull(0)
+                else -> throw AssertionError("Unexpected Any method: $method")
+            }
+        } else {
+            // 其余方法交给调用方 hook
+            hook(method to args)
+        }
     } as T
 }
