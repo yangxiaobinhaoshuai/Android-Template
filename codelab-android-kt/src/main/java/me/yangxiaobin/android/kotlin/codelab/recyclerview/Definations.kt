@@ -29,7 +29,7 @@ interface RvVhAlike {
         }
 
     fun requireView(@IdRes id: Int): View =
-        get<View>(id) ?: throw NullPointerException("Can NOT find view relative to id: $id")
+        get(id) ?: throw NullPointerException("Can NOT find view relative to id: $id")
 
     @Throws(ClassCastException::class)
     @Suppress("UNCHECKED_CAST")
@@ -49,9 +49,17 @@ interface RvVhAlike {
  */
 interface RvAdapterAlike<T : RvVh> {
 
-    fun onCreateViewHolder(parent: ViewGroup, viewType: Int): T
+    fun onBindViewHolder(parent: ViewGroup, viewType: Int)
+
+    fun onBindViewHolder(parent: ViewGroup, viewType: Int, payloads: MutableList<Any>)
 
     fun getItemCount(): Int
 
-    fun onBindViewHolder(holder: T, position: Int)
+    fun onCreateViewHolder(parent: ViewGroup, viewType: Int): T
+
+    fun getItemViewType(position: Int): Int
+}
+
+interface ExecutablePayload {
+
 }

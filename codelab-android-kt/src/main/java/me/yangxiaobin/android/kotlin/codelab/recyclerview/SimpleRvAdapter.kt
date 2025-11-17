@@ -12,9 +12,7 @@ import me.yangxiaobin.logger.log
 
 
 open class SimpleVH(wholeItemView: View) : RecyclerView.ViewHolder(wholeItemView) {
-
     private val viewCache = SparseArray<View>(16)
-
     private val tag = "AbsVH"
     private val logI by lazy { L.log(LogLevel.INFO, tag) }
 
