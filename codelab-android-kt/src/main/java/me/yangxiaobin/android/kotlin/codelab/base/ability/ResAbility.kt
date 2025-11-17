@@ -1,6 +1,7 @@
 package me.yangxiaobin.android.kotlin.codelab.base.ability
 
 import android.content.Context
+import android.content.res.Resources
 import android.graphics.drawable.Drawable
 import androidx.annotation.ColorRes
 import androidx.annotation.StringRes
@@ -11,12 +12,15 @@ import me.yangxiaobin.android.kotlin.codelab.ext.context.getResName
  * val intoString: Int.() -> String = buildResString(context)
  * val text = R.string.abc.intoString()
  */
+@Throws(Resources.NotFoundException::class)
 fun buildResString(context: Context): Int.() -> String =
     fun @receiver:StringRes Int.(): String = context.getString(this)
 
+@Throws(Resources.NotFoundException::class)
 public fun buildResColor(context: Context): Int.() -> Int =
     fun @receiver:ColorRes Int.(): Int = ContextCompat.getColor(context, this)
 
+@Throws(Resources.NotFoundException::class)
 fun buildResDrawable(context: Context): Int.() -> Drawable =
     fun @receiver:ColorRes Int.(): Drawable = requireNotNull(
         ContextCompat.getDrawable(

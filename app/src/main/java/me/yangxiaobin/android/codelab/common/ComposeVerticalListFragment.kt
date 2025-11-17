@@ -26,6 +26,7 @@ import me.yangxiaobin.android.codelab.jepack_compose.MyBottomSheetDialogFragment
 import me.yangxiaobin.android.codelab.jepack_compose.RoundCornerBottomSheetDialogFragment
 import me.yangxiaobin.android.codelab.jetpack_components.FlowFragment
 import me.yangxiaobin.android.codelab.jetpack_components.MutableSharedFlowFragment
+import me.yangxiaobin.android.codelab.jetpack_components.Paging3Fragment
 import me.yangxiaobin.android.codelab.log.LogTestFragment
 import me.yangxiaobin.android.codelab.multi_process.LocalService
 import me.yangxiaobin.android.codelab.multi_process.RemoteActivity
@@ -161,6 +162,7 @@ class ComposeVerticalListFragment : AbsComposableFragment() {
 
 
             // 4.Jetpack Components
+            "Paging3" -> naviToFragment(Paging3Fragment())
             "MutableSharedFlow" -> naviToFragment(MutableSharedFlowFragment())
             "Flow" -> naviToFragment(FlowFragment())
             "Navigation" -> naviToFragment(NavHostComposeFragment())
