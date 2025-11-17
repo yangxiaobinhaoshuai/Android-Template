@@ -9,6 +9,8 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.ExperimentalPagingApi
+import androidx.paging.LoadState
+import androidx.paging.LoadStateAdapter
 import androidx.paging.LoadType
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
@@ -16,13 +18,23 @@ import androidx.paging.PagingDataAdapter
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
+import androidx.recyclerview.widget.ConcatAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.coroutines.launch
+import me.yangxiaobin.android.kotlin.codelab.recyclerview.RvVhAlike
 import me.yangxiaobin.android.kotlin.codelab.recyclerview.SimpleRvAdapter
 import me.yangxiaobin.common_ui.EmptyFragment
+import newDynamicProxy
+
+interface A<T : RecyclerView.ViewHolder> {
+    fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int
+    ): T
+}
 
 class MyPagingSource() : PagingSource<Int, Int>() {
 
@@ -53,7 +65,7 @@ class MyDiffCallback : DiffUtil.ItemCallback<Int>() {
     }
 }
 
-class MyPagingAdapter() : PagingDataAdapter<Int, MyPagingVh>(MyDiffCallback()) {
+class MyPagingAdapter() : PagingDataAdapter<Int, MyPagingVh>(MyDiffCallback()), A<MyPagingVh> {
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -80,6 +92,23 @@ class MyPagingAdapter() : PagingDataAdapter<Int, MyPagingVh>(MyDiffCallback()) {
 
 }
 
+class MyLoadStateAdapter() : LoadStateAdapter<MyPagingVh>() {
+    override fun onBindViewHolder(
+        holder: MyPagingVh,
+        loadState: LoadState
+    ) {
+        TODO("Not yet implemented")
+    }
+
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        loadState: LoadState
+    ): MyPagingVh {
+        TODO("Not yet implemented")
+    }
+
+}
+
 @OptIn(ExperimentalPagingApi::class)
 class MyRemoteMediator : RemoteMediator<Int, Int>() {
     override suspend fun load(
@@ -93,6 +122,7 @@ class MyRemoteMediator : RemoteMediator<Int, Int>() {
 
 class Paging3Fragment : EmptyFragment() {
 
+    private val myConcatAdapter = ConcatAdapter()
     private val pagingAdapter: MyPagingAdapter by lazy { MyPagingAdapter() }
 
 
@@ -131,7 +161,6 @@ class Paging3Fragment : EmptyFragment() {
         view.isClickable = true
 
 
-
         viewLifecycleOwner.lifecycleScope.launch {
             val config = PagingConfig(pageSize = 20)
             val pager = Pager(config, pagingSourceFactory = { MyPagingSource() })
@@ -139,6 +168,43 @@ class Paging3Fragment : EmptyFragment() {
                 pagingAdapter.submitData(it)
             }
         }
+
+        testForDynamic()
+
+
     }
 
+    private fun testForDynamic() {
+
+        val actualVh: RvVhAlike = object : RvVhAlike {
+            override val rootView: View get() = View(requireContext())
+            override fun <ENTITY> onBind() {}
+        }
+
+        val proxy1: RvVhAlike = actualVh.newDynamicProxy { (method, args) ->
+            logD("call ${method.name}")
+            method.invoke(actualVh, *(args ?: emptyArray()))
+        }
+        logD("-----> demoVh1: $proxy1")
+
+
+        val real: Api = ApiImpl()
+        val proxy = real.newDynamicProxy { (method, args) ->
+            logD("call ${method.name}")
+            method.invoke(real, *(args ?: emptyArray()))
+        }
+        logD("-----> demoVh: $proxy")
+
+        val proxy2 = newDynamicProxy<RvVhAlike> { (method, args) -> }
+        logD("-----> demoVh2: $proxy2")
+    }
+
+}
+
+interface Api {
+    fun foo()
+}
+
+class ApiImpl : Api {
+    override fun foo() = println("real foo")
 }

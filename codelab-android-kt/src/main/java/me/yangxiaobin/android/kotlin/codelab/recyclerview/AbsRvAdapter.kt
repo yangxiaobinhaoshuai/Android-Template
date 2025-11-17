@@ -10,10 +10,6 @@ import androidx.recyclerview.widget.RecyclerView
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
-
-typealias RvVh = androidx.recyclerview.widget.RecyclerView.ViewHolder
-typealias RvAdapter <VH> = androidx.recyclerview.widget.RecyclerView.Adapter<VH>
-
 open class AbsVh<T>(
     itemView: View,
     private val bindingWithPayloads: suspend AbsVh<T>.(T, List<Any>) -> Unit = { _, _ -> },
@@ -25,6 +21,7 @@ open class AbsVh<T>(
         bindingWithPayloads.invoke(this, data, payloads)
 
     private val viewCache = SparseArray<View>(16)
+
     @Suppress("UNCHECKED_CAST")
     open fun <T : View?> findView(@IdRes resId: Int): T? = (viewCache[resId] as? T)
         ?: itemView.findViewById<T>(resId)?.also { viewCache.put(resId, it) }

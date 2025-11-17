@@ -9,18 +9,6 @@ import java.lang.reflect.InvocationHandler
 import java.lang.reflect.Method
 import java.lang.reflect.Proxy
 
-inline fun <reified T> T.newDynamicProxy(
-    noinline hook: (m: Method, args: Array<Any>?) -> Any? = { method, args -> method.invoke(this, args) }
-): T {
-
-    if (!T::class.java.isInterface) throw IllegalArgumentException("Only interface can be used in java dynamic proxy.")
-
-    return Proxy.newProxyInstance(
-        T::class.java.classLoader,
-        arrayOf(T::class.java)
-    ) { _, method: Method, args: Array<Any> -> hook.invoke(method, args) } as T
-}
-
 /**
  * @see java.lang.reflect.Proxy
  * @see java.lang.reflect.InvocationHandler
@@ -42,7 +30,8 @@ class DynamicProxyFragment : EmptyFragment() {
 
                 logD("Click 0 pos.")
 
-                val handler = InvocationHandler { proxy, method, args -> TODO("Not yet implemented") }
+                val handler =
+                    InvocationHandler { proxy, method, args -> TODO("Not yet implemented") }
 
                 val anonymousTest = object : ITest {
                     override fun test(param: Int): Int {
@@ -74,7 +63,7 @@ class DynamicProxyFragment : EmptyFragment() {
             }
 
 
-            1->{}
+            1 -> {}
             else -> Unit
         }
     }
