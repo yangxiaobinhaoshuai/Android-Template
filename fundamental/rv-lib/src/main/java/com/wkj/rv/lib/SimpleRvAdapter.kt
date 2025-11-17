@@ -32,6 +32,15 @@ typealias VhBinding <VH, T> = (VhTuple<VH, T>) -> Unit
 
 data class VhTuple<VH, T>(val vh: VH, val entity: T?, val pos: Int, val payloads: MutableList<Any>)
 
+
+val simpleRvAdapter = SimpleRvAdapter(
+    List(100) { it },
+    android.R.layout.simple_list_item_1
+) { tuple: VhTuple<SimpleVH, Int> ->
+    val textView = tuple.vh.requireView<View>(android.R.id.text1) as? android.widget.TextView
+    textView?.text = "Item ${tuple.entity}"
+}
+
 class SimpleRvAdapter<T>(
     private val dataList: List<T>,
     private val itemLayoutResId: Int,

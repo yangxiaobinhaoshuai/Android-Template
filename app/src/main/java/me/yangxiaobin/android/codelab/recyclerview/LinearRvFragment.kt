@@ -8,8 +8,8 @@ import androidx.recyclerview.widget.RecyclerView
 import me.yangxiaobin.android.codelab.R
 import me.yangxiaobin.android.kotlin.codelab.base.AbsFragment
 import me.yangxiaobin.android.kotlin.codelab.base.ability.LogAbility
-import me.yangxiaobin.android.kotlin.codelab.ext.uiwidget.setOnItemClickListener
-import me.yangxiaobin.android.kotlin.codelab.ext.uiwidget.setSimpleDivider
+import com.wkj.rv.lib.setOnItemClickListener
+import com.wkj.rv.lib.setSimpleDivider
 import me.yangxiaobin.android.kotlin.codelab.log.AndroidLogger
 import com.wkj.rv.lib.SimpleVH
 import com.wkj.rv.lib.SimpleRvAdapter

@@ -24,7 +24,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.coroutines.launch
-import com.wkj.rv.lib.RvVhAlike
+import com.wkj.rv.lib.dynamic.RvVhAlike
 import com.wkj.rv.lib.SimpleRvAdapter
 import me.yangxiaobin.common_ui.EmptyFragment
 import newDynamicProxy
@@ -139,7 +139,9 @@ class Paging3Fragment : EmptyFragment() {
                 DividerItemDecoration.VERTICAL
             )
         )
+
         val dataList = List(100) { it }
+
         val simpleRvAdapter = SimpleRvAdapter<Int>(
             dataList,
             R.layout.simple_list_item_1
@@ -178,7 +180,8 @@ class Paging3Fragment : EmptyFragment() {
 
         val actualVh: RvVhAlike = object : RvVhAlike {
             override val rootView: View get() = View(requireContext())
-            override fun <ENTITY> onBind() {}
+            override fun onBind() {
+            }
         }
 
         val proxy1: RvVhAlike = actualVh.newDynamicProxy { (method, args) ->

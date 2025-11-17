@@ -1,4 +1,4 @@
-package me.yangxiaobin.android.kotlin.codelab.ext.uiwidget
+package com.wkj.rv.lib
 
 import android.content.Context
 import android.view.GestureDetector

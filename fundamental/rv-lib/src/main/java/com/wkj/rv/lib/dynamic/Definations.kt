@@ -1,4 +1,4 @@
-package com.wkj.rv.lib
+package com.wkj.rv.lib.dynamic
 
 import android.util.SparseArray
 import android.view.View
@@ -6,11 +6,10 @@ import android.view.ViewGroup
 import androidx.annotation.IdRes
 import androidx.recyclerview.widget.RecyclerView
 
-
-typealias RvVh = RecyclerView.ViewHolder
-typealias RvAdapter <VH> = RecyclerView.Adapter<VH>
-
-
+/**
+ * TODO ，暂无好的 idea
+ * 一点不成熟的想法，想通过 retrofit style 实现 less boilerplate 的 RecyclerView.Adapter / ViewHolder 。
+ */
 /**
  * @see RecyclerView.ViewHolder
  * @see retrofit2.Retrofit.create
@@ -36,7 +35,7 @@ interface RvVhAlike {
     operator fun <V : View> get(@IdRes id: Int): V? = (viewCache[id] as? V)
         ?: rootView.findViewById<V>(id)?.also { viewCache.put(id, it) }
 
-    fun <ENTITY> onBind()
+    fun onBind()
 
     private companion object KEY {
         private val KEY_CACHE = View.generateViewId()   // 或 R.id.view_cache_id
@@ -47,19 +46,10 @@ interface RvVhAlike {
 /**
  * @see RecyclerView.Adapter
  */
-interface RvAdapterAlike<T : RvVh> {
-
-    fun onBindViewHolder(parent: ViewGroup, viewType: Int)
-
-    fun onBindViewHolder(parent: ViewGroup, viewType: Int, payloads: MutableList<Any>)
-
+interface RvAdapterAlike<T : RvVhAlike> {
+    fun onBindViewHolder(holder: T, position: Int)
+    fun onBindViewHolder(holder: T, position: Int, payloads: List<Any?>)
     fun getItemCount(): Int
-
     fun onCreateViewHolder(parent: ViewGroup, viewType: Int): T
-
     fun getItemViewType(position: Int): Int
-}
-
-interface ExecutablePayload {
-
 }

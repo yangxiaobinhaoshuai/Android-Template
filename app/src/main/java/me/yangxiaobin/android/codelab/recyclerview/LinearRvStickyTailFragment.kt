@@ -23,6 +23,8 @@ import me.yangxiaobin.android.kotlin.codelab.ext.context.statusBarSize
 import me.yangxiaobin.android.kotlin.codelab.ext.uiwidget.*
 import me.yangxiaobin.android.kotlin.codelab.log.AndroidLogger
 import com.wkj.rv.lib.SimpleVH
+import com.wkj.rv.lib.convertRecyclerViewScrollStateToString
+import com.wkj.rv.lib.setOnItemClickListener
 import me.yangxiaobin.logger.core.LogFacade
 
 class LinearRvStickyTailFragment : AbsViewBindingFragment<FragmentLienarRvStickyTailBinding>() {

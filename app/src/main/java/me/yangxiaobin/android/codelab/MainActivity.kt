@@ -28,7 +28,7 @@ import me.yangxiaobin.android.kotlin.codelab.base.ability.LogAbility
 import me.yangxiaobin.android.kotlin.codelab.ext.getActionString
 import me.yangxiaobin.android.kotlin.codelab.ext.mainHandler
 import me.yangxiaobin.android.kotlin.codelab.ext.uicontroller.showActivityToast
-import me.yangxiaobin.android.kotlin.codelab.ext.uiwidget.setSimpleDivider
+import com.wkj.rv.lib.setSimpleDivider
 import me.yangxiaobin.android.kotlin.codelab.log.AndroidLogger
 import com.wkj.rv.lib.SimpleRvAdapter
 import com.wkj.rv.lib.SimpleVH
