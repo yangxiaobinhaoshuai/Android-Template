@@ -354,7 +354,8 @@ class MainActivity : AbsActivity() {
         }
 
         // Scroll to last one.
-        rv.scrollToPosition(rv.adapter?.itemCount?.minus(1) ?: 0)
+        // TODO
+        //rv.scrollToPosition(rv.adapter?.itemCount?.minus(1) ?: 0)
 
         // TODO config this pls.
         navigateToSubFragment("jsonMediator")

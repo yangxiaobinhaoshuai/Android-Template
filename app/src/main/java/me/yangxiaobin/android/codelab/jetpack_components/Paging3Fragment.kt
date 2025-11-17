@@ -1,29 +1,39 @@
 package me.yangxiaobin.android.codelab.jetpack_components
 
+import android.R
 import android.content.Context
+import android.graphics.Color
+import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.paging.CombinedLoadStates
+import android.widget.TextView
+import androidx.lifecycle.lifecycleScope
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadType
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
 import androidx.paging.PagingDataAdapter
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import kotlinx.coroutines.launch
 import me.yangxiaobin.android.kotlin.codelab.recyclerview.SimpleRvAdapter
 import me.yangxiaobin.common_ui.EmptyFragment
 
 class MyPagingSource() : PagingSource<Int, Int>() {
 
-    override fun getRefreshKey(state: PagingState<Int, Int>): Int? {
-        TODO("Not yet implemented")
-    }
+    override fun getRefreshKey(state: PagingState<Int, Int>): Int? = null
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Int> {
-        TODO("Not yet implemented")
+        return LoadResult.Page(
+            data = List(20) { it },
+            prevKey = null,
+            nextKey = null
+        )
     }
 }
 
@@ -43,21 +53,29 @@ class MyDiffCallback : DiffUtil.ItemCallback<Int>() {
     }
 }
 
-class MyPagingAdapter(rootView: View) : PagingDataAdapter<Int, MyPagingVh>(MyDiffCallback()) {
+class MyPagingAdapter() : PagingDataAdapter<Int, MyPagingVh>(MyDiffCallback()) {
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
     ): MyPagingVh {
-        TODO("Not yet implemented")
+        val rootView = LayoutInflater.from(parent.context).inflate(
+            R.layout.simple_list_item_1,
+            parent,
+            false
+        )
+        return MyPagingVh(rootView)
     }
 
     override fun onBindViewHolder(
         holder: MyPagingVh,
         position: Int
     ) {
-        TODO("Not yet implemented")
-
+        holder.itemView.apply {
+            val tv = this.findViewById<TextView>(R.id.text1)
+            val item = getItem(position)
+            tv.text = "Item #$item"
+        }
     }
 
 }
@@ -75,13 +93,16 @@ class MyRemoteMediator : RemoteMediator<Int, Int>() {
 
 class Paging3Fragment : EmptyFragment() {
 
+    private val pagingAdapter: MyPagingAdapter by lazy { MyPagingAdapter() }
+
+
     override fun customRootViewGroup(context: Context): ViewGroup {
         val rv = RecyclerView(requireContext())
         rv.layoutParams = ViewGroup.LayoutParams(
             ViewGroup.LayoutParams.MATCH_PARENT,
             ViewGroup.LayoutParams.MATCH_PARENT
         )
-        rv.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(context)
+        rv.layoutManager = LinearLayoutManager(context)
         rv.addItemDecoration(
             DividerItemDecoration(
                 requireContext(),
@@ -89,21 +110,35 @@ class Paging3Fragment : EmptyFragment() {
             )
         )
         val dataList = List(100) { it }
-        rv.adapter = SimpleRvAdapter<Int>(
+        val simpleRvAdapter = SimpleRvAdapter<Int>(
             dataList,
-            android.R.layout.simple_list_item_1
+            R.layout.simple_list_item_1
         ) { (vh, entity, pos, payloads) ->
-            val tv = vh.requireView<android.widget.TextView>(android.R.id.text1)
+            val tv = vh.requireView<TextView>(R.id.text1)
             tv.text = "Item #$entity"
 
         }
+
+        rv.adapter = pagingAdapter
+
         return rv
     }
 
 
     override fun afterViewCreated(view: View) {
         super.afterViewCreated(view)
-        view.setBackgroundColor(android.graphics.Color.WHITE)
+        view.setBackgroundColor(Color.WHITE)
         view.isClickable = true
+
+
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            val config = PagingConfig(pageSize = 20)
+            val pager = Pager(config, pagingSourceFactory = { MyPagingSource() })
+            pager.flow.collect {
+                pagingAdapter.submitData(it)
+            }
+        }
     }
+
 }
