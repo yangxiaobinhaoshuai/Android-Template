@@ -12,7 +12,10 @@ import me.yangxiaobin.logger.uitlity.LogPrinter
 object L : LogFacade by RawLogger
 
 public val AndroidLogger = L.clone(
-    newLogContext = LogPrinterLogElement(AndroidPrinter()) + LogElementProvider.elements.fold(EmptyDomainContext, DomainContext::plus)
+    newLogContext = LogPrinterLogElement(AndroidUtilLogPrinter()) + LogElementProvider.elements.fold(
+        EmptyDomainContext,
+        DomainContext::plus
+    )
 )
 
 /**
@@ -23,14 +26,23 @@ object LogElementProvider {
     val elements: MutableList<DomainContext> = mutableListOf()
 }
 
-class AndroidPrinter : LogPrinter {
-    override fun print(level: LogLevel, tag: String, message: String) {
+class AndroidUtilLogPrinter : LogPrinter {
+
+    override fun print(
+        level: LogLevel,
+        tag: String,
+        message: String,
+        throwable: Throwable?
+    ) {
         val intLevel = when (level) {
             LogLevel.VERBOSE -> Log.VERBOSE
             LogLevel.DEBUG -> Log.DEBUG
             LogLevel.INFO -> Log.INFO
             LogLevel.ERROR -> Log.ERROR
         }
-        Log.println(intLevel, tag, message)
+        if (intLevel == Log.ERROR && throwable != null) {
+            Log.e(tag, message, throwable)
+            return
+        } else Log.println(intLevel, tag, message)
     }
 }

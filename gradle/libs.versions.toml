@@ -168,7 +168,7 @@ cameraExtension =  { module = "androidx.camera:camera-extensions", version.ref =
 # Google auto service : https://github.com/google/auto/tree/master/service
 autoService = { module = "com.google.auto.service:auto-service", version = "1.0.1" }
 
-jvmLogger = { module = "me.yangxiaobin.gradle.plugin:logger", version = "1.0-SNAPSHOT" }
+jvmLogger = { module = "me.yangxiaobin.gradle.plugin:logger", version = "1.0.1" }
 
 # glide https://github.com/bumptech/glide
 glide = { module = "com.github.bumptech.glide:glide", version = "4.14.2" }

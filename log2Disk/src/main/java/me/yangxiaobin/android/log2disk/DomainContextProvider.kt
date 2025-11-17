@@ -10,11 +10,19 @@ import me.yangxiaobin.logger.uitlity.DomainElementInterceptor
 import me.yangxiaobin.logger.uitlity.LogPrinter
 
 
+// TODO file
+
 class PrinterProxy(private val origin: LogPrinter) : LogPrinterDelegate(origin) {
 
-    // TODO
-    override fun print(level: LogLevel, tag: String, message: String) {
-        origin.print(level, tag, "$message I'm PrinterProxy")
+
+    override fun print(
+        level: LogLevel,
+        tag: String,
+        message: String,
+        throwable: Throwable?
+    ) {
+        super.print(level, tag, message, throwable)
+        origin.print(level, tag, "$message I'm PrinterProxy", throwable)
     }
 
 }
