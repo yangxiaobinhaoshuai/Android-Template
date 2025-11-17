@@ -20,16 +20,16 @@ class ItemDelegateBuilder<T : Any>(
         areContentsSame = block
     }
 
-    var getChangePayload: (T, T) -> Any? = { _, _ -> null }
+    var getChangePayload: (T, T) -> SmartPayload? = { _, _ -> SmartPayload.NOOP }
         private set
 
-    fun getChangePayload(block: (T, T) -> Any?) {
+    fun getChangePayload(block: (T, T) -> SmartPayload) {
         getChangePayload = block
     }
 
     private var _onClick: ((T, Int) -> Unit)? = null
     private var _onLongClick: ((T, Int) -> Boolean)? = null
-    private var _onBind: SmartViewHolder.(T, List<Any>) -> Unit = { _, _ -> }
+    private var _onBind: SmartViewHolder.(T) -> Unit = { _ -> }
 
     fun onClick(block: (T, Int) -> Unit) {
         _onClick = block
@@ -39,7 +39,7 @@ class ItemDelegateBuilder<T : Any>(
         _onLongClick = block
     }
 
-    fun onBind(block: SmartViewHolder.(T, List<Any>) -> Unit) {
+    fun onBind(block: SmartViewHolder.(T) -> Unit) {
         _onBind = block
     }
 

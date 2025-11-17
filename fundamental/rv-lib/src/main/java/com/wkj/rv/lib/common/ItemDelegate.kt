@@ -9,7 +9,7 @@ data class ItemDelegate<T : Any>(
     val areItemsSame: (T, T) -> Boolean,
     val areContentsSame: (T, T) -> Boolean,
     val getChangePayload: (T, T) -> Any?,
-    val onBind: SmartViewHolder.(item: T, payloads: List<Any>) -> Unit,
+    val onBind: SmartViewHolder.(item: T) -> Unit,
     val onClick: ((item: T, position: Int) -> Unit)?,
     val onLongClick: ((item: T, position: Int) -> Boolean)?,
 )

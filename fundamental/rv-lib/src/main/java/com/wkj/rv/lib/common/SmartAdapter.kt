@@ -66,7 +66,7 @@ class SmartAdapter(
     }
 
     override fun onBindViewHolder(holder: SmartViewHolder, position: Int) {
-        onBindViewHolder(holder, position)
+        onBindViewHolder(holder, position, emptyList())
     }
 
     override fun onBindViewHolder(
@@ -76,9 +76,21 @@ class SmartAdapter(
     ) {
         val item = getItem(position)
         val k = item::class
-        val delegate = delegateMap[k] ?: error("No delegate registered for ${k.qualifiedName}")
+        val delegate: ItemDelegate<out Any> =
+            delegateMap[k] ?: error("No delegate registered for ${k.qualifiedName}")
 
+        if (payloads.isEmpty()) {
+            onBindViewHolder(holder, position)
+        } else {
+            val smartPayloads = payloads.filterIsInstance<SmartPayload>()
+            smartPayloads.forEach { p: SmartPayload -> p.onBindViewHolder(holder to position) }
+
+            val remains = payloads.filterNot { it is SmartPayload }
+
+            @Suppress("UNCHECKED_CAST")
+            ((delegate as ItemDelegate<Any>).onBind(holder, item))
+        }
         @Suppress("UNCHECKED_CAST")
-        ((delegate as ItemDelegate<Any>).onBind(holder, item, payloads))
+        ((delegate as ItemDelegate<Any>).onBind(holder, item))
     }
 }

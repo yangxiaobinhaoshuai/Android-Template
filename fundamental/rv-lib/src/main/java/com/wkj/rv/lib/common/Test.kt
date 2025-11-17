@@ -11,7 +11,7 @@ class Test {
                 areContentsSame { old, new -> old == new }
                 // 如果内容变化只改名字，给一个 payload
                 getChangePayload { old, new ->
-                    Any()
+                    SmartPayload.NOOP
                 }
 
                 onClick { item, position ->
@@ -20,7 +20,7 @@ class Test {
                 onLongClick { item, position ->
                     true
                 }
-                onBind { item, payloads ->
+                onBind { item ->
 
                 }
             }

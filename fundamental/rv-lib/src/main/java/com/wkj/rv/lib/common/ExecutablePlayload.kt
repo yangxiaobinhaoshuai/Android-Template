@@ -18,4 +18,10 @@ fun interface SmartPayload : ExecutablePayload<SmartViewHolder> {
     ) {
         onBindViewHolder(holder to position)
     }
+
+    companion object NOOP : SmartPayload {
+        override fun onBindViewHolder(bind: BindingParam) {
+            // no-op
+        }
+    }
 }
