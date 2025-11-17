@@ -3,9 +3,9 @@
   "component": {
     "group": "me.yangxiaobin.gradle.plugin",
     "module": "logger-jvm",
-    "version": "1.0.0-SNAPSHOT",
+    "version": "1.0.1",
     "attributes": {
-      "org.gradle.status": "integration"
+      "org.gradle.status": "release"
     }
   },
   "createdBy": {
@@ -27,13 +27,13 @@
       },
       "files": [
         {
-          "name": "logger-1.0-SNAPSHOT.jar",
-          "url": "logger-1.0-SNAPSHOT.jar",
-          "size": 77319,
-          "sha512": "d2465a529d4a0d50b8eeed4b6a1bf72a9108910ea94ecb5f26017b029b923b25cbea3215b169438a0e1c1b02a970c9f5ddb9a10cc9c9d38308f2b184bda34618",
-          "sha256": "1dcb75cc828620ac79acc6ec8135bec7953e8b2235e82c2d1932da9f3a588767",
-          "sha1": "f453f095838d4bf7db01bf0494ac0619a0ecc825",
-          "md5": "f6a59166bdbe2a975ebeb46540f9673e"
+          "name": "logger-1.0.1.jar",
+          "url": "logger-1.0.1.jar",
+          "size": 87422,
+          "sha512": "1f866e1e054f2d2bc4d2e91dc525a1a8d7727bb51f5a834d5df518b132821c014441c713ffe39542238c1cd735530ac92f2f7f0f6be2ddafe9e306b614bb3fe8",
+          "sha256": "7a56e5e5a02b558d9c238e8bbf9266182f372e8e0a753fa0c0d528ec99b82d1b",
+          "sha1": "1721ef22f165119911ddb0680c719828ab5c7f01",
+          "md5": "1dc34efd99bb6ac6a857d387432ceb9c"
         }
       ]
     },
@@ -59,13 +59,13 @@
       ],
       "files": [
         {
-          "name": "logger-1.0-SNAPSHOT.jar",
-          "url": "logger-1.0-SNAPSHOT.jar",
-          "size": 77319,
-          "sha512": "d2465a529d4a0d50b8eeed4b6a1bf72a9108910ea94ecb5f26017b029b923b25cbea3215b169438a0e1c1b02a970c9f5ddb9a10cc9c9d38308f2b184bda34618",
-          "sha256": "1dcb75cc828620ac79acc6ec8135bec7953e8b2235e82c2d1932da9f3a588767",
-          "sha1": "f453f095838d4bf7db01bf0494ac0619a0ecc825",
-          "md5": "f6a59166bdbe2a975ebeb46540f9673e"
+          "name": "logger-1.0.1.jar",
+          "url": "logger-1.0.1.jar",
+          "size": 87422,
+          "sha512": "1f866e1e054f2d2bc4d2e91dc525a1a8d7727bb51f5a834d5df518b132821c014441c713ffe39542238c1cd735530ac92f2f7f0f6be2ddafe9e306b614bb3fe8",
+          "sha256": "7a56e5e5a02b558d9c238e8bbf9266182f372e8e0a753fa0c0d528ec99b82d1b",
+          "sha1": "1721ef22f165119911ddb0680c719828ab5c7f01",
+          "md5": "1dc34efd99bb6ac6a857d387432ceb9c"
         }
       ]
     },
@@ -79,13 +79,13 @@
       },
       "files": [
         {
-          "name": "logger-1.0-SNAPSHOT-javadoc.jar",
-          "url": "logger-1.0-SNAPSHOT-javadoc.jar",
+          "name": "logger-1.0.1-javadoc.jar",
+          "url": "logger-1.0.1-javadoc.jar",
           "size": 261,
-          "sha512": "5acb3e27340727cd7865456ba149e5574a049f9a8ec7b1cdb04d77e8c138b92e2329176cb44394fc83a28a505fbe1cdade4cc7d488c93ce244eea8aeb7c63929",
-          "sha256": "2afdb092a99cc6e37db3e98ba0efbf4b51163d70b41acaa6fd1fd9bb351cbf5f",
-          "sha1": "351c4bd43c7b6cf9e6285d8b6b7284417a4f19cd",
-          "md5": "81385a4f90aebb437db79ac7f9f993a2"
+          "sha512": "7146a95dd51d9f7ac235150d7cb0fd65954a74df36eb883aa6f73bf8c510c1a44a8b339b90e30c44784a5e1161b5ed681ad5496ad835e719b9de3d832f9d429e",
+          "sha256": "28df8cf58ecb54dc4c5fdbaa7c7a5b05789e090c68ed2b55538fdf95dec8300c",
+          "sha1": "9f4aea2f0ffbd9fb58366d6d18e277cf781de8eb",
+          "md5": "267276045fee7b30589b6f6a0f30f8b6"
         }
       ]
     },
@@ -99,13 +99,13 @@
       },
       "files": [
         {
-          "name": "logger-1.0-SNAPSHOT-sources.jar",
-          "url": "logger-1.0-SNAPSHOT-sources.jar",
-          "size": 12756,
-          "sha512": "8772ad897eee50fe2531edf0b484d180fac59298a2e0d4b22fbd5468b63f430b7e396aba2bbf537e44dc0b5a271c1f62ae7bd48321d0971eb38f2602b80ee105",
-          "sha256": "acebdd083daa0ee5aa04b9d40ab2bed222fb4b765303d1c87934083fee05c98e",
-          "sha1": "ccf86e0824ecc8c1212cf366252705251dd8e528",
-          "md5": "525ec63b074972739672d745a429c32f"
+          "name": "logger-1.0.1-sources.jar",
+          "url": "logger-1.0.1-sources.jar",
+          "size": 13711,
+          "sha512": "1bb1f45fcd889dae4577e9c9e7ef061eba2727475bf7f0412285822e2ef8c1a0e8e3fa48b0b11d921e31548d0bf7a48643831b27d75ca0f87c4de298ce867158",
+          "sha256": "f5151548e517a52a1b63f33101a8880bbefd3d35ad58bad9d978fe6602477d86",
+          "sha1": "1572cead5f0c68913642058b860b4b1be0704aee",
+          "md5": "479ca48943fb3c2029c22d181b8a2eec"
         }
       ]
     }

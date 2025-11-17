@@ -32,7 +32,7 @@ class AndroidUtilLogPrinter : LogPrinter {
         level: LogLevel,
         tag: String,
         message: String,
-        throwable: Throwable?
+        throwable: Throwable?,
     ) {
         val intLevel = when (level) {
             LogLevel.VERBOSE -> Log.VERBOSE

@@ -1,6 +1,6 @@
 package com.wkj.rv.lib.common
 
-import com.wkj.rv.lib.RvVh
+import com.wkj.rv.lib.uitls.RvVh
 
 fun interface ExecutablePayload<T : RvVh> {
     fun onBindViewHolder(holder: T, position: Int)
@@ -14,14 +14,13 @@ fun interface SmartPayload : ExecutablePayload<SmartViewHolder> {
 
     override fun onBindViewHolder(
         holder: SmartViewHolder,
-        position: Int
+        position: Int,
     ) {
         onBindViewHolder(holder to position)
     }
 
     companion object NOOP : SmartPayload {
-        override fun onBindViewHolder(bind: BindingParam) {
-            // no-op
-        }
+        // no-op
+        override fun onBindViewHolder(bind: BindingParam) = Unit
     }
 }

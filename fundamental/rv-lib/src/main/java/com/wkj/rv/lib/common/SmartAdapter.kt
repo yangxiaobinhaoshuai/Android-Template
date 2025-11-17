@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import kotlin.reflect.KClass
 
 class SmartAdapter(
-    delegates: List<ItemDelegate<out Any>>
+    delegates: List<ItemDelegate<out Any>>,
 ) : ListAdapter<Any, SmartViewHolder>(
     SmartDiffCallback(delegates)
 ) {
@@ -43,21 +43,19 @@ class SmartAdapter(
         v.setOnClickListener {
             val position = vh.bindingAdapterPosition
             if (position != RecyclerView.NO_POSITION) {
-                @Suppress("UNCHECKED_CAST")
                 val item = getItem(position) as Any
                 @Suppress("UNCHECKED_CAST")
-                (delegate as ItemDelegate<Any>).onClick?.invoke(item, position)
+                (delegate as ItemDelegate<Any>).onClick?.invoke(item to position)
             }
         }
 
         v.setOnLongClickListener {
             val position = vh.bindingAdapterPosition
             if (position != RecyclerView.NO_POSITION) {
-                @Suppress("UNCHECKED_CAST")
                 val item = getItem(position) as Any
 
                 @Suppress("UNCHECKED_CAST")
-                val consumed = (delegate as ItemDelegate<Any>).onLongClick?.invoke(item, position)
+                val consumed = (delegate as ItemDelegate<Any>).onLongClick?.invoke(item to position)
                 consumed ?: false
             } else false
         }
@@ -66,31 +64,36 @@ class SmartAdapter(
     }
 
     override fun onBindViewHolder(holder: SmartViewHolder, position: Int) {
-        onBindViewHolder(holder, position, emptyList())
-    }
 
-    override fun onBindViewHolder(
-        holder: SmartViewHolder,
-        position: Int,
-        payloads: List<Any>
-    ) {
         val item = getItem(position)
         val k = item::class
         val delegate: ItemDelegate<out Any> =
             delegateMap[k] ?: error("No delegate registered for ${k.qualifiedName}")
 
+        @Suppress("UNCHECKED_CAST")
+        ((delegate as ItemDelegate<Any>).onBind(holder, item))
+    }
+
+    override fun onBindViewHolder(
+        holder: SmartViewHolder,
+        position: Int,
+        payloads: List<Any>,
+    ) {
+
         if (payloads.isEmpty()) {
             onBindViewHolder(holder, position)
         } else {
-            val smartPayloads = payloads.filterIsInstance<SmartPayload>()
-            smartPayloads.forEach { p: SmartPayload -> p.onBindViewHolder(holder to position) }
 
-            val remains = payloads.filterNot { it is SmartPayload }
+            payloads.filterIsInstance<SmartPayload>()
+                .forEach { payload: SmartPayload ->
+                    payload.onBindViewHolder(holder, position)
+                }
 
-            @Suppress("UNCHECKED_CAST")
-            ((delegate as ItemDelegate<Any>).onBind(holder, item))
+            val remained = payloads.filterNot { it is SmartPayload }
+            if (remained.isNotEmpty()) {
+                throw IllegalStateException("Use smartPayload instead of raw payload.")
+            }
         }
-        @Suppress("UNCHECKED_CAST")
-        ((delegate as ItemDelegate<Any>).onBind(holder, item))
+
     }
 }

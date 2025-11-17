@@ -6,19 +6,16 @@ import androidx.annotation.IdRes
 import androidx.recyclerview.widget.RecyclerView
 
 class SmartViewHolder(
-    val root: View
+    private val root: View,
 ) : RecyclerView.ViewHolder(root) {
 
-    private val cache = SparseArray<View>()
+    private val viewCache = SparseArray<View>()
 
+    fun <T : View> requireView(@IdRes id: Int): T =
+        get(id) ?: throw NullPointerException("Can NOT find view relative to id: $id")
+
+    @Throws(ClassCastException::class)
     @Suppress("UNCHECKED_CAST")
-    fun <V : View> view(@IdRes id: Int): V {
-        var v = cache.get(id)
-        if (v == null) {
-            v = root.findViewById(id)
-            requireNotNull(v) { "No view with id=$id in ${root.id}" }
-            cache.put(id, v)
-        }
-        return v as V
-    }
+    operator fun <V : View> get(@IdRes id: Int): V? = (viewCache[id] as? V)
+        ?: root.findViewById<V>(id)?.also { viewCache.put(id, it) }
 }

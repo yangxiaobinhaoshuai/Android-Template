@@ -26,13 +26,15 @@ import androidx.recyclerview.widget.RecyclerView
 import kotlinx.coroutines.launch
 import com.wkj.rv.lib.dynamic.RvVhAlike
 import com.wkj.rv.lib.SimpleRvAdapter
+import com.wkj.rv.lib.common.smartAdapter
+import me.yangxiaobin.android.kotlin.codelab.ext.uiwidget.showContextToast
 import me.yangxiaobin.common_ui.EmptyFragment
 import newDynamicProxy
 
 interface A<T : RecyclerView.ViewHolder> {
     fun onCreateViewHolder(
         parent: ViewGroup,
-        viewType: Int
+        viewType: Int,
     ): T
 }
 
@@ -69,7 +71,7 @@ class MyPagingAdapter() : PagingDataAdapter<Int, MyPagingVh>(MyDiffCallback()), 
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
-        viewType: Int
+        viewType: Int,
     ): MyPagingVh {
         val rootView = LayoutInflater.from(parent.context).inflate(
             R.layout.simple_list_item_1,
@@ -81,7 +83,7 @@ class MyPagingAdapter() : PagingDataAdapter<Int, MyPagingVh>(MyDiffCallback()), 
 
     override fun onBindViewHolder(
         holder: MyPagingVh,
-        position: Int
+        position: Int,
     ) {
         holder.itemView.apply {
             val tv = this.findViewById<TextView>(R.id.text1)
@@ -95,14 +97,14 @@ class MyPagingAdapter() : PagingDataAdapter<Int, MyPagingVh>(MyDiffCallback()), 
 class MyLoadStateAdapter() : LoadStateAdapter<MyPagingVh>() {
     override fun onBindViewHolder(
         holder: MyPagingVh,
-        loadState: LoadState
+        loadState: LoadState,
     ) {
         TODO("Not yet implemented")
     }
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
-        loadState: LoadState
+        loadState: LoadState,
     ): MyPagingVh {
         TODO("Not yet implemented")
     }
@@ -113,7 +115,7 @@ class MyLoadStateAdapter() : LoadStateAdapter<MyPagingVh>() {
 class MyRemoteMediator : RemoteMediator<Int, Int>() {
     override suspend fun load(
         loadType: LoadType,
-        state: PagingState<Int, Int>
+        state: PagingState<Int, Int>,
     ): MediatorResult {
         TODO("Not yet implemented")
     }
@@ -128,6 +130,7 @@ class Paging3Fragment : EmptyFragment() {
 
     override fun customRootViewGroup(context: Context): ViewGroup {
         val rv = RecyclerView(requireContext())
+
         rv.layoutParams = ViewGroup.LayoutParams(
             ViewGroup.LayoutParams.MATCH_PARENT,
             ViewGroup.LayoutParams.MATCH_PARENT
@@ -141,17 +144,41 @@ class Paging3Fragment : EmptyFragment() {
         )
 
         val dataList = List(100) { it }
+//
+//        val simpleRvAdapter = SimpleRvAdapter<Int>(
+//            dataList,
+//            R.layout.simple_list_item_1
+//        ) { (vh, entity, pos, payloads) ->
+//            val tv = vh.requireView<TextView>(R.id.text1)
+//            tv.text = "Item #$entity"
+//
+//        }
+//
+//        rv.adapter = pagingAdapter
 
-        val simpleRvAdapter = SimpleRvAdapter<Int>(
-            dataList,
-            R.layout.simple_list_item_1
-        ) { (vh, entity, pos, payloads) ->
-            val tv = vh.requireView<TextView>(R.id.text1)
-            tv.text = "Item #$entity"
+
+        val ad = smartAdapter {
+
+            register<Int>(android.R.layout.simple_list_item_1) {
+
+                onBind { it: Int ->
+                    requireView<TextView>(android.R.id.text1).text = "Item #$it"
+                }
+
+                onClick { (item, position) ->
+                    requireContext().showContextToast("short toast")
+                }
+                onLongClick { (item, position) ->
+                    requireContext().showContextToast("long toast")
+                    true
+                }
+
+            }
 
         }
 
-        rv.adapter = pagingAdapter
+        rv.adapter = ad
+        ad.submitList(dataList)
 
         return rv
     }
@@ -198,8 +225,9 @@ class Paging3Fragment : EmptyFragment() {
         }
         logD("-----> demoVh: $proxy")
 
-        val proxy2 = newDynamicProxy<RvVhAlike> { (method, args) -> }
-        logD("-----> demoVh2: $proxy2")
+
+//        val proxy2: RvVhAlike = newDynamicProxy<RvVhAlike> { (method, args) -> }
+//        logD("-----> demoVh2: $proxy2")
     }
 
 }

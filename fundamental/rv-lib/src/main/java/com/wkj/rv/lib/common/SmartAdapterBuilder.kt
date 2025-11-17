@@ -8,7 +8,7 @@ class SmartAdapterBuilder {
 
     inline fun <reified T : Any> register(
         @LayoutRes layoutId: Int,
-        noinline block: ItemDelegateBuilder<T>.() -> Unit
+        noinline block: ItemDelegateBuilder<T>.() -> Unit,
     ) {
         val b = ItemDelegateBuilder<T>(layoutId)
         b.block()
@@ -17,7 +17,7 @@ class SmartAdapterBuilder {
 }
 
 fun smartAdapter(
-    block: SmartAdapterBuilder.() -> Unit
+    block: SmartAdapterBuilder.() -> Unit,
 ): SmartAdapter {
     val builder = SmartAdapterBuilder()
     builder.block()

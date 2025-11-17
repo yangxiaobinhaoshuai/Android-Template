@@ -50,7 +50,6 @@ inline fun <reified T : Any> T.newDynamicProxy(
                 "If you are using anonymous class, please specify interface explicitly."
     }
 
-    @Suppress("UNCHECKED_CAST")
     return Proxy.newProxyInstance(
         iface.classLoader,
         arrayOf(iface)

@@ -1,41 +1,42 @@
 package com.wkj.rv.lib.common
 
 import androidx.annotation.LayoutRes
+import com.wkj.rv.lib.uitls.BiTypedParam
+import com.wkj.rv.lib.uitls.ClickParam
 import kotlin.reflect.KClass
 
-class ItemDelegateBuilder<T : Any>(
-    @get:LayoutRes private val layoutId: Int,
-) {
-    var areItemsSame: (T, T) -> Boolean = { o, n -> o === n }
-        private set
 
-    fun areItemsSame(block: (T, T) -> Boolean) {
+class ItemDelegateBuilder<T : Any>(
+    @field:LayoutRes private val layoutId: Int,
+) {
+    private var areItemsSame: (BiTypedParam<T>) -> Boolean = { (o, n) -> o === n }
+
+    fun areItemsSame(block: (BiTypedParam<T>) -> Boolean) {
         areItemsSame = block
     }
 
-    var areContentsSame: (T, T) -> Boolean = { o, n -> o == n }
-        private set
+    private var areContentsSame: (BiTypedParam<T>) -> Boolean = { (o, n) -> o == n }
 
-    fun areContentsSame(block: (T, T) -> Boolean) {
+    fun areContentsSame(block: (BiTypedParam<T>) -> Boolean) {
         areContentsSame = block
     }
 
-    var getChangePayload: (T, T) -> SmartPayload? = { _, _ -> SmartPayload.NOOP }
-        private set
+    private var getChangePayload: (BiTypedParam<T>) -> SmartPayload? =
+        { (_, _) -> SmartPayload.NOOP }
 
-    fun getChangePayload(block: (T, T) -> SmartPayload) {
+    fun getChangePayload(block: (BiTypedParam<T>) -> SmartPayload) {
         getChangePayload = block
     }
 
-    private var _onClick: ((T, Int) -> Unit)? = null
-    private var _onLongClick: ((T, Int) -> Boolean)? = null
+    private var _onClick: ((ClickParam<T>) -> Unit)? = null
+    private var _onLongClick: ((ClickParam<T>) -> Boolean)? = null
     private var _onBind: SmartViewHolder.(T) -> Unit = { _ -> }
 
-    fun onClick(block: (T, Int) -> Unit) {
+    fun onClick(block: (ClickParam<T>) -> Unit) {
         _onClick = block
     }
 
-    fun onLongClick(block: (T, Int) -> Boolean) {
+    fun onLongClick(block: (ClickParam<T>) -> Boolean) {
         _onLongClick = block
     }
 
