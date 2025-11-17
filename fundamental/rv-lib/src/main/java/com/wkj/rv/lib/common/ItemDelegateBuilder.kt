@@ -7,8 +7,25 @@ class ItemDelegateBuilder<T : Any>(
     @get:LayoutRes private val layoutId: Int,
 ) {
     var areItemsSame: (T, T) -> Boolean = { o, n -> o === n }
+        private set
+
+    fun areItemsSame(block: (T, T) -> Boolean) {
+        areItemsSame = block
+    }
+
     var areContentsSame: (T, T) -> Boolean = { o, n -> o == n }
+        private set
+
+    fun areContentsSame(block: (T, T) -> Boolean) {
+        areContentsSame = block
+    }
+
     var getChangePayload: (T, T) -> Any? = { _, _ -> null }
+        private set
+
+    fun getChangePayload(block: (T, T) -> Any?) {
+        getChangePayload = block
+    }
 
     private var _onClick: ((T, Int) -> Unit)? = null
     private var _onLongClick: ((T, Int) -> Boolean)? = null
