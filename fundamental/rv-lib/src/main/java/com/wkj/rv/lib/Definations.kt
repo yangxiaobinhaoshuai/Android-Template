@@ -1,4 +1,4 @@
-package me.yangxiaobin.android.kotlin.codelab.recyclerview
+package com.wkj.rv.lib
 
 import android.util.SparseArray
 import android.view.View

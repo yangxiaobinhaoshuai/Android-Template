@@ -22,7 +22,7 @@ import me.yangxiaobin.android.kotlin.codelab.ext.context.screenSize
 import me.yangxiaobin.android.kotlin.codelab.ext.context.statusBarSize
 import me.yangxiaobin.android.kotlin.codelab.ext.uiwidget.*
 import me.yangxiaobin.android.kotlin.codelab.log.AndroidLogger
-import me.yangxiaobin.android.kotlin.codelab.recyclerview.SimpleVH
+import com.wkj.rv.lib.SimpleVH
 import me.yangxiaobin.logger.core.LogFacade
 
 class LinearRvStickyTailFragment : AbsViewBindingFragment<FragmentLienarRvStickyTailBinding>() {

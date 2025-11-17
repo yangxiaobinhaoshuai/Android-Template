@@ -69,3 +69,4 @@ include ':samples:canvas'
 
 include ':log2Disk'
 include ':fundamental:android-startup'
+include ':fundamental:rv-lib'

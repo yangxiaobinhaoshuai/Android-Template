@@ -1,4 +1,4 @@
-package me.yangxiaobin.android.kotlin.codelab.recyclerview
+package com.wkj.rv.lib
 
 import android.util.SparseArray
 import android.view.LayoutInflater
@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.IdRes
 import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
@@ -75,7 +76,7 @@ open class AbsRvListAdapter<T, VH : AbsVh<T>>(
     private val scope: CoroutineScope,
     diffCallback: DiffUtil.ItemCallback<T>,
     private val vhBuilder: VHBuilder<T>,
-) : androidx.recyclerview.widget.ListAdapter<T, VH>(diffCallback) {
+) : ListAdapter<T, VH>(diffCallback) {
 
     override fun onBindViewHolder(holder: VH, position: Int, payloads: MutableList<Any>) {
         super.onBindViewHolder(holder, position, payloads)

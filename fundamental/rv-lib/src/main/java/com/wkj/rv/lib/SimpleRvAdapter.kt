@@ -1,4 +1,4 @@
-package me.yangxiaobin.android.kotlin.codelab.recyclerview
+package com.wkj.rv.lib
 
 import android.util.SparseArray
 import android.view.View
@@ -19,7 +19,7 @@ open class SimpleVH(wholeItemView: View) : RecyclerView.ViewHolder(wholeItemView
     @Suppress("UNCHECKED_CAST")
     open fun <T : View?> findView(@IdRes resId: Int): T? = (viewCache[resId] as? T)
         ?: itemView.findViewById<T>(resId)?.also { viewCache.put(resId, it) }
-        ?: run { logI("Can not find associated view with id: $resId");null }
+        ?: run { logI("Can not find associated view with id: $resId"); null }
 
     open fun <T : View> requireView(@IdRes resId: Int): T = this.findView<T>(resId)
         ?: throw NullPointerException("Can NOT find view relative to id: $this")

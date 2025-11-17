@@ -22,8 +22,8 @@ import me.yangxiaobin.android.kotlin.codelab.ext.uiwidget.setOnItemClickListener
 import me.yangxiaobin.android.kotlin.codelab.ext.uicontroller.showFragmentToast
 import me.yangxiaobin.android.kotlin.codelab.ext.uiwidget.getScreenLocation
 import me.yangxiaobin.android.kotlin.codelab.log.AndroidLogger
-import me.yangxiaobin.android.kotlin.codelab.recyclerview.SimpleVH
-import me.yangxiaobin.android.kotlin.codelab.recyclerview.SimpleRvAdapter
+import com.wkj.rv.lib.SimpleVH
+import com.wkj.rv.lib.SimpleRvAdapter
 import me.yangxiaobin.logger.core.LogFacade
 
 class DraggableGridRvFragment : AbsFragment() {

@@ -30,8 +30,8 @@ import me.yangxiaobin.android.kotlin.codelab.ext.mainHandler
 import me.yangxiaobin.android.kotlin.codelab.ext.uicontroller.showActivityToast
 import me.yangxiaobin.android.kotlin.codelab.ext.uiwidget.setSimpleDivider
 import me.yangxiaobin.android.kotlin.codelab.log.AndroidLogger
-import me.yangxiaobin.android.kotlin.codelab.recyclerview.SimpleRvAdapter
-import me.yangxiaobin.android.kotlin.codelab.recyclerview.SimpleVH
+import com.wkj.rv.lib.SimpleRvAdapter
+import com.wkj.rv.lib.SimpleVH
 import me.yangxiaobin.logger.core.LogFacade
 
 /**

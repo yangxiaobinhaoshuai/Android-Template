@@ -16,7 +16,6 @@ import me.yangxiaobin.android.kotlin.codelab.log.L
 import me.yangxiaobin.logger.core.LogLevel
 import me.yangxiaobin.logger.log
 
-
 private val logI = L.log(LogLevel.INFO, "rv-ext")
 
 
@@ -49,30 +48,31 @@ class RvClickListener(
     private val gestureDetector: GestureDetector
 
     init {
-        gestureDetector = GestureDetector(context, object : GestureDetector.SimpleOnGestureListener() {
+        gestureDetector =
+            GestureDetector(context, object : GestureDetector.SimpleOnGestureListener() {
 
-            // 单击确认时触发（在双击超时后），避免与双击冲突
-            override fun onSingleTapConfirmed(e: MotionEvent): Boolean {
-                findChildView(e)?.let { view ->
-                    val position = recyclerView.getChildAdapterPosition(view)
-                    if (position != RecyclerView.NO_POSITION) {
-                        onClick?.invoke(view to position)
-                        return true // 事件已消费
+                // 单击确认时触发（在双击超时后），避免与双击冲突
+                override fun onSingleTapConfirmed(e: MotionEvent): Boolean {
+                    findChildView(e)?.let { view ->
+                        val position = recyclerView.getChildAdapterPosition(view)
+                        if (position != RecyclerView.NO_POSITION) {
+                            onClick?.invoke(view to position)
+                            return true // 事件已消费
+                        }
+                    }
+                    return false
+                }
+
+                // 长按时触发
+                override fun onLongPress(e: MotionEvent) {
+                    findChildView(e)?.let { view ->
+                        val position = recyclerView.getChildAdapterPosition(view)
+                        if (position != RecyclerView.NO_POSITION) {
+                            onLongClick?.invoke(view to position)
+                        }
                     }
                 }
-                return false
-            }
-
-            // 长按时触发
-            override fun onLongPress(e: MotionEvent) {
-                findChildView(e)?.let { view ->
-                    val position = recyclerView.getChildAdapterPosition(view)
-                    if (position != RecyclerView.NO_POSITION) {
-                        onLongClick?.invoke(view to position)
-                    }
-                }
-            }
-        })
+            })
     }
 
     override fun onInterceptTouchEvent(rv: RecyclerView, e: MotionEvent): Boolean {

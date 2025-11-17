@@ -24,8 +24,8 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.coroutines.launch
-import me.yangxiaobin.android.kotlin.codelab.recyclerview.RvVhAlike
-import me.yangxiaobin.android.kotlin.codelab.recyclerview.SimpleRvAdapter
+import com.wkj.rv.lib.RvVhAlike
+import com.wkj.rv.lib.SimpleRvAdapter
 import me.yangxiaobin.common_ui.EmptyFragment
 import newDynamicProxy
 
