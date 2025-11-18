@@ -60,6 +60,32 @@ class SmartAdapter(
             } else false
         }
 
+        // 子 View click
+        @Suppress("UNCHECKED_CAST")
+        (delegate as ItemDelegate<Any>).subClicks.forEach { (id, handler) ->
+            // SmartViewHolder 已经有缓存方法
+            val child = vh.get<android.view.View>(id)
+            child?.setOnClickListener {
+                val position = vh.bindingAdapterPosition
+                if (position != RecyclerView.NO_POSITION) {
+                    val item = getItem(position) as Any
+                    handler(item to position)
+                }
+            }
+        }
+
+        // 子 View longClick
+        delegate.subLongClicks.forEach { (id, handler) ->
+            val child = vh.get<android.view.View>(id)
+            child?.setOnLongClickListener {
+                val position = vh.bindingAdapterPosition
+                if (position != RecyclerView.NO_POSITION) {
+                    val item = getItem(position) as Any
+                    handler(item to position)
+                } else false
+            }
+        }
+
         return vh
     }
 

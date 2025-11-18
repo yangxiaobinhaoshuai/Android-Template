@@ -14,4 +14,7 @@ data class ItemDelegate<T : Any>(
     val onBind: SmartViewHolder.(item: T) -> Unit,
     val onClick: ((p: ClickParam<T>) -> Unit)?,
     val onLongClick: ((p: ClickParam<T>) -> Boolean)?,
+
+    val subClicks: Map<Int, (ClickParam<T>) -> Unit>,
+    val subLongClicks: Map<Int, (ClickParam<T>) -> Boolean>,
 )
