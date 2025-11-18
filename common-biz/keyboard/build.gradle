@@ -3,6 +3,7 @@ plugins {
     id 'org.jetbrains.kotlin.android'
     // For viewBinding
     id 'kotlin-kapt'
+    id "org.jetbrains.kotlin.plugin.compose"
 }
 
 android {
@@ -41,6 +42,7 @@ android {
     composeOptions {
         kotlinCompilerExtensionVersion compose_versions.ktCompilerExtVersion
     }
+    namespace 'me.yangxiaobin.android.keyboard'
 }
 
 dependencies {

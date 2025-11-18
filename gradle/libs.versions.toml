@@ -7,7 +7,7 @@
 junitV = "4.13.2"
 
 # https://kotlinlang.org/docs/gradle.html#targeting-the-jvm
-kotlinV = "1.8.10"
+kotlinV = "2.2.0"
 
 # widgets
 recyclerViewV = "1.2.1"
@@ -19,7 +19,7 @@ pagingV = "3.0.1"
 # lifecycle : https://developer.android.com/jetpack/androidx/releases/lifecycle
 lifecycleV = "2.5.0-rc01"
 archV = "2.1.0"
-activityV = "1.6.0-alpha03"
+activityV = "1.6.0"
 
 #  compose setup doc : https://developer.android.com/jetpack/compose/setup
 composeV = "1.1.1"
@@ -31,8 +31,8 @@ retrofitV = "2.9.0"
 guavaV = "31.0.1-android"
 
 # Dagger2
-dagger2V = "2.44"
-hiltV = "2.44"
+dagger2V = "2.57.2"
+hiltV = "2.57.1"
 
 # cameraX : https://developer.android.com/codelabs/camerax-getting-started#1
 cameraXV = "1.1.0-beta01"
@@ -67,7 +67,7 @@ jvmCoroutine = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", versi
 androidCoroutine = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version = "1.6.0-RC2" }
 
 # AGP version vs Gradle version : https://developer.android.com/studio/releases/gradle-plugin?hl=zh-cn
-agp7 = { module = "com.android.tools.build:gradle", version = "7.2.0" }
+agp7 = { module = "com.android.tools.build:gradle", version = "8.13.0" }
 agp4 = { module = "com.android.tools.build:gradle", version = "4.2.0" }
 
 junit = { module = "junit:junit", version.ref = "junitV" }

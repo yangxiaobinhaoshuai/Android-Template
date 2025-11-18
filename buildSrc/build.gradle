@@ -1,7 +1,7 @@
 plugins {
     id 'groovy' // 如果你想用 Groovy 写 buildSrc 里的逻辑
 
-    id 'org.jetbrains.kotlin.jvm' version '1.9.23'
+    id 'org.jetbrains.kotlin.jvm'
 
     id 'java-gradle-plugin'
 
@@ -36,7 +36,7 @@ repositories {
 
 dependencies {
     implementation(gradleApi())
-    compileOnly "com.android.tools.build:gradle:7.2.0"
+    compileOnly 'com.android.tools.build:gradle:8.13.0'
     // Cause org.jetbrains.kotlin.backend.common.BackendException: Backend Internal error
 //    implementation "com.android.tools.build:gradle:7.2.0"
 
