@@ -1,15 +1,12 @@
 package com.wkj.common.scripts.annotation
 
-
 import org.objectweb.asm.AnnotationVisitor
 import org.objectweb.asm.MethodVisitor
-import org.objectweb.asm.Opcodes
 import org.objectweb.asm.Type
 import org.objectweb.asm.commons.AdviceAdapter
 
-// TODO
-@Deprecated("Use TimeTrackMethodVisitor instead", ReplaceWith("TimeTrackMethodVisitor"))
-public class TimeTrackMethodVisitor1(
+class TimeTrackMethodVisitor(
+    api: Int,
     mv: MethodVisitor,
     access: Int,
     private val methodName: String,
@@ -17,7 +14,7 @@ public class TimeTrackMethodVisitor1(
     private val className: String,
     private val config: TimeTrackConfig,
     private val onFound: () -> Unit
-) : AdviceAdapter(Opcodes.ASM9, mv, access, methodName, descriptor) {
+) : AdviceAdapter(api, mv, access, methodName, descriptor) {
 
     private var hasAnnotation = false
     private var startTimeVar = -1
@@ -25,7 +22,8 @@ public class TimeTrackMethodVisitor1(
     override fun visitAnnotation(desc: String, visible: Boolean): AnnotationVisitor? {
         println("    🔍 Checking annotation: $desc")
 
-        // 匹配 @TimeTrack 注解
+        // 更稳妥一点，最好用 descriptor 完整比对
+        // if (desc == "Lcom/xxx/TimeTrack;") { ... }
         if (desc.contains("TimeTrack")) {
             println("    ✓ Found @TimeTrack annotation!")
             hasAnnotation = true
@@ -36,15 +34,20 @@ public class TimeTrackMethodVisitor1(
     }
 
     override fun onMethodEnter() {
+        // ⭐ 这里一定要用 this 的 visitXxx，而不是 mv.visitXxx，
+        // 这样 AdviceAdapter 才能正确处理 <init> 里的 super() 之前插桩的情况。
 
-        // ⭐ 强制打印日志，不管什么情况
-        mv.visitLdcInsn("TIMETRACK_TEST")
-        mv.visitLdcInsn("========== METHOD INSTRUMENTED: $className.$methodName ==========")
-        mv.visitMethodInsn(
-            INVOKESTATIC, "android/util/Log", "e",  // 用 ERROR 级别
-            "(Ljava/lang/String;Ljava/lang/String;)I", false
+        // 无论有没有注解，先打个 log
+        visitLdcInsn("TIMETRACK_TEST")
+        visitLdcInsn("========== METHOD INSTRUMENTED: $className.$methodName ==========")
+        visitMethodInsn(
+            INVOKESTATIC,
+            "android/util/Log",
+            "e",
+            "(Ljava/lang/String;Ljava/lang/String;)I",
+            false
         )
-        mv.visitInsn(POP)
+        visitInsn(POP)
 
         if (!hasAnnotation) return
 
@@ -53,14 +56,14 @@ public class TimeTrackMethodVisitor1(
         startTimeVar = newLocal(Type.LONG_TYPE)
 
         // long startTime = System.currentTimeMillis();
-        mv.visitMethodInsn(
+        visitMethodInsn(
             INVOKESTATIC,
             "java/lang/System",
             "currentTimeMillis",
             "()J",
             false
         )
-        mv.visitVarInsn(LSTORE, startTimeVar)
+        visitVarInsn(LSTORE, startTimeVar)
     }
 
     override fun onMethodExit(opcode: Int) {
@@ -71,28 +74,33 @@ public class TimeTrackMethodVisitor1(
         val durationVar = newLocal(Type.LONG_TYPE)
 
         // long duration = System.currentTimeMillis() - startTime;
-        mv.visitMethodInsn(
+        visitMethodInsn(
             INVOKESTATIC,
             "java/lang/System",
             "currentTimeMillis",
             "()J",
             false
         )
-        mv.visitVarInsn(LLOAD, startTimeVar)
-        mv.visitInsn(LSUB)
-        mv.visitVarInsn(LSTORE, durationVar)
+        visitVarInsn(LLOAD, startTimeVar)
+        visitInsn(LSUB)
+        visitVarInsn(LSTORE, durationVar)
 
-        // 阈值判断
-        val threshold = config.threshold.get()
-        if (threshold > 0) {
+        val threshold = config.threshold.get().toLong()
+
+        if (threshold > 0L) {
             val skipLabel = newLabel()
-            mv.visitVarInsn(LLOAD, durationVar)
-            mv.visitLdcInsn(threshold)
-            mv.visitInsn(LCMP)
-            mv.visitJumpInsn(IFLT, skipLabel)
+
+            // if (duration < threshold) goto skipLabel
+            visitVarInsn(LLOAD, durationVar)
+            visitLdcInsn(threshold)       // 🔴 这里一定要是 long 常量
+            visitInsn(LCMP)
+            visitJumpInsn(IFLT, skipLabel)
+
             printLog(durationVar)
-            mv.visitLabel(skipLabel)
-            mv.visitFrame(F_SAME, 0, null, 0, null)
+
+            visitLabel(skipLabel)
+            // ❌ 不要手写 visitFrame，交给 AGP / ASM 自己算
+            // visitFrame(F_SAME, 0, null, 0, null)
         } else {
             printLog(durationVar)
         }
@@ -102,17 +110,25 @@ public class TimeTrackMethodVisitor1(
         val tag = config.tag.get()
         val simpleClassName = className.replace('/', '.')
 
+        // 这里同样不要直接用 mv.xxx，统一用 visitXxx
+
         // Log.d(tag, "ClassName.method: XXms")
-        mv.visitLdcInsn(tag)
+        visitLdcInsn(tag)
 
         // new StringBuilder()
-        mv.visitTypeInsn(NEW, "java/lang/StringBuilder")
-        mv.visitInsn(DUP)
-        mv.visitMethodInsn(INVOKESPECIAL, "java/lang/StringBuilder", "<init>", "()V", false)
+        visitTypeInsn(NEW, "java/lang/StringBuilder")
+        visitInsn(DUP)
+        visitMethodInsn(
+            INVOKESPECIAL,
+            "java/lang/StringBuilder",
+            "<init>",
+            "()V",
+            false
+        )
 
         // append("ClassName.method: ")
-        mv.visitLdcInsn("$simpleClassName.$methodName: ")
-        mv.visitMethodInsn(
+        visitLdcInsn("$simpleClassName.$methodName: ")
+        visitMethodInsn(
             INVOKEVIRTUAL,
             "java/lang/StringBuilder",
             "append",
@@ -121,8 +137,8 @@ public class TimeTrackMethodVisitor1(
         )
 
         // append(duration)
-        mv.visitVarInsn(LLOAD, durationVar)
-        mv.visitMethodInsn(
+        visitVarInsn(LLOAD, durationVar)
+        visitMethodInsn(
             INVOKEVIRTUAL,
             "java/lang/StringBuilder",
             "append",
@@ -131,8 +147,8 @@ public class TimeTrackMethodVisitor1(
         )
 
         // append("ms")
-        mv.visitLdcInsn("ms")
-        mv.visitMethodInsn(
+        visitLdcInsn("ms")
+        visitMethodInsn(
             INVOKEVIRTUAL,
             "java/lang/StringBuilder",
             "append",
@@ -141,7 +157,7 @@ public class TimeTrackMethodVisitor1(
         )
 
         // toString()
-        mv.visitMethodInsn(
+        visitMethodInsn(
             INVOKEVIRTUAL,
             "java/lang/StringBuilder",
             "toString",
@@ -150,13 +166,13 @@ public class TimeTrackMethodVisitor1(
         )
 
         // Log.d(tag, message)
-        mv.visitMethodInsn(
+        visitMethodInsn(
             INVOKESTATIC,
             "android/util/Log",
             "d",
             "(Ljava/lang/String;Ljava/lang/String;)I",
             false
         )
-        mv.visitInsn(POP)
+        visitInsn(POP)
     }
 }

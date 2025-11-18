@@ -41,12 +41,10 @@ build_versions.compile_sdk = 33
  */
 build_versions.target_sdk = 30
 
-build_versions.source_compatibility = JavaVersion.VERSION_11
-build_versions.target_compatibility = JavaVersion.VERSION_11
+build_versions.source_compatibility = JavaVersion.VERSION_17
+build_versions.target_compatibility = JavaVersion.VERSION_17
 
-build_versions.kt_jvm_target = "11"
-
-build_versions.kt_version = "1.6.21"
+build_versions.kt_jvm_target = "17"
 
 
 ext.build_versions = build_versions
@@ -58,7 +56,7 @@ ext.build_versions = build_versions
  * 将 compose 添加应用 ： https://developer.android.com/jetpack/compose/interop/adding
  */
 def compose_versions = [:]
-compose_versions.ktCompilerExtVersion = "1.4.3"
+compose_versions.ktCompilerExtVersion = "1.7.0"
 ext.compose_versions = compose_versions
 
 

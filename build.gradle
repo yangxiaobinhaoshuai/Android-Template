@@ -36,7 +36,7 @@ allprojects {
 
         google()
         mavenCentral()
-        jcenter() // Warning: this repository is going to shut down soon
+        // Warning: this repository is going to shut down soon
 
         // For hms scan kit
         maven { url 'https://developer.huawei.com/repo/' }

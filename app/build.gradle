@@ -5,6 +5,8 @@ plugins {
     id 'dagger.hilt.android.plugin'
     id 'kotlin-kapt'
 
+    id "org.jetbrains.kotlin.plugin.compose"
+
     id 'com.wkj.logPlugin'
     id 'com.wkj.webpConverter'
     id 'com.wkj.timeTrackPlugin'
@@ -121,6 +123,12 @@ android {
     composeOptions {
         kotlinCompilerExtensionVersion compose_versions.ktCompilerExtVersion
     }
+    namespace 'me.yangxiaobin.android.codelab'
+}
+
+// TODO comment this and solve this build break
+hilt {
+    enableAggregatingTask = false
 }
 
 dependencies {

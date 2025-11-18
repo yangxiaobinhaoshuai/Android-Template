@@ -5,13 +5,11 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LifecycleRegistry
 
 class ResumeLifecycleOwner : LifecycleOwner {
-
     private val mLifecycleRegistry = LifecycleRegistry(this)
-
-    override fun getLifecycle(): Lifecycle = mLifecycleRegistry
 
     fun handleLifecycleEvent(event: Lifecycle.Event) {
         mLifecycleRegistry.handleLifecycleEvent(event)
     }
 
+    override val lifecycle: Lifecycle = mLifecycleRegistry
 }

@@ -27,6 +27,7 @@ android {
     kotlinOptions {
         jvmTarget = build_versions.kt_jvm_target
     }
+    namespace 'me.yangxiaobin.android.android_icons'
 }
 
 dependencies {

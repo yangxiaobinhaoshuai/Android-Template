@@ -30,6 +30,7 @@ android {
     viewBinding {
         enabled = true
     }
+    namespace 'me.yangxiaobin.android.ui.kit'
 }
 
 dependencies {

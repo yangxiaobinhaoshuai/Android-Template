@@ -196,7 +196,7 @@ class TimeTrackPlugin : Plugin<Project> {
                         return mv
                     }
 
-                    return TimeTrackMethodVisitor(mv, access, name, desc, className, config) {
+                    return TimeTrackMethodVisitor(Opcodes.ASM9,mv, access, name, desc, className, config) {
                         hasAnnotation = true
                         println("   ✅ Found @TimeTrack: $className.$name")
                     }

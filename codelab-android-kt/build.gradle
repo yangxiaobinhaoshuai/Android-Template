@@ -9,8 +9,6 @@ android {
     defaultConfig {
         minSdk build_versions.min_sdk
         targetSdk build_versions.target_sdk
-        versionCode 1
-        versionName "1.0"
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
@@ -49,6 +47,7 @@ android {
     viewBinding {
         enabled = true
     }
+    namespace 'me.yangxiaobin.android.kotlin.codelab'
 }
 
 dependencies {

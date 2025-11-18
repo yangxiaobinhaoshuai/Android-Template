@@ -10,6 +10,15 @@ pluginManagement {
     }
 }
 
+plugins {
+    id "com.android.application" version "8.3.0" apply false
+    id "com.android.library" version "8.3.0" apply false
+
+    // 你自己的 Kotlin 版本，例如 2.2.0（要和你之前配的一致）
+    id "org.jetbrains.kotlin.android" version "2.2.0" apply false
+    id "org.jetbrains.kotlin.plugin.compose" version "2.2.0" apply false
+}
+
 
 dependencyResolutionManagement {
     // module 声明 repo 会报错
@@ -23,7 +32,7 @@ dependencyResolutionManagement {
 
         google()
         mavenCentral()
-        jcenter() // Warning: this repository is going to shut down soon
+        // Warning: this repository is going to shut down soon
 
         // For hms scan kit
         maven { url 'https://developer.huawei.com/repo/' }
@@ -32,7 +41,6 @@ dependencyResolutionManagement {
     }
 }
 rootProject.name = "AndroidCodelab"
-enableFeaturePreview('VERSION_CATALOGS')
 
 include ':app'
 include ':codelab-kt'
