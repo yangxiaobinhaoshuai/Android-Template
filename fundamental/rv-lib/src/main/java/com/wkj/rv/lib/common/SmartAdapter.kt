@@ -74,25 +74,25 @@ class SmartAdapter(
         ((delegate as ItemDelegate<Any>).onBind(holder, item))
     }
 
+    @Throws(IllegalStateException::class)
     override fun onBindViewHolder(
         holder: SmartViewHolder,
         position: Int,
-        payloads: List<Any>,
+        payloads: MutableList<Any>,
     ) {
 
         if (payloads.isEmpty()) {
-            onBindViewHolder(holder, position)
-        } else {
+            onBindViewHolder(holder, position) // 正常全量绑定
+            return
+        }
 
-            payloads.filterIsInstance<SmartPayload>()
-                .forEach { payload: SmartPayload ->
-                    payload.onBindViewHolder(holder, position)
-                }
+        val smartPayloads = payloads.filterIsInstance<SmartPayload>()
+        smartPayloads.forEach { it.onBindViewHolder(holder, position) }
 
-            val remained = payloads.filterNot { it is SmartPayload }
-            if (remained.isNotEmpty()) {
-                throw IllegalStateException("Use smartPayload instead of raw payload.")
-            }
+        val remained = payloads - smartPayloads.toSet()
+        // Throws an IllegalStateException if the value is false.
+        check(remained.isEmpty()) {
+            "Use SmartPayload instead of raw payload. remained=$remained"
         }
 
     }
