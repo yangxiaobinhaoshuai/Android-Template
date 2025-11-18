@@ -18,6 +18,7 @@ fun Context.getSpKvMediator(): KvMediator {
     return SharedPreferencesMediator.createDefault(this)
 }
 
-fun Context.getMMKVMediator(): KvMediator {
+// TODO
+fun getMMKVMediator(): KvMediator {
     return MMKVMediator.create("default_mmkv")
 }
