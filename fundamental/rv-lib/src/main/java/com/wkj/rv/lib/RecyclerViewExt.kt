@@ -4,14 +4,8 @@ import android.content.Context
 import android.view.GestureDetector
 import android.view.MotionEvent
 import android.view.View
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.LifecycleObserver
-import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.OnLifecycleEvent
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
-import me.yangxiaobin.android.kotlin.codelab.ext.Action
-import me.yangxiaobin.android.kotlin.codelab.ext.emptyAction
 import me.yangxiaobin.android.kotlin.codelab.log.L
 import me.yangxiaobin.logger.core.LogLevel
 import me.yangxiaobin.logger.log
@@ -91,50 +85,7 @@ class RvClickListener(
     }
 }
 
-private var enableItemLongClick = true
-private var enableItemClick = true
-
-fun RecyclerView.enableItemLongClick() = apply { enableItemLongClick = true }
-fun RecyclerView.disableItemLongClick() = apply { enableItemLongClick = false }
-
-fun RecyclerView.enableItemClick() = apply { enableItemClick = true }
-fun RecyclerView.disableItemClick() = apply { enableItemClick = false }
-
 fun RecyclerView.setOnItemClickListener(
     onLongClick: OnRvLongItemClickListener? = null,
     onClick: OnRvItemClickListener,
 ) = apply { this.addOnItemTouchListener(RvClickListener(this.context, this, onClick, onLongClick)) }
-
-
-class RvClickObserver(
-    private val enableAction: Action = emptyAction,
-    private val disableAction: Action = emptyAction,
-) : LifecycleObserver {
-    @OnLifecycleEvent(Lifecycle.Event.ON_START)
-    fun enable() = enableAction.invoke()
-
-    @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
-    fun disable() = disableAction.invoke()
-}
-
-fun RecyclerView.setOnItemClickListenerWithLifecycleOwner(
-    longClickLifecycleOwner: LifecycleOwner,
-    onLongClick: OnRvLongItemClickListener? = null,
-    clickLifecycleOwner: LifecycleOwner,
-    onClick: OnRvItemClickListener,
-) = apply {
-
-    val clickObserver = RvClickObserver(
-        enableAction = { this.enableItemClick() },
-        disableAction = { this.disableItemClick() }
-    )
-
-    val longClickObserver = RvClickObserver(
-        enableAction = { this.enableItemLongClick() },
-        disableAction = { this.disableItemLongClick() }
-    )
-
-    longClickLifecycleOwner.lifecycle.addObserver(longClickObserver)
-    clickLifecycleOwner.lifecycle.addObserver(clickObserver)
-    this.addOnItemTouchListener(RvClickListener(this.context, this, onClick,onLongClick))
-}
