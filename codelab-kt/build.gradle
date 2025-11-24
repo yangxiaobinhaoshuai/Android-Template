@@ -3,6 +3,14 @@ plugins {
     id 'kotlin'
 }
 
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+
+tasks.withType(KotlinCompile).configureEach {
+    kotlinOptions {
+        jvmTarget = build_versions.kt_jvm_target
+    }
+}
+
 java {
     sourceCompatibility build_versions.source_compatibility
     targetCompatibility build_versions.target_compatibility
