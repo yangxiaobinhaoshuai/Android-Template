@@ -33,7 +33,7 @@ val costInterceptor = interceptTransform<View, Unit> { next, v ->
 typealias ClickBinder = View.((View) -> Unit) -> Unit
 
 
-fun View.setConfigurableClickListener(
+fun View.setEnhancedClickListener(
     binder: ClickBinder = { block -> setOnClickListener(block) },
     vararg processors: ClickProcessor,
     realOnClick: (View) -> Unit,
@@ -53,7 +53,7 @@ fun View.setConfigurableClickListener(
  * Listener style
  * fun View.setMyClickListener(listener: View.OnClickListener) { ... }
  */
-fun View.setConfigurableClickListener(
+fun View.setEnhancedClickListener2(
     listenerExt: View.(View.OnClickListener) -> Unit,
     vararg processors: ClickProcessor,
     realOnClick: (View) -> Unit,
