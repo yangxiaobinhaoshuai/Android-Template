@@ -4,6 +4,7 @@ package me.yangxiaobin.android.kotlin.codelab.base.ability.nav
 class DefaultNavEngine(
     private val activityDriver: ActivityNavDriver,
     private val fragmentDriver: FragmentNavDriver,
+    private val dialogDriver: DialogNavDriver
 ) : NavEngine {
 
     // suspend 版：有返回值时用
@@ -36,6 +37,15 @@ class DefaultNavEngine(
                 )
             }
 
+            is NavCommand.ShowDialog<*, *> -> {
+                @Suppress("UNCHECKED_CAST")
+                val route = command.route as DialogRoute<NavArgs, R>
+
+                @Suppress("UNCHECKED_CAST")
+                val args = command.args
+                dialogDriver.showDialog(route, args, command.tag)
+            }
+
             is NavCommand.PopBackStack -> {
                 fragmentDriver.popBackStack()
                 @Suppress("UNCHECKED_CAST")
@@ -46,8 +56,8 @@ class DefaultNavEngine(
 
     // 同步版：只给 R = Unit 的 route 用
     @Suppress("UNCHECKED_CAST")
-    override fun <R> executeNow(command: NavCommand<R>): R {
-        return when (command) {
+    override fun <R> executeNow(command: NavCommand<R>) {
+        when (command) {
 
             is NavCommand.StartActivity<*, *> -> {
                 // 这里只允许 ActivityRoute<A, Unit>
@@ -55,8 +65,6 @@ class DefaultNavEngine(
                 val args = command.args
 
                 activityDriver.startActivityNow(route, args)
-
-                Unit as R
             }
 
             is NavCommand.ShowFragment<*, *> -> {
@@ -71,13 +79,19 @@ class DefaultNavEngine(
                     addToBackStack = command.addToBackStack,
                     replace = command.replace,
                 )
+            }
 
-                Unit as R
+            is NavCommand.ShowDialog<*, *> -> {
+                @Suppress("UNCHECKED_CAST")
+                val route = command.route as DialogRoute<NavArgs, Unit>
+
+                @Suppress("UNCHECKED_CAST")
+                val args = command.args
+                dialogDriver.showDialogNow(route, args, command.tag)
             }
 
             is NavCommand.PopBackStack -> {
                 fragmentDriver.popBackStack()
-                Unit as R
             }
         }
     }

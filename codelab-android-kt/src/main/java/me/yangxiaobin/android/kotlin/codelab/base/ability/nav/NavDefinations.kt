@@ -3,6 +3,7 @@ package me.yangxiaobin.android.kotlin.codelab.base.ability.nav
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 
 /**
@@ -11,14 +12,13 @@ import androidx.fragment.app.Fragment
 interface NavEngine {
     suspend fun <R> execute(command: NavCommand<R>): R
 
-    fun <R> executeNow(command: NavCommand<R>): R
+    fun <R> executeNow(command: NavCommand<R>)
 }
 
 /**
  * 一个导航命令：要做什么事，以及期望返回什么类型 R。
  */
 sealed class NavCommand<R> {
-
     data class StartActivity<A : NavArgs, R>(
         val route: ActivityRoute<A, R>,
         val args: A,
@@ -30,6 +30,12 @@ sealed class NavCommand<R> {
         val containerId: Int,
         val addToBackStack: Boolean = true,
         val replace: Boolean = true,
+    ) : NavCommand<R>()
+
+    data class ShowDialog<A : NavArgs, R>(
+        val route: DialogRoute<A, R>,
+        val args: A,
+        val tag: String? = null,
     ) : NavCommand<R>()
 
     object PopBackStack : NavCommand<Unit>()
@@ -68,10 +74,6 @@ data class SimpleStringNavParam(val value: String) : NavArgs {
 
 object NoArgs : NavArgs {
     override fun toBundle(): Bundle = Bundle.EMPTY
-
-    object Factory : NavArgs.Factory<NoArgs> {
-        override fun fromBundle(bundle: Bundle): NoArgs = NoArgs
-    }
 }
 
 
@@ -114,3 +116,12 @@ inline fun <reified A : NavArgs, reified R> fragmentRoute(
     noinline create: FragmentFactory,
     noinline decodeResult: FragmentResultDecoder<R>,
 ): FragmentRoute<A, R> = FragmentRoute(create, decodeResult)
+
+
+typealias DialogFactory = () -> DialogFragment
+typealias DialogResultDecoder<R> = (Bundle) -> R
+
+data class DialogRoute<A : NavArgs, R>(
+    val createDialog: DialogFactory,
+    val decodeResult: DialogResultDecoder<R>,
+)

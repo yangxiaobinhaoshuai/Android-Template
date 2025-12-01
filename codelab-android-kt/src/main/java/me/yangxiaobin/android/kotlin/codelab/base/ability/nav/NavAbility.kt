@@ -8,6 +8,7 @@ import java.util.WeakHashMap
 class Navigator(
     private val engine: NavEngine
 ) {
+
     suspend fun <A : NavArgs, R> startActivity(
         route: ActivityRoute<A, R>,
         args: A
@@ -23,6 +24,14 @@ class Navigator(
         replace: Boolean = false,
     ): R = engine.execute(
         NavCommand.ShowFragment(route, args, containerId, addToBackStack, replace)
+    )
+
+    suspend fun <A : NavArgs, R> showDialog(
+        route: DialogRoute<A, R>,
+        args: A,
+        tag: String? = null,
+    ): R = engine.execute(
+        NavCommand.ShowDialog(route, args, tag)
     )
 
     suspend fun popBackStack(): Unit = engine.execute(NavCommand.PopBackStack)
@@ -47,9 +56,20 @@ class Navigator(
         )
     }
 
+    fun <A : NavArgs> showDialogNow(
+        route: DialogRoute<A, Unit>,
+        args: A,
+        tag: String? = null,
+    ) {
+        engine.executeNow(
+            NavCommand.ShowDialog(route, args, tag)
+        )
+    }
+
     fun popBackStackNow() {
         engine.executeNow(NavCommand.PopBackStack)
     }
+
 }
 
 private val engineCache = WeakHashMap<FragmentActivity, NavEngine>()
@@ -61,10 +81,15 @@ fun createDefaultNavEngine(activity: FragmentActivity): NavEngine {
         fragmentManager = activity.supportFragmentManager,
         resultLifecycleOwner = activity,
     )
+    val dialogDriver = DefaultDialogNavDriver(
+        fragmentManager = activity.supportFragmentManager,
+        resultLifecycleOwner = activity,
+    )
     // 如果你还有 DialogDriver，也在这里一起 new
     return DefaultNavEngine(
         activityDriver = activityDriver,
         fragmentDriver = fragmentDriver,
+        dialogDriver = dialogDriver,
     )
 }
 
