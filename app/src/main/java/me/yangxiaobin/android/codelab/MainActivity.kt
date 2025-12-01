@@ -184,6 +184,7 @@ class MainActivity : AbsActivity() {
         // 22. Router
         "Router" to arrayOf(
             "startActivityForResult",
+            "NavAbility",
         ),
 
         // 23. Canvas

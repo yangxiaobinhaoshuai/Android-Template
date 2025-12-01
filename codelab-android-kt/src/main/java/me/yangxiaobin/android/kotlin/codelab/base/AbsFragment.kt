@@ -75,6 +75,7 @@ abstract class AbsFragment : Fragment(), LogAbility, DefaultResAbility {
 
         return rootView
             .let(this::beforeViewReturned)
+            .also { it.id = View.generateViewId() }
             .apply { this.isClickable = true }
             .also { logI("onCreateView, rootView : ${it.neatName}.") }
     }

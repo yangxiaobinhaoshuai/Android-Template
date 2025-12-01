@@ -4,6 +4,8 @@
     <application>
         <activity android:name=".RouterActivity">
         </activity>
+        <activity android:name=".JumpTargetActivity">
+        </activity>
     </application>
 
 </manifest>

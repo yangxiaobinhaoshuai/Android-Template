@@ -41,3 +41,23 @@ inline fun <reified T : Context> Context.intentFor(
         }
     }
 }
+
+fun Context.intentOf(
+    vararg params: Pair<String, Any?>
+): Intent {
+    return Intent().apply {
+        params.forEach { (key, value) ->
+            when (value) {
+                is String -> putExtra(key, value)
+                is Int -> putExtra(key, value)
+                is Long -> putExtra(key, value)
+                is Boolean -> putExtra(key, value)
+                is Float -> putExtra(key, value)
+                is Double -> putExtra(key, value)
+                is Serializable -> putExtra(key, value)
+                is Parcelable -> putExtra(key, value)
+                else -> throw IllegalArgumentException("Unsupported type: ${value?.javaClass}")
+            }
+        }
+    }
+}

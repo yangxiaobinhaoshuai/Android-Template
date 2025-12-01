@@ -16,6 +16,7 @@ import com.example.android_reflect.ReflectionEncapsulateFragment
 import com.example.animator_sample.AnimatorExampleActivity
 import com.example.animator_sample.AnimatorExampleFragment
 import com.example.animator_sample.TranslateWaysFragment
+import com.yangxiaobin.route_sample.NavAbilityFragment
 import com.yangxiaobin.route_sample.RouterFragment
 import com.yxb.gesture.example.ScaleGestureActivity
 import com.yxb.gesture.example.ViewDragFragment
@@ -238,6 +239,7 @@ class ComposeVerticalListFragment : AbsComposableFragment() {
 
             // 22. Router
             "startActivityForResult" ->  naviToFragment(RouterFragment())
+            "NavAbility" ->  naviToFragment(NavAbilityFragment())
 
             // 23. Canvas
             "RectFragment" -> naviToFragment(RectFragment())
